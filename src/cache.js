@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 // Instruments
-import { createStorage } from 'helpers/storage/createStorage';
+import { createStorage } from './storage';
 
 const cacheStorage = createStorage('otpusk_api_cache');
 
