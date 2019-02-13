@@ -18,4 +18,6 @@ export const ENDPOINTS = Object.freeze({
     departureCities:    `${API}/tours/deptCities`,
     graph:              `${API}/tours/graph`,
     turpravdaInformers: `${TURPRAVDA}/informers/hotel/`,
+    hotBlock:           `${API}/tours/hotBlock`,
+    hotTour:           `${API}/tours/hotTour`,
 });

@@ -10,3 +10,4 @@ export { getToursRegions } from './methods/toursRegions';
 export { getToursAgencies } from './methods/toursAgencies';
 export { getToursGraph } from './methods/toursGraph';
 export { getTurpravdaHotelInformer } from './methods/turpravdaInformers';
+export { getToursHotBlock, getToursHotTour } from './methods/toursHot';
