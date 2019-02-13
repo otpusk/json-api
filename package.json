@@ -1,9 +1,12 @@
 {
   "name": "@otpusk/json-api",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
-  "main": "index.js",
-  "scripts": {},
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "npx babel src --out-dir dist",
+    "start": "webpack-dev-server"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/otpusk/json-api.git"
@@ -21,7 +24,14 @@
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/plugin-proposal-function-bind": "^7.2.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
-    "@babel/preset-env": "^7.3.1"
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
     "fetch-jsonp": "^1.1.3",
