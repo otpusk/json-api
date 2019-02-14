@@ -4,9 +4,9 @@ import { parsePrice, parseCountry, parseCity } from '../normalize/parsers';
 import { ENDPOINTS } from '../config';
 
 export async function getToursHotBlock(token, blockId) {
-    const {block, tours} = await makeCall(ENDPOINTS.hotBlock, { blockId, ...token });
+    const { block, tours } = await makeCall(ENDPOINTS.hotBlock, { blockId, ...token });
 
-    return {block, tours};
+    return { block, tours };
 }
 
 export async function getToursHotTour(token, blockId, tourId) {
@@ -16,17 +16,15 @@ export async function getToursHotTour(token, blockId, tourId) {
         const { hotelId, dateString, food, length, promo,
             transport, cityFromId, operatorId, tourLink,
             hotelName, hotelStars, imgSrc } = tour;
-        const [,offerId] = tourLink.match(/oid=(\d+)/) || [];
-        
+        const [, offerId] = tourLink.match(/oid=(\d+)/) || [];
+
         return {
-            hotel: {
-                id: hotelId,
-                name: hotelName,
-                stars: Number(String(hotelStars).replace(/\D/gi, '')),
-                country: parseCountry(tour),
-                city: parseCity(tour),
-                photos: [imgSrc.replace(/^.*\/\d+x\d+\//, '')]
-            },
+            id: hotelId,
+            name: hotelName,
+            stars: Number(String(hotelStars).replace(/\D/gi, '')),
+            country: parseCountry(tour),
+            city: parseCity(tour),
+            photos: [imgSrc.replace(/^.*\/\d+x\d+\//, '')],
             offer: {
                 id: Number(offerId),
                 date: dateString,

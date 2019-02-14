@@ -110,14 +110,12 @@ function _getToursHotTour() {
                   offerId = _ref4[1];
 
               return {
-                hotel: {
-                  id: hotelId,
-                  name: hotelName,
-                  stars: Number(String(hotelStars).replace(/\D/gi, '')),
-                  country: (0, _parsers.parseCountry)(tour),
-                  city: (0, _parsers.parseCity)(tour),
-                  photos: [imgSrc.replace(/^.*\/\d+x\d+\//, '')]
-                },
+                id: hotelId,
+                name: hotelName,
+                stars: Number(String(hotelStars).replace(/\D/gi, '')),
+                country: (0, _parsers.parseCountry)(tour),
+                city: (0, _parsers.parseCity)(tour),
+                photos: [imgSrc.replace(/^.*\/\d+x\d+\//, '')],
                 offer: {
                   id: Number(offerId),
                   date: dateString,
