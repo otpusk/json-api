@@ -1,6 +1,56 @@
 // Instruments
-import { findInArrayByProp, __ } from 'helpers/fn';
-import { FOODS, CURRENCIES, TRANSPORTS, DEPARTURE_CITIES } from './static';
+import { FOODS, CURRENCIES, TRANSPORTS, DEPARTURE_CITIES, OPERATORS } from './static';
+
+/**
+ * Get noun for numeral
+ *
+ * @param {number} number number
+ * @param {Array} titles nouns
+ * @param {boolean} withNumber concat with number
+ *
+ * @returns {string} noun
+ */
+export function getNounForNumeral (number, titles, withNumber) {
+    const cases = [2, 0, 1, 1, 1, 2];
+
+    return (withNumber? `${number} `:'') + titles[number%100>4 && number%100<20? 2 : cases[number%10<5?number%10:5]];
+}
+
+/**
+ * Translate string
+ *
+ * @param {string} string literal
+ *
+ * @returns {string} tranlation
+ */
+export function __ (string) {
+    return string;
+}
+
+/**
+ * Find array element by prop value
+ * @param {*} array array
+ * @param {*} prop prop
+ * @param {*} value value
+ *
+ * @returns {*} value
+ */
+export function findInArrayByProp (array, prop, value) {
+    const index = array.findIndex(({ [prop]: p }) => p === value);
+
+    return index !== -1 ? array[index] : null;
+}
+
+
+export function convertObjectToUrlFormData (object) {
+    return Object.entries(object).reduce(
+        (params, [field, value]) => {
+            (value || typeof value === 'string') && params.push(`${field}=${encodeURIComponent(value)}`);
+
+            return params;
+        }, []
+    ).join('&');
+}
 
 export const getFoodByCode = (code) => findInArrayByProp(FOODS, 'code', code);
 
@@ -9,6 +59,8 @@ export const getCurrencyByCode = (code) => findInArrayByProp(CURRENCIES, 'code',
 export const getTransportByCode = (code) => findInArrayByProp(TRANSPORTS, 'code', code);
 
 export const getDepartureCityById = (id) => findInArrayByProp(DEPARTURE_CITIES, 'id', id);
+
+export const getOperatorById = (id) => findInArrayByProp(OPERATORS, 'id', id);
 
 export const getImageUrl = (part, size = 'medium') => {
     const sizes = {
@@ -38,13 +90,13 @@ export const explainPrice = (price) => {
 
     return {
         converted: {
-            value:    uah,
+            value:    Number(uah).toLocaleString('ru', { style: 'decimal', maximumFractionDigits: 0 }),
             currency: getCurrencyByCode('uah'),
         },
-        original: {
-            value:    eur || usd,
+        original: eur || usd ? {
+            value:    Number(eur || usd).toLocaleString('ru', { style: 'decimal', maximumFractionDigits: 0 }),
             currency: getCurrencyByCode(eur ? 'eur' : 'usd'),
-        },
+        } : null,
     };
 };
 
@@ -76,6 +128,97 @@ export const compileOSQueryString = (query) => {
         .join('&');
 };
 
+export const parseOSQueryString = (hash) => {
+    return hash
+        .replace(/^#/, '')
+        .split('&')
+        .reduce(
+            (query, keyvalue) => {
+                const [key, value] = keyvalue.split('=');
+
+                return value ? Object.assign(query, { [key]: value }) : query;
+            },
+            {}
+        );
+};
+
+/**
+ * Create otpusk click ad url
+ *
+ * @param {String} regionId region id
+ * @param {Object} agency advertisement
+ * @param {Object} hotel hotel
+ * @param {Object} offer offer
+ * @param {Object} tourists tourists
+ *
+ * @return {string} url
+ */
+export const createOtpuskClickUrl = (regionId, agency, hotel, offer, tourists) => {
+    const currency = 'usd' in offer.price ? 'usd' : 'eur';
+    const query = {
+        a:  offer.room.name,
+        c:  hotel.country.name,
+        ci: hotel.country.id,
+        d:  offer.room.type,
+        f:  `${hotel.stars}*`,
+        g:  offer.departure,
+        gi: offer.departure,
+        l:  offer.days,
+        n:  hotel.name,
+        ni: hotel.id,
+        oi: offer.operator,
+        p:  offer.food,
+        pv: offer.price[currency],
+        q:  offer.date,
+        r:  tourists,
+        ti: hotel.city.id,
+        w:  currency,
+        y:  offer.transport,
+    };
+
+    const params = {
+        c:  hotel.country.id,
+        d:  JSON.stringify(query),
+        i:  agency.adGroupId,
+        n:  agency.clickId,
+        o:  offer.operator,
+        r:  regionId,
+        t:  offer.id,
+        tr: offer.tourId,
+    };
+
+    return `/tour/go/${hotel.id}_${agency.adId}?${convertObjectToUrlFormData(params)}`;
+};
+
+export const getNounForCommonNumerals = (number, noun) => {
+    let nouns = [];
+
+    switch (noun) {
+        case 'день':
+            nouns = [__('день'), __('дня'), __('дней')];
+            break;
+        case 'ночь':
+            nouns = [__('ночь'), __('ночи'), __('ночей')];
+            break;
+        case 'год':
+            nouns = [__('год'), __('года'), __('лет')];
+            break;
+        case 'отзыв':
+            nouns = [__('отзыв'), __('отзыва'), __('отзывов')];
+            break;
+        case 'взрослый':
+            nouns = [__('взрослый'), __('взрослых'), __('взрослых')];
+            break;
+        case 'ребенок':
+            nouns = [__('ребенок'), __('детей'), __('детей')];
+            break;
+        default:
+            nouns = [__(noun), __(noun), __(noun)];
+    }
+
+    return getNounForNumeral(number, nouns);
+};
+
 export const getPriceExtraFares = (hotel, offer) => {
     const traits = {
         isOperator (offer, operator) {
@@ -84,28 +227,24 @@ export const getPriceExtraFares = (hotel, offer) => {
         isCountry (hotel, country) {
             return Number(hotel.country.id) === Number(country);
         },
-        isAnyOutboundFlightTimeBeforeHours (offer, hours) {
-            const { outbound } = offer.flights;
+        isFirstOutboundFlightTimeBeforeHours ({ flights }, hours) {
+            const { outbound: [flight] = []} = flights;
 
-            if (outbound) {
-                return outbound.reduce((result, flight) => {
-                    const begin = new Date(flight.begin);
+            if (flight) {
+                const begin = new Date(flight.begin);
 
-                    return result || begin.getHours() <= hours;
-                }, false);
+                return begin.getHours() <= hours;
             }
 
             return false;
         },
-        isAnyReturnFlightTimeAfterHours (offer, hours) {
-            const { inbound } = offer.flights;
+        isFirstReturnFlightTimeAfterHours ({ flights }, hours) {
+            const { inbound: [flight] = []} = flights;
 
-            if (inbound) {
-                return inbound.reduce((result, flight) => {
-                    const begin = new Date(flight.begin);
+            if (flight) {
+                const begin = new Date(flight.begin);
 
-                    return result || begin.getHours() >= hours;
-                }, false);
+                return begin.getHours() >= hours;
             }
 
             return false;
@@ -119,11 +258,20 @@ export const getPriceExtraFares = (hotel, offer) => {
     const rules = [
         {
             name:       'extra-fee',
-            text:       __('Возможна доплата за вечерний обратный рейс $20 за каждого туриста.'),
+            text:       __('Возможна доплата за вечерний обратный рейс $25 за каждого туриста.'),
             conditions: [
-                traits.isCountry(hotel, 115),
+                traits.isCountry(hotel, 43),
                 traits.isOperator(offer, 717),
-                traits.isAnyReturnFlightTimeAfterHours(offer, 17)
+                traits.isFirstReturnFlightTimeAfterHours(offer, 15)
+            ],
+        },
+        {
+            name:       'extra-fee',
+            text:       __('Возможна доплата за утренний рейс туда $25 за каждого туриста.'),
+            conditions: [
+                traits.isCountry(hotel, 43),
+                traits.isOperator(offer, 717),
+                traits.isFirstOutboundFlightTimeBeforeHours(offer, 12)
             ],
         },
         {

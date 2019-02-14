@@ -30,11 +30,30 @@ export async function getToursHotels (token, countryId, options) {
     return Object.values(hotels);
 }
 
+export async function getToursHotelsMarkers (token, countryId, cityId, options) {
+    const { center, radius } = options;
+    const { hotels: denormalizedHotels } = await makeCall(ENDPOINTS.hotels, {
+        countryId,
+        cityId,
+        geo:  `${center.lat},${center.lng}`,
+        rad:  radius || 1,
+        with: 'price',
+        ...token,
+    });
+
+    const { entities: { hotel: markers }} = normalize(
+        denormalizedHotels.map((h) => ({ ...h, countryId })),
+        [hotelShortSchema]
+    );
+
+    return markers;
+}
+
 export async function getToursHotel (token, hotelId) {
     const { hotel: denormalizedHotel } = await makeCall(ENDPOINTS.hotel, {
         hotelId,
         ...token,
-    }, [1, 'day']);
+    }, [1, 'hour']);
 
     const { entities: { hotel: hotels, offer: offers }, result: id } = normalize(denormalizedHotel, hotelSchema);
     const hotel = hotels[id];

@@ -66,7 +66,7 @@ async function makeCall (endpoint, query, ttl) {
     const request = `${endpoint}?${createQueryStringFromObject(query)}`;
     const cache = new CacheItem(hash(request));
 
-    if (await cache.isHit()) {
+    if (await cache.isHit(ttl)) {
         const body = await cache.get();
 
         return body;
@@ -84,7 +84,16 @@ async function makeCall (endpoint, query, ttl) {
     return body;
 }
 
+class HttpResponseError {
+    constructor (code, message, data = null) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+}
+
 export {
     makeCall,
-    createQueryStringFromObject
+    createQueryStringFromObject,
+    HttpResponseError
 };

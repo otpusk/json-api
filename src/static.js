@@ -148,6 +148,10 @@ export const TRANSPORTS = [
         label: 'Поезд',
     },
     {
+        code:  'trainbus',
+        label: 'ЖД+Автобус',
+    },
+    {
         code:  'ship',
         label: 'Паром',
     },
@@ -165,12 +169,195 @@ export const CURRENCIES = [
     },
     {
         code:   'usd',
-        label:  'доллар',
+        label:  '$',
         symbol: '$',
     },
     {
         code:   'eur',
-        label:  'евро',
+        label:  '€',
         symbol: '€',
+    }
+];
+
+export const OPERATORS = [
+    {
+        id:     1,
+        vendor: 'tess',
+        name:   'Turtess',
+    },
+    {
+        id:     2,
+        vendor: 'tztr',
+        name:   'TEZ',
+    },
+    {
+        id:     3,
+        vendor: 'oasi',
+        name:   'Oasis',
+    },
+    {
+        id:     237,
+        vendor: 'orbt',
+        name:   'Orbita',
+    },
+    {
+        id:     269,
+        vendor: 'pega',
+        name:   'Pegas',
+    },
+    {
+        id:     358,
+        vendor: 'sist',
+        name:   'Siesta',
+    },
+    {
+        id:     520,
+        vendor: 'tcc',
+        name:   'TCC',
+    },
+    {
+        id:     594,
+        vendor: 'tui',
+        name:   'TUI',
+    },
+    {
+        id:     717,
+        vendor: 'anex',
+        name:   'Anextour',
+    },
+    {
+        id:     759,
+        vendor: 'alf',
+        name:   'Alf',
+    },
+    {
+        id:     852,
+        vendor: 'nwtr',
+        name:   'News Travel Online',
+    },
+    {
+        id:     856,
+        vendor: 'mznd',
+        name:   'Mouzenidis',
+    },
+    {
+        id:     1389,
+        vendor: 'idsa',
+        name:   'IdrisKa',
+    },
+    {
+        id:     1416,
+        vendor: 'corl',
+        name:   'Coral',
+    },
+    {
+        id:     1897,
+        vendor: 'lbst',
+        name:   'Lyubosvit',
+    },
+    {
+        id:     2700,
+        vendor: 'tpg',
+        name:   'TPG',
+    },
+    {
+        id:     2835,
+        vendor: 'join',
+        name:   'JoinUP!',
+    },
+    {
+        id:     3019,
+        vendor: 'adry',
+        name:   'AdriaHit',
+    },
+    {
+        id:     3021,
+        vendor: 'gto',
+        name:   'GTO',
+    },
+    {
+        id:     3061,
+        vendor: 'ntle',
+        name:   'Natalie',
+    },
+    {
+        id:     3066,
+        vendor: 'kndg',
+        name:   'Kandagar',
+    },
+    {
+        id:     3237,
+        vendor: 'zeus',
+        name:   'Zeus',
+    },
+    {
+        id:     3251,
+        vendor: 'vilr',
+        name:   'Vilar',
+    },
+    {
+        id:     3266,
+        vendor: 'tlid',
+        name:   'Tour Leader',
+    },
+    {
+        id:     3276,
+        vendor: 'drem',
+        name:   'DreamTravel',
+    },
+    {
+        id:     3291,
+        vendor: 'aris',
+        name:   'Аристея Тур',
+    },
+    {
+        id:     3296,
+        vendor: 'aris',
+        name:   'Аристея Тур',
+    },
+    {
+        id:     3301,
+        vendor: 'aris',
+        name:   'Аристея Тур',
+    },
+    {
+        id:     3306,
+        vendor: 'aris',
+        name:   'Aristeya',
+    },
+    {
+        id:     3311,
+        vendor: 'snta',
+        name:   'Sonata',
+    },
+    {
+        id:     3316,
+        vendor: 'west',
+        name:   'West Travel',
+    },
+    {
+        id:     3321,
+        vendor: 'ugc',
+        name:   'UGC',
+    },
+    {
+        id:     3326,
+        vendor: 'tgaw',
+        name:   'Tour-Group',
+    },
+    {
+        id:     3331,
+        vendor: 'tui2',
+        name:   'TUI',
+    },
+    {
+        id:     3336,
+        vendor: 'fira',
+        name:   'Feeria',
+    },
+    {
+        id:     3341,
+        vendor: 'vedi',
+        name:   'VediTour',
     }
 ];

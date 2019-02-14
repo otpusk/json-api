@@ -10,9 +10,9 @@ export async function getToursOffer (token, offerId) {
     const { offer: denormalizedOffer } = await makeCall(ENDPOINTS.offer, {
         offerId,
         ...token,
-    }, [2, 'hours']);
+    }, [30, 'minutes']);
 
-    const { entities: { offer: offers }} = normalize(denormalizedOffer, fullOfferSchema);
+    const { entities: { offer: offers }, result } = normalize(denormalizedOffer, fullOfferSchema);
 
-    return offers;
+    return result ? offers[result] : null;
 }

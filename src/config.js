@@ -14,6 +14,8 @@ export const ENDPOINTS = Object.freeze({
     dates:              `${API}/tours/dates`,
     search:             `${API}/tours/search`,
     offer:              `${API}/tours/offer`,
+    actual:             `${API}/tours/actual`,
+    similar:            `${API}/tours/similars`,
     order:              `${API}/tours/order`,
     departureCities:    `${API}/tours/deptCities`,
     graph:              `${API}/tours/graph`,

@@ -9,6 +9,9 @@ const config = {
     devServer: {
         port: 3000
     },
+    resolve: {
+        extensions: ['.mjs', '.js'],
+    },
     module: {
         rules: [
             {

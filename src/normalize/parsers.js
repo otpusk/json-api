@@ -28,24 +28,24 @@ export const parsePrice =  (input) => {
 export const parseFlights = (input) => {
     const { from: outbound = [], to: inbound = []} = input;
 
-    return {
-        outbound: Array.isArray(outbound) ? outbound : Object.values(outbound),
-        inbound:  Array.isArray(inbound) ? inbound : Object.values(inbound),
-    };
+    return Map({ outbound, inbound })
+        .map((flights) => Array.isArray(flights) ? flights : Object.values(flights))
+        .map((flights) => flights.filter(({ place = 0 }) => place > 0))
+        .toJS();
 };
 
 export const parseLocation =  (input) => {
-    const { lat, a, lng, o, zoom, z } = input;
-    const latitude = a ? a : lat;
-    const longitude = o ? o : lng;
+    const { lat, a, lng, long, o, zoom, z } = input;
+    const latitude = parseFloat(a || lat);
+    const longitude = parseFloat(o || lng || long);
 
     if (!(latitude && longitude)) {
         return null;
     }
 
     return {
-        lat:  parseFloat(latitude),
-        lng:  parseFloat(longitude),
+        lat:  latitude,
+        lng:  longitude,
         zoom: parseInt(zoom || z, 10),
     };
 };
@@ -55,14 +55,20 @@ export const parseNames =  (input, prefix) => {
     const props = Map(input).mapKeys((k) => k.toLowerCase());
 
     return cases.map((prop) => {
-        return props.get(`${prefix}${prop}`, props.get(prop, ''));
+        return props.get(
+            `${prefix}${prop}`,
+            props.get(
+                prop,
+                props.get(prop.replace('name', ''), '')
+            )
+        );
     }).toJS();
 };
 
 export const parseHotelGeo = (input) => {
     const { i: id, n: name, c: code } = input;
 
-    return { id, name, code };
+    return { id, name, code, names: parseNames(input) };
 };
 
 export const parseCountry = (input) => {

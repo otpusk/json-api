@@ -6,6 +6,15 @@ import { createStorage } from './storage';
 
 const cacheStorage = createStorage('otpusk_api_cache');
 
+cacheStorage.findAll()
+    .then((all) => {
+        for (const [key, { expires }] of Object.entries(all)) {
+            if (expires <= moment().format('X')) {
+                cacheStorage.remove(key);
+            }
+        }
+    });
+
 class CacheItem {
     constructor (key) {
         this.key = key;
@@ -16,10 +25,12 @@ class CacheItem {
 
     get = async () => await this.isHit() ? this.record.value : null;
 
-    isHit = async () => {
+    isHit = async (ttl) => {
         await this.read();
 
-        return moment().format('X') < this.record.expires;
+        const timealive = this.record.expires - moment().format('X');
+
+        return timealive > 0 && (!ttl || moment.duration(...ttl).asSeconds() > timealive);
     }
 
     read = async () => {
@@ -29,7 +40,7 @@ class CacheItem {
         this.record = await cacheStorage.get(this.key, { value: null, expires: -1 });
     }
 
-    save = async () => await cacheStorage.set(this.key, this.record);
+    save = () => cacheStorage.set(this.key, this.record);
 
     set = (value) => Object.assign(this.record, { value });
 

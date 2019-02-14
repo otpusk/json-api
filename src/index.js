@@ -1,13 +1,15 @@
 export { getToursSuggests, getToursGeoById } from './methods/toursSuggests';
 export { getToursCountries } from './methods/toursCountries';
 export { getToursCities } from './methods/toursCities';
-export { getToursHotels, getToursHotel } from './methods/toursHotels';
+export { getToursGraph } from './methods/toursGraph';
+export { getToursHotels, getToursHotel, getToursHotelsMarkers } from './methods/toursHotels';
 export { getToursSearch } from './methods/toursSearch';
 export { getToursServices } from './methods/toursServices';
 export { getToursOffer } from './methods/toursOffer';
+export { getToursActual } from './methods/toursActual';
 export { getToursOrder } from './methods/toursOrder';
 export { getToursRegions } from './methods/toursRegions';
 export { getToursAgencies } from './methods/toursAgencies';
-export { getToursGraph } from './methods/toursGraph';
+export { getToursSimilar } from './methods/toursSimilar';
 export { getTurpravdaHotelInformer } from './methods/turpravdaInformers';
 export { getToursHotBlock, getToursHotTour } from './methods/toursHot';
