@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getToursHotels = getToursHotels;
+exports.getToursHotelsMarkers = getToursHotelsMarkers;
 exports.getToursHotel = getToursHotel;
 
 var _normalizr = require("normalizr");
@@ -66,34 +67,39 @@ function _getToursHotels() {
   return _getToursHotels.apply(this, arguments);
 }
 
-function getToursHotel(_x4, _x5) {
-  return _getToursHotel.apply(this, arguments);
+function getToursHotelsMarkers(_x4, _x5, _x6, _x7) {
+  return _getToursHotelsMarkers.apply(this, arguments);
 }
 
-function _getToursHotel() {
-  _getToursHotel = _asyncToGenerator(
+function _getToursHotelsMarkers() {
+  _getToursHotelsMarkers = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2(token, hotelId) {
-    var _ref2, denormalizedHotel, _normalize2, _normalize2$entities, hotels, offers, id, hotel;
+  regeneratorRuntime.mark(function _callee2(token, countryId, cityId, options) {
+    var center, radius, _ref2, denormalizedHotels, _normalize2, markers;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.hotel, _objectSpread({
-              hotelId: hotelId
-            }, token), [1, 'day']);
+            center = options.center, radius = options.radius;
+            _context2.next = 3;
+            return (0, _fn.makeCall)(_config.ENDPOINTS.hotels, _objectSpread({
+              countryId: countryId,
+              cityId: cityId,
+              geo: "".concat(center.lat, ",").concat(center.lng),
+              rad: radius || 1,
+              with: 'price'
+            }, token));
 
-          case 2:
+          case 3:
             _ref2 = _context2.sent;
-            denormalizedHotel = _ref2.hotel;
-            _normalize2 = (0, _normalizr.normalize)(denormalizedHotel, _schemas.hotelSchema), _normalize2$entities = _normalize2.entities, hotels = _normalize2$entities.hotel, offers = _normalize2$entities.offer, id = _normalize2.result;
-            hotel = hotels[id];
-            return _context2.abrupt("return", {
-              hotel: hotel,
-              offers: offers
-            });
+            denormalizedHotels = _ref2.hotels;
+            _normalize2 = (0, _normalizr.normalize)(denormalizedHotels.map(function (h) {
+              return _objectSpread({}, h, {
+                countryId: countryId
+              });
+            }), [_schemas.hotelShortSchema]), markers = _normalize2.entities.hotel;
+            return _context2.abrupt("return", markers);
 
           case 7:
           case "end":
@@ -101,6 +107,45 @@ function _getToursHotel() {
         }
       }
     }, _callee2, this);
+  }));
+  return _getToursHotelsMarkers.apply(this, arguments);
+}
+
+function getToursHotel(_x8, _x9) {
+  return _getToursHotel.apply(this, arguments);
+}
+
+function _getToursHotel() {
+  _getToursHotel = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3(token, hotelId) {
+    var _ref3, denormalizedHotel, _normalize3, _normalize3$entities, hotels, offers, id, hotel;
+
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return (0, _fn.makeCall)(_config.ENDPOINTS.hotel, _objectSpread({
+              hotelId: hotelId
+            }, token), [1, 'hour']);
+
+          case 2:
+            _ref3 = _context3.sent;
+            denormalizedHotel = _ref3.hotel;
+            _normalize3 = (0, _normalizr.normalize)(denormalizedHotel, _schemas.hotelSchema), _normalize3$entities = _normalize3.entities, hotels = _normalize3$entities.hotel, offers = _normalize3$entities.offer, id = _normalize3.result;
+            hotel = hotels[id];
+            return _context3.abrupt("return", {
+              hotel: hotel,
+              offers: offers
+            });
+
+          case 7:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this);
   }));
   return _getToursHotel.apply(this, arguments);
 }

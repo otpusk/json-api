@@ -19,9 +19,13 @@ var ENDPOINTS = Object.freeze({
   dates: "".concat(API, "/tours/dates"),
   search: "".concat(API, "/tours/search"),
   offer: "".concat(API, "/tours/offer"),
+  actual: "".concat(API, "/tours/actual"),
+  similar: "".concat(API, "/tours/similars"),
   order: "".concat(API, "/tours/order"),
   departureCities: "".concat(API, "/tours/deptCities"),
   graph: "".concat(API, "/tours/graph"),
-  turpravdaInformers: "".concat(TURPRAVDA, "/informers/hotel/")
+  turpravdaInformers: "".concat(TURPRAVDA, "/informers/hotel/"),
+  hotBlock: "".concat(API, "/tours/hotBlock"),
+  hotTour: "".concat(API, "/tours/hotTour")
 });
 exports.ENDPOINTS = ENDPOINTS;

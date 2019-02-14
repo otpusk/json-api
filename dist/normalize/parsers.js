@@ -26,12 +26,16 @@ var parsePrice = function parsePrice(input) {
   var originalCurrency = u || _typeof(c) !== 'object' && c || pu || currency || null;
   var entity = {};
 
+  var prepareNumber = function prepareNumber(value) {
+    return Number(String(value).replace(/\D/gi, ''));
+  };
+
   if (original) {
-    entity[originalCurrency] = Number(original);
+    entity[originalCurrency] = prepareNumber(original);
   }
 
   if (converted) {
-    entity.uah = Number(converted);
+    entity.uah = prepareNumber(converted);
   }
 
   return entity;
@@ -44,10 +48,18 @@ var parseFlights = function parseFlights(input) {
       outbound = _input$from === void 0 ? [] : _input$from,
       _input$to = input.to,
       inbound = _input$to === void 0 ? [] : _input$to;
-  return {
-    outbound: Array.isArray(outbound) ? outbound : Object.values(outbound),
-    inbound: Array.isArray(inbound) ? inbound : Object.values(inbound)
-  };
+  return (0, _immutable.Map)({
+    outbound: outbound,
+    inbound: inbound
+  }).map(function (flights) {
+    return Array.isArray(flights) ? flights : Object.values(flights);
+  }).map(function (flights) {
+    return flights.filter(function (_ref) {
+      var _ref$place = _ref.place,
+          place = _ref$place === void 0 ? 0 : _ref$place;
+      return place > 0;
+    });
+  }).toJS();
 };
 
 exports.parseFlights = parseFlights;
@@ -56,19 +68,20 @@ var parseLocation = function parseLocation(input) {
   var lat = input.lat,
       a = input.a,
       lng = input.lng,
+      long = input.long,
       o = input.o,
       zoom = input.zoom,
       z = input.z;
-  var latitude = a ? a : lat;
-  var longitude = o ? o : lng;
+  var latitude = parseFloat(a || lat);
+  var longitude = parseFloat(o || lng || long);
 
   if (!(latitude && longitude)) {
     return null;
   }
 
   return {
-    lat: parseFloat(latitude),
-    lng: parseFloat(longitude),
+    lat: latitude,
+    lng: longitude,
     zoom: parseInt(zoom || z, 10)
   };
 };
@@ -87,7 +100,9 @@ var parseNames = function parseNames(input, prefix) {
     return k.toLowerCase();
   });
   return cases.map(function (prop) {
-    return props.get("".concat(prefix).concat(prop), props.get(prop, ''));
+    return props.get("".concat(prefix).concat(prop), props.get(prop, props.get(prop.replace('name', ''), '')));
+  }).filter(function (value) {
+    return Boolean(value);
   }).toJS();
 };
 
@@ -100,7 +115,8 @@ var parseHotelGeo = function parseHotelGeo(input) {
   return {
     id: id,
     name: name,
-    code: code
+    code: code,
+    names: parseNames(input)
   };
 };
 
@@ -120,11 +136,13 @@ exports.parseCountry = parseCountry;
 
 var parseCity = function parseCity(input) {
   var id = input.cityId,
-      name = input.cityName,
-      code = input.cityCode;
+      cityName = input.cityName,
+      resortName = input.resortName,
+      _input$cityCode = input.cityCode,
+      code = _input$cityCode === void 0 ? null : _input$cityCode;
   return {
-    id: Number(id),
-    name: name,
+    id: Number(id) || null,
+    name: cityName || resortName,
     code: code,
     names: parseNames(input, 'city')
   };

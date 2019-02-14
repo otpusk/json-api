@@ -7,6 +7,8 @@ exports.getToursAgencies = getToursAgencies;
 
 var _normalizr = require("normalizr");
 
+var _immutable = require("immutable");
+
 var _fn = require("../fn");
 
 var _config = require("../config");
@@ -21,42 +23,75 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function getToursAgencies(_x, _x2, _x3, _x4) {
+function getToursAgencies(_x, _x2) {
   return _getToursAgencies.apply(this, arguments);
 }
 
 function _getToursAgencies() {
   _getToursAgencies = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(token, regionId, hotelId, offerId) {
-    var _ref, operators, analytics, _normalize, _normalize$entities, agencies, offices;
+  regeneratorRuntime.mark(function _callee(token, _ref) {
+    var regionId, hotelId, offerId, _ref$noStats, noStats, params, _ref2, operators, _ref2$_gaq, analytics, denormalizedRegions, _normalize, _normalize$entities, agencies, offices, _normalize$result$, viewAgenciesOrder, clickAgenciesOrder, _normalize2, regions;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.agencies, _objectSpread({}, token, {
+            regionId = _ref.regionId, hotelId = _ref.hotelId, offerId = _ref.offerId, _ref$noStats = _ref.noStats, noStats = _ref$noStats === void 0 ? false : _ref$noStats;
+            params = _objectSpread({}, token, {
               regionId: regionId,
               hotelId: hotelId,
               offers: offerId
-            }));
+            });
+            noStats && Object.assign(params, {
+              nst: 1
+            });
+            _context.next = 5;
+            return (0, _fn.makeCall)(_config.ENDPOINTS.agencies, params);
 
-          case 2:
-            _ref = _context.sent;
-            operators = _ref.operators;
-            analytics = _ref._gaq;
+          case 5:
+            _ref2 = _context.sent;
+            operators = _ref2.operators;
+            _ref2$_gaq = _ref2._gaq;
+            analytics = _ref2$_gaq === void 0 ? null : _ref2$_gaq;
+            denormalizedRegions = _ref2.regions;
             _normalize = (0, _normalizr.normalize)(operators, new _normalizr.schema.Values({
               clickAgencies: [_schemas.agencySchema],
               viewAgencies: [_schemas.agencySchema]
-            })), _normalize$entities = _normalize.entities, agencies = _normalize$entities.agency, offices = _normalize$entities.office;
+            })), _normalize$entities = _normalize.entities, agencies = _normalize$entities.agency, offices = _normalize$entities.office, _normalize$result$ = _normalize.result[1];
+            _normalize$result$ = _normalize$result$ === void 0 ? {} : _normalize$result$;
+            viewAgenciesOrder = _normalize$result$.viewAgencies, clickAgenciesOrder = _normalize$result$.clickAgencies;
+            _normalize2 = (0, _normalizr.normalize)(denormalizedRegions, [_schemas.regionSchema]), regions = _normalize2.entities.region;
             return _context.abrupt("return", {
-              agencies: agencies,
+              agencies: (0, _immutable.Map)(agencies).map(function (agency) {
+                return _objectSpread({}, agency, {
+                  transaction: analytics ? agency.clickId && {
+                    transactionId: analytics._dataLayer.transactionId,
+                    transactionAffiliation: 'Clicks',
+                    transactionTotal: parseInt(agency.clickId, 8) / 100,
+                    currencyCode: analytics._dataLayer.currencyCode,
+                    transactionShipping: 0,
+                    transactionTax: 0,
+                    transactionProducts: [{
+                      sku: agency.adId,
+                      name: agency.id,
+                      category: 'Clicks',
+                      price: parseInt(agency.clickId, 8) / 100,
+                      quantity: 1
+                    }],
+                    event: analytics._dataLayer.event
+                  } : null
+                });
+              }).sortBy(function (_ref3) {
+                var adId = _ref3.adId;
+                return clickAgenciesOrder.includes(adId) ? clickAgenciesOrder.indexOf(adId) : viewAgenciesOrder.indexOf(adId) + 100;
+              }),
               offices: offices,
-              analytics: analytics
+              analytics: analytics,
+              regions: regions
             });
 
-          case 7:
+          case 15:
           case "end":
             return _context.stop();
         }

@@ -7,11 +7,19 @@ exports.getToursSearch = getToursSearch;
 
 var _normalizr = require("normalizr");
 
+var _immutable = require("immutable");
+
+var _moment = _interopRequireDefault(require("moment"));
+
 var _fn = require("../fn");
 
 var _schemas = require("../normalize/schemas");
 
+var _parsers = require("../normalize/parsers");
+
 var _config = require("../config");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -25,6 +33,37 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function normalizePricesChart(denormalized) {
+  var start = denormalized.ds,
+      end = denormalized.dt,
+      d = denormalized.d;
+  var points = (0, _immutable.Range)(0, (0, _moment.default)(end).diff((0, _moment.default)(start), 'days') + 1);
+  var peak = {};
+  return points.toArray().map(function (day) {
+    return (0, _moment.default)(start).add(day, 'days').format('X');
+  }).map(function (day) {
+    var price = day in d ? (0, _parsers.parsePrice)(d[day]) : null;
+
+    if (price && (!peak.uah || peak.uah < price.uah)) {
+      Object.assign(peak, price);
+    }
+
+    return {
+      day: day,
+      price: price
+    };
+  }).map(function (_ref) {
+    var day = _ref.day,
+        price = _ref.price;
+    var delta = price && peak ? Number((price.uah / peak.uah * 100).toFixed(2)) : null;
+    return {
+      day: day,
+      price: price,
+      delta: delta
+    };
+  });
+}
+
 function getToursSearch(_x, _x2) {
   return _getToursSearch.apply(this, arguments);
 }
@@ -33,7 +72,7 @@ function _getToursSearch() {
   _getToursSearch = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, query) {
-    var _ref, denormalizedHotels, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, _normalize2, countries, countryId;
+    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, _normalize2, countries, countryId;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -43,21 +82,26 @@ function _getToursSearch() {
             return (0, _fn.makeCall)(_config.ENDPOINTS.search, _objectSpread({}, query, token));
 
           case 2:
-            _ref = _context.sent;
-            denormalizedHotels = _ref.hotels;
-            denormalizedCountry = _ref.cnt;
-            other = _objectWithoutProperties(_ref, ["hotels", "cnt"]);
-            _normalize = (0, _normalizr.normalize)(denormalizedHotels || {}, new _normalizr.schema.Values(new _normalizr.schema.Values(_schemas.hotelSchema))), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
-            _normalize2 = (0, _normalizr.normalize)(denormalizedCountry || {}, _schemas.countrySchema), countries = _normalize2.entities.country, countryId = _normalize2.result;
+            _ref2 = _context.sent;
+            denormalizedHotels = _ref2.hotels;
+            _ref2$pg = _ref2.pg;
+            denormalizedChart = _ref2$pg === void 0 ? null : _ref2$pg;
+            denormalizedCountry = _ref2.cnt;
+            other = _objectWithoutProperties(_ref2, ["hotels", "pg", "cnt"]);
+            _normalize = (0, _normalizr.normalize)(Object.values(denormalizedHotels || {}).reduce(function (all, h) {
+              return _objectSpread({}, all, h);
+            }, {}), new _normalizr.schema.Values(_schemas.hotelSchema)), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
+            _normalize2 = (0, _normalizr.normalize)(denormalizedCountry, _schemas.countrySchema), countries = _normalize2.entities.country, countryId = _normalize2.result;
             return _context.abrupt("return", _objectSpread({
               result: hotels && offers ? {
                 hotels: hotels,
                 offers: offers
               } : {},
+              chart: denormalizedChart ? normalizePricesChart(denormalizedChart) : null,
               country: denormalizedCountry && countryId ? countries[countryId] : null
             }, other));
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }

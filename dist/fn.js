@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeCall = makeCall;
 exports.createQueryStringFromObject = createQueryStringFromObject;
+exports.HttpResponseError = void 0;
 
 var _fetchJsonp = _interopRequireDefault(require("fetch-jsonp"));
 
@@ -21,6 +22,8 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -132,7 +135,7 @@ function _makeCall() {
             request = "".concat(endpoint, "?").concat(createQueryStringFromObject(query));
             cache = new _cache.CacheItem(hash(request));
             _context2.next = 4;
-            return cache.isHit();
+            return cache.isHit(ttl);
 
           case 4:
             if (!_context2.sent) {
@@ -183,3 +186,15 @@ function _makeCall() {
   }));
   return _makeCall.apply(this, arguments);
 }
+
+var HttpResponseError = function HttpResponseError(code, message) {
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+  _classCallCheck(this, HttpResponseError);
+
+  this.code = code;
+  this.message = message;
+  this.data = data;
+};
+
+exports.HttpResponseError = HttpResponseError;

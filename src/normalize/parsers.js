@@ -2,7 +2,7 @@
 import { Map } from 'immutable';
 
 
-export const parsePrice =  (input) => {
+export const parsePrice = (input) => {
     const {
         uah, p, pl, priceUah,
         price, po, minPrice,
@@ -11,22 +11,23 @@ export const parsePrice =  (input) => {
 
     const original = po || p || price || minPrice || null;
     const converted = pl || uah || typeof c !== 'object' && pu || p || priceUah || null;
-    const originalCurrency =  u || typeof c !== 'object' && c || pu || currency || null;
+    const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
 
     const entity = {};
+    const prepareNumber = (value) => Number(String(value).replace(/\D/gi, ''));
 
     if (original) {
-        entity[originalCurrency] = Number(original);
+        entity[originalCurrency] = prepareNumber(original);
     }
     if (converted) {
-        entity.uah = Number(converted);
+        entity.uah = prepareNumber(converted);
     }
 
     return entity;
 };
 
 export const parseFlights = (input) => {
-    const { from: outbound = [], to: inbound = []} = input;
+    const { from: outbound = [], to: inbound = [] } = input;
 
     return Map({ outbound, inbound })
         .map((flights) => Array.isArray(flights) ? flights : Object.values(flights))
@@ -34,7 +35,7 @@ export const parseFlights = (input) => {
         .toJS();
 };
 
-export const parseLocation =  (input) => {
+export const parseLocation = (input) => {
     const { lat, a, lng, long, o, zoom, z } = input;
     const latitude = parseFloat(a || lat);
     const longitude = parseFloat(o || lng || long);
@@ -44,13 +45,13 @@ export const parseLocation =  (input) => {
     }
 
     return {
-        lat:  latitude,
-        lng:  longitude,
+        lat: latitude,
+        lng: longitude,
         zoom: parseInt(zoom || z, 10),
     };
 };
 
-export const parseNames =  (input, prefix) => {
+export const parseNames = (input, prefix) => {
     const cases = Map({ long: 'name', nm: 'value', vm: 'namevn', rd: 'namerd', pr: 'namepr' });
     const props = Map(input).mapKeys((k) => k.toLowerCase());
 
@@ -62,7 +63,9 @@ export const parseNames =  (input, prefix) => {
                 props.get(prop.replace('name', ''), '')
             )
         );
-    }).toJS();
+    })
+        .filter((value) => Boolean(value))
+        .toJS();
 };
 
 export const parseHotelGeo = (input) => {
@@ -78,7 +81,9 @@ export const parseCountry = (input) => {
 };
 
 export const parseCity = (input) => {
-    const { cityId: id, cityName: name, cityCode: code } = input;
+    const { cityId: id, cityName, resortName, cityCode: code = null } = input;
 
-    return { id: Number(id), name, code, names: parseNames(input, 'city') };
+    return {
+        id: Number(id) || null, name: cityName || resortName, code, names: parseNames(input, 'city')
+    };
 };

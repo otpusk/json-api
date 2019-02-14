@@ -1,5 +1,6 @@
 // Instruments
 import { makeCall } from '../fn';
+import { parsePrice, parseCountry, parseCity } from '../normalize/parsers';
 import { ENDPOINTS } from '../config';
 
 export async function getToursHotBlock(token, blockId) {
@@ -11,5 +12,33 @@ export async function getToursHotBlock(token, blockId) {
 export async function getToursHotTour(token, blockId, tourId) {
     const { searchedTour: { offers } = {} } = await makeCall(ENDPOINTS.hotTour, { blockId, id: tourId, ...token });
 
-    return offers;
+    return offers.map((tour) => {
+        const { hotelId, dateString, food, length, promo,
+            transport, cityFromId, operatorId, tourLink,
+            hotelName, hotelStars, imgSrc } = tour;
+        const [,offerId] = tourLink.match(/oid=(\d+)/) || [];
+        
+        return {
+            hotel: {
+                id: hotelId,
+                name: hotelName,
+                stars: Number(String(hotelStars).replace(/\D/gi, '')),
+                country: parseCountry(tour),
+                city: parseCity(tour),
+                photos: [imgSrc.replace(/^.*\/\d+x\d+\//, '')]
+            },
+            offer: {
+                id: Number(offerId),
+                date: dateString,
+                departure: cityFromId,
+                food,
+                days: length,
+                nights: length - 1,
+                promo,
+                price: parsePrice(tour),
+                operator: operatorId,
+                transport
+            },
+        };
+    });
 }

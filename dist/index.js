@@ -27,6 +27,12 @@ Object.defineProperty(exports, "getToursCities", {
     return _toursCities.getToursCities;
   }
 });
+Object.defineProperty(exports, "getToursGraph", {
+  enumerable: true,
+  get: function get() {
+    return _toursGraph.getToursGraph;
+  }
+});
 Object.defineProperty(exports, "getToursHotels", {
   enumerable: true,
   get: function get() {
@@ -37,6 +43,12 @@ Object.defineProperty(exports, "getToursHotel", {
   enumerable: true,
   get: function get() {
     return _toursHotels.getToursHotel;
+  }
+});
+Object.defineProperty(exports, "getToursHotelsMarkers", {
+  enumerable: true,
+  get: function get() {
+    return _toursHotels.getToursHotelsMarkers;
   }
 });
 Object.defineProperty(exports, "getToursSearch", {
@@ -57,6 +69,12 @@ Object.defineProperty(exports, "getToursOffer", {
     return _toursOffer.getToursOffer;
   }
 });
+Object.defineProperty(exports, "getToursActual", {
+  enumerable: true,
+  get: function get() {
+    return _toursActual.getToursActual;
+  }
+});
 Object.defineProperty(exports, "getToursOrder", {
   enumerable: true,
   get: function get() {
@@ -75,16 +93,28 @@ Object.defineProperty(exports, "getToursAgencies", {
     return _toursAgencies.getToursAgencies;
   }
 });
-Object.defineProperty(exports, "getToursGraph", {
+Object.defineProperty(exports, "getToursSimilar", {
   enumerable: true,
   get: function get() {
-    return _toursGraph.getToursGraph;
+    return _toursSimilar.getToursSimilar;
   }
 });
 Object.defineProperty(exports, "getTurpravdaHotelInformer", {
   enumerable: true,
   get: function get() {
     return _turpravdaInformers.getTurpravdaHotelInformer;
+  }
+});
+Object.defineProperty(exports, "getToursHotBlock", {
+  enumerable: true,
+  get: function get() {
+    return _toursHot.getToursHotBlock;
+  }
+});
+Object.defineProperty(exports, "getToursHotTour", {
+  enumerable: true,
+  get: function get() {
+    return _toursHot.getToursHotTour;
   }
 });
 
@@ -94,6 +124,8 @@ var _toursCountries = require("./methods/toursCountries");
 
 var _toursCities = require("./methods/toursCities");
 
+var _toursGraph = require("./methods/toursGraph");
+
 var _toursHotels = require("./methods/toursHotels");
 
 var _toursSearch = require("./methods/toursSearch");
@@ -102,12 +134,16 @@ var _toursServices = require("./methods/toursServices");
 
 var _toursOffer = require("./methods/toursOffer");
 
+var _toursActual = require("./methods/toursActual");
+
 var _toursOrder = require("./methods/toursOrder");
 
 var _toursRegions = require("./methods/toursRegions");
 
 var _toursAgencies = require("./methods/toursAgencies");
 
-var _toursGraph = require("./methods/toursGraph");
+var _toursSimilar = require("./methods/toursSimilar");
 
 var _turpravdaInformers = require("./methods/turpravdaInformers");
+
+var _toursHot = require("./methods/toursHot");

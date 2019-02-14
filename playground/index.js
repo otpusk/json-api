@@ -7,7 +7,7 @@ API.getToursHotBlock(token, 2189).then(({block, tours}) => {
 
     for (const tour of tours) {
         API.getToursHotTour(token, block.block_id, tour).then((tour) => {
-            console.log(tour);
+            console.log(tour[0]);
         })
     }
 })
