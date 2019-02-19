@@ -6,7 +6,7 @@ class Storage {
         this.instance = localforage.createInstance({
             name:   'otpusk.com',
             storeName,
-            driver: [localforage.INDEXEDDB, localforage.LOCALSTORAGE],
+            driver: [localforage.LOCALSTORAGE],
             ...config,
         });
     }

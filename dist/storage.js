@@ -34,7 +34,7 @@ function () {
     this.instance = _localforage.default.createInstance(_objectSpread({
       name: 'otpusk.com',
       storeName: storeName,
-      driver: [_localforage.default.INDEXEDDB, _localforage.default.LOCALSTORAGE]
+      driver: [_localforage.default.LOCALSTORAGE]
     }, config));
   }
 
