@@ -27,7 +27,7 @@ var parsePrice = function parsePrice(input) {
   var entity = {};
 
   var prepareNumber = function prepareNumber(value) {
-    return Number(String(value).replace(/\D/gi, ''));
+    return Number(String(value).replace(/[^0-9\.\,]/gi, ''));
   };
 
   if (original) {

@@ -14,7 +14,7 @@ export const parsePrice = (input) => {
     const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
 
     const entity = {};
-    const prepareNumber = (value) => Number(String(value).replace(/\D/gi, ''));
+    const prepareNumber = (value) => Number(String(value).replace(/[^0-9\.\,]/gi, ''));
 
     if (original) {
         entity[originalCurrency] = prepareNumber(original);
