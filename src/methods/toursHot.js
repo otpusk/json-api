@@ -19,14 +19,14 @@ export async function getToursHotTour(token, blockId, tourId) {
         const [, offerId] = tourLink.match(/oid=(\d+)/) || [];
 
         return {
-            id: hotelId,
+            id: String(hotelId),
             name: hotelName,
             stars: Number(String(hotelStars).replace(/\D/gi, '')),
             country: parseCountry(tour),
             city: parseCity(tour),
             photos: [imgSrc.replace(/^.*\/\d+x\d+\//, '')],
             offer: {
-                id: Number(offerId),
+                id: String(offerId),
                 date: dateString,
                 departure: cityFromId,
                 food,
