@@ -1,6 +1,7 @@
 export { getToursSuggests, getToursGeoById } from './methods/toursSuggests';
 export { getToursCountries } from './methods/toursCountries';
 export { getToursCities } from './methods/toursCities';
+export { getToursDepartureCities } from './methods/toursDepartureCities';
 export { getToursGraph } from './methods/toursGraph';
 export { getToursHotels, getToursHotel, getToursHotelsMarkers } from './methods/toursHotels';
 export { getToursSearch } from './methods/toursSearch';

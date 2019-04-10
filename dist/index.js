@@ -27,6 +27,12 @@ Object.defineProperty(exports, "getToursCities", {
     return _toursCities.getToursCities;
   }
 });
+Object.defineProperty(exports, "getToursDepartureCities", {
+  enumerable: true,
+  get: function get() {
+    return _toursDepartureCities.getToursDepartureCities;
+  }
+});
 Object.defineProperty(exports, "getToursGraph", {
   enumerable: true,
   get: function get() {
@@ -123,6 +129,8 @@ var _toursSuggests = require("./methods/toursSuggests");
 var _toursCountries = require("./methods/toursCountries");
 
 var _toursCities = require("./methods/toursCities");
+
+var _toursDepartureCities = require("./methods/toursDepartureCities");
 
 var _toursGraph = require("./methods/toursGraph");
 
