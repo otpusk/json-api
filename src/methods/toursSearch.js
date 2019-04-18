@@ -39,7 +39,7 @@ export async function getToursSearch (token, query) {
     const {
         hotels: denormalizedHotels,
         pg: denormalizedChart = null,
-        cnt: denormalizedCountry,
+        cnt: denormalizedCountry = null,
         ...other
     } = await makeCall(ENDPOINTS.search, { ...query, ...token });
 
@@ -47,12 +47,13 @@ export async function getToursSearch (token, query) {
         Object.values(denormalizedHotels || {}).reduce((all, h) => ({ ...all, ...h }), {}),
         new schema.Values(hotelSchema)
     );
-    const { entities: { country: countries }, result: countryId } = normalize(denormalizedCountry, countrySchema);
+
+    const { entities: { country: countries }, result: countryId } = normalize(denormalizedCountry || {}, countrySchema);
 
     return {
         result:  hotels && offers ? { hotels, offers } : {},
         chart:   denormalizedChart ? normalizePricesChart(denormalizedChart) : null,
-        country: denormalizedCountry && countryId ? countries[countryId] : null,
+        country: countryId && denormalizedCountry ? countries[countryId] : null,
         ...other,
     };
 }
