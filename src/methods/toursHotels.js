@@ -6,7 +6,7 @@ import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 import { hotelSchema, hotelShortSchema } from '../normalize/schemas';
 
-export async function getToursHotels (token, countryId, options) {
+export async function getToursHotels(token, countryId, options = {}) {
     const { cities = [], categories = [], services = []} = options;
     const { hotels: denormalizedHotels } = await makeCall(ENDPOINTS.hotels, {
         countryId,

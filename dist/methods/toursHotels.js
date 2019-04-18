@@ -23,28 +23,40 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function getToursHotels(_x, _x2, _x3) {
+function getToursHotels(_x, _x2) {
   return _getToursHotels.apply(this, arguments);
 }
 
 function _getToursHotels() {
   _getToursHotels = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(token, countryId, options) {
-    var _options$cities, cities, _options$categories, categories, _options$services, services, _ref, denormalizedHotels, _normalize, hotels;
+  regeneratorRuntime.mark(function _callee(token, countryId) {
+    var options,
+        _options$cities,
+        cities,
+        _options$categories,
+        categories,
+        _options$services,
+        services,
+        _ref,
+        denormalizedHotels,
+        _normalize,
+        hotels,
+        _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _options$cities = options.cities, cities = _options$cities === void 0 ? [] : _options$cities, _options$categories = options.categories, categories = _options$categories === void 0 ? [] : _options$categories, _options$services = options.services, services = _options$services === void 0 ? [] : _options$services;
-            _context.next = 3;
+            _context.next = 4;
             return (0, _fn.makeCall)(_config.ENDPOINTS.hotels, _objectSpread({
               countryId: countryId,
               with: 'price'
             }, token), [1, 'day']);
 
-          case 3:
+          case 4:
             _ref = _context.sent;
             denormalizedHotels = _ref.hotels;
             _normalize = (0, _normalizr.normalize)(denormalizedHotels.filter(function (hotel) {
@@ -57,7 +69,7 @@ function _getToursHotels() {
             }), [_schemas.hotelShortSchema]), hotels = _normalize.entities.hotel;
             return _context.abrupt("return", Object.values(hotels));
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -67,7 +79,7 @@ function _getToursHotels() {
   return _getToursHotels.apply(this, arguments);
 }
 
-function getToursHotelsMarkers(_x4, _x5, _x6, _x7) {
+function getToursHotelsMarkers(_x3, _x4, _x5, _x6) {
   return _getToursHotelsMarkers.apply(this, arguments);
 }
 
@@ -111,7 +123,7 @@ function _getToursHotelsMarkers() {
   return _getToursHotelsMarkers.apply(this, arguments);
 }
 
-function getToursHotel(_x8, _x9) {
+function getToursHotel(_x7, _x8) {
   return _getToursHotel.apply(this, arguments);
 }
 
