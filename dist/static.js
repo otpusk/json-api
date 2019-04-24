@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.OPERATORS = exports.CURRENCIES = exports.TRANSPORTS = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
+exports.OPERATORS = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
 var DEPARTURE_CITIES = [{
   "id": 1934,
   "name": "Винница",
@@ -92,25 +92,36 @@ var DEPARTURE_CITIES = [{
 }];
 exports.DEPARTURE_CITIES = DEPARTURE_CITIES;
 var FOODS = [{
-  code: 'uai',
-  label: 'Ультра все включено'
-}, {
-  code: 'ai',
-  label: 'Все включено'
-}, {
-  code: 'fb',
-  label: 'Полный пансион'
-}, {
-  code: 'hb',
-  label: 'Завтрак и ужин'
+  code: 'ob',
+  label: 'Без питания'
 }, {
   code: 'bb',
   label: 'Завтрак'
 }, {
-  code: 'ob',
-  label: 'Без питания'
+  code: 'hb',
+  label: 'Завтрак и ужин'
+}, {
+  code: 'fb',
+  label: 'Полный пансион'
+}, {
+  code: 'ai',
+  label: 'Все включено'
+}, {
+  code: 'uai',
+  label: 'Ультра все включено'
 }];
 exports.FOODS = FOODS;
+var AVAILABILITY = [{
+  code: 'yes',
+  label: 'Есть'
+}, {
+  code: 'request',
+  label: 'Запрос'
+}, {
+  code: 'no',
+  label: 'Нет'
+}];
+exports.AVAILABILITY = AVAILABILITY;
 var TRANSPORTS = [{
   code: 'air',
   label: 'Авиаперелет'
