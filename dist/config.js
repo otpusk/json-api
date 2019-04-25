@@ -27,6 +27,7 @@ var ENDPOINTS = Object.freeze({
   turpravdaInformers: "".concat(TURPRAVDA, "/informers/hotel/"),
   hotBlock: "".concat(API, "/tours/hotBlock"),
   hotTour: "".concat(API, "/tours/hotTour"),
-  operators: "".concat(API, "/tours/operators")
+  operators: "".concat(API, "/tours/operators"),
+  init: "".concat(API, "/init")
 });
 exports.ENDPOINTS = ENDPOINTS;
