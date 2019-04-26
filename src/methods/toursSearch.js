@@ -50,8 +50,6 @@ export async function getToursSearch (token, query) {
 
     const { entities: { country: countries }, result: countryId } = normalize(denormalizedCountry || {}, countrySchema);
 
-    console.log(offers);
-
     return {
         result:  hotels && offers ? { hotels, offers } : {},
         chart:   denormalizedChart ? normalizePricesChart(denormalizedChart) : null,
