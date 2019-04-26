@@ -6,11 +6,12 @@ export const parsePrice = (input) => {
     const {
         uah, p, pl, priceUah,
         price, po, minPrice,
-        currency, pu, u, c,
+        currency, pu, u, c, ur
     } = input;
 
+    const convertPriceWithoutDiscount = po ? po * ur : pl;
     const original = po || p || price || minPrice || null;
-    const converted = pl || uah || typeof c !== 'object' && pu || p || priceUah || null;
+    const converted = convertPriceWithoutDiscount || uah || typeof c !== 'object' && pu || p || priceUah || null;
     const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
 
     const entity = {};
@@ -24,6 +25,20 @@ export const parsePrice = (input) => {
     }
 
     return entity;
+};
+
+export const parseDiscountPrice = (input) => {
+    const { po, pl, p, u, c, pu, currency } = input;
+    const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
+
+    if (!po) {
+        return null;
+    }
+
+    return {
+        [originalCurrency]: p,
+        uah: pl
+    };
 };
 
 export const parseFlights = (input) => {

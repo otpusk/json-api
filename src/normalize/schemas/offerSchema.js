@@ -5,7 +5,8 @@ import { schema } from 'normalizr';
 // Instruments
 import {
     parsePrice,
-    parseFlights
+    parseFlights,
+    parseDiscountPrice
 } from '../parsers';
 
 export const offerSchema = new schema.Entity(
@@ -59,6 +60,7 @@ export const offerSchema = new schema.Entity(
                 operator,
                 room:    { id: roomId, name: roomName, type: roomType },
                 price:   parsePrice(input),
+                discountPrice: parseDiscountPrice(input),
                 stopsale,
                 transport,
                 flights: parseFlights(flights || {}),

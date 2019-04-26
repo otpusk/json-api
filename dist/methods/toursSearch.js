@@ -93,6 +93,7 @@ function _getToursSearch() {
               return _objectSpread({}, all, h);
             }, {}), new _normalizr.schema.Values(_schemas.hotelSchema)), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
             _normalize2 = (0, _normalizr.normalize)(denormalizedCountry || {}, _schemas.countrySchema), countries = _normalize2.entities.country, countryId = _normalize2.result;
+            console.log(offers);
             return _context.abrupt("return", _objectSpread({
               result: hotels && offers ? {
                 hotels: hotels,
@@ -102,7 +103,7 @@ function _getToursSearch() {
               country: countryId && denormalizedCountry ? countries[countryId] : null
             }, other));
 
-          case 12:
+          case 13:
           case "end":
             return _context.stop();
         }
