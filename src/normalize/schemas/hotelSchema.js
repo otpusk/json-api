@@ -3,7 +3,7 @@
 import { schema } from 'normalizr';
 
 // Instruments
-import { parsePrice, parseLocation, parseHotelGeo, parseCountry, parseCity } from '../parsers';
+import { parsePrice, parseLocation, parseHotelGeo, parseCountry, parseCity, parseStars } from '../parsers';
 import { offerSchema } from './offerSchema';
 
 export const hotelShortSchema = new schema.Entity(
