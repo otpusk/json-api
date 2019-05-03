@@ -3,9 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parsePrice = void 0;
+exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -20,9 +22,11 @@ var parsePrice = function parsePrice(input) {
       currency = input.currency,
       pu = input.pu,
       u = input.u,
-      c = input.c;
+      c = input.c,
+      ur = input.ur;
+  var convertPriceWithoutDiscount = po ? po * ur : pl;
   var original = po || p || price || minPrice || null;
-  var converted = pl || uah || _typeof(c) !== 'object' && pu || p || priceUah || null;
+  var converted = convertPriceWithoutDiscount || uah || _typeof(c) !== 'object' && pu || p || priceUah || null;
   var originalCurrency = u || _typeof(c) !== 'object' && c || pu || currency || null;
   var entity = {};
 
@@ -43,6 +47,27 @@ var parsePrice = function parsePrice(input) {
 
 exports.parsePrice = parsePrice;
 
+var parseDiscountPrice = function parseDiscountPrice(input) {
+  var _ref;
+
+  var po = input.po,
+      pl = input.pl,
+      p = input.p,
+      u = input.u,
+      c = input.c,
+      pu = input.pu,
+      currency = input.currency;
+  var originalCurrency = u || _typeof(c) !== 'object' && c || pu || currency || null;
+
+  if (!po) {
+    return null;
+  }
+
+  return _ref = {}, _defineProperty(_ref, originalCurrency, p), _defineProperty(_ref, "uah", pl), _ref;
+};
+
+exports.parseDiscountPrice = parseDiscountPrice;
+
 var parseFlights = function parseFlights(input) {
   var _input$from = input.from,
       outbound = _input$from === void 0 ? [] : _input$from,
@@ -54,9 +79,9 @@ var parseFlights = function parseFlights(input) {
   }).map(function (flights) {
     return Array.isArray(flights) ? flights : Object.values(flights);
   }).map(function (flights) {
-    return flights.filter(function (_ref) {
-      var _ref$place = _ref.place,
-          place = _ref$place === void 0 ? 0 : _ref$place;
+    return flights.filter(function (_ref2) {
+      var _ref2$place = _ref2.place,
+          place = _ref2$place === void 0 ? 0 : _ref2$place;
       return place > 0;
     });
   }).toJS();

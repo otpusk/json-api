@@ -66,6 +66,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parsePrice)(input),
+      discountPrice: (0, _parsers.parseDiscountPrice)(input),
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
