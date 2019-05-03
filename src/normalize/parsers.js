@@ -87,3 +87,14 @@ export const parseCity = (input) => {
         id: Number(id) || null, name: cityName || resortName, code, names: parseNames(input, 'city')
     };
 };
+
+export const parseStars = (input) => {
+    switch (input.toLowerCase()) {
+        case 'hv1':
+            return 'HV1';
+        case 'hv2':
+            return 'HV2';
+        default:
+            return parseInt(String(input).replace(/\D/, ''), 10);
+    }
+}

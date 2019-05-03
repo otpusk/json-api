@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parsePrice = void 0;
+exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -149,3 +149,18 @@ var parseCity = function parseCity(input) {
 };
 
 exports.parseCity = parseCity;
+
+var parseStars = function parseStars(input) {
+  switch (input.toLowerCase()) {
+    case 'hv1':
+      return 'HV1';
+
+    case 'hv2':
+      return 'HV2';
+
+    default:
+      return parseInt(String(input).replace(/\D/, ''), 10);
+  }
+};
+
+exports.parseStars = parseStars;
