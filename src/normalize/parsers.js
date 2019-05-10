@@ -133,13 +133,13 @@ export const parseSearchMeta = (input, query) => {
             [currency]: original
     });
 
-    const categoryPrices = mergeWith(pricesMerger, stars, originalStars);
-    const operatorPrices = mergeWith(pricesMerger, operators, originalOperators);
+    const categoriesPrices = mergeWith(pricesMerger, stars, originalStars);
+    const operatorsPrices = mergeWith(pricesMerger, operators, originalOperators);
     
     return {
         prices: {
-            operators: operatorPrices,
-            category: categoryPrices
+            operators: operatorsPrices,
+            categories: categoriesPrices
         },
         links: {
             operators: searchOperators

@@ -214,12 +214,12 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
     }, currency, original);
   };
 
-  var categoryPrices = (0, _immutable.mergeWith)(pricesMerger, stars, originalStars);
-  var operatorPrices = (0, _immutable.mergeWith)(pricesMerger, operators, originalOperators);
+  var categoriesPrices = (0, _immutable.mergeWith)(pricesMerger, stars, originalStars);
+  var operatorsPrices = (0, _immutable.mergeWith)(pricesMerger, operators, originalOperators);
   return {
     prices: {
-      operators: operatorPrices,
-      category: categoryPrices
+      operators: operatorsPrices,
+      categories: categoriesPrices
     },
     links: {
       operators: searchOperators
