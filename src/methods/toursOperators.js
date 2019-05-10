@@ -1,6 +1,7 @@
 // Instruments
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
+import { getOperatorLogoById } from '../dictionary';
 
 export async function getToursOperators(token, countryId, options = {}) {
     const { operators: raw = {} } = await makeCall(ENDPOINTS.operators, {
@@ -13,7 +14,7 @@ export async function getToursOperators(token, countryId, options = {}) {
         name,
         url,
         currencyRates: currencies,
-        logo: `https://export.otpusk.com/images/onsite/logo/logo-${id}.png`
+        logo: getOperatorLogoById(id)
     }))
 
     return operators;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
+exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -187,5 +187,44 @@ var parseStars = function parseStars(input) {
       return parseInt(String(input).replace(/\D/, ''), 10);
   }
 };
+/**
+ * 
+ * @param {object} input 
+ */
+
 
 exports.parseStars = parseStars;
+
+var parseSearchMeta = function parseSearchMeta(input, query) {
+  var _input$searchOperator = input.searchOperators,
+      searchOperators = _input$searchOperator === void 0 ? {} : _input$searchOperator,
+      _input$originalOperat = input.originalOperators,
+      originalOperators = _input$originalOperat === void 0 ? {} : _input$originalOperat,
+      _input$operators = input.operators,
+      operators = _input$operators === void 0 ? {} : _input$operators,
+      _input$stars = input.stars,
+      stars = _input$stars === void 0 ? {} : _input$stars,
+      _input$originalStars = input.originalStars,
+      originalStars = _input$originalStars === void 0 ? {} : _input$originalStars;
+  var currency = 'currency' in query ? query.currency : 'original';
+
+  var pricesMerger = function pricesMerger(converted, original) {
+    return _defineProperty({
+      uah: converted
+    }, currency, original);
+  };
+
+  var categoryPrices = (0, _immutable.mergeWith)(pricesMerger, stars, originalStars);
+  var operatorPrices = (0, _immutable.mergeWith)(pricesMerger, operators, originalOperators);
+  return {
+    prices: {
+      operators: operatorPrices,
+      category: categoryPrices
+    },
+    links: {
+      operators: searchOperators
+    }
+  };
+};
+
+exports.parseSearchMeta = parseSearchMeta;

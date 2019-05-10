@@ -6,7 +6,7 @@ import moment from 'moment';
 // Instruments
 import { makeCall } from '../fn';
 import { hotelSchema, countrySchema } from '../normalize/schemas';
-import { parsePrice } from '../normalize/parsers';
+import { parsePrice, parseSearchMeta } from '../normalize/parsers';
 import { ENDPOINTS } from '../config';
 
 function normalizePricesChart (denormalized) {
@@ -49,11 +49,13 @@ export async function getToursSearch (token, query) {
     );
 
     const { entities: { country: countries }, result: countryId } = normalize(denormalizedCountry || {}, countrySchema);
+    const meta = parseSearchMeta(other, query);
 
     return {
         result:  hotels && offers ? { hotels, offers } : {},
         chart:   denormalizedChart ? normalizePricesChart(denormalizedChart) : null,
         country: countryId && denormalizedCountry ? countries[countryId] : null,
+        meta,
         ...other,
     };
 }

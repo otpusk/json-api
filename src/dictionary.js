@@ -72,6 +72,8 @@ export const getImageUrl = (part, size = 'medium') => {
     return `https://newimg.otpusk.com/${sizes[size]}/${part}`;
 };
 
+export const getOperatorLogoById = (id) => `https://export.otpusk.com/images/onsite/logo/logo-${id}.png`;
+
 export const getPeopleCountableWord = (people) => {
     return [
         '',

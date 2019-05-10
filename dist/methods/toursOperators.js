@@ -9,6 +9,8 @@ var _fn = require("../fn");
 
 var _config = require("../config");
 
+var _dictionary = require("../dictionary");
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -56,7 +58,7 @@ function _getToursOperators() {
                 name: name,
                 url: url,
                 currencyRates: currencies,
-                logo: "https://export.otpusk.com/images/onsite/logo/logo-".concat(id, ".png")
+                logo: (0, _dictionary.getOperatorLogoById)(id)
               };
             });
             return _context.abrupt("return", operators);

@@ -7,7 +7,7 @@ exports.getNounForNumeral = getNounForNumeral;
 exports.__ = __;
 exports.findInArrayByProp = findInArrayByProp;
 exports.convertObjectToUrlFormData = convertObjectToUrlFormData;
-exports.getPriceExtraFares = exports.getNounForCommonNumerals = exports.createOtpuskClickUrl = exports.parseOSQueryString = exports.compileOSQueryString = exports.getFirstAvailableFlightsFromOffer = exports.getHotelSchemaType = exports.explainPrice = exports.getPeopleCountableWord = exports.getImageUrl = exports.getOperatorById = exports.getDepartureCityById = exports.getTransportByCode = exports.getCurrencyByCode = exports.getFoodByCode = void 0;
+exports.getPriceExtraFares = exports.getNounForCommonNumerals = exports.createOtpuskClickUrl = exports.parseOSQueryString = exports.compileOSQueryString = exports.getFirstAvailableFlightsFromOffer = exports.getHotelSchemaType = exports.explainPrice = exports.getPeopleCountableWord = exports.getOperatorLogoById = exports.getImageUrl = exports.getOperatorById = exports.getDepartureCityById = exports.getTransportByCode = exports.getCurrencyByCode = exports.getFoodByCode = void 0;
 
 var _static = require("./static");
 
@@ -118,6 +118,12 @@ var getImageUrl = function getImageUrl(part) {
 };
 
 exports.getImageUrl = getImageUrl;
+
+var getOperatorLogoById = function getOperatorLogoById(id) {
+  return "https://export.otpusk.com/images/onsite/logo/logo-".concat(id, ".png");
+};
+
+exports.getOperatorLogoById = getOperatorLogoById;
 
 var getPeopleCountableWord = function getPeopleCountableWord(people) {
   return ['', 'за одного', 'за двоих', 'за троих', 'за четверых', 'за пятерых', 'за шестерых', 'за семерых'][people];
