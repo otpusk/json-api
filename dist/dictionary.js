@@ -373,10 +373,6 @@ var getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
     name: 'request-flight',
     text: __('Наличие мест на рейсе и окончательную стоимость тура запрашивайте у турагента.'),
     conditions: [traits.isFlightsByRequest(offer)]
-  }, {
-    name: 'travel-insurance',
-    text: 'страховка от невыезда',
-    conditions: [traits.isOperator(offer, 2700)]
   }];
   return rules.filter(function (_ref10) {
     var conditions = _ref10.conditions;

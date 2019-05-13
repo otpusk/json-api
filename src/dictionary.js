@@ -306,13 +306,6 @@ export const getPriceExtraFares = (hotel, offer) => {
                 traits.isFlightsByRequest(offer)
             ],
         },
-        {
-            name:       'travel-insurance',
-            text:       'страховка от невыезда',
-            conditions: [
-                traits.isOperator(offer, 2700)
-            ],
-        }
     ];
 
     return rules.filter(({ conditions }) => conditions.every((value) => value === true));
