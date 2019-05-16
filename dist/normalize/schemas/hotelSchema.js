@@ -47,7 +47,8 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
         name = input.name,
         value = input.value,
         image = input.image,
-        reviews = input.reviews;
+        reviews = input.reviews,
+        services = input.services;
     var entity = {
       id: String(id),
       name: value ? value : name,
@@ -58,7 +59,8 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
       photos: image ? [image] : [],
       location: (0, _parsers.parseLocation)(input),
       country: countryId ? String(countryId) : null,
-      city: cityId ? String(cityId) : null
+      city: cityId ? String(cityId) : null,
+      services: services ? services.split(',') : null
     };
     return entity;
   }
