@@ -24,6 +24,7 @@ export const agencyOfficeSchema = new schema.Entity(
                 phoneViber3 = false,
                 district,
                 rn: area,
+                callback,
             } = input;
 
             return {
@@ -34,6 +35,9 @@ export const agencyOfficeSchema = new schema.Entity(
                 agency,
                 district,
                 area,
+                options: {
+                    callback: !!callback
+                },
                 phones:   [{
                     number: fPhone1,
                     viber:  phoneViber1,
