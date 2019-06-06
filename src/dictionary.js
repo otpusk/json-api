@@ -255,6 +255,16 @@ export const getPriceExtraFares = (hotel, offer) => {
         isFlightsByRequest ({ stopsale }) {
             return stopsale.avia === 0 || stopsale.aviaBack === 0;
         },
+        isOutboundAeroport ({ flights }, aeroportCode) {
+            const { outbound: [flight] } = flights;
+
+            return flight.portTo.includes(aeroportCode);
+        },
+        isInboundAeroport ({ flights }, aeroportCode) {
+            const { inbound: [flight] } = flights;
+
+            return flight.portTo.includes(aeroportCode);
+        }
     };
 
 
@@ -281,7 +291,7 @@ export const getPriceExtraFares = (hotel, offer) => {
             name:       'extra-fee',
             text:       __('Возможна доплата за утренний рейс туда 25 евро за каждого туриста.'),
             conditions: [
-                traits.isCity(hotel, 955),
+                traits.isOutboundAeroport(offer, 'AYT'),
                 traits.isCountry(hotel, 115),
                 traits.isOperator(offer, 717),
                 traits.isFirstOutboundFlightTimeBeforeHours(offer, 12)
@@ -291,7 +301,7 @@ export const getPriceExtraFares = (hotel, offer) => {
             name:       'extra-fee',
             text:       __('Возможна доплата за вечерний обратный рейс 25 евро за каждого туриста.'),
             conditions: [
-                traits.isCity(hotel, 955),
+                traits.isInboundAeroport(offer, 'AYT'),
                 traits.isCountry(hotel, 115),
                 traits.isOperator(offer, 717),
                 traits.isFirstReturnFlightTimeAfterHours(offer, 12)
