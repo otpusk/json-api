@@ -270,7 +270,7 @@ export const getPriceExtraFares = (hotel, offer) => {
             const { inbound: [flight] } = flights;
 
             if (flight) {
-                return flight.portTo.includes(aeroportCode);
+                return flight.portFr.includes(aeroportCode);
             }
 
             return false;

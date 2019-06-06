@@ -371,7 +371,7 @@ var getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
           flight = _flights$inbound3[0];
 
       if (flight) {
-        return flight.portTo.includes(aeroportCode);
+        return flight.portFr.includes(aeroportCode);
       }
 
       return false;
