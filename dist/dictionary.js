@@ -358,7 +358,11 @@ var getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
       var _flights$outbound3 = _slicedToArray(flights.outbound, 1),
           flight = _flights$outbound3[0];
 
-      return flight.portTo.includes(aeroportCode);
+      if (flight) {
+        return flight.portTo.includes(aeroportCode);
+      }
+
+      return false;
     },
     isInboundAeroport: function isInboundAeroport(_ref11, aeroportCode) {
       var flights = _ref11.flights;
@@ -366,7 +370,11 @@ var getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
       var _flights$inbound3 = _slicedToArray(flights.inbound, 1),
           flight = _flights$inbound3[0];
 
-      return flight.portTo.includes(aeroportCode);
+      if (flight) {
+        return flight.portTo.includes(aeroportCode);
+      }
+
+      return false;
     }
   };
   var rules = [{
