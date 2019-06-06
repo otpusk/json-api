@@ -72,6 +72,8 @@ export const getImageUrl = (part, size = 'medium') => {
     return `https://newimg.otpusk.com/${sizes[size]}/${part}`;
 };
 
+export const getOperatorLogoById = (id) => `https://export.otpusk.com/images/onsite/logo/logo-${id}.png`;
+
 export const getPeopleCountableWord = (people) => {
     return [
         '',
@@ -314,13 +316,6 @@ export const getPriceExtraFares = (hotel, offer) => {
                 traits.isFlightsByRequest(offer)
             ],
         },
-        {
-            name:       'travel-insurance',
-            text:       'страховка от невыезда',
-            conditions: [
-                traits.isOperator(offer, 2700)
-            ],
-        }
     ];
 
     return rules.filter(({ conditions }) => conditions.every((value) => value === true));

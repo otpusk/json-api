@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.OPERATORS = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
 var DEPARTURE_CITIES = [{
+  "id": 1925,
+  "name": "Белая Церковь",
+  "rel": "Белой Церкви"
+}, {
   "id": 1934,
   "name": "Винница",
   "rel": "Винницы"
@@ -12,6 +16,14 @@ var DEPARTURE_CITIES = [{
   "id": 1874,
   "name": "Днепр",
   "rel": "Днепра"
+}, {
+  "id": 1681,
+  "name": "Долина",
+  "rel": "Долины"
+}, {
+  "id": 1964,
+  "name": "Дубно",
+  "rel": "Дубно"
 }, {
   "id": 2056,
   "name": "Житомир",
@@ -38,6 +50,10 @@ var DEPARTURE_CITIES = [{
   "name": "Коломыя",
   "rel": "Коломыи"
 }, {
+  "id": 1847,
+  "name": "Кременец",
+  "rel": "Кременца"
+}, {
   "id": 1883,
   "name": "Кривой Рог",
   "rel": "Кривого Рога"
@@ -53,6 +69,10 @@ var DEPARTURE_CITIES = [{
   "id": 2166,
   "name": "Мелитополь",
   "rel": "Мелитополя"
+}, {
+  "id": 1607,
+  "name": "Мукачево",
+  "rel": "Мукачево"
 }, {
   "id": 1963,
   "name": "Николаев",
@@ -70,9 +90,21 @@ var DEPARTURE_CITIES = [{
   "name": "Ровно",
   "rel": "Ровно"
 }, {
+  "id": 2401,
+  "name": "Стрый",
+  "rel": "Стрыя"
+}, {
+  "id": 1907,
+  "name": "Тернополь",
+  "rel": "Тернополя"
+}, {
   "id": 1398,
   "name": "Ужгород",
   "rel": "Ужгорода"
+}, {
+  "id": 1698,
+  "name": "Умань",
+  "rel": "Умани"
 }, {
   "id": 1880,
   "name": "Харьков",
@@ -89,6 +121,10 @@ var DEPARTURE_CITIES = [{
   "id": 1708,
   "name": "Черновцы",
   "rel": "Черновцов"
+}, {
+  "id": 1910,
+  "name": "Чертков (Чортков)",
+  "rel": "Черткова"
 }];
 exports.DEPARTURE_CITIES = DEPARTURE_CITIES;
 var FOODS = [{

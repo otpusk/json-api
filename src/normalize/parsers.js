@@ -1,5 +1,5 @@
 // Core
-import { Map } from 'immutable';
+import { Map, mergeWith } from 'immutable';
 
 
 export const parsePrice = (input) => {
@@ -100,5 +100,49 @@ export const parseCity = (input) => {
 
     return {
         id: Number(id) || null, name: cityName || resortName, code, names: parseNames(input, 'city')
+    };
+};
+
+export const parseStars = (input) => {
+    switch (input.toLowerCase()) {
+        case 'hv1':
+            return 'HV1';
+        case 'hv2':
+            return 'HV2';
+        default:
+            return parseInt(String(input).replace(/\D/, ''), 10);
+    }
+}
+
+/**
+ * 
+ * @param {object} input 
+ */
+export const parseSearchMeta = (input, query) => {
+    const {
+        searchOperators = {},
+        originalOperators = {},
+        operators = {},
+        stars = {},
+        originalStars = {},
+    } = input;
+
+    const currency = 'currency' in query ? query.currency : 'original';
+    const pricesMerger = (converted, original) => ({
+            uah: converted,
+            [currency]: original
+    });
+
+    const categoriesPrices = mergeWith(pricesMerger, stars, originalStars);
+    const operatorsPrices = mergeWith(pricesMerger, operators, originalOperators);
+    
+    return {
+        prices: {
+            operators: operatorsPrices,
+            categories: categoriesPrices
+        },
+        links: {
+            operators: searchOperators
+        }
     };
 };

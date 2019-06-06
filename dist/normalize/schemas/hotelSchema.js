@@ -47,18 +47,20 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
         name = input.name,
         value = input.value,
         image = input.image,
-        reviews = input.reviews;
+        reviews = input.reviews,
+        services = input.services;
     var entity = {
       id: String(id),
       name: value ? value : name,
       price: (0, _parsers.parsePrice)(input),
-      stars: parseInt(stars, 10),
+      stars: (0, _parsers.parseStars)(stars),
       rating: Number(rating),
       reviews: Number(reviews),
       photos: image ? [image] : [],
       location: (0, _parsers.parseLocation)(input),
       country: countryId ? String(countryId) : null,
-      city: cityId ? String(cityId) : null
+      city: cityId ? String(cityId) : null,
+      services: services ? services.split(',') : null
     };
     return entity;
   }
@@ -90,7 +92,7 @@ var hotelSimilarSchema = new _normalizr.schema.Entity('hotel', {}, {
       id: String(id),
       name: value ? value : name,
       code: code,
-      stars: parseInt(stars, 10),
+      stars: (0, _parsers.parseStars)(stars),
       rating: Number(rating),
       reviews: Number(reviewsCount),
       photos: image ? [image] : [],
@@ -137,6 +139,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         _input$e = input.e,
         e = _input$e === void 0 ? {} : _input$e,
         photos = input.f,
+        videos = input.vh,
         _input$offers = input.offers,
         offers = _input$offers === void 0 ? [] : _input$offers;
     var entity = {
@@ -145,13 +148,22 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       code: code,
       city: (0, _parsers.parseHotelGeo)(c),
       country: (0, _parsers.parseHotelGeo)(t),
-      stars: _typeof(stars) === 'object' ? Number(stars.n.replace(/\D/, '')) : parseInt(stars, 10),
+      stars: _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars),
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
       services: Array.isArray(e) ? e : Object.values(e).reduce(function (services, group) {
         return [].concat(_toConsumableArray(services), _toConsumableArray(Object.keys(group)));
       }, []),
       photos: photos ? Array.isArray(photos) ? photos : [photos] : [],
+      videos: videos && Array.isArray(videos) ? videos.map(function (_ref4) {
+        var thumbnail = _ref4.thumbnail,
+            id = _ref4.videoId;
+        return {
+          provider: 'youtube',
+          id: id,
+          thumbnail: thumbnail
+        };
+      }) : [],
       price: (0, _parsers.parsePrice)(price),
       location: (0, _parsers.parseLocation)(g),
       updated: _typeof(price) === 'object' && 'up' in price ? price.up : null,
@@ -182,13 +194,13 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
           email = _input$ad.ml,
           website = _input$ad.u,
           phone = _input$ad.ph;
-      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref4) {
-        var _ref5 = _slicedToArray(_ref4, 2),
-            service = _ref5[0],
-            _ref5$ = _ref5[1],
-            status = _ref5$.id,
-            _ref5$$all = _ref5$.all,
-            all = _ref5$$all === void 0 ? false : _ref5$$all;
+      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref5) {
+        var _ref6 = _slicedToArray(_ref5, 2),
+            service = _ref6[0],
+            _ref6$ = _ref6[1],
+            status = _ref6$.id,
+            _ref6$$all = _ref6$.all,
+            all = _ref6$$all === void 0 ? false : _ref6$$all;
 
         return _objectSpread({}, services, _defineProperty({}, service, status ? status : all ? 'all' : 'not-for-all'));
       }, {}) : {};
