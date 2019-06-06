@@ -351,6 +351,30 @@ var getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
     isFlightsByRequest: function isFlightsByRequest(_ref9) {
       var stopsale = _ref9.stopsale;
       return stopsale.avia === 0 || stopsale.aviaBack === 0;
+    },
+    isOutboundAeroport: function isOutboundAeroport(_ref10, aeroportCode) {
+      var flights = _ref10.flights;
+
+      var _flights$outbound3 = _slicedToArray(flights.outbound, 1),
+          flight = _flights$outbound3[0];
+
+      if (flight) {
+        return flight.portTo.includes(aeroportCode);
+      }
+
+      return false;
+    },
+    isInboundAeroport: function isInboundAeroport(_ref11, aeroportCode) {
+      var flights = _ref11.flights;
+
+      var _flights$inbound3 = _slicedToArray(flights.inbound, 1),
+          flight = _flights$inbound3[0];
+
+      if (flight) {
+        return flight.portFr.includes(aeroportCode);
+      }
+
+      return false;
     }
   };
   var rules = [{
@@ -364,18 +388,18 @@ var getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
   }, {
     name: 'extra-fee',
     text: __('Возможна доплата за утренний рейс туда 25 евро за каждого туриста.'),
-    conditions: [traits.isCity(hotel, 955), traits.isCountry(hotel, 115), traits.isOperator(offer, 717), traits.isFirstOutboundFlightTimeBeforeHours(offer, 12)]
+    conditions: [traits.isOutboundAeroport(offer, 'AYT'), traits.isCountry(hotel, 115), traits.isOperator(offer, 717), traits.isFirstOutboundFlightTimeBeforeHours(offer, 12)]
   }, {
     name: 'extra-fee',
     text: __('Возможна доплата за вечерний обратный рейс 25 евро за каждого туриста.'),
-    conditions: [traits.isCity(hotel, 955), traits.isCountry(hotel, 115), traits.isOperator(offer, 717), traits.isFirstReturnFlightTimeAfterHours(offer, 12)]
+    conditions: [traits.isInboundAeroport(offer, 'AYT'), traits.isCountry(hotel, 115), traits.isOperator(offer, 717), traits.isFirstReturnFlightTimeAfterHours(offer, 12)]
   }, {
     name: 'request-flight',
     text: __('Наличие мест на рейсе и окончательную стоимость тура запрашивайте у турагента.'),
     conditions: [traits.isFlightsByRequest(offer)]
   }];
-  return rules.filter(function (_ref10) {
-    var conditions = _ref10.conditions;
+  return rules.filter(function (_ref12) {
+    var conditions = _ref12.conditions;
     return conditions.every(function (value) {
       return value === true;
     });
