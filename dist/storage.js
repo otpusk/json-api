@@ -7,7 +7,17 @@ exports.createStorage = void 0;
 
 var _localforage = _interopRequireDefault(require("localforage"));
 
+var _immutable = require("immutable");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -31,8 +41,9 @@ function () {
 
     _classCallCheck(this, Storage);
 
+    this.memory = (0, _immutable.Map)();
     this.instance = _localforage.default.createInstance(_objectSpread({
-      name: 'otpusk.com',
+      name: 'web.otpusk.com',
       storeName: storeName,
       driver: [_localforage.default.LOCALSTORAGE]
     }, config));
@@ -44,6 +55,8 @@ function () {
       var _get = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(key, defaults) {
+        var _this = this;
+
         var value;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -60,9 +73,12 @@ function () {
               case 7:
                 _context.prev = 7;
                 _context.t0 = _context["catch"](0);
-                return _context.abrupt("return", defaults);
+                this.warn();
+                return _context.abrupt("return", new Promise(function (resolve) {
+                  return resolve(_this.memory.get(key, defaults));
+                }));
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -82,26 +98,37 @@ function () {
       var _findAll = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2() {
+        var _this2 = this;
+
         var found;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.prev = 0;
                 found = {};
-                _context2.next = 3;
+                _context2.next = 4;
                 return this.instance.iterate(function (value, key) {
                   Object.assign(found, _defineProperty({}, key, value));
                 });
 
-              case 3:
+              case 4:
                 return _context2.abrupt("return", found);
 
-              case 4:
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
+                this.warn();
+                return _context2.abrupt("return", new Promise(function (resolve) {
+                  return resolve(_this2.memory.toJS());
+                }));
+
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2, this, [[0, 7]]);
       }));
 
       function findAll() {
@@ -116,24 +143,34 @@ function () {
       var _keys = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee3(callback) {
-        var keys;
+        var _keys2;
+
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                _context3.prev = 0;
+                _context3.next = 3;
                 return this.instance.keys();
 
-              case 2:
-                keys = _context3.sent;
-                callback(keys);
+              case 3:
+                _keys2 = _context3.sent;
+                callback(_keys2);
+                _context3.next = 11;
+                break;
 
-              case 4:
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+                this.warn();
+                callback(this.memory.keys().toArray());
+
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee3, this, [[0, 7]]);
       }));
 
       function keys(_x3) {
@@ -148,19 +185,34 @@ function () {
       var _set = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee4(key, value) {
+        var _this3 = this;
+
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
+                _context4.prev = 0;
+                _context4.next = 3;
                 return this.instance.setItem(key, value);
 
-              case 2:
+              case 3:
+                _context4.next = 9;
+                break;
+
+              case 5:
+                _context4.prev = 5;
+                _context4.t0 = _context4["catch"](0);
+                this.warn();
+                return _context4.abrupt("return", new Promise(function (resolve) {
+                  return resolve(_this3.memory.set(key, value));
+                }));
+
+              case 9:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee4, this, [[0, 5]]);
       }));
 
       function set(_x4, _x5) {
@@ -175,19 +227,34 @@ function () {
       var _remove = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee5(key) {
+        var _this4 = this;
+
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
+                _context5.prev = 0;
+                _context5.next = 3;
                 return this.instance.removeItem(key);
 
-              case 2:
+              case 3:
+                _context5.next = 9;
+                break;
+
+              case 5:
+                _context5.prev = 5;
+                _context5.t0 = _context5["catch"](0);
+                this.warn();
+                return _context5.abrupt("return", new Promise(function (resolve) {
+                  return resolve(_this4.memory.remove(key));
+                }));
+
+              case 9:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee5, this, [[0, 5]]);
       }));
 
       function remove(_x6) {
@@ -202,19 +269,34 @@ function () {
       var _clear = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee6() {
+        var _this5 = this;
+
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
+                _context6.prev = 0;
+                _context6.next = 3;
                 return this.instance.clear();
 
-              case 2:
+              case 3:
+                _context6.next = 9;
+                break;
+
+              case 5:
+                _context6.prev = 5;
+                _context6.t0 = _context6["catch"](0);
+                this.warn();
+                return _context6.abrupt("return", new Promise(function (resolve) {
+                  return resolve(_this5.memory.clear());
+                }));
+
+              case 9:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee6, this, [[0, 5]]);
       }));
 
       function clear() {
@@ -223,6 +305,70 @@ function () {
 
       return clear;
     }()
+  }, {
+    key: "merge",
+    value: function () {
+      var _merge = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee7(content) {
+        var _this6 = this;
+
+        var _arr, _i, _arr$_i, key, value;
+
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.prev = 0;
+                _arr = Object.entries(content);
+                _i = 0;
+
+              case 3:
+                if (!(_i < _arr.length)) {
+                  _context7.next = 10;
+                  break;
+                }
+
+                _arr$_i = _slicedToArray(_arr[_i], 2), key = _arr$_i[0], value = _arr$_i[1];
+                _context7.next = 7;
+                return this.set(key, value);
+
+              case 7:
+                _i++;
+                _context7.next = 3;
+                break;
+
+              case 10:
+                _context7.next = 16;
+                break;
+
+              case 12:
+                _context7.prev = 12;
+                _context7.t0 = _context7["catch"](0);
+                this.warn();
+                return _context7.abrupt("return", new Promise(function (resolve) {
+                  return resolve(_this6.memory.merge(content));
+                }));
+
+              case 16:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this, [[0, 12]]);
+      }));
+
+      function merge(_x7) {
+        return _merge.apply(this, arguments);
+      }
+
+      return merge;
+    }()
+  }, {
+    key: "warn",
+    value: function warn() {
+      console.warn('Включите локальное хранилище в вашем браузере для полноценной работы приложения');
+    }
   }]);
 
   return Storage;

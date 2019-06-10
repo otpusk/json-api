@@ -1,10 +1,12 @@
 // Core
 import localforage from 'localforage';
+import { Map } from 'immutable';
 
 class Storage {
     constructor (storeName, config = {}) {
+        this.memory = Map();
         this.instance = localforage.createInstance({
-            name:   'otpusk.com',
+            name:   'web.otpusk.com',
             storeName,
             driver: [localforage.LOCALSTORAGE],
             ...config,
@@ -17,36 +19,83 @@ class Storage {
 
             return value ? value : defaults;
         } catch (error) {
-            return defaults;
+            this.warn();
+
+            return new Promise((resolve) => resolve(this.memory.get(key, defaults)));
         }
     }
 
-    async findAll () {
-        const found = {};
+    async findAll() {
+        try {
+            const found = {};
 
-        await this.instance.iterate((value, key) => {
-            Object.assign(found, { [key]: value });
-        });
+            await this.instance.iterate((value, key) => {
+                Object.assign(found, { [key]: value });
+            });
 
-        return found;
+            return found;
+        } catch (error) {
+            this.warn();
+
+            return new Promise((resolve) => resolve(this.memory.toJS()));
+        }
     }
 
     async keys (callback) {
-        const keys = await this.instance.keys();
+        try {
+            const keys = await this.instance.keys();
 
-        callback(keys);
+            callback(keys);
+        } catch (error) {
+            this.warn();
+            callback(this.memory.keys().toArray());
+        }
     }
 
     async set (key, value) {
-        await this.instance.setItem(key, value);
+        try {
+            await this.instance.setItem(key, value);
+        } catch (error) {
+            this.warn();
+
+            return new Promise((resolve) => resolve(this.memory.set(key, value)));
+        }
     }
 
     async remove (key) {
-        await this.instance.removeItem(key);
+        try {
+            await this.instance.removeItem(key);
+        } catch (error) {
+            this.warn();
+
+            return new Promise((resolve) => resolve(this.memory.remove(key)));
+        }
     }
 
     async clear () {
-        await this.instance.clear();
+        try {
+            await this.instance.clear();
+        } catch (error) {
+            this.warn();
+
+            return new Promise((resolve) => resolve(this.memory.clear()));
+        }
+    }
+
+    async merge (content) {
+        try {
+            for (const [key, value] of Object.entries(content)) {
+                await this.set(key, value);
+            }
+        } catch (error) {
+            this.warn();
+
+            return new Promise((resolve) => resolve(this.memory.merge(content)));
+        }
+    }
+
+    warn () {
+        console.warn('Включите локальное хранилище в вашем браузере для полноценной работы приложения');
     }
 }
 
