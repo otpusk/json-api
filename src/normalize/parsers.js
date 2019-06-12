@@ -146,3 +146,26 @@ export const parseSearchMeta = (input, query) => {
         }
     };
 };
+
+export const parseHotelVideos = (raw) => {
+    return raw && Array.isArray(raw)
+        ? raw.map(({ thumbnail, videoId: id, code }) => {
+            const getProvider = (iframe) => {
+                if (iframe.includes('youtu.')) {
+                    return 'youtube';
+                }
+
+                if (iframe.includes('vimeo.')) {
+                    return 'vimeo';
+                }
+
+                return null;
+            };
+            return {
+                id,
+                provider: getProvider(code),
+                thumbnail
+            }
+        })
+        : [];
+}

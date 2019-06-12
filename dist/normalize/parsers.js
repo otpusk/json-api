@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
+exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -228,3 +228,31 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
 };
 
 exports.parseSearchMeta = parseSearchMeta;
+
+var parseHotelVideos = function parseHotelVideos(raw) {
+  return raw && Array.isArray(raw) ? raw.map(function (_ref4) {
+    var thumbnail = _ref4.thumbnail,
+        id = _ref4.videoId,
+        code = _ref4.code;
+
+    var getProvider = function getProvider(iframe) {
+      if (iframe.includes('youtu.')) {
+        return 'youtube';
+      }
+
+      if (iframe.includes('vimeo.')) {
+        return 'vimeo';
+      }
+
+      return null;
+    };
+
+    return {
+      id: id,
+      provider: getProvider(code),
+      thumbnail: thumbnail
+    };
+  }) : [];
+};
+
+exports.parseHotelVideos = parseHotelVideos;

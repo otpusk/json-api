@@ -3,7 +3,10 @@
 import { schema } from 'normalizr';
 
 // Instruments
-import { parsePrice, parseLocation, parseHotelGeo, parseCountry, parseCity, parseStars } from '../parsers';
+import {
+    parsePrice, parseLocation, parseHotelGeo,
+    parseCountry, parseCity, parseStars, parseHotelVideos
+} from '../parsers';
 import { offerSchema } from './offerSchema';
 
 export const hotelShortSchema = new schema.Entity(
@@ -134,7 +137,7 @@ export const hotelSchema = new schema.Entity(
                         ? photos
                         : [photos]
                     : [],
-                videos: videos && Array.isArray(videos) ? videos.map(({ thumbnail, videoId: id }) => ({ provider: 'youtube', id, thumbnail })) : [],
+                videos: parseHotelVideos(videos),
                 price: parsePrice(price),
                 location: parseLocation(g),
                 updated: typeof price === 'object' && 'up' in price ? price.up : null,

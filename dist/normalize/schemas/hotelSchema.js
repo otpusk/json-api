@@ -155,15 +155,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         return [].concat(_toConsumableArray(services), _toConsumableArray(Object.keys(group)));
       }, []),
       photos: photos ? Array.isArray(photos) ? photos : [photos] : [],
-      videos: videos && Array.isArray(videos) ? videos.map(function (_ref4) {
-        var thumbnail = _ref4.thumbnail,
-            id = _ref4.videoId;
-        return {
-          provider: 'youtube',
-          id: id,
-          thumbnail: thumbnail
-        };
-      }) : [],
+      videos: (0, _parsers.parseHotelVideos)(videos),
       price: (0, _parsers.parsePrice)(price),
       location: (0, _parsers.parseLocation)(g),
       updated: _typeof(price) === 'object' && 'up' in price ? price.up : null,
@@ -194,13 +186,13 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
           email = _input$ad.ml,
           website = _input$ad.u,
           phone = _input$ad.ph;
-      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref5) {
-        var _ref6 = _slicedToArray(_ref5, 2),
-            service = _ref6[0],
-            _ref6$ = _ref6[1],
-            status = _ref6$.id,
-            _ref6$$all = _ref6$.all,
-            all = _ref6$$all === void 0 ? false : _ref6$$all;
+      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref4) {
+        var _ref5 = _slicedToArray(_ref4, 2),
+            service = _ref5[0],
+            _ref5$ = _ref5[1],
+            status = _ref5$.id,
+            _ref5$$all = _ref5$.all,
+            all = _ref5$$all === void 0 ? false : _ref5$$all;
 
         return _objectSpread({}, services, _defineProperty({}, service, status ? status : all ? 'all' : 'not-for-all'));
       }, {}) : {};
