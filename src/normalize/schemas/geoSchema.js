@@ -11,7 +11,7 @@ export const countrySchema = new schema.Entity(
     {
         idAttribute:     ({ countryId, id }) => String(countryId ? countryId : id),
         processStrategy: (input) => {
-            const { id, bold: primary = false, code = '' } = input;
+            const { id, bold: primary = false, code = '', currency = null } = input;
             const entity = {
                 id:       String(id),
                 name:     input.name,
@@ -21,6 +21,7 @@ export const countrySchema = new schema.Entity(
                 price:    parsePrice(input),
                 location: parseLocation(input),
                 primary,
+                currency
             };
 
             return entity;
