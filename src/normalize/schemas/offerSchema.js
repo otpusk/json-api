@@ -43,8 +43,6 @@ export const offerSchema = new schema.Entity(
                 includes.push('travelinsurance');
             }
 
-            console.log('input', input);
-
             const entity = {
                 id:           String(id),
                 code,
@@ -111,8 +109,6 @@ export const fullOfferSchema = new schema.Entity(
             if (operator === 2700) {
                 includes.push('travelinsurance');
             }
-
-            console.log('input', input);
 
             const entity = {
                 id:           String(id),

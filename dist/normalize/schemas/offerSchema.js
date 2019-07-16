@@ -44,7 +44,6 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       includes.push('travelinsurance');
     }
 
-    console.log('input', input);
     var entity = {
       id: String(id),
       code: code,
@@ -115,7 +114,6 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       includes.push('travelinsurance');
     }
 
-    console.log('input', input);
     var entity = {
       id: String(id),
       code: code,
