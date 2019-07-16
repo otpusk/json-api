@@ -35,12 +35,15 @@ export const offerSchema = new schema.Entity(
                 t: transport,
                 to: flights,
                 vid: code,
+                u: currency = null,
             } = input;
 
             /* travel insurance for TPG */
             if (operator === 2700) {
                 includes.push('travelinsurance');
             }
+
+            console.log('input', input);
 
             const entity = {
                 id:           String(id),
@@ -59,7 +62,8 @@ export const offerSchema = new schema.Entity(
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
                 room:    { id: roomId, name: roomName, type: roomType },
-                price:   parsePrice(input),
+                price: parsePrice(input),
+                currency,
                 discountPrice: parseDiscountPrice(input),
                 stopsale,
                 transport,
@@ -100,12 +104,15 @@ export const fullOfferSchema = new schema.Entity(
                 variantId: code,
                 tourId,
                 bron,
+                currency = null,
             } = input;
 
             /* travel insurance for TPG */
             if (operator === 2700) {
                 includes.push('travelinsurance');
             }
+
+            console.log('input', input);
 
             const entity = {
                 id:           String(id),
@@ -124,7 +131,8 @@ export const fullOfferSchema = new schema.Entity(
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
                 room:    { id: roomId, name: roomName, type: roomType },
-                price:   parsePrice(input),
+                price: parsePrice(input),
+                currency,
                 stopsale,
                 transport,
                 flights: parseFlights(flights || {}),

@@ -35,13 +35,16 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         stopsale = input.ss,
         transport = input.t,
         flights = input.to,
-        code = input.vid;
+        code = input.vid,
+        _input$u = input.u,
+        currency = _input$u === void 0 ? null : _input$u;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
       includes.push('travelinsurance');
     }
 
+    console.log('input', input);
     var entity = {
       id: String(id),
       code: code,
@@ -66,6 +69,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parsePrice)(input),
+      currency: currency,
       discountPrice: (0, _parsers.parseDiscountPrice)(input),
       stopsale: stopsale,
       transport: transport,
@@ -102,13 +106,16 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         flights = input.transportOptions,
         code = input.variantId,
         tourId = input.tourId,
-        bron = input.bron;
+        bron = input.bron,
+        _input$currency = input.currency,
+        currency = _input$currency === void 0 ? null : _input$currency;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
       includes.push('travelinsurance');
     }
 
+    console.log('input', input);
     var entity = {
       id: String(id),
       code: code,
@@ -133,6 +140,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parsePrice)(input),
+      currency: currency,
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
