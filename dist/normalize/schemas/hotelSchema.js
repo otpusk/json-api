@@ -167,7 +167,8 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
     if ('o' in input) {
       var nm = input.nm,
           _input$o = input.o,
-          rooms = _input$o.r,
+          _input$o$r = _input$o.r,
+          rooms = _input$o$r === void 0 ? [] : _input$o$r,
           description = _input$o.dc,
           beachDescription = _input$o.b,
           beachServices = _input$o.bs,

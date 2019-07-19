@@ -150,7 +150,7 @@ export const hotelSchema = new schema.Entity(
                 const {
                     nm,
                     o: {
-                        r: rooms,
+                        r: rooms = [],
                         dc: description,
                         b: beachDescription,
                         bs: beachServices,
