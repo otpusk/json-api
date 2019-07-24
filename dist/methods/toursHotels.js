@@ -131,18 +131,29 @@ function _getToursHotel() {
   _getToursHotel = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee3(token, hotelId) {
-    var _ref3, denormalizedHotel, _normalize3, _normalize3$entities, hotels, offers, id, hotel;
+    var lang,
+        _ref3,
+        denormalizedHotel,
+        _normalize3,
+        _normalize3$entities,
+        hotels,
+        offers,
+        id,
+        hotel,
+        _args3 = arguments;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
+            lang = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 'ru';
+            _context3.next = 3;
             return (0, _fn.makeCall)(_config.ENDPOINTS.hotel, _objectSpread({
-              hotelId: hotelId
+              hotelId: hotelId,
+              lang: lang
             }, token), [1, 'hour']);
 
-          case 2:
+          case 3:
             _ref3 = _context3.sent;
             denormalizedHotel = _ref3.hotel;
             _normalize3 = (0, _normalizr.normalize)(denormalizedHotel, _schemas.hotelSchema), _normalize3$entities = _normalize3.entities, hotels = _normalize3$entities.hotel, offers = _normalize3$entities.offer, id = _normalize3.result;
@@ -152,7 +163,7 @@ function _getToursHotel() {
               offers: offers
             });
 
-          case 7:
+          case 8:
           case "end":
             return _context3.stop();
         }

@@ -49,9 +49,10 @@ export async function getToursHotelsMarkers (token, countryId, cityId, options) 
     return markers;
 }
 
-export async function getToursHotel (token, hotelId) {
+export async function getToursHotel (token, hotelId, lang = 'ru') {
     const { hotel: denormalizedHotel } = await makeCall(ENDPOINTS.hotel, {
         hotelId,
+        lang,
         ...token,
     }, [1, 'hour']);
 
