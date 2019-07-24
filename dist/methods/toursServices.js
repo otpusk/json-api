@@ -32,6 +32,7 @@ function _getToursServices() {
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token) {
     var country,
+        lang,
         _ref,
         api_version,
         time,
@@ -45,12 +46,14 @@ function _getToursServices() {
         switch (_context.prev = _context.next) {
           case 0:
             country = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
-            _context.next = 3;
+            lang = _args.length > 2 && _args[2] !== undefined ? _args[2] : 'ru';
+            _context.next = 4;
             return (0, _fn.makeCall)(_config.ENDPOINTS.services, _objectSpread({}, token, {
-              countryId: country
+              countryId: country,
+              lang: lang
             }), [7, 'days']);
 
-          case 3:
+          case 4:
             _ref = _context.sent;
             api_version = _ref.api_version;
             time = _ref.time;
@@ -61,7 +64,7 @@ function _getToursServices() {
               return k.replace('Service', '');
             }).toJS());
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
