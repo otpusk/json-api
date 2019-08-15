@@ -128,7 +128,9 @@ export const hotelSchema = new schema.Entity(
                 code,
                 city: parseHotelGeo(c),
                 country: parseHotelGeo(t),
-                stars: typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars),
+                stars: Boolean(stars) ?
+                    typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
+                    : null,
                 rating: !Number.isNaN(Number(r)) ? Number(r) : null,
                 reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
