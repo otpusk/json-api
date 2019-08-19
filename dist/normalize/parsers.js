@@ -236,7 +236,7 @@ var parseHotelVideos = function parseHotelVideos(raw) {
         code = _ref4.code;
 
     var getProvider = function getProvider(iframe) {
-      if (iframe.includes('youtu.')) {
+      if (iframe.match(new RegExp('(youtu.|youtube.)'))) {
         return 'youtube';
       }
 
@@ -247,6 +247,7 @@ var parseHotelVideos = function parseHotelVideos(raw) {
       return null;
     };
 
+    console.log(getProvider(code));
     return {
       id: id,
       provider: getProvider(code),

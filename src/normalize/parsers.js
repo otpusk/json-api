@@ -151,7 +151,7 @@ export const parseHotelVideos = (raw) => {
     return raw && Array.isArray(raw)
         ? raw.map(({ thumbnail, videoId: id, code }) => {
             const getProvider = (iframe) => {
-                if (iframe.includes('youtu.')) {
+                if (iframe.match(new RegExp('(youtu.|youtube.)'))) {
                     return 'youtube';
                 }
 
