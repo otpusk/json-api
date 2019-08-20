@@ -247,7 +247,6 @@ var parseHotelVideos = function parseHotelVideos(raw) {
       return null;
     };
 
-    console.log(getProvider(code));
     return {
       id: id,
       provider: getProvider(code),

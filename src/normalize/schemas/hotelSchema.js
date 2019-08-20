@@ -38,7 +38,8 @@ export const hotelShortSchema = new schema.Entity(
                 location: parseLocation(input),
                 country: countryId ? String(countryId) : null,
                 city: cityId ? String(cityId) : null,
-                services: services ? services.split(',') : null
+                services: services ? services.split(',') : null,
+                type: 'hotel',
             };
 
             return entity;

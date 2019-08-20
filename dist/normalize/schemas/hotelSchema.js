@@ -60,7 +60,8 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
       location: (0, _parsers.parseLocation)(input),
       country: countryId ? String(countryId) : null,
       city: cityId ? String(cityId) : null,
-      services: services ? services.split(',') : null
+      services: services ? services.split(',') : null,
+      type: 'hotel'
     };
     return entity;
   }
