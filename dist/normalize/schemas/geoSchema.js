@@ -26,7 +26,9 @@ var countrySchema = new _normalizr.schema.Entity('country', {}, {
         _input$code = input.code,
         code = _input$code === void 0 ? '' : _input$code,
         _input$currency = input.currency,
-        currency = _input$currency === void 0 ? null : _input$currency;
+        currency = _input$currency === void 0 ? null : _input$currency,
+        _input$transport = input.transport,
+        transport = _input$transport === void 0 ? null : _input$transport;
     var entity = {
       id: String(id),
       name: input.name,
@@ -36,7 +38,8 @@ var countrySchema = new _normalizr.schema.Entity('country', {}, {
       price: (0, _parsers.parsePrice)(input),
       location: (0, _parsers.parseLocation)(input),
       primary: primary,
-      currency: currency
+      currency: currency,
+      transport: transport
     };
     return entity;
   }
