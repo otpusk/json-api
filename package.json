@@ -40,5 +40,6 @@
     "localforage": "^1.7.3",
     "moment": "^2.24.0",
     "normalizr": "^3.3.0"
-  }
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }
