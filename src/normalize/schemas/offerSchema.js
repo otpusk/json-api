@@ -66,7 +66,7 @@ export const offerSchema = new schema.Entity(
                 stopsale,
                 transport,
                 flights: parseFlights(flights || {}),
-                promo: promo.trim(),
+                promo: promo ? promo.trim() : promo,
                 tourId,
             };
 
@@ -132,7 +132,7 @@ export const fullOfferSchema = new schema.Entity(
                 stopsale,
                 transport,
                 flights: parseFlights(flights || {}),
-                promo: promo.trim(),
+                promo: promo ? promo.trim() : promo,
                 tourId,
                 bookingUrl: bron,
             };

@@ -73,7 +73,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
-      promo: promo.trim(),
+      promo: promo ? promo.trim() : promo,
       tourId: tourId
     };
     return entity;
@@ -142,7 +142,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
-      promo: promo.trim(),
+      promo: promo ? promo.trim() : promo,
       tourId: tourId,
       bookingUrl: bron
     };
