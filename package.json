@@ -1,6 +1,6 @@
 {
   "name": "@otpusk/json-api",
-  "version": "0.0.52",
+  "version": "0.0.53",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -41,5 +41,7 @@
     "moment": "^2.24.0",
     "normalizr": "^3.3.0"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
