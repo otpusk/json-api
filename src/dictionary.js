@@ -62,11 +62,12 @@ export const getDepartureCityById = (id) => findInArrayByProp(DEPARTURE_CITIES, 
 
 export const getOperatorById = (id) => findInArrayByProp(OPERATORS, 'id', id);
 
-export const getImageUrl = (part, size = 'medium') => {
+export const getImageUrl = (part, size = 'medium', watermark = null) => {
+    const watermarkPart = watermark ? `_${watermark}` : '';
     const sizes = {
-        small:  '2/240x160',
-        medium: '2/320x240',
-        large:  '3/730x0',
+        small:  `2${watermarkPart}/240x160`,
+        medium: `2${watermarkPart}/320x240`,
+        large:  `3${watermarkPart}/730x0`,
     };
 
     return `https://newimg.otpusk.com/${sizes[size]}/${part}`;

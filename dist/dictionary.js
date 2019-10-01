@@ -109,10 +109,12 @@ exports.getOperatorById = getOperatorById;
 
 var getImageUrl = function getImageUrl(part) {
   var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'medium';
+  var watermark = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var watermarkPart = watermark ? "_".concat(watermark) : '';
   var sizes = {
-    small: '2/240x160',
-    medium: '2/320x240',
-    large: '3/730x0'
+    small: "2".concat(watermarkPart, "/240x160"),
+    medium: "2".concat(watermarkPart, "/320x240"),
+    large: "3".concat(watermarkPart, "/730x0")
   };
   return "https://newimg.otpusk.com/".concat(sizes[size], "/").concat(part);
 };

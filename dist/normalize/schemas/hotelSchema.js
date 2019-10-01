@@ -142,7 +142,9 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         photos = input.f,
         videos = input.vh,
         _input$offers = input.offers,
-        offers = _input$offers === void 0 ? [] : _input$offers;
+        offers = _input$offers === void 0 ? [] : _input$offers,
+        _input$watermark = input.watermark,
+        watermark = _input$watermark === void 0 ? null : _input$watermark;
     var entity = {
       id: String(i),
       name: n,

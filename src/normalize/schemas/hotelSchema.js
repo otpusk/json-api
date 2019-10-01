@@ -121,6 +121,7 @@ export const hotelSchema = new schema.Entity(
                 f: photos,
                 vh: videos,
                 offers = [],
+                watermark = null
             } = input;
 
             const entity = {
