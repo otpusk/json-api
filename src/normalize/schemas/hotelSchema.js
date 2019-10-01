@@ -148,6 +148,7 @@ export const hotelSchema = new schema.Entity(
                 offers,
                 area: area ? Number(area) : null,
                 description: a,
+                watermark,
             };
 
             if ('o' in input) {

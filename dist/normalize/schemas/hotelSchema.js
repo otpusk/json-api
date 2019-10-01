@@ -145,6 +145,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         offers = _input$offers === void 0 ? [] : _input$offers,
         _input$watermark = input.watermark,
         watermark = _input$watermark === void 0 ? null : _input$watermark;
+    console.log('watermark', watermark);
     var entity = {
       id: String(i),
       name: n,
@@ -164,7 +165,8 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       updated: _typeof(price) === 'object' && 'up' in price ? price.up : null,
       offers: offers,
       area: area ? Number(area) : null,
-      description: a
+      description: a,
+      watermark: watermark
     };
 
     if ('o' in input) {
