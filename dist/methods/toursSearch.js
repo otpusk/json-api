@@ -72,7 +72,7 @@ function _getToursSearch() {
   _getToursSearch = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, query) {
-    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, _normalize2, countries, countryId, meta;
+    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, id, _normalize2, countries, countryId, meta;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -92,6 +92,15 @@ function _getToursSearch() {
             _normalize = (0, _normalizr.normalize)(Object.values(denormalizedHotels || {}).reduce(function (all, h) {
               return _objectSpread({}, all, h);
             }, {}), new _normalizr.schema.Values(_schemas.hotelSchema)), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
+
+            if (offers) {
+              exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean);
+
+              for (id in offers) {
+                offers[id].exactChildrenAges = exactChildrenAges;
+              }
+            }
+
             _normalize2 = (0, _normalizr.normalize)(denormalizedCountry || {}, _schemas.countrySchema), countries = _normalize2.entities.country, countryId = _normalize2.result;
             meta = (0, _parsers.parseSearchMeta)(other, query);
             return _context.abrupt("return", _objectSpread({
@@ -104,7 +113,7 @@ function _getToursSearch() {
               meta: meta
             }, other));
 
-          case 13:
+          case 14:
           case "end":
             return _context.stop();
         }

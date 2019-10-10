@@ -48,6 +48,14 @@ export async function getToursSearch (token, query) {
         new schema.Values(hotelSchema)
     );
 
+    if (offers) {
+        const exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean);
+
+        for (const id in offers) {
+            offers[id].exactChildrenAges = exactChildrenAges;
+        }
+    }
+    
     const { entities: { country: countries }, result: countryId } = normalize(denormalizedCountry || {}, countrySchema);
     const meta = parseSearchMeta(other, query);
 
