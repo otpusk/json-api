@@ -72,7 +72,7 @@ function _getToursSearch() {
   _getToursSearch = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, query) {
-    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, id, _normalize2, countries, countryId, meta;
+    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, injectUahCurrency, id, _normalize2, countries, countryId, meta;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -95,9 +95,11 @@ function _getToursSearch() {
 
             if (offers) {
               exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean);
+              injectUahCurrency = !query.currency;
 
               for (id in offers) {
                 offers[id].exactChildrenAges = exactChildrenAges;
+                offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
               }
             }
 

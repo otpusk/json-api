@@ -50,9 +50,11 @@ export async function getToursSearch (token, query) {
 
     if (offers) {
         const exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean);
+        const injectUahCurrency = !query.currency;
 
         for (const id in offers) {
             offers[id].exactChildrenAges = exactChildrenAges;
+            offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
         }
     }
     
