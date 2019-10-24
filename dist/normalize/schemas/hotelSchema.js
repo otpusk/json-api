@@ -128,6 +128,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         i = input.i,
         a = input.a,
         stars = input.s,
+        secondaryStars = input.ss,
         price = input.p,
         r = input.r,
         v = input.v,
@@ -152,6 +153,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       city: (0, _parsers.parseHotelGeo)(c),
       country: (0, _parsers.parseHotelGeo)(t),
       stars: Boolean(stars) ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
+      secondaryStars: secondaryStars ? Number(secondaryStars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
       services: Array.isArray(e) ? e : Object.values(e).reduce(function (services, group) {

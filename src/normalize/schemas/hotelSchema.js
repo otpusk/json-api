@@ -109,6 +109,7 @@ export const hotelSchema = new schema.Entity(
                 i,
                 a,
                 s: stars,
+                ss: secondaryStars,
                 p: price,
                 r,
                 v,
@@ -133,6 +134,7 @@ export const hotelSchema = new schema.Entity(
                 stars: Boolean(stars) ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
+                secondaryStars: secondaryStars ? Number(secondaryStars) : null,
                 rating: !Number.isNaN(Number(r)) ? Number(r) : null,
                 reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
