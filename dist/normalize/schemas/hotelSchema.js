@@ -153,7 +153,6 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       city: (0, _parsers.parseHotelGeo)(c),
       country: (0, _parsers.parseHotelGeo)(t),
       stars: Boolean(stars) ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
-      secondaryStars: secondaryStars ? Number(secondaryStars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
       services: Array.isArray(e) ? e : Object.values(e).reduce(function (services, group) {
@@ -169,6 +168,21 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       description: a,
       watermark: watermark
     };
+    var optional = {
+      secondaryStars: secondaryStars ? Number(secondaryStars) : null
+    };
+
+    var _arr = Object.entries(optional);
+
+    for (var _i = 0; _i < _arr.length; _i++) {
+      var _arr$_i = _slicedToArray(_arr[_i], 2),
+          f = _arr$_i[0],
+          _v = _arr$_i[1];
+
+      if (_v) {
+        entity[f] = _v;
+      }
+    }
 
     if ('o' in input) {
       var nm = input.nm,

@@ -134,7 +134,6 @@ export const hotelSchema = new schema.Entity(
                 stars: Boolean(stars) ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
-                secondaryStars: secondaryStars ? Number(secondaryStars) : null,
                 rating: !Number.isNaN(Number(r)) ? Number(r) : null,
                 reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
@@ -152,6 +151,16 @@ export const hotelSchema = new schema.Entity(
                 description: a,
                 watermark,
             };
+
+            const optional = {
+                secondaryStars: secondaryStars ? Number(secondaryStars) : null
+            }
+
+            for(const [f, v] of Object.entries(optional)) {
+                if(v) {
+                    entity[f] = v;
+                }
+            }
 
             if ('o' in input) {
                 const {
