@@ -107,7 +107,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         tourId = input.tourId,
         bron = input.bron,
         _input$currency = input.currency,
-        currency = _input$currency === void 0 ? null : _input$currency;
+        currency = _input$currency === void 0 ? null : _input$currency,
+        _input$hotelId = input.hotelId,
+        hotelId = _input$hotelId === void 0 ? null : _input$hotelId;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -144,7 +146,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       flights: (0, _parsers.parseFlights)(flights || {}),
       promo: promo ? promo.trim() : promo,
       tourId: tourId,
-      bookingUrl: bron
+      bookingUrl: bron,
+      hotelId: hotelId
     };
     return entity;
   }

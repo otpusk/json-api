@@ -103,6 +103,7 @@ export const fullOfferSchema = new schema.Entity(
                 tourId,
                 bron,
                 currency = null,
+                hotelId = null,
             } = input;
 
             /* travel insurance for TPG */
@@ -135,6 +136,7 @@ export const fullOfferSchema = new schema.Entity(
                 promo: promo ? promo.trim() : promo,
                 tourId,
                 bookingUrl: bron,
+                hotelId
             };
 
             return entity;
