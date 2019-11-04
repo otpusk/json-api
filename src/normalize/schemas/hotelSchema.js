@@ -154,7 +154,7 @@ export const hotelSchema = new schema.Entity(
             };
 
             const optional = {
-                secondaryStars: secondaryStars ? Number(secondaryStars) : null
+                secondaryStars: secondaryStars ? Number(secondaryStars) : undefined
             }
             entity = mergeDefinedObjectValues(entity, optional);
 

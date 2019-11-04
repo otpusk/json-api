@@ -171,7 +171,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       watermark: watermark
     };
     var optional = {
-      secondaryStars: secondaryStars ? Number(secondaryStars) : null
+      secondaryStars: secondaryStars ? Number(secondaryStars) : undefined
     };
     entity = (0, _fn.mergeDefinedObjectValues)(entity, optional);
 
