@@ -84,6 +84,24 @@ async function makeCall (endpoint, query, ttl) {
     return body;
 }
 
+/**
+ * Copy defined source object fields to target object
+ * @param {*} target 
+ * @param {*} source 
+ * 
+ * @returns {*} result
+ */
+function mergeDefinedObjectValues(target, source) {
+    const result = Object.assign({}, target);
+    for(const [f, v] of Object.entries(source)) {
+        if(typeof v !== 'undefined') {
+            result[f] = v;
+        }
+    }
+
+    return result;
+}
+
 class HttpResponseError {
     constructor (code, message, data = null) {
         this.code = code;
@@ -95,5 +113,6 @@ class HttpResponseError {
 export {
     makeCall,
     createQueryStringFromObject,
+    mergeDefinedObjectValues,
     HttpResponseError
 };

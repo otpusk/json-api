@@ -1,10 +1,10 @@
 {
   "name": "@otpusk/json-api",
-  "version": "0.0.62",
+  "version": "0.0.63",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "babel src --out-dir dist",
+    "transpile": "babel src --out-dir dist",
     "start": "webpack-dev-server",
     "publish": "npm publish"
   },

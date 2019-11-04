@@ -1,6 +1,9 @@
 // Core
 import { Map, mergeWith } from 'immutable';
 
+//Instruments
+import { mergeDefinedObjectValues } from '../fn';
+
 
 export const parsePrice = (input) => {
     const {
@@ -85,8 +88,12 @@ export const parseNames = (input, prefix) => {
 
 export const parseHotelGeo = (input) => {
     const { i: id, n: name, c: code } = input;
+    const geo = { id, name, code, names: parseNames(input) };
+    const optional = {
+        isoCode: input.cd || input.cid
+    };
 
-    return { id, name, code, names: parseNames(input) };
+    return mergeDefinedObjectValues(geo, optional);
 };
 
 export const parseCountry = (input) => {

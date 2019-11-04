@@ -8,6 +8,7 @@ import {
     parseCountry, parseCity, parseStars, parseHotelVideos
 } from '../parsers';
 import { offerSchema } from './offerSchema';
+import { mergeDefinedObjectValues } from '../../fn';
 
 export const hotelShortSchema = new schema.Entity(
     'hotel',
@@ -125,7 +126,7 @@ export const hotelSchema = new schema.Entity(
                 watermark = null
             } = input;
 
-            const entity = {
+            let entity = {
                 id: String(i),
                 name: n,
                 code,
@@ -155,12 +156,7 @@ export const hotelSchema = new schema.Entity(
             const optional = {
                 secondaryStars: secondaryStars ? Number(secondaryStars) : null
             }
-
-            for(const [f, v] of Object.entries(optional)) {
-                if(v) {
-                    entity[f] = v;
-                }
-            }
+            entity = mergeDefinedObjectValues(entity, optional);
 
             if ('o' in input) {
                 const {

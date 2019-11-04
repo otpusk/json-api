@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeCall = makeCall;
 exports.createQueryStringFromObject = createQueryStringFromObject;
+exports.mergeDefinedObjectValues = mergeDefinedObjectValues;
 exports.HttpResponseError = void 0;
 
 var _fetchJsonp = _interopRequireDefault(require("fetch-jsonp"));
@@ -24,6 +25,14 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -121,6 +130,14 @@ function _parseResponse() {
 function makeCall(_x2, _x3, _x4) {
   return _makeCall.apply(this, arguments);
 }
+/**
+ * Copy defined source object fields to target object
+ * @param {*} target 
+ * @param {*} source 
+ * 
+ * @returns {*} result
+ */
+
 
 function _makeCall() {
   _makeCall = _asyncToGenerator(
@@ -185,6 +202,24 @@ function _makeCall() {
     }, _callee2, this);
   }));
   return _makeCall.apply(this, arguments);
+}
+
+function mergeDefinedObjectValues(target, source) {
+  var result = Object.assign({}, target);
+
+  var _arr = Object.entries(source);
+
+  for (var _i = 0; _i < _arr.length; _i++) {
+    var _arr$_i = _slicedToArray(_arr[_i], 2),
+        f = _arr$_i[0],
+        v = _arr$_i[1];
+
+    if (typeof v !== 'undefined') {
+      result[f] = v;
+    }
+  }
+
+  return result;
 }
 
 var HttpResponseError = function HttpResponseError(code, message) {

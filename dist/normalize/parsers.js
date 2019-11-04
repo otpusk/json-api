@@ -7,6 +7,8 @@ exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = export
 
 var _immutable = require("immutable");
 
+var _fn = require("../fn");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -137,12 +139,16 @@ var parseHotelGeo = function parseHotelGeo(input) {
   var id = input.i,
       name = input.n,
       code = input.c;
-  return {
+  var geo = {
     id: id,
     name: name,
     code: code,
     names: parseNames(input)
   };
+  var optional = {
+    isoCode: input.cd || input.cid
+  };
+  return (0, _fn.mergeDefinedObjectValues)(geo, optional);
 };
 
 exports.parseHotelGeo = parseHotelGeo;
