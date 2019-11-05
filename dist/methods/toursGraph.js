@@ -51,7 +51,7 @@ function _getToursGraph() {
           case 0:
             options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.graph, _objectSpread({}, token, options), [7, 'days']);
+            return (0, _fn.makeCall)(_config.ENDPOINTS.graph, _objectSpread({}, token, options));
 
           case 3:
             _ref = _context.sent;
