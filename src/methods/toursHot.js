@@ -12,6 +12,10 @@ export async function getToursHotBlock(token, blockId) {
 export async function getToursHotTour(token, blockId, tourId) {
     const { searchedTour: { offers } = {} } = await makeCall(ENDPOINTS.hotTour, { blockId, id: tourId, ...token });
 
+    if (!offers) {
+        return null;
+    }
+
     return offers.map((tour) => {
         const { hotelId, dateString, food, length, promo,
             transport, cityFromId, operatorId, tourLink,

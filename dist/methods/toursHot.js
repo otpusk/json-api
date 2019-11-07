@@ -91,6 +91,15 @@ function _getToursHotTour() {
             _ref2$searchedTour = _ref2.searchedTour;
             _ref2$searchedTour = _ref2$searchedTour === void 0 ? {} : _ref2$searchedTour;
             offers = _ref2$searchedTour.offers;
+
+            if (offers) {
+              _context2.next = 8;
+              break;
+            }
+
+            return _context2.abrupt("return", null);
+
+          case 8:
             return _context2.abrupt("return", offers.map(function (tour) {
               var hotelId = tour.hotelId,
                   dateString = tour.dateString,
@@ -131,7 +140,7 @@ function _getToursHotTour() {
               };
             }));
 
-          case 7:
+          case 9:
           case "end":
             return _context2.stop();
         }
