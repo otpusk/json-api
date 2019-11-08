@@ -126,6 +126,7 @@ export const hotelSchema = new schema.Entity(
                 watermark = null
             } = input;
 
+            const defaultPhoto = '00/03/85/49/3854941.jpg';
             let entity = {
                 id: String(i),
                 name: n,
@@ -140,9 +141,9 @@ export const hotelSchema = new schema.Entity(
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
                 photos: photos
                     ? Array.isArray(photos)
-                        ? photos
+                        ? Boolean(photos.length) ? photos : [defaultPhoto]
                         : [photos]
-                    : [],
+                    : [defaultPhoto],
                 videos: parseHotelVideos(videos),
                 price: parsePrice(price),
                 location: parseLocation(g),

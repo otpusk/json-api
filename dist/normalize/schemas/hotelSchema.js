@@ -148,6 +148,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         offers = _input$offers === void 0 ? [] : _input$offers,
         _input$watermark = input.watermark,
         watermark = _input$watermark === void 0 ? null : _input$watermark;
+    var defaultPhoto = '00/03/85/49/3854941.jpg';
     var entity = {
       id: String(i),
       name: n,
@@ -160,7 +161,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       services: Array.isArray(e) ? e : Object.values(e).reduce(function (services, group) {
         return [].concat(_toConsumableArray(services), _toConsumableArray(Object.keys(group)));
       }, []),
-      photos: photos ? Array.isArray(photos) ? photos : [photos] : [],
+      photos: photos ? Array.isArray(photos) ? Boolean(photos.length) ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
       videos: (0, _parsers.parseHotelVideos)(videos),
       price: (0, _parsers.parsePrice)(price),
       location: (0, _parsers.parseLocation)(g),
