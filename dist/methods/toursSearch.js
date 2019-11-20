@@ -95,12 +95,12 @@ function _getToursSearch() {
 
             if (offers) {
               exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean).sort(function (a, b) {
-                return b - a;
+                return a - b;
               });
               injectUahCurrency = !query.currency;
 
               for (id in offers) {
-                offers[id].exactChildrenAges = exactChildrenAges.slice(offers[id].children);
+                offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
                 offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
               }
             }
