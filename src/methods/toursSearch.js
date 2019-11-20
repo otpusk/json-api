@@ -49,11 +49,16 @@ export async function getToursSearch (token, query) {
     );
 
     if (offers) {
-        const exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean);
+        const exactChildrenAges = String(query.people)
+            .slice(1)
+            .split(/(\d{2})/)
+            .map(Number)
+            .filter(Boolean)
+            .sort((a, b) => b - a);
         const injectUahCurrency = !query.currency;
 
         for (const id in offers) {
-            offers[id].exactChildrenAges = exactChildrenAges;
+            offers[id].exactChildrenAges = exactChildrenAges.slice(offers[id].children);
             offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
         }
     }

@@ -94,11 +94,13 @@ function _getToursSearch() {
             }, {}), new _normalizr.schema.Values(_schemas.hotelSchema)), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
 
             if (offers) {
-              exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean);
+              exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean).sort(function (a, b) {
+                return b - a;
+              });
               injectUahCurrency = !query.currency;
 
               for (id in offers) {
-                offers[id].exactChildrenAges = exactChildrenAges;
+                offers[id].exactChildrenAges = exactChildrenAges.slice(offers[id].children);
                 offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
               }
             }
