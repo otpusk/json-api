@@ -326,6 +326,10 @@ export const getPriceExtraFares = (hotel, offer) => {
             ],
         },
     ];
-
-    return rules.filter(({ conditions }) => conditions.every((value) => value === true));
+    const additionalPayments = offer.additionalPayments.map((text) => ({
+        name: 'additional',
+        text,
+    }));
+    const calculatedPayments = rules.filter(({ conditions }) => conditions.every((value) => value === true));
+    return [...additionalPayments, ...calculatedPayments];
 };
