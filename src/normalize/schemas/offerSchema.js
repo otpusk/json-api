@@ -68,6 +68,7 @@ export const offerSchema = new schema.Entity(
                 flights: parseFlights(flights || {}),
                 promo: promo ? promo.trim() : promo,
                 tourId,
+                additionalPayments: [],
             };
 
             return entity;

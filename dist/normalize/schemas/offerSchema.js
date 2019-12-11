@@ -74,7 +74,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
       promo: promo ? promo.trim() : promo,
-      tourId: tourId
+      tourId: tourId,
+      additionalPayments: []
     };
     return entity;
   }
