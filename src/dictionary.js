@@ -227,6 +227,11 @@ export const getPriceExtraFares = (hotel, offer) => {
         isOperator (offer, operator) {
             return offer.operator === operator;
         },
+        isOperatorFromSamoTourGroups (operatorID) {
+            const SAMO_TOUR_GROUPS_IDS = [3345, 759, 3344, 717, 3306, 3342, 3336, 2835, 3021, 237, 429, 520, 3331];
+
+            return SAMO_TOUR_GROUPS_IDS.includes(Number(operatorID));
+        },
         isCountry (hotel, country) {
             return Number(hotel.country.id) === Number(country);
         },
@@ -316,6 +321,13 @@ export const getPriceExtraFares = (hotel, offer) => {
                 traits.isCountry(hotel, 115),
                 traits.isOperator(offer, 717),
                 traits.isFirstReturnFlightTimeAfterHours(offer, 12)
+            ],
+        },
+        {
+            name:       'extra-fee',
+            text:       __('Доплата за младенца.'),
+            conditions: [
+                traits.isOperatorFromSamoTourGroups(offer.operator)
             ],
         },
         {

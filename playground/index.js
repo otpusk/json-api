@@ -21,3 +21,4 @@ const query = {
 };
 
 API.getToursSearch(token, query)
+API.getToursOffer(token, 2633527100874264).then(console.log);
