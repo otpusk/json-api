@@ -1,4 +1,5 @@
 import * as API from '../src';
+import { getPriceExtraFares } from './../src/dictionary';
 
 const token = { 'access_token': '2e7cc-6e0df-c7f77-fbf2b-7f359' };
 
@@ -21,4 +22,9 @@ const query = {
 };
 
 API.getToursSearch(token, query)
-API.getToursOffer(token, 2633527100874264).then(console.log);
+API.getToursOffer(token, 1023529150816242).then((offer) => {
+    console.log(offer);
+    console.log(getPriceExtraFares({ country: {} }, offer))
+});
+
+API.getToursOffer(token, 2393529320809282).then(console.log)
