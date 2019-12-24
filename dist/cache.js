@@ -109,11 +109,10 @@ var CacheItem = function CacheItem(key) {
 
             case 2:
               timealive = _this.record.expires - (0, _moment.default)().format('X');
-              console.log(ttl);
               isAlive = ttl ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() > timealive : typeof ttl === 'undefined' ? timealive > 0 : false;
               return _context2.abrupt("return", isAlive);
 
-            case 6:
+            case 5:
             case "end":
               return _context2.stop();
           }
