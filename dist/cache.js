@@ -99,7 +99,7 @@ var CacheItem = function CacheItem(key) {
     var _ref2 = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee2(ttl) {
-      var timealive, isAlive;
+      var timeLeft, maxTime, isAlive;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -108,11 +108,12 @@ var CacheItem = function CacheItem(key) {
               return _this.read();
 
             case 2:
-              timealive = _this.record.expires - (0, _moment.default)().format('X');
-              isAlive = ttl ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() > timealive : typeof ttl === 'undefined' ? timealive > 0 : false;
+              timeLeft = _this.record.expires - (0, _moment.default)().format('X');
+              maxTime = ttl ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() : null;
+              isAlive = maxTime ? 0 < timeLeft && timeLeft < maxTime : 0 < timeLeft;
               return _context2.abrupt("return", isAlive);
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }

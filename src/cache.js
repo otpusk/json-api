@@ -28,12 +28,11 @@ class CacheItem {
     isHit = async (ttl) => {
         await this.read();
 
-        const timealive = this.record.expires - moment().format('X');
-        const isAlive = ttl
-            ? moment.duration(...ttl).asSeconds() > timealive
-            : typeof ttl === 'undefined'
-                ? timealive > 0
-                : false;
+        const timeLeft = this.record.expires - moment().format('X');
+        const maxTime = ttl ? moment.duration(...ttl).asSeconds() : null;
+        const isAlive = maxTime
+            ? 0 < timeLeft && timeLeft < maxTime
+            : 0 < timeLeft;
 
         return isAlive;
     }
