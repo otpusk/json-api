@@ -42,7 +42,7 @@ function _getToursOperators() {
             _context.next = 3;
             return (0, _fn.makeCall)(_config.ENDPOINTS.operators, _objectSpread({
               countryId: countryId
-            }, options, token), [7, 'days']);
+            }, options, token));
 
           case 3:
             _ref = _context.sent;

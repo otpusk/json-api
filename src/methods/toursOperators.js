@@ -8,7 +8,7 @@ export async function getToursOperators(token, countryId, options = {}) {
         countryId,
         ...options,
         ...token,
-    }, [7, 'days']);
+    });
     const operators = Object.values(raw).map(({ id, name, url, currencies }) => ({
         id,
         name,
