@@ -26,6 +26,10 @@ class CacheItem {
     get = async () => await this.isHit() ? this.record.value : null;
 
     isHit = async (ttl) => {
+        if(ttl === null) {
+            return false;
+        }
+        
         await this.read();
 
         const timeLeft = this.record.expires - moment().format('X');

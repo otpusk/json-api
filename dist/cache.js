@@ -104,16 +104,24 @@ var CacheItem = function CacheItem(key) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return _this.read();
+              if (!(ttl === null)) {
+                _context2.next = 2;
+                break;
+              }
+
+              return _context2.abrupt("return", false);
 
             case 2:
+              _context2.next = 4;
+              return _this.read();
+
+            case 4:
               timeLeft = _this.record.expires - (0, _moment.default)().format('X');
               maxTime = ttl ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() : null;
               isAlive = maxTime ? 0 < timeLeft && timeLeft < maxTime : 0 < timeLeft;
               return _context2.abrupt("return", isAlive);
 
-            case 6:
+            case 8:
             case "end":
               return _context2.stop();
           }
