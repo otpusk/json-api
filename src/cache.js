@@ -30,7 +30,7 @@ class CacheItem {
 
         const timealive = this.record.expires - moment().format('X');
 
-        return timealive > 0 && (!ttl || moment.duration(...ttl).asSeconds() > timealive);
+        return timealive > 0 && ttl && moment.duration(...ttl).asSeconds() > timealive;
     }
 
     read = async () => {
