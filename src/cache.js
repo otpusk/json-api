@@ -29,7 +29,7 @@ class CacheItem {
         await this.read();
 
         const timealive = this.record.expires - moment().format('X');
-        const isAlive = typeof ttl
+        const isAlive = ttl
             ? moment.duration(...ttl).asSeconds() > timealive
             : typeof ttl === 'undefined'
                 ? timealive > 0

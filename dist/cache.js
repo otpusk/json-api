@@ -19,8 +19,6 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -111,10 +109,11 @@ var CacheItem = function CacheItem(key) {
 
             case 2:
               timealive = _this.record.expires - (0, _moment.default)().format('X');
-              isAlive = _typeof(ttl) ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() > timealive : typeof ttl === 'undefined' ? timealive > 0 : false;
+              console.log(ttl);
+              isAlive = ttl ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() > timealive : typeof ttl === 'undefined' ? timealive > 0 : false;
               return _context2.abrupt("return", isAlive);
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
