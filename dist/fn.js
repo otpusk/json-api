@@ -127,7 +127,7 @@ function _parseResponse() {
   return _parseResponse.apply(this, arguments);
 }
 
-function makeCall(_x2, _x3, _x4) {
+function makeCall(_x2, _x3) {
   return _makeCall.apply(this, arguments);
 }
 /**
@@ -142,59 +142,66 @@ function makeCall(_x2, _x3, _x4) {
 function _makeCall() {
   _makeCall = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2(endpoint, query, ttl) {
-    var request, cache, _body, response, body;
+  regeneratorRuntime.mark(function _callee2(endpoint, query) {
+    var ttl,
+        request,
+        cache,
+        _body,
+        response,
+        body,
+        _args2 = arguments;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            ttl = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : null;
             request = "".concat(endpoint, "?").concat(createQueryStringFromObject(query));
             cache = new _cache.CacheItem(hash(request));
-            _context2.next = 4;
+            _context2.next = 5;
             return cache.isHit(ttl);
 
-          case 4:
+          case 5:
             if (!_context2.sent) {
-              _context2.next = 9;
+              _context2.next = 10;
               break;
             }
 
-            _context2.next = 7;
+            _context2.next = 8;
             return cache.get();
 
-          case 7:
+          case 8:
             _body = _context2.sent;
             return _context2.abrupt("return", _body);
 
-          case 9:
-            _context2.next = 11;
+          case 10:
+            _context2.next = 12;
             return (0, _fetchJsonp.default)(request, {
               timeout: 10000
             });
 
-          case 11:
+          case 12:
             response = _context2.sent;
-            _context2.next = 14;
+            _context2.next = 15;
             return parseResponse(response);
 
-          case 14:
+          case 15:
             body = _context2.sent;
 
             if (!ttl) {
-              _context2.next = 20;
+              _context2.next = 21;
               break;
             }
 
             cache.set(body);
             cache.expiresAfter(_moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)));
-            _context2.next = 20;
+            _context2.next = 21;
             return cache.save();
 
-          case 20:
+          case 21:
             return _context2.abrupt("return", body);
 
-          case 21:
+          case 22:
           case "end":
             return _context2.stop();
         }

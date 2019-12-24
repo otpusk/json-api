@@ -62,7 +62,7 @@ async function parseResponse (response) {
  *
  * @returns {Promise} Response
  */
-async function makeCall (endpoint, query, ttl) {
+async function makeCall (endpoint, query, ttl = null) {
     const request = `${endpoint}?${createQueryStringFromObject(query)}`;
     const cache = new CacheItem(hash(request));
 
