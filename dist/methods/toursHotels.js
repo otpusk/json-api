@@ -38,6 +38,8 @@ function _getToursHotels() {
         categories,
         _options$services,
         services,
+        _options$withPrice,
+        withPrice,
         _ref,
         denormalizedHotels,
         _normalize,
@@ -49,11 +51,11 @@ function _getToursHotels() {
         switch (_context.prev = _context.next) {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
-            _options$cities = options.cities, cities = _options$cities === void 0 ? [] : _options$cities, _options$categories = options.categories, categories = _options$categories === void 0 ? [] : _options$categories, _options$services = options.services, services = _options$services === void 0 ? [] : _options$services;
+            _options$cities = options.cities, cities = _options$cities === void 0 ? [] : _options$cities, _options$categories = options.categories, categories = _options$categories === void 0 ? [] : _options$categories, _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice;
             _context.next = 4;
             return (0, _fn.makeCall)(_config.ENDPOINTS.hotels, _objectSpread({
               countryId: countryId,
-              with: 'price'
+              with: withPrice ? 'price' : null
             }, token), [1, 'day']);
 
           case 4:
