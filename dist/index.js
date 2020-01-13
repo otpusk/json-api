@@ -129,6 +129,12 @@ Object.defineProperty(exports, "getToursOperators", {
     return _toursOperators.getToursOperators;
   }
 });
+Object.defineProperty(exports, "getToursValidate", {
+  enumerable: true,
+  get: function get() {
+    return _toursValidate.getToursValidate;
+  }
+});
 Object.defineProperty(exports, "getInit", {
   enumerable: true,
   get: function get() {
@@ -169,5 +175,7 @@ var _turpravdaInformers = require("./methods/turpravdaInformers");
 var _toursHot = require("./methods/toursHot");
 
 var _toursOperators = require("./methods/toursOperators");
+
+var _toursValidate = require("./methods/toursValidate");
 
 var _init = require("./methods/init");

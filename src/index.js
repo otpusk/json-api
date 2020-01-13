@@ -15,4 +15,5 @@ export { getToursSimilar } from './methods/toursSimilar';
 export { getTurpravdaHotelInformer } from './methods/turpravdaInformers';
 export { getToursHotBlock, getToursHotTour } from './methods/toursHot';
 export { getToursOperators } from './methods/toursOperators';
+export { getToursValidate } from './methods/toursValidate';
 export { getInit } from './methods/init';

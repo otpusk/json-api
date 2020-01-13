@@ -42,7 +42,7 @@ export const offerSchema = new schema.Entity(
             if (operator === 2700) {
                 includes.push('travelinsurance');
             }
-
+            
             const entity = {
                 id:           String(id),
                 code,
