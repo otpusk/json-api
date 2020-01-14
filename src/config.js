@@ -25,5 +25,6 @@ export const ENDPOINTS = Object.freeze({
     hotBlock:           `${API}/tours/hotBlock`,
     hotTour:            `${API}/tours/hotTour`,
     operators:          `${API}/tours/operators`,
+    validate:           `${API}/tours/validate`,
     init:               `${API}/init`
 });
