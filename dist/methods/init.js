@@ -44,7 +44,7 @@ function _getInit() {
             return _context.stop();
         }
       }
-    }, _callee, this);
+    }, _callee);
   }));
   return _getInit.apply(this, arguments);
 }
