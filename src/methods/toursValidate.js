@@ -1,87 +1,127 @@
 // Core
 import { normalize } from 'normalizr';
-import { fromJS } from 'immutable';
 
 // Instruments
 import { makeCall } from '../fn';
-import { offerSchema, infoSchema } from '../normalize/schemas';
+import { infoSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
 const tempCallResponse = {
-  "status": 5,
-  "message": "Price was changed",
-  "price": "414",
-  "currency": "USD",
-  "uah": 10441.08,
-  "info": {
-    "hotels": [
-      {
-        "name": "Aqua Hotel Resort \u0026 Spa",
-        "datebeg": "16.01.2020",
-        "dateend": "24.01.2020"
-      }
-    ],
-    "transports": [
-      {
-        "name": "QU 4481",
-        "datebeg": "16.01.2020",
-        "dateend": "16.01.2020"
-      },
-      {
-        "name": "QU 4436",
-        "datebeg": "24.01.2020",
-        "dateend": "24.01.2020"
-      }
-    ],
-    "services": [
-      {
-        "name": "VUSO \u041c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0430\u044f \u0441\u0442\u0440\u0430\u0445\u043e\u0432\u043a\u0430 20000 USD 30 Francise sport b new",
-        "datebeg": "16.01.2020",
-        "dateend": "24.01.2020"
-      },
-      {
-        "name": "VUSO Medical PREMIUM 40000",
-        "datebeg": "16.01.2020",
-        "dateend": "24.01.2020"
-      },
-      {
-        "name": "Group transfer Egypt Airport-Hotel-Airport (SSH) (Sharm el Sheikh\u2014\u003ESharm el Sheikh)",
-        "datebeg": "16.01.2020",
-        "dateend": "24.01.2020"
-      },
-      {
-        "name": "\u0414\u043e\u043f\u043b\u0430\u0442\u0430 \u0437\u0430 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0440\u0435\u0439\u0441 (\u0415\u0433\u0438\u043f\u0435\u0442 \u041a\u0438\u0435\u0432) ANEXTOUR (AZURAIR UKRAINE)",
-        "datebeg": "24.01.2020",
-        "dateend": "24.01.2020"
-      }
-    ]
-  }
-}
+    // 3410164920762405 Royal Paradise Resort 4*
+    "status":   5,
+    "message":  "Price was changed",
+    "price":    337.29,
+    "currency": "USD",
+    "uah":      8499.71,
+    "info":     {
+        "hotels": [
+            {
+                "name":    "Royal Paradise Resort",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            }
+        ],
+        "services": [
+            {
+                "name":    "15 000 $ (UFI) (4)  30$",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            },
+            {
+                "name":    "     (UFI)",
+                "datebeg": "15.01.2020",
+                "dateend": "23.01.2020",
+            },
+            {
+                "name":    "EGY: -25% discount for SOHO Square . (Royal Paradise Resort, Pool View or Sea Side View, AI)",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            },
+            {
+                "name":    "EGY: reDISCOver Egypt (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba\u003EHadaba)",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            },
+            {
+                "name":    "EGY:   SPA SSH (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba)",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            },
+            {
+                "name":    "EGY: FREE CITY TOUR (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba\u003EHadaba)",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            },
+            {
+                "name":    "EGY: Airport - Hotel - Airport (Sun Int) - SSH (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba)",
+                "datebeg": "17.01.2020",
+                "dateend": "23.01.2020",
+            }
+        ],
+        "transports": {
+            "departure": {
+                "PQ 7117": {
+                    "name":     "PQ 7117",
+                    "datebeg":  "17.01.2020",
+                    "dateend":  "17.01.2020",
+                    "price":    337.29,
+                    "currency": "USD",
+                    "uah":      8499.71,
+                    "add":      "0 USD",
+                },
+                "PQ 7101": {
+                    "name":     "PQ 7101",
+                    "datebeg":  "17.01.2020",
+                    "dateend":  "17.01.2020",
+                    "price":    337.29,
+                    "currency": "USD",
+                    "uah":      8499.71,
+                    "add":      "10 USD",
+                },
+            },
+            "return": {
+                "": {
+                    "name":     null,
+                    "datebeg":  null,
+                    "dateend":  null,
+                    "price":    337.29,
+                    "currency": "USD",
+                    "uah":      8499.71,
+                    "add":      "0 USD",
+                },
+            },
+        },
+    },
+};
 
-const tempApiCall = () => new Promise(resolve => setTimeout(() => resolve(tempCallResponse), 2000))
+const tempApiCall = () => new Promise((resolve) => setTimeout(() => resolve(tempCallResponse), 1000));
 
 export async function getToursValidate (token, offerId) {
     // https://api.otpusk.com/api/3.0/tours/validate/2560153450987412?access_token=2bf9c-83b4a-0dac2-e0893-8cf29
-    const tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate'
-    const prodEndpoint = ENDPOINTS.validate
+    // const { status, ...denormalizedOffer } = await tempApiCall();
+
+    // const prodEndpoint = ENDPOINTS.validate;
+    const tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
     const { status, ...denormalizedOffer } = await makeCall(`${tempEndpoint}/${offerId}`, {
-        ...token
+        ...token,
     });
 
-    console.log('[DENORMALIZED]:', {denormalizedOffer})
+    const { entities: { outbound, inbound }, result: { info, ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
 
-    // const { status, ...denormalizedOffer } = await tempApiCall();
-    const { entities: { flights }, result: { info, ...validatedTour } } = normalize(denormalizedOffer, { info: infoSchema });
-    console.log('[JSON_API_VALIDATE]:', {
-      token,
-      status,
-      validatedTour,
-      flights
+    console.log('[NORMALIZATION]', {
+        token,
+        denormalizedOffer,
+        normalization: normalize(denormalizedOffer, { info: infoSchema }),
+        result:        {
+            status,
+            flights: { ...outbound, ...inbound },
+            ...validatedTour,
+        },
     });
 
     return {
         status,
-        flights,
+        flights: { ...outbound, ...inbound },
         ...validatedTour,
     };
 }
