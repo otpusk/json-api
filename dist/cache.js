@@ -29,16 +29,18 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var cacheStorage = (0, _storage.createStorage)('otpusk_api_cache');
 cacheStorage.findAll().then(function (all) {
-  for (var _i = 0, _Object$entries = Object.entries(all); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-        key = _Object$entries$_i[0],
-        expires = _Object$entries$_i[1].expires;
+  var _arr = Object.entries(all);
+
+  for (var _i = 0; _i < _arr.length; _i++) {
+    var _arr$_i = _slicedToArray(_arr[_i], 2),
+        key = _arr$_i[0],
+        expires = _arr$_i[1].expires;
 
     if (expires <= (0, _moment.default)().format('X')) {
       cacheStorage.remove(key);
@@ -88,7 +90,7 @@ var CacheItem = function CacheItem(key) {
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, this);
   }));
 
   this.isHit =
@@ -124,7 +126,7 @@ var CacheItem = function CacheItem(key) {
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, this);
     }));
 
     return function (_x) {
@@ -163,7 +165,7 @@ var CacheItem = function CacheItem(key) {
             return _context3.stop();
         }
       }
-    }, _callee3);
+    }, _callee3, this);
   }));
 
   this.save = function () {

@@ -21,9 +21,7 @@ var _config = require("../config");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -81,7 +79,7 @@ function _getToursSearch() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.search, _objectSpread({}, query, {}, token));
+            return (0, _fn.makeCall)(_config.ENDPOINTS.search, _objectSpread({}, query, token));
 
           case 2:
             _ref2 = _context.sent;
@@ -92,7 +90,7 @@ function _getToursSearch() {
             denormalizedCountry = _ref2$cnt === void 0 ? null : _ref2$cnt;
             other = _objectWithoutProperties(_ref2, ["hotels", "pg", "cnt"]);
             _normalize = (0, _normalizr.normalize)(Object.values(denormalizedHotels || {}).reduce(function (all, h) {
-              return _objectSpread({}, all, {}, h);
+              return _objectSpread({}, all, h);
             }, {}), new _normalizr.schema.Values(_schemas.hotelSchema)), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
 
             if (offers) {
@@ -124,7 +122,7 @@ function _getToursSearch() {
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, this);
   }));
   return _getToursSearch.apply(this, arguments);
 }
