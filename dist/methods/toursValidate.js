@@ -119,7 +119,7 @@ function _getToursValidate() {
   _getToursValidate = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, offerId) {
-    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, validatedTour;
+    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, price, validatedTour;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -138,7 +138,7 @@ function _getToursValidate() {
             denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
               info: _schemas.infoSchema
-            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, validatedTour = _objectWithoutProperties(_normalize$result, ["info"]);
+            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, price = _normalize$result.price, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "price"]);
             console.log('[NORMALIZATION]', {
               token: token,
               denormalizedOffer: denormalizedOffer,
@@ -148,12 +148,16 @@ function _getToursValidate() {
               result: _objectSpread({
                 status: status,
                 flights: _objectSpread({}, outbound, inbound)
-              }, validatedTour)
+              }, validatedTour, {
+                price: Number(price) || 0
+              })
             });
             return _context.abrupt("return", _objectSpread({
               status: status,
               flights: _objectSpread({}, outbound, inbound)
-            }, validatedTour));
+            }, validatedTour, {
+              price: Number(price) || 0
+            }));
 
           case 9:
           case "end":
