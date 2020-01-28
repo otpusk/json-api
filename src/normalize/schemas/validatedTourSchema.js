@@ -1,25 +1,37 @@
 import { schema } from "normalizr";
+import moment from "moment";
 
-const flightCode = (name) => {
-    const noWhitespaceName = name.replace(/\s/g, "");
+const inputFormat = 'DD.MM.YYYY HH:mm';
+const outputFormat = 'YYYY-MM-DD HH:mm:ss';
+const formatDate = (date, input, output) => {
+    const formatted = moment(date, input).format(output);
 
-    if ((/^[A-Z0-9]*$/g).test(noWhitespaceName)) {
-        return name;
-    }
-
-    return name
-        .split(",")[1]
-        .split(".")[0]
-        .trim();
+    return formatted.toLowerCase().includes('invalid') ? date : formatted;
 };
 
+const flightCode = (name = '') => {
+    console.log('[FLGIHT_CODE]', { name });
+    const codeRegex = /[A-Z]{2}[\s-]{1}[\d]{4}/;
+
+    const codeMatch = name.match(codeRegex);
+
+    if (codeMatch.length) {
+        return codeMatch[0].replace('-', ' ');
+    }
+
+    return name;
+};
+
+const getIdAttribute = ({ datebeg, dateend }) => `${formatDate(datebeg, inputFormat, outputFormat)}_${formatDate(dateend, inputFormat, outputFormat)}`;
+
 const processTransports = (entity) => {
-    const { name, datebeg, dateend, add, ...rest } = entity;
+    const { name, datebeg, dateend, price, ...rest } = entity;
+
     const res = {
         code:        name && flightCode(name),
-        begin:       datebeg,
-        end:         dateend,
-        priceChange: add ? Number(add.split(" ")[0]) : 0,
+        begin:       formatDate(datebeg, inputFormat, outputFormat),
+        end:         formatDate(dateend, inputFormat, outputFormat),
+        priceChange: Number(price) || Number(price.split(/\s/)[0]),
         ...rest,
     };
 
@@ -29,7 +41,7 @@ const outboundSchema = new schema.Entity(
     "outbound",
     {},
     {
-        idAttribute:     ({ name }) => name,
+        idAttribute:     getIdAttribute,
         processStrategy: processTransports,
     }
 );
@@ -38,13 +50,13 @@ const inboundSchema = new schema.Entity(
     "inbound",
     {},
     {
-        idAttribute: ({ name }) => name,
+        idAttribute: getIdAttribute,
 
         processStrategy: processTransports,
     }
 );
 
-const flightSchema = new schema.Entity("flights", {
+export const flightSchema = new schema.Entity("flights", {
     departure: [outboundSchema],
     return:    [inboundSchema],
 });

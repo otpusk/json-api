@@ -60,20 +60,29 @@ const tempCallResponse = {
         ],
         "transports": {
             "departure": {
-                "PQ 7117": {
-                    "name":     "PQ 7117",
+                "QU 4459": {
+                    "name":     "QU 4459",
                     "datebeg":  "17.01.2020",
                     "dateend":  "17.01.2020",
-                    "price":    337.29,
+                    "price":    50,
                     "currency": "USD",
                     "uah":      8499.71,
                     "add":      "0 USD",
                 },
-                "PQ 7101": {
-                    "name":     "PQ 7101",
+                "QU 4481": {
+                    "name":     "QU 4481",
                     "datebeg":  "17.01.2020",
                     "dateend":  "17.01.2020",
-                    "price":    337.29,
+                    "price":    0,
+                    "currency": "USD",
+                    "uah":      8499.71,
+                    "add":      "10 USD",
+                },
+                "QU 4473": {
+                    "name":     "QU 4473",
+                    "datebeg":  "17.01.2020",
+                    "dateend":  "17.01.2020",
+                    "price":    50,
                     "currency": "USD",
                     "uah":      8499.71,
                     "add":      "10 USD",
@@ -84,7 +93,7 @@ const tempCallResponse = {
                     "name":     null,
                     "datebeg":  null,
                     "dateend":  null,
-                    "price":    337.29,
+                    "price":    50,
                     "currency": "USD",
                     "uah":      8499.71,
                     "add":      "0 USD",
@@ -102,11 +111,15 @@ export async function getToursValidate (token, offerId) {
 
     // const prodEndpoint = ENDPOINTS.validate;
     const tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
+    // const tempEndpointDev = 'http://api.otpusk.lskalytska.dev08.odev.io/api/3.0/tours/validate';
+
+    // const devToken = { access_token: "2bf9c-83b4a-0dac2-e0893-8cf29" };
+
     const { status, ...denormalizedOffer } = await makeCall(`${tempEndpoint}/${offerId}`, {
         ...token,
     });
 
-    const { entities: { outbound, inbound }, result: { info, price, ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
+    const { entities: { outbound, inbound }, result: { info, price = 0, currency = 'usd', uah, ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
 
     console.log('[NORMALIZATION]', {
         token,
@@ -116,7 +129,10 @@ export async function getToursValidate (token, offerId) {
             status,
             flights: { ...outbound, ...inbound },
             ...validatedTour,
-            price:   Number(price) || 0,
+            price:   {
+                [currency.toLowerCase()]: Number(price),
+                uah:                      Number(uah),
+            },
         },
     });
 
@@ -124,6 +140,9 @@ export async function getToursValidate (token, offerId) {
         status,
         flights: { ...outbound, ...inbound },
         ...validatedTour,
-        price:   Number(price) || 0,
+        price:   {
+            [currency.toLowerCase()]: Number(price),
+            uah:                      Number(uah),
+        },
     };
 }
