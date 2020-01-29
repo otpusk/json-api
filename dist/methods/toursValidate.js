@@ -25,92 +25,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var tempCallResponse = {
-  // 3410164920762405 Royal Paradise Resort 4*
-  "status": 5,
-  "message": "Price was changed",
-  "price": 337.29,
-  "currency": "USD",
-  "uah": 8499.71,
-  "info": {
-    "hotels": [{
-      "name": "Royal Paradise Resort",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }],
-    "services": [{
-      "name": "15 000 $ (UFI) (4)  30$",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }, {
-      "name": "     (UFI)",
-      "datebeg": "15.01.2020",
-      "dateend": "23.01.2020"
-    }, {
-      "name": "EGY: -25% discount for SOHO Square . (Royal Paradise Resort, Pool View or Sea Side View, AI)",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }, {
-      "name": "EGY: reDISCOver Egypt (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba>Hadaba)",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }, {
-      "name": "EGY:   SPA SSH (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba)",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }, {
-      "name": "EGY: FREE CITY TOUR (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba>Hadaba)",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }, {
-      "name": "EGY: Airport - Hotel - Airport (Sun Int) - SSH (Royal Paradise Resort, Pool View or Sea Side View, AI, Hadaba)",
-      "datebeg": "17.01.2020",
-      "dateend": "23.01.2020"
-    }],
-    "transports": {
-      "departure": {
-        "PQ 7117": {
-          "name": "PQ 7117",
-          "datebeg": "17.01.2020",
-          "dateend": "17.01.2020",
-          "price": 337.29,
-          "currency": "USD",
-          "uah": 8499.71,
-          "add": "0 USD"
-        },
-        "PQ 7101": {
-          "name": "PQ 7101",
-          "datebeg": "17.01.2020",
-          "dateend": "17.01.2020",
-          "price": 337.29,
-          "currency": "USD",
-          "uah": 8499.71,
-          "add": "10 USD"
-        }
-      },
-      "return": {
-        "": {
-          "name": null,
-          "datebeg": null,
-          "dateend": null,
-          "price": 337.29,
-          "currency": "USD",
-          "uah": 8499.71,
-          "add": "0 USD"
-        }
-      }
-    }
-  }
-};
-
-var tempApiCall = function tempApiCall() {
-  return new Promise(function (resolve) {
-    return setTimeout(function () {
-      return resolve(tempCallResponse);
-    }, 1000);
-  });
-};
-
 function getToursValidate(_x, _x2) {
   return _getToursValidate.apply(this, arguments);
 }
@@ -119,14 +33,14 @@ function _getToursValidate() {
   _getToursValidate = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, offerId) {
-    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, price, validatedTour;
+    var _price, _price2;
+
+    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$pri, price, _normalize$result$cur, currency, uah, validatedTour;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            // https://api.otpusk.com/api/3.0/tours/validate/2560153450987412?access_token=2bf9c-83b4a-0dac2-e0893-8cf29
-            // const { status, ...denormalizedOffer } = await tempApiCall();
             // const prodEndpoint = ENDPOINTS.validate;
             tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
             _context.next = 3;
@@ -138,7 +52,7 @@ function _getToursValidate() {
             denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
               info: _schemas.infoSchema
-            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, price = _normalize$result.price, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "price"]);
+            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$pri = _normalize$result.price, price = _normalize$result$pri === void 0 ? 0 : _normalize$result$pri, _normalize$result$cur = _normalize$result.currency, currency = _normalize$result$cur === void 0 ? 'usd' : _normalize$result$cur, uah = _normalize$result.uah, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "price", "currency", "uah"]);
             console.log('[NORMALIZATION]', {
               token: token,
               denormalizedOffer: denormalizedOffer,
@@ -149,14 +63,14 @@ function _getToursValidate() {
                 status: status,
                 flights: _objectSpread({}, outbound, inbound)
               }, validatedTour, {
-                price: Number(price) || 0
+                price: (_price = {}, _defineProperty(_price, currency.toLowerCase(), Number(price)), _defineProperty(_price, "uah", Number(uah)), _price)
               })
             });
             return _context.abrupt("return", _objectSpread({
               status: status,
               flights: _objectSpread({}, outbound, inbound)
             }, validatedTour, {
-              price: Number(price) || 0
+              price: (_price2 = {}, _defineProperty(_price2, currency.toLowerCase(), Number(price)), _defineProperty(_price2, "uah", Number(uah)), _price2)
             }));
 
           case 9:

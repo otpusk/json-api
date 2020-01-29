@@ -3,9 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.infoSchema = void 0;
+exports.infoSchema = exports.flightSchema = void 0;
 
 var _normalizr = require("normalizr");
+
+var _moment = _interopRequireDefault(require("moment"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -15,51 +19,65 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var flightCode = function flightCode(name) {
-  var noWhitespaceName = name.replace(/\s/g, "");
+var inputFormat = 'DD.MM.YYYY HH:mm';
+var outputFormat = 'YYYY-MM-DD HH:mm:ss';
 
-  if (/^[A-Z0-9]*$/g.test(noWhitespaceName)) {
-    return name;
+var formatDate = function formatDate(date, input, output) {
+  var formatted = (0, _moment.default)(date, input).format(output);
+  return formatted.toLowerCase().includes('invalid') ? date : formatted;
+};
+
+var flightCode = function flightCode() {
+  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  console.log('[FLGIHT_CODE]', {
+    name: name
+  });
+  var codeRegex = /[A-Z]{2}[\s-]{1}[\d]{4}/;
+  var codeMatch = name.match(codeRegex);
+
+  if (codeMatch.length) {
+    return codeMatch[0].replace('-', ' ');
   }
 
-  return name.split(",")[1].split(".")[0].trim();
+  return name;
+};
+
+var getIdAttribute = function getIdAttribute(_ref) {
+  var datebeg = _ref.datebeg,
+      dateend = _ref.dateend;
+  return "".concat(formatDate(datebeg, inputFormat, outputFormat), "_").concat(formatDate(dateend, inputFormat, outputFormat));
 };
 
 var processTransports = function processTransports(entity) {
   var name = entity.name,
       datebeg = entity.datebeg,
       dateend = entity.dateend,
-      add = entity.add,
-      rest = _objectWithoutProperties(entity, ["name", "datebeg", "dateend", "add"]);
+      price = entity.price,
+      rest = _objectWithoutProperties(entity, ["name", "datebeg", "dateend", "price"]);
 
   var res = _objectSpread({
     code: name && flightCode(name),
-    begin: datebeg,
-    end: dateend,
-    priceChange: add ? Number(add.split(" ")[0]) : 0
+    begin: formatDate(datebeg, inputFormat, outputFormat),
+    end: formatDate(dateend, inputFormat, outputFormat),
+    priceChange: Number(price) || Number(price.split(/\s/)[0])
   }, rest);
 
   return res;
 };
 
 var outboundSchema = new _normalizr.schema.Entity("outbound", {}, {
-  idAttribute: function idAttribute(_ref) {
-    var name = _ref.name;
-    return name;
-  },
+  idAttribute: getIdAttribute,
   processStrategy: processTransports
 });
 var inboundSchema = new _normalizr.schema.Entity("inbound", {}, {
-  idAttribute: function idAttribute(_ref2) {
-    var name = _ref2.name;
-    return name;
-  },
+  idAttribute: getIdAttribute,
   processStrategy: processTransports
 });
 var flightSchema = new _normalizr.schema.Entity("flights", {
   departure: [outboundSchema],
   return: [inboundSchema]
 });
+exports.flightSchema = flightSchema;
 var infoSchema = {
   transports: flightSchema
 };
