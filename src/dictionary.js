@@ -70,7 +70,7 @@ export const getImageUrl = (part, size = 'medium', watermark = null) => {
         large:  `3${watermarkPart}/730x0`,
     };
 
-    return `https://newimg.otpusk.com/${sizes[size]}/${part}`;
+    return `https://www.otpusk.com/foto/${sizes[size]}/${part}`;
 };
 
 export const getOperatorLogoById = (id) => `https://export.otpusk.com/images/onsite/logo/logo-${id}.png`;
