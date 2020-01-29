@@ -33,9 +33,7 @@ function _getToursValidate() {
   _getToursValidate = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, offerId) {
-    var _price, _price2;
-
-    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$pri, price, _normalize$result$cur, currency, uah, validatedTour;
+    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, validatedTour;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -52,7 +50,7 @@ function _getToursValidate() {
             denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
               info: _schemas.infoSchema
-            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$pri = _normalize$result.price, price = _normalize$result$pri === void 0 ? 0 : _normalize$result$pri, _normalize$result$cur = _normalize$result.currency, currency = _normalize$result$cur === void 0 ? 'usd' : _normalize$result$cur, uah = _normalize$result.uah, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "price", "currency", "uah"]);
+            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$usd = _normalize$result.usd, usd = _normalize$result$usd === void 0 ? 0 : _normalize$result$usd, _normalize$result$uah = _normalize$result.uah, uah = _normalize$result$uah === void 0 ? 0 : _normalize$result$uah, _normalize$result$eur = _normalize$result.eur, eur = _normalize$result$eur === void 0 ? 0 : _normalize$result$eur, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "usd", "uah", "eur"]);
             console.log('[NORMALIZATION]', {
               token: token,
               denormalizedOffer: denormalizedOffer,
@@ -63,14 +61,22 @@ function _getToursValidate() {
                 status: status,
                 flights: _objectSpread({}, outbound, inbound)
               }, validatedTour, {
-                price: (_price = {}, _defineProperty(_price, currency.toLowerCase(), Number(price)), _defineProperty(_price, "uah", Number(uah)), _price)
+                price: {
+                  usd: Number(usd),
+                  eur: Number(eur),
+                  uah: Number(uah)
+                }
               })
             });
             return _context.abrupt("return", _objectSpread({
               status: status,
               flights: _objectSpread({}, outbound, inbound)
             }, validatedTour, {
-              price: (_price2 = {}, _defineProperty(_price2, currency.toLowerCase(), Number(price)), _defineProperty(_price2, "uah", Number(uah)), _price2)
+              price: {
+                usd: Number(usd),
+                eur: Number(eur),
+                uah: Number(uah)
+              }
             }));
 
           case 9:
