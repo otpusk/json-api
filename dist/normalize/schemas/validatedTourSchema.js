@@ -29,9 +29,6 @@ var formatDate = function formatDate(date, input, output) {
 
 var flightCode = function flightCode() {
   var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  console.log('[FLGIHT_CODE]', {
-    name: name
-  });
   var codeRegex = /[A-Z]{2}[\s-]{1}[\d]{4}/;
   var codeMatch = name.match(codeRegex);
 

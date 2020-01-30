@@ -51,23 +51,6 @@ function _getToursValidate() {
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
               info: _schemas.infoSchema
             }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$usd = _normalize$result.usd, usd = _normalize$result$usd === void 0 ? 0 : _normalize$result$usd, _normalize$result$uah = _normalize$result.uah, uah = _normalize$result$uah === void 0 ? 0 : _normalize$result$uah, _normalize$result$eur = _normalize$result.eur, eur = _normalize$result$eur === void 0 ? 0 : _normalize$result$eur, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "usd", "uah", "eur"]);
-            console.log('[NORMALIZATION]', {
-              token: token,
-              denormalizedOffer: denormalizedOffer,
-              normalization: (0, _normalizr.normalize)(denormalizedOffer, {
-                info: _schemas.infoSchema
-              }),
-              result: _objectSpread({
-                status: status,
-                flights: _objectSpread({}, outbound, inbound)
-              }, validatedTour, {
-                price: {
-                  usd: Number(usd),
-                  eur: Number(eur),
-                  uah: Number(uah)
-                }
-              })
-            });
             return _context.abrupt("return", _objectSpread({
               status: status,
               flights: _objectSpread({}, outbound, inbound)
@@ -79,7 +62,7 @@ function _getToursValidate() {
               }
             }));
 
-          case 9:
+          case 8:
           case "end":
             return _context.stop();
         }

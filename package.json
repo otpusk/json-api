@@ -1,6 +1,6 @@
 {
   "name": "@otpusk/json-api",
-  "version": "0.0.84",
+  "version": "0.0.85",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -35,9 +35,7 @@
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14",
-    "babel-eslint": "^10.0.2",
-    "eslint": "^6.1.0"
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
     "fetch-jsonp": "^1.1.3",
