@@ -69,6 +69,12 @@ Object.defineProperty(exports, "fullOfferSchema", {
     return _offerSchema.fullOfferSchema;
   }
 });
+Object.defineProperty(exports, "infoSchema", {
+  enumerable: true,
+  get: function get() {
+    return _validatedTourSchema.infoSchema;
+  }
+});
 
 var _geoSchema = require("./geoSchema");
 
@@ -81,3 +87,5 @@ var _currencySchema = require("./currencySchema");
 var _hotelSchema = require("./hotelSchema");
 
 var _offerSchema = require("./offerSchema");
+
+var _validatedTourSchema = require("./validatedTourSchema");
