@@ -21,7 +21,8 @@ const flightCode = (name = '') => {
     return name;
 };
 
-const getIdAttribute = ({ datebeg, dateend }) => `${formatDate(datebeg, inputFormat, outputFormat)}_${formatDate(dateend, inputFormat, outputFormat)}`;
+const getIdAttribute = ({ name, datebeg, dateend }) =>
+    `${flightCode(name)}_${formatDate(datebeg, inputFormat, outputFormat)}_${formatDate(dateend, inputFormat, outputFormat)}`;
 
 const processTransports = (entity) => {
     const { name, datebeg, dateend, price, ...rest } = entity;

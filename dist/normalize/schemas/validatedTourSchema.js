@@ -40,9 +40,10 @@ var flightCode = function flightCode() {
 };
 
 var getIdAttribute = function getIdAttribute(_ref) {
-  var datebeg = _ref.datebeg,
+  var name = _ref.name,
+      datebeg = _ref.datebeg,
       dateend = _ref.dateend;
-  return "".concat(formatDate(datebeg, inputFormat, outputFormat), "_").concat(formatDate(dateend, inputFormat, outputFormat));
+  return "".concat(flightCode(name), "_").concat(formatDate(datebeg, inputFormat, outputFormat), "_").concat(formatDate(dateend, inputFormat, outputFormat));
 };
 
 var processTransports = function processTransports(entity) {
