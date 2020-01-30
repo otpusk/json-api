@@ -17,22 +17,6 @@ export async function getToursValidate (token, offerId) {
     const { entities: { outbound, inbound },
         result: { info, usd = 0, uah = 0, eur = 0, ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
 
-    console.log('[NORMALIZATION]', {
-        token,
-        denormalizedOffer,
-        normalization: normalize(denormalizedOffer, { info: infoSchema }),
-        result:        {
-            status,
-            flights: { ...outbound, ...inbound },
-            ...validatedTour,
-            price:   {
-                usd: Number(usd),
-                eur: Number(eur),
-                uah: Number(uah),
-            },
-        },
-    });
-
     return {
         status,
         flights: { ...outbound, ...inbound },

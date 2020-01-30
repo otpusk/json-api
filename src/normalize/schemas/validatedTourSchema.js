@@ -10,7 +10,6 @@ const formatDate = (date, input, output) => {
 };
 
 const flightCode = (name = '') => {
-    console.log('[FLGIHT_CODE]', { name });
     const codeRegex = /[A-Z]{2}[\s-]{1}[\d]{4}/;
 
     const codeMatch = name.match(codeRegex);
