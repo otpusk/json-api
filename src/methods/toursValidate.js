@@ -12,7 +12,7 @@ export async function getToursValidate (token, offerId) {
 
     const { status, ...denormalizedOffer } = await makeCall(`${tempEndpoint}/${offerId}`, {
         ...token,
-    });
+    }, null, 30000);
 
     const { entities: { outbound, inbound },
         result: { info, usd = 0, uah = 0, eur = 0, ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });

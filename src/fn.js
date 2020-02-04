@@ -27,6 +27,7 @@ function createQueryStringFromObject (params) {
  */
 function hash (str) {
     let hash = 5381;
+
     let i    = str.length;
 
     while (i) {
@@ -59,10 +60,11 @@ async function parseResponse (response) {
  * @param {string} endpoint Request endpoint
  * @param {Object} query Request query
  * @param {Object} ttl Moment duration
+ * @param {number} timeout Request timeout
  *
  * @returns {Promise} Response
  */
-async function makeCall (endpoint, query, ttl = null) {
+async function makeCall (endpoint, query, ttl = null, timeout = 10000) {
     const request = `${endpoint}?${createQueryStringFromObject(query)}`;
     const cache = new CacheItem(hash(request));
 
@@ -72,7 +74,7 @@ async function makeCall (endpoint, query, ttl = null) {
         return body;
     }
 
-    const response = await fetch(request, { timeout: 10000 });
+    const response = await fetch(request, { timeout });
     const body = await parseResponse(response);
 
     if (ttl) {
@@ -86,15 +88,16 @@ async function makeCall (endpoint, query, ttl = null) {
 
 /**
  * Copy defined source object fields to target object
- * @param {*} target 
- * @param {*} source 
- * 
+ * @param {*} target
+ * @param {*} source
+ *
  * @returns {*} result
  */
-function mergeDefinedObjectValues(target, source) {
+function mergeDefinedObjectValues (target, source) {
     const result = Object.assign({}, target);
-    for(const [f, v] of Object.entries(source)) {
-        if(typeof v !== 'undefined') {
+
+    for (const [f, v] of Object.entries(source)) {
+        if (typeof v !== 'undefined') {
             result[f] = v;
         }
     }
