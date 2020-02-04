@@ -86,6 +86,7 @@ function parseResponse(_x) {
  * @param {string} endpoint Request endpoint
  * @param {Object} query Request query
  * @param {Object} ttl Moment duration
+ * @param {number} timeout Request timeout
  *
  * @returns {Promise} Response
  */
@@ -132,9 +133,9 @@ function makeCall(_x2, _x3) {
 }
 /**
  * Copy defined source object fields to target object
- * @param {*} target 
- * @param {*} source 
- * 
+ * @param {*} target
+ * @param {*} source
+ *
  * @returns {*} result
  */
 
@@ -144,6 +145,7 @@ function _makeCall() {
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(endpoint, query) {
     var ttl,
+        timeout,
         request,
         cache,
         _body,
@@ -156,52 +158,53 @@ function _makeCall() {
         switch (_context2.prev = _context2.next) {
           case 0:
             ttl = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : null;
+            timeout = _args2.length > 3 && _args2[3] !== undefined ? _args2[3] : 10000;
             request = "".concat(endpoint, "?").concat(createQueryStringFromObject(query));
             cache = new _cache.CacheItem(hash(request));
-            _context2.next = 5;
+            _context2.next = 6;
             return cache.isHit(ttl);
 
-          case 5:
+          case 6:
             if (!_context2.sent) {
-              _context2.next = 10;
+              _context2.next = 11;
               break;
             }
 
-            _context2.next = 8;
+            _context2.next = 9;
             return cache.get();
 
-          case 8:
+          case 9:
             _body = _context2.sent;
             return _context2.abrupt("return", _body);
 
-          case 10:
-            _context2.next = 12;
+          case 11:
+            _context2.next = 13;
             return (0, _fetchJsonp.default)(request, {
-              timeout: 10000
+              timeout: timeout
             });
 
-          case 12:
+          case 13:
             response = _context2.sent;
-            _context2.next = 15;
+            _context2.next = 16;
             return parseResponse(response);
 
-          case 15:
+          case 16:
             body = _context2.sent;
 
             if (!ttl) {
-              _context2.next = 21;
+              _context2.next = 22;
               break;
             }
 
             cache.set(body);
             cache.expiresAfter(_moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)));
-            _context2.next = 21;
+            _context2.next = 22;
             return cache.save();
 
-          case 21:
+          case 22:
             return _context2.abrupt("return", body);
 
-          case 22:
+          case 23:
           case "end":
             return _context2.stop();
         }

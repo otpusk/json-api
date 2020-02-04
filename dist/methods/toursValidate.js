@@ -42,7 +42,7 @@ function _getToursValidate() {
             // const prodEndpoint = ENDPOINTS.validate;
             tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
             _context.next = 3;
-            return (0, _fn.makeCall)("".concat(tempEndpoint, "/").concat(offerId), _objectSpread({}, token));
+            return (0, _fn.makeCall)("".concat(tempEndpoint, "/").concat(offerId), _objectSpread({}, token), null, 30000);
 
           case 3:
             _ref = _context.sent;
