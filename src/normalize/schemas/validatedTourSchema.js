@@ -10,11 +10,11 @@ const formatDate = (date, input, output) => {
 };
 
 const flightCode = (name = '') => {
-    const codeRegex = /[A-Z]{2}[\s-]{1}[\d]{4}/;
+    const codeRegex = /[A-Z0-9]{2}[\s-]{1}[\d]{4}/;
 
     const codeMatch = name.match(codeRegex);
 
-    if (codeMatch.length) {
+    if (codeMatch && codeMatch.length) {
         return codeMatch[0].replace('-', ' ');
     }
 
