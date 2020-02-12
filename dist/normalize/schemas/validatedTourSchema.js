@@ -29,7 +29,7 @@ var formatDate = function formatDate(date, input, output) {
 
 var flightCode = function flightCode() {
   var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var codeRegex = /[A-Z0-9]{2}[\s-]{1}[\d]{4}/;
+  var codeRegex = /[A-Z0-9]+[\s-]{1}[\d]+/;
   var codeMatch = name.match(codeRegex);
 
   if (codeMatch && codeMatch.length) {
