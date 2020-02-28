@@ -13,6 +13,14 @@ var _schemas = require("../normalize/schemas");
 
 var _config = require("../config");
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -33,7 +41,7 @@ function _getToursValidate() {
   _getToursValidate = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(token, offerId) {
-    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, validatedTour;
+    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, _normalize$result$cur, currency, validatedTour, converter, flights, recalculatedFlights;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -50,10 +58,30 @@ function _getToursValidate() {
             denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
               info: _schemas.infoSchema
-            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$usd = _normalize$result.usd, usd = _normalize$result$usd === void 0 ? 0 : _normalize$result$usd, _normalize$result$uah = _normalize$result.uah, uah = _normalize$result$uah === void 0 ? 0 : _normalize$result$uah, _normalize$result$eur = _normalize$result.eur, eur = _normalize$result$eur === void 0 ? 0 : _normalize$result$eur, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "usd", "uah", "eur"]);
+            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$usd = _normalize$result.usd, usd = _normalize$result$usd === void 0 ? 0 : _normalize$result$usd, _normalize$result$uah = _normalize$result.uah, uah = _normalize$result$uah === void 0 ? 0 : _normalize$result$uah, _normalize$result$eur = _normalize$result.eur, eur = _normalize$result$eur === void 0 ? 0 : _normalize$result$eur, _normalize$result$cur = _normalize$result.currency, currency = _normalize$result$cur === void 0 ? 'usd' : _normalize$result$cur, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "usd", "uah", "eur", "currency"]);
+            converter = {
+              usd: Number(uah) / Number(usd),
+              eur: Number(uah) / Number(eur),
+              uah: 1
+            };
+            flights = _objectSpread({}, outbound, inbound);
+            recalculatedFlights = Object.entries(flights).reduce(function (prev, _ref2) {
+              var _ref3 = _slicedToArray(_ref2, 2),
+                  key = _ref3[0],
+                  value = _ref3[1];
+
+              return _objectSpread({}, prev, _defineProperty({}, key, _objectSpread({}, value, {
+                priceChange: {
+                  usd: currency === 'usd' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.usd),
+                  eur: currency === 'eur' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.eur),
+                  uah: currency === 'uah' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.uah)
+                }
+              })));
+            }, {});
             return _context.abrupt("return", _objectSpread({
               status: status,
-              flights: _objectSpread({}, outbound, inbound)
+              currency: currency,
+              flights: recalculatedFlights
             }, validatedTour, {
               price: {
                 usd: Number(usd),
@@ -62,7 +90,7 @@ function _getToursValidate() {
               }
             }));
 
-          case 8:
+          case 11:
           case "end":
             return _context.stop();
         }

@@ -15,11 +15,31 @@ export async function getToursValidate (token, offerId) {
     }, null, 30000);
 
     const { entities: { outbound, inbound },
-        result: { info, usd = 0, uah = 0, eur = 0, ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
+        result: { info, usd = 0, uah = 0, eur = 0, currency = 'usd', ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
+
+    const converter = {
+        usd: Number(uah) / Number(usd),
+        eur: Number(uah) / Number(eur),
+        uah: 1,
+    };
+
+    const flights = { ...outbound, ...inbound };
+    const recalculatedFlights = Object.entries(flights).reduce((prev, [key, value]) => ({
+        ...prev,
+        [key]: {
+            ...value,
+            priceChange: {
+                usd: currency === 'usd' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.usd),
+                eur: currency === 'eur' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.eur),
+                uah: currency === 'uah' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.uah),
+            },
+        },
+    }), {});
 
     return {
         status,
-        flights: { ...outbound, ...inbound },
+        currency,
+        flights: recalculatedFlights,
         ...validatedTour,
         price:   {
             usd: Number(usd),
