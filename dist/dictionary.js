@@ -112,6 +112,7 @@ var getImageUrl = function getImageUrl(part) {
   var watermark = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var watermarkPart = watermark ? "_".concat(watermark) : '';
   var sizes = {
+    verySmall: "2".concat(watermarkPart, "/160x120"),
     small: "2".concat(watermarkPart, "/240x160"),
     medium: "2".concat(watermarkPart, "/320x240"),
     large: "3".concat(watermarkPart, "/730x0")

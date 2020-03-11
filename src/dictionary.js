@@ -65,9 +65,10 @@ export const getOperatorById = (id) => findInArrayByProp(OPERATORS, 'id', id);
 export const getImageUrl = (part, size = 'medium', watermark = null) => {
     const watermarkPart = watermark ? `_${watermark}` : '';
     const sizes = {
-        small:  `2${watermarkPart}/240x160`,
-        medium: `2${watermarkPart}/320x240`,
-        large:  `3${watermarkPart}/730x0`,
+        verySmall: `2${watermarkPart}/160x120`,
+        small:     `2${watermarkPart}/240x160`,
+        medium:    `2${watermarkPart}/320x240`,
+        large:     `3${watermarkPart}/730x0`,
     };
 
     return `https://www.otpusk.com/foto/${sizes[size]}/${part}`;
@@ -275,7 +276,7 @@ export const getPriceExtraFares = (hotel, offer) => {
             }
 
             return false;
-        }
+        },
     };
 
 
@@ -324,12 +325,14 @@ export const getPriceExtraFares = (hotel, offer) => {
             conditions: [
                 traits.isFlightsByRequest(offer)
             ],
-        },
+        }
     ];
     const additionalPayments = offer.additionalPayments.map((text) => ({
         name: 'additional',
         text,
     }));
     const calculatedPayments = rules.filter(({ conditions }) => conditions.every((value) => value === true));
+
+
     return additionalPayments;
 };
