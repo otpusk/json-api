@@ -13,6 +13,8 @@ var _schemas = require("../normalize/schemas");
 
 var _config = require("../config");
 
+var _dictionary = require("../dictionary");
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -41,7 +43,7 @@ function getToursValidate(_x, _x2) {
 
 function _getToursValidate() {
   _getToursValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId) {
-    var tempEndpoint, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, _normalize$result$cur, currency, validatedTour, converter, flights, recalculatedFlights;
+    var tempEndpoint, _getDepartureCityById, _getDepartureCityById2, name, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, _normalize$result$cur, currency, validatedTour, converter, flights, recalculatedFlights;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -49,10 +51,16 @@ function _getToursValidate() {
           case 0:
             // const prodEndpoint = ENDPOINTS.validate;
             tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
-            _context.next = 3;
+
+            if (token && token.city) {
+              _getDepartureCityById = (0, _dictionary.getDepartureCityById)(token.city), _getDepartureCityById2 = _getDepartureCityById.name, name = _getDepartureCityById2 === void 0 ? '' : _getDepartureCityById2;
+              token.city = name;
+            }
+
+            _context.next = 4;
             return (0, _fn.makeCall)("".concat(tempEndpoint, "/").concat(offerId), _objectSpread({}, token), null, 60000);
 
-          case 3:
+          case 4:
             _ref = _context.sent;
             status = _ref.status;
             denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
@@ -90,7 +98,7 @@ function _getToursValidate() {
               }
             }));
 
-          case 11:
+          case 12:
           case "end":
             return _context.stop();
         }

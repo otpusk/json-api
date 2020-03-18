@@ -5,10 +5,17 @@ import { normalize } from 'normalizr';
 import { makeCall } from '../fn';
 import { infoSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
+import { getDepartureCityById } from '../dictionary';
 
 export async function getToursValidate (token, offerId) {
     // const prodEndpoint = ENDPOINTS.validate;
     const tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
+
+    if (token && token.city) {
+        const { name = '' } = getDepartureCityById(token.city);
+
+        token.city = name;
+    }
 
     const { status, ...denormalizedOffer } = await makeCall(`${tempEndpoint}/${offerId}`, {
         ...token,
