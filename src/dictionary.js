@@ -68,7 +68,7 @@ export const getImageUrl = (part, size = 'medium', watermark = null) => {
         verySmall: `2${watermarkPart}/160x120`,
         small:     `2${watermarkPart}/240x160`,
         medium:    `2${watermarkPart}/320x240`,
-        large:     `3${watermarkPart}/730x0`,
+        large:     `3${watermarkPart}/800x600`,
     };
 
     return `https://www.otpusk.com/foto/${sizes[size]}/${part}`;

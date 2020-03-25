@@ -18,7 +18,9 @@ function getInit(_x) {
 }
 
 function _getInit() {
-  _getInit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
+  _getInit = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee(token) {
     var _ref, gmapkey;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -42,7 +44,7 @@ function _getInit() {
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, this);
   }));
   return _getInit.apply(this, arguments);
 }
