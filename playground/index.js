@@ -21,10 +21,12 @@ const query = {
     transport: "air,bus,train,ship",
 };
 
-API.getToursSearch(token, query)
-API.getToursOffer(token, 1023529150816242).then((offer) => {
-    console.log(offer);
-    console.log(getPriceExtraFares({ country: {} }, offer))
-});
+// API.getToursSearch(token, query)
+// API.getToursOffer(token, 1023529150816242).then((offer) => {
+//     console.log(offer);
+//     console.log(getPriceExtraFares({ country: {} }, offer))
+// });
+//
+// API.getToursOffer(token, 2393529320809282).then(console.log)
 
-API.getToursOffer(token, 2393529320809282).then(console.log)
+API.getToursDates(token, { regionId: 1544 }).then(console.log);
