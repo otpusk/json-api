@@ -121,6 +121,7 @@ export const hotelSchema = new schema.Entity(
                 g = {},
                 e = {},
                 f: photos,
+                fc: photosCount,
                 vh: videos,
                 offers = [],
                 watermark = null
@@ -144,6 +145,7 @@ export const hotelSchema = new schema.Entity(
                         ? Boolean(photos.length) ? photos : [defaultPhoto]
                         : [photos]
                     : [defaultPhoto],
+                photosCount,
                 videos: parseHotelVideos(videos),
                 price: parsePrice(price),
                 location: parseLocation(g),
