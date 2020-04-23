@@ -93,11 +93,23 @@ var parseFlights = function parseFlights(input) {
   }).map(function (flights) {
     return Array.isArray(flights) ? flights : Object.values(flights);
   }).map(function (flights) {
-    return flights.filter(function (_ref2) {
+    return (0, _immutable.List)(flights).filter(function (_ref2) {
       var _ref2$place = _ref2.place,
           place = _ref2$place === void 0 ? 0 : _ref2$place;
       return place > 0;
-    });
+    }).sort(function (_ref3, _ref4) {
+      var a = _ref3.additional;
+      var b = _ref4.additional;
+
+      var _map = [a, b].map(function (value) {
+        return value ? 1 : 0;
+      }),
+          _map2 = _slicedToArray(_map, 2),
+          indexA = _map2[0],
+          indexB = _map2[1];
+
+      return indexA - indexB;
+    }).toArray();
   }).toJS();
 };
 
@@ -248,10 +260,10 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
 exports.parseSearchMeta = parseSearchMeta;
 
 var parseHotelVideos = function parseHotelVideos(raw) {
-  return raw && Array.isArray(raw) ? raw.map(function (_ref4) {
-    var thumbnail = _ref4.thumbnail,
-        id = _ref4.videoId,
-        code = _ref4.code;
+  return raw && Array.isArray(raw) ? raw.map(function (_ref6) {
+    var thumbnail = _ref6.thumbnail,
+        id = _ref6.videoId,
+        code = _ref6.code;
 
     var getProvider = function getProvider(iframe) {
       if (iframe.match(new RegExp('(youtu.|youtube.)'))) {

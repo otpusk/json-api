@@ -1,5 +1,5 @@
 // Core
-import { Map, mergeWith } from 'immutable';
+import { Map, List, mergeWith, get } from 'immutable';
 
 //Instruments
 import { mergeDefinedObjectValues } from '../fn';
@@ -49,7 +49,15 @@ export const parseFlights = (input) => {
 
     return Map({ outbound, inbound })
         .map((flights) => Array.isArray(flights) ? flights : Object.values(flights))
-        .map((flights) => flights.filter(({ place = 0 }) => place > 0))
+        .map((flights) => List(flights)
+            .filter(({ place = 0 }) => place > 0)
+            .sort(({ additional: a }, { additional: b }) => {
+                const [indexA, indexB] = [a, b].map((value) => value ? 1 : 0);
+
+                return indexA - indexB;
+            })
+            .toArray()
+        )
         .toJS();
 };
 
