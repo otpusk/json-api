@@ -15,7 +15,9 @@ var _config = require("../config");
 
 var _schemas = require("../normalize/schemas");
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -28,9 +30,7 @@ function getToursHotels(_x, _x2) {
 }
 
 function _getToursHotels() {
-  _getToursHotels = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(token, countryId) {
+  _getToursHotels = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
     var options,
         _options$cities,
         cities,
@@ -76,7 +76,7 @@ function _getToursHotels() {
             return _context.stop();
         }
       }
-    }, _callee, this);
+    }, _callee);
   }));
   return _getToursHotels.apply(this, arguments);
 }
@@ -86,9 +86,7 @@ function getToursHotelsMarkers(_x3, _x4, _x5, _x6) {
 }
 
 function _getToursHotelsMarkers() {
-  _getToursHotelsMarkers = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2(token, countryId, cityId, options) {
+  _getToursHotelsMarkers = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(token, countryId, cityId, options) {
     var center, radius, _ref2, denormalizedHotels, _normalize2, markers;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -120,7 +118,7 @@ function _getToursHotelsMarkers() {
             return _context2.stop();
         }
       }
-    }, _callee2, this);
+    }, _callee2);
   }));
   return _getToursHotelsMarkers.apply(this, arguments);
 }
@@ -130,9 +128,7 @@ function getToursHotel(_x7, _x8) {
 }
 
 function _getToursHotel() {
-  _getToursHotel = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee3(token, hotelId) {
+  _getToursHotel = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(token, hotelId) {
     var lang,
         _ref3,
         denormalizedHotel,
@@ -170,7 +166,7 @@ function _getToursHotel() {
             return _context3.stop();
         }
       }
-    }, _callee3, this);
+    }, _callee3);
   }));
   return _getToursHotel.apply(this, arguments);
 }
