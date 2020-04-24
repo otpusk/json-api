@@ -183,7 +183,10 @@ var getFirstAvailableFlightsFromOffer = function getFirstAvailableFlightsFromOff
   var _offer$flights$inboun2 = _slicedToArray(_offer$flights$inboun, 1),
       inbound = _offer$flights$inboun2[0];
 
-  return [outbound, inbound];
+  return [outbound, inbound] // to prevent undefined flights
+  .filter(function (flight) {
+    return Boolean(flight);
+  });
 };
 
 exports.getFirstAvailableFlightsFromOffer = getFirstAvailableFlightsFromOffer;

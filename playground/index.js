@@ -31,4 +31,4 @@ const query = {
 
 // API.getToursDates(token, { regionId: 1544 }).then(console.log);
 
-API.getToursHotel(token, 7945).then(console.log);
+API.getToursHotel(token, 7976).then(console.log);

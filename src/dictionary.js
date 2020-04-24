@@ -111,7 +111,9 @@ export const getHotelSchemaType = (hotel) => {
 export const getFirstAvailableFlightsFromOffer = (offer) => {
     const { outbound: [outbound] = [], inbound: [inbound] = []} = offer.flights;
 
-    return [outbound, inbound];
+    return [outbound, inbound]
+        // to prevent undefined flights
+        .filter((flight) => Boolean(flight));
 };
 
 export const compileOSQueryString = (query) => {
