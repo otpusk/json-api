@@ -9,7 +9,7 @@ export const parsePrice = (input) => {
     const {
         uah, p, pl, priceUah,
         price, po, minPrice,
-        currency, pu, u, c, ur
+        currency, pu, u, c, ur,
     } = input;
 
     const convertPriceWithoutDiscount = po ? po * ur : pl;
@@ -40,12 +40,12 @@ export const parseDiscountPrice = (input) => {
 
     return {
         [originalCurrency]: p,
-        uah: pl
+        uah:                pl,
     };
 };
 
 export const parseFlights = (input) => {
-    const { from: outbound = [], to: inbound = [] } = input;
+    const { from: outbound = [], to: inbound = []} = input;
 
     return Map({ outbound, inbound })
         .map((flights) => Array.isArray(flights) ? flights : Object.values(flights))
@@ -63,8 +63,8 @@ export const parseLocation = (input) => {
     }
 
     return {
-        lat: latitude,
-        lng: longitude,
+        lat:  latitude,
+        lng:  longitude,
         zoom: parseInt(zoom || z, 10),
     };
 };
@@ -90,7 +90,7 @@ export const parseHotelGeo = (input) => {
     const { i: id, n: name, c: code } = input;
     const geo = { id, name, code, names: parseNames(input) };
     const optional = {
-        isoCode: input.cd || input.cid
+        isoCode: input.cd || input.cid,
     };
 
     return mergeDefinedObjectValues(geo, optional);
@@ -106,7 +106,7 @@ export const parseCity = (input) => {
     const { cityId: id, cityName, resortName, cityCode: code = null } = input;
 
     return {
-        id: Number(id) || null, name: cityName || resortName, code, names: parseNames(input, 'city')
+        id: Number(id) || null, name: cityName || resortName, code, names: parseNames(input, 'city'),
     };
 };
 
@@ -119,11 +119,11 @@ export const parseStars = (input) => {
         default:
             return parseInt(String(input).replace(/\D/, ''), 10);
     }
-}
+};
 
 /**
- * 
- * @param {object} input 
+ *
+ * @param {object} input
  */
 export const parseSearchMeta = (input, query) => {
     const {
@@ -136,21 +136,21 @@ export const parseSearchMeta = (input, query) => {
 
     const currency = 'currency' in query ? query.currency : 'original';
     const pricesMerger = (converted, original) => ({
-            uah: converted,
-            [currency]: original
+        uah:        converted,
+        [currency]: original,
     });
 
     const categoriesPrices = mergeWith(pricesMerger, stars, originalStars);
     const operatorsPrices = mergeWith(pricesMerger, operators, originalOperators);
-    
+
     return {
         prices: {
-            operators: operatorsPrices,
-            categories: categoriesPrices
+            operators:  operatorsPrices,
+            categories: categoriesPrices,
         },
         links: {
-            operators: searchOperators
-        }
+            operators: searchOperators,
+        },
     };
 };
 
@@ -168,11 +168,19 @@ export const parseHotelVideos = (raw) => {
 
                 return null;
             };
+
+
             return {
                 id,
                 provider: getProvider(code),
-                thumbnail
-            }
+                thumbnail,
+            };
         })
         : [];
-}
+};
+
+export const parseBadges = (raw) => {
+    return Object.entries(raw)
+        .filter(([, badge]) => Boolean(badge))
+        .map(([area, badge]) => ({ area, ...badge }));
+};

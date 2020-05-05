@@ -5,7 +5,7 @@ import { schema } from 'normalizr';
 // Instruments
 import {
     parsePrice, parseLocation, parseHotelGeo,
-    parseCountry, parseCity, parseStars, parseHotelVideos
+    parseCountry, parseCity, parseStars, parseHotelVideos, parseBadges
 } from '../parsers';
 import { offerSchema } from './offerSchema';
 import { mergeDefinedObjectValues } from '../../fn';
@@ -120,8 +120,11 @@ export const hotelSchema = new schema.Entity(
                 t,
                 g = {},
                 e = {},
+                rb = {},
+                tp = {},
                 f: photos,
                 fc: photosCount,
+                m = {},
                 vh: videos,
                 offers = [],
                 watermark = null
@@ -147,9 +150,12 @@ export const hotelSchema = new schema.Entity(
                     : [defaultPhoto],
                 photosCount,
                 videos: parseHotelVideos(videos),
+                sourceRatings: Object.values(rb),
+                hotelTypes: Object.keys(tp),
                 price: parsePrice(price),
                 location: parseLocation(g),
                 updated: typeof price === 'object' && 'up' in price ? price.up : null,
+                badges: parseBadges(m),
                 offers,
                 area: area ? Number(area) : null,
                 description: a,
