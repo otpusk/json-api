@@ -48,6 +48,7 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
         rating = input.rating,
         countryId = input.countryId,
         cityId = input.cityId,
+        code = input.code,
         name = input.name,
         value = input.value,
         image = input.image,
@@ -65,7 +66,8 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
       country: countryId ? String(countryId) : null,
       city: cityId ? String(cityId) : null,
       services: services ? services.split(',') : null,
-      type: 'hotel'
+      type: 'hotel',
+      hotelCode: code
     };
     return entity;
   }

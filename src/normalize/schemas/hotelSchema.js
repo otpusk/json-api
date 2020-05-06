@@ -22,7 +22,9 @@ export const hotelShortSchema = new schema.Entity(
                 rating,
                 countryId,
                 cityId,
-                name, value,
+                code,
+                name,
+                value,
                 image,
                 reviews,
                 services,
@@ -41,6 +43,7 @@ export const hotelShortSchema = new schema.Entity(
                 city: cityId ? String(cityId) : null,
                 services: services ? services.split(',') : null,
                 type: 'hotel',
+                hotelCode: code,
             };
 
             return entity;
@@ -127,7 +130,7 @@ export const hotelSchema = new schema.Entity(
                 m = {},
                 vh: videos,
                 offers = [],
-                watermark = null
+                watermark = null,
             } = input;
 
             const defaultPhoto = '00/03/85/49/3854941.jpg';
