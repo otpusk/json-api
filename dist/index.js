@@ -21,6 +21,12 @@ Object.defineProperty(exports, "getToursCountries", {
     return _toursCountries.getToursCountries;
   }
 });
+Object.defineProperty(exports, "getToursCurrencyRates", {
+  enumerable: true,
+  get: function get() {
+    return _toursCurrencyRates.getToursCurrencyRates;
+  }
+});
 Object.defineProperty(exports, "getToursCities", {
   enumerable: true,
   get: function get() {
@@ -151,6 +157,8 @@ Object.defineProperty(exports, "getInit", {
 var _toursSuggests = require("./methods/toursSuggests");
 
 var _toursCountries = require("./methods/toursCountries");
+
+var _toursCurrencyRates = require("./methods/toursCurrencyRates");
 
 var _toursCities = require("./methods/toursCities");
 

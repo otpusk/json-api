@@ -14,6 +14,7 @@ var TURPRAVDA = 'https://www.turpravda.com';
 var ENDPOINTS = Object.freeze({
   static: "".concat(API, "/tours/static"),
   countries: "".concat(API, "/tours/countries"),
+  currencyRates: "".concat(API, "/tours/currencyRates"),
   cities: "".concat(API, "/tours/cities"),
   hotel: "".concat(API, "/tours/hotel"),
   hotels: "".concat(API, "/tours/hotels"),
