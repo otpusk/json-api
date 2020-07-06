@@ -1,5 +1,6 @@
 export { getToursSuggests, getToursGeoById } from './methods/toursSuggests';
 export { getToursCountries } from './methods/toursCountries';
+export { getToursCurrencyRates } from './methods/toursCurrencyRates';
 export { getToursCities } from './methods/toursCities';
 export { getToursDepartureCities } from './methods/toursDepartureCities';
 export { getToursGraph } from './methods/toursGraph';
