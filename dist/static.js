@@ -229,6 +229,10 @@ var OPERATORS = [{
   vendor: 'sist',
   name: 'Siesta'
 }, {
+  id: 429,
+  vendor: 'pion',
+  name: 'Pilon'
+}, {
   id: 520,
   vendor: 'tcc',
   name: 'TCC'
