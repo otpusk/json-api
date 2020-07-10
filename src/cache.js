@@ -5,7 +5,7 @@ import moment from 'moment';
 import { createStorage } from './storage';
 
 const cacheStorage = createStorage('otpusk_api_cache');
-const LAST_FORCE_UPDATE_CLIENT_STORAGE = moment('14:42', 'HH:mm');
+const LAST_FORCE_UPDATE_CLIENT_STORAGE = moment('12:48', 'HH:mm');
 
 cacheStorage.findAll()
     .then((all) => {

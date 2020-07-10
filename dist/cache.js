@@ -34,7 +34,7 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var cacheStorage = (0, _storage.createStorage)('otpusk_api_cache');
-var LAST_FORCE_UPDATE_CLIENT_STORAGE = (0, _moment.default)('14:42', 'HH:mm');
+var LAST_FORCE_UPDATE_CLIENT_STORAGE = (0, _moment.default)('12:48', 'HH:mm');
 cacheStorage.findAll().then(function (all) {
   var _arr = Object.entries(all);
 
