@@ -44,6 +44,7 @@ export const citySchema = new schema.Entity(
                 code = '',
                 value,
                 name,
+                countryName
             } = input;
             const entity = {
                 id:       String(id),
@@ -55,6 +56,7 @@ export const citySchema = new schema.Entity(
                 price:    parsePrice(input),
                 location: parseLocation(input),
                 primary,
+                countryName,
             };
 
             return entity;

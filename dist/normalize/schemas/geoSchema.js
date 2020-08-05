@@ -62,7 +62,8 @@ var citySchema = new _normalizr.schema.Entity('city', {}, {
         _input$code2 = input.code,
         code = _input$code2 === void 0 ? '' : _input$code2,
         value = input.value,
-        name = input.name;
+        name = input.name,
+        countryName = input.countryName;
     var entity = {
       id: String(id),
       name: value ? value : name,
@@ -72,7 +73,8 @@ var citySchema = new _normalizr.schema.Entity('city', {}, {
       names: (0, _parsers.parseNames)(input),
       price: (0, _parsers.parsePrice)(input),
       location: (0, _parsers.parseLocation)(input),
-      primary: primary
+      primary: primary,
+      countryName: countryName
     };
     return entity;
   }

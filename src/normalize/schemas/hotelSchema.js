@@ -28,6 +28,7 @@ export const hotelShortSchema = new schema.Entity(
                 image,
                 reviews,
                 services,
+                cityName,
             } = input;
 
             const entity = {
@@ -44,6 +45,7 @@ export const hotelShortSchema = new schema.Entity(
                 services: services ? services.split(',') : null,
                 type: 'hotel',
                 hotelCode: code,
+                cityName,
             };
 
             return entity;
