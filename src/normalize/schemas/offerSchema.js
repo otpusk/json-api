@@ -36,6 +36,7 @@ export const offerSchema = new schema.Entity(
                 to: flights,
                 vid: code,
                 u: currency = null,
+                ur: currencyRate
             } = input;
 
             /* travel insurance for TPG */
@@ -69,6 +70,7 @@ export const offerSchema = new schema.Entity(
                 promo: promo ? promo.trim() : promo,
                 tourId,
                 additionalPayments: [],
+                currencyRate
             };
 
             return entity;
@@ -104,6 +106,7 @@ export const fullOfferSchema = new schema.Entity(
                 tourId,
                 bron,
                 currency = null,
+                currencyRate,
                 hotelId = null,
                 additional = []
             } = input;
@@ -139,7 +142,8 @@ export const fullOfferSchema = new schema.Entity(
                 tourId,
                 bookingUrl: bron,
                 hotelId,
-                additionalPayments: additional
+                additionalPayments: additional,
+                currencyRate
             };
 
             return entity;
