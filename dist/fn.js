@@ -30,7 +30,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -93,7 +93,9 @@ function parseResponse(_x) {
 
 
 function _parseResponse() {
-  _parseResponse = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(response) {
+  _parseResponse = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee(response) {
     var body, error, message;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -121,7 +123,7 @@ function _parseResponse() {
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, this);
   }));
   return _parseResponse.apply(this, arguments);
 }
@@ -139,7 +141,9 @@ function makeCall(_x2, _x3) {
 
 
 function _makeCall() {
-  _makeCall = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(endpoint, query) {
+  _makeCall = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee2(endpoint, query) {
     var ttl,
         timeout,
         request,
@@ -205,7 +209,7 @@ function _makeCall() {
             return _context2.stop();
         }
       }
-    }, _callee2);
+    }, _callee2, this);
   }));
   return _makeCall.apply(this, arguments);
 }
@@ -213,10 +217,12 @@ function _makeCall() {
 function mergeDefinedObjectValues(target, source) {
   var result = Object.assign({}, target);
 
-  for (var _i = 0, _Object$entries = Object.entries(source); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-        f = _Object$entries$_i[0],
-        v = _Object$entries$_i[1];
+  var _arr = Object.entries(source);
+
+  for (var _i = 0; _i < _arr.length; _i++) {
+    var _arr$_i = _slicedToArray(_arr[_i], 2),
+        f = _arr$_i[0],
+        v = _arr$_i[1];
 
     if (typeof v !== 'undefined') {
       result[f] = v;
