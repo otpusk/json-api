@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
+exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -305,3 +305,20 @@ var parseBadges = function parseBadges(raw) {
 };
 
 exports.parseBadges = parseBadges;
+
+var parsePromo = function parsePromo(promo) {
+  if (promo) {
+    var isHeightPromo = promo.startsWith('!');
+    return {
+      promo: !isHeightPromo ? promo.trim() : null,
+      heightPromo: isHeightPromo ? promo.slice(1) : null
+    };
+  }
+
+  return {
+    promo: promo,
+    heightPromo: null
+  };
+};
+
+exports.parsePromo = parsePromo;

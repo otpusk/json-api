@@ -192,3 +192,16 @@ export const parseBadges = (raw) => {
         .filter(([, badge]) => Boolean(badge))
         .map(([area, badge]) => ({ area, ...badge }));
 };
+
+export const parsePromo = (promo) => {
+    if (promo) {
+        const isHeightPromo = promo.startsWith('!');
+
+        return {
+            promo: !isHeightPromo ? promo.trim() : null,
+            heightPromo: isHeightPromo ? promo.slice(1) : null
+        };
+    }
+
+    return { promo, heightPromo: null };
+}

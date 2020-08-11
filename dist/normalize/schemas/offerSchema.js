@@ -9,8 +9,10 @@ var _normalizr = require("normalizr");
 
 var _parsers = require("../parsers");
 
-// Core
-// Instruments
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var offerSchema = new _normalizr.schema.Entity('offer', {}, {
   idAttribute: function idAttribute(_ref) {
     var i = _ref.i;
@@ -31,7 +33,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         roomId = input.ri,
         tourId = input.ti,
         roomType = input.y,
-        promo = input.s,
+        promoValue = input.s,
         stopsale = input.ss,
         transport = input.t,
         flights = input.to,
@@ -45,7 +47,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       includes.push('travelinsurance');
     }
 
-    var entity = {
+    var promo = (0, _parsers.parsePromo)(promoValue);
+
+    var entity = _objectSpread({
       id: String(id),
       code: code,
       date: date,
@@ -74,11 +78,11 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
-      promo: promo ? promo.trim() : promo,
       tourId: tourId,
       additionalPayments: [],
       currencyRate: currencyRate
-    };
+    }, promo && promo);
+
     return entity;
   }
 });
@@ -102,7 +106,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         roomName = input.room,
         roomId = input.roomId,
         roomType = input.type,
-        promo = input.tourStatus,
+        promoValue = input.tourStatus,
         stopsale = input.stopSale,
         transport = input.transport,
         flights = input.transportOptions,
@@ -122,7 +126,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       includes.push('travelinsurance');
     }
 
-    var entity = {
+    var promo = (0, _parsers.parsePromo)(promoValue);
+
+    var entity = _objectSpread({
       id: String(id),
       code: code,
       date: date,
@@ -150,13 +156,13 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),
-      promo: promo ? promo.trim() : promo,
       tourId: tourId,
       bookingUrl: bron,
       hotelId: hotelId,
       additionalPayments: additional,
       currencyRate: currencyRate
-    };
+    }, promo && promo);
+
     return entity;
   }
 });

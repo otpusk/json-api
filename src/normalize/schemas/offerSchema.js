@@ -6,7 +6,8 @@ import { schema } from 'normalizr';
 import {
     parsePrice,
     parseFlights,
-    parseDiscountPrice
+    parseDiscountPrice,
+    parsePromo
 } from '../parsers';
 
 export const offerSchema = new schema.Entity(
@@ -30,7 +31,7 @@ export const offerSchema = new schema.Entity(
                 ri: roomId,
                 ti: tourId,
                 y: roomType,
-                s: promo,
+                s: promoValue,
                 ss: stopsale,
                 t: transport,
                 to: flights,
@@ -43,6 +44,8 @@ export const offerSchema = new schema.Entity(
             if (operator === 2700) {
                 includes.push('travelinsurance');
             }
+
+            const promo = parsePromo(promoValue);
             
             const entity = {
                 id:           String(id),
@@ -67,10 +70,10 @@ export const offerSchema = new schema.Entity(
                 stopsale,
                 transport,
                 flights: parseFlights(flights || {}),
-                promo: promo ? promo.trim() : promo,
                 tourId,
                 additionalPayments: [],
-                currencyRate
+                currencyRate,
+                ...(promo && promo)
             };
 
             return entity;
@@ -98,7 +101,7 @@ export const fullOfferSchema = new schema.Entity(
                 room: roomName,
                 roomId,
                 type: roomType,
-                tourStatus: promo,
+                tourStatus: promoValue,
                 stopSale: stopsale,
                 transport,
                 transportOptions: flights,
@@ -115,6 +118,8 @@ export const fullOfferSchema = new schema.Entity(
             if (operator === 2700) {
                 includes.push('travelinsurance');
             }
+
+            const promo = parsePromo(promoValue);
 
             const entity = {
                 id:           String(id),
@@ -138,12 +143,12 @@ export const fullOfferSchema = new schema.Entity(
                 stopsale,
                 transport,
                 flights: parseFlights(flights || {}),
-                promo: promo ? promo.trim() : promo,
                 tourId,
                 bookingUrl: bron,
                 hotelId,
                 additionalPayments: additional,
-                currencyRate
+                currencyRate,
+                ...(promo && promo),
             };
 
             return entity;
