@@ -11,8 +11,12 @@ var _parsers = require("../parsers");
 
 var _hotelSchema = require("./hotelSchema");
 
-// Core
-// Instruments
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var countrySchema = new _normalizr.schema.Entity('country', {}, {
   idAttribute: function idAttribute(_ref) {
     var countryId = _ref.countryId,
@@ -33,7 +37,8 @@ var countrySchema = new _normalizr.schema.Entity('country', {}, {
         cities = _input$cities === void 0 ? [] : _input$cities,
         _input$weight = input.weight,
         weight = _input$weight === void 0 ? '0' : _input$weight;
-    var entity = {
+
+    var entity = _objectSpread({}, input, {
       id: String(id),
       name: input.name,
       type: 'country',
@@ -46,7 +51,8 @@ var countrySchema = new _normalizr.schema.Entity('country', {}, {
       transport: transport,
       cities: cities,
       weight: weight
-    };
+    });
+
     return entity;
   }
 });
@@ -65,9 +71,9 @@ var citySchema = new _normalizr.schema.Entity('city', {}, {
         _input$code2 = input.code,
         code = _input$code2 === void 0 ? '' : _input$code2,
         value = input.value,
-        name = input.name,
-        countryName = input.countryName;
-    var entity = {
+        name = input.name;
+
+    var entity = _objectSpread({}, input, {
       id: String(id),
       name: value ? value : name,
       country: String(countryId),
@@ -76,9 +82,9 @@ var citySchema = new _normalizr.schema.Entity('city', {}, {
       names: (0, _parsers.parseNames)(input),
       price: (0, _parsers.parsePrice)(input),
       location: (0, _parsers.parseLocation)(input),
-      primary: primary,
-      countryName: countryName
-    };
+      primary: primary
+    });
+
     return entity;
   }
 });

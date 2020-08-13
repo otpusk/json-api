@@ -13,6 +13,7 @@ export const countrySchema = new schema.Entity(
         processStrategy: (input) => {
             const { id, bold: primary = false, code = '', currency = null, transport = null, cities = [], weight = '0' } = input;
             const entity = {
+                ...input,
                 id:       String(id),
                 name:     input.name,
                 type:     'country',
@@ -45,9 +46,9 @@ export const citySchema = new schema.Entity(
                 code = '',
                 value,
                 name,
-                countryName
             } = input;
             const entity = {
+                ...input,
                 id:       String(id),
                 name:     value ? value : name,
                 country:  String(countryId),
@@ -57,7 +58,6 @@ export const citySchema = new schema.Entity(
                 price:    parsePrice(input),
                 location: parseLocation(input),
                 primary,
-                countryName,
             };
 
             return entity;
