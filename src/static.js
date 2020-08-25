@@ -430,5 +430,10 @@ export const OPERATORS = [
         id:     3341,
         vendor: 'vedi',
         name:   'VediTour',
+    },
+    {
+        id:     3345,
+        vendor: 'albn',
+        name:   'Albena Travel',
     }
 ];
