@@ -205,10 +205,6 @@ var CURRENCIES = [{
 }];
 exports.CURRENCIES = CURRENCIES;
 var OPERATORS = [{
-  id: 1,
-  vendor: 'tess',
-  name: 'Turtess'
-}, {
   id: 2,
   vendor: 'tztr',
   name: 'TEZ'
@@ -249,17 +245,9 @@ var OPERATORS = [{
   vendor: 'alf',
   name: 'Alf'
 }, {
-  id: 852,
-  vendor: 'nwtr',
-  name: 'News Travel Online'
-}, {
   id: 856,
   vendor: 'mznd',
   name: 'Mouzenidis'
-}, {
-  id: 1389,
-  vendor: 'idsa',
-  name: 'IdrisKa'
 }, {
   id: 1416,
   vendor: 'corl',
@@ -282,12 +270,8 @@ var OPERATORS = [{
   name: 'AdriaHit'
 }, {
   id: 3021,
-  vendor: 'gto',
-  name: 'GTO'
-}, {
-  id: 3061,
-  vendor: 'ntle',
-  name: 'Natalie'
+  vendor: 'koms',
+  name: 'Kompas'
 }, {
   id: 3066,
   vendor: 'kndg',
@@ -308,18 +292,6 @@ var OPERATORS = [{
   id: 3276,
   vendor: 'drem',
   name: 'DreamTravel'
-}, {
-  id: 3291,
-  vendor: 'aris',
-  name: 'Аристея Тур'
-}, {
-  id: 3296,
-  vendor: 'aris',
-  name: 'Аристея Тур'
-}, {
-  id: 3301,
-  vendor: 'aris',
-  name: 'Аристея Тур'
 }, {
   id: 3306,
   vendor: 'aris',
@@ -353,8 +325,20 @@ var OPERATORS = [{
   vendor: 'vedi',
   name: 'VediTour'
 }, {
+  id: 3342,
+  vendor: 'cntr',
+  name: 'Центр'
+}, {
+  id: 3344,
+  vendor: 'alli',
+  name: 'Альянс'
+}, {
   id: 3345,
   vendor: 'albn',
   name: 'Albena Travel'
+}, {
+  id: 3346,
+  vendor: 'indi',
+  name: 'Indiana Travel'
 }];
 exports.OPERATORS = OPERATORS;
