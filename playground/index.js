@@ -27,4 +27,4 @@ const query = {
 
 // API.getToursHotel(token, 7976).then(console.log);
 
-API.getToursValidate(token, '158253950894145').then(console.log)
+API.getToursValidate(token, '1582539508941451').then(console.log).catch(console.log)
