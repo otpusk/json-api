@@ -1,12 +1,15 @@
 import Cookies from 'js-cookie';
 
 const API = Cookies.get('api-host') || 'https://export.otpusk.com/api';
+const NEW_API = 'https://api.otpusk.com/api/3.0';
 const TURPRAVDA = 'https://www.turpravda.com';
+
+const defaultCompiler = (v) => v;
 
 export const ENDPOINTS = Object.freeze({
     static:             `${API}/tours/static`,
     countries:          `${API}/tours/countries`,
-    currencyRates:          `${API}/tours/currencyRates`,
+    currencyRates:      `${API}/tours/currencyRates`,
     cities:             `${API}/tours/cities`,
     hotel:              `${API}/tours/hotel`,
     hotels:             `${API}/tours/hotels`,
@@ -26,6 +29,6 @@ export const ENDPOINTS = Object.freeze({
     hotBlock:           `${API}/tours/hotBlock`,
     hotTour:            `${API}/tours/hotTour`,
     operators:          `${API}/tours/operators`,
-    validate:           `${API}/tours/validate`,
+    validate:           (compiler = defaultCompiler) => (params) => `${NEW_API}${compiler(`/tours/validate/:offerID`)(params)}`,
     init:               `${API}/init`,
 });

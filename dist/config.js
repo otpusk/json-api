@@ -10,7 +10,13 @@ var _jsCookie = _interopRequireDefault(require("js-cookie"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var API = _jsCookie.default.get('api-host') || 'https://export.otpusk.com/api';
+var NEW_API = 'https://api.otpusk.com/api/3.0';
 var TURPRAVDA = 'https://www.turpravda.com';
+
+var defaultCompiler = function defaultCompiler(v) {
+  return v;
+};
+
 var ENDPOINTS = Object.freeze({
   static: "".concat(API, "/tours/static"),
   countries: "".concat(API, "/tours/countries"),
@@ -34,7 +40,12 @@ var ENDPOINTS = Object.freeze({
   hotBlock: "".concat(API, "/tours/hotBlock"),
   hotTour: "".concat(API, "/tours/hotTour"),
   operators: "".concat(API, "/tours/operators"),
-  validate: "".concat(API, "/tours/validate"),
+  validate: function validate() {
+    var compiler = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultCompiler;
+    return function (params) {
+      return "".concat(NEW_API).concat(compiler("/tours/validate/:offerID")(params));
+    };
+  },
   init: "".concat(API, "/init")
 });
 exports.ENDPOINTS = ENDPOINTS;

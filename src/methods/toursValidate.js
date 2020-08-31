@@ -1,57 +1,74 @@
 // Core
-import { normalize } from 'normalizr';
+import { compile } from 'path-to-regexp';
+import moment from 'moment';
+import { Map } from 'immutable';
 
 // Instruments
 import { makeCall } from '../fn';
-import { infoSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
-import { getDepartureCityById } from '../dictionary';
 
-export async function getToursValidate (token, offerId) {
-    // const prodEndpoint = ENDPOINTS.validate;
-    const tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
+const transformDateToMoment = (string, format = 'DD.MM.YYYY') => {
+    if (string) {
+        const date = moment(string, format);
 
-    if (token && token.city) {
-        const { name = '' } = getDepartureCityById(token.city);
-
-        token.city = name;
+        return date.isValid() ? date : null;
     }
 
-    const { status, ...denormalizedOffer } = await makeCall(`${tempEndpoint}/${offerId}`, {
-        ...token,
-    }, null, 60000);
+    return null;
+};
 
-    const { entities: { outbound, inbound },
-        result: { info, usd = 0, uah = 0, eur = 0, currency = 'usd', ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });
-
-    const converter = {
-        usd: Number(uah) / Number(usd),
-        eur: Number(uah) / Number(eur),
-        uah: 1,
-    };
-
-    const flights = { ...outbound, ...inbound };
-    const recalculatedFlights = Object.entries(flights).reduce((prev, [key, value]) => ({
-        ...prev,
-        [key]: {
-            ...value,
-            priceChange: {
-                usd: currency === 'usd' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.usd),
-                eur: currency === 'eur' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.eur),
-                uah: currency === 'uah' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.uah),
-            },
+const normalizeFlights = (flights) => Map(flights)
+    .map(({ datebeg, dateend, name: flight, price }) => ({
+        date: { 
+            from: transformDateToMoment(datebeg, 'DD.MM.YYYY HH:mm'), 
+            to: transformDateToMoment(dateend, 'DD.MM.YYYY HH:mm')
         },
-    }), {});
+        flight,
+        price: parseInt(price)
+    }))
+    .toObject();
+
+export async function getToursValidate (token, offerID, params = {}) {
+    const { validate: createEndpoint } = ENDPOINTS;
+    const query = { ...params, ...token };
+
+    const {
+        uah,
+        eur,
+        usd,
+        currency,
+        info: { hotels: [hotel], transports },
+        message,
+        status,
+    } = await makeCall(createEndpoint(compile)({ offerID }), query, null, 60000);
 
     return {
-        status,
-        currency,
-        flights: recalculatedFlights,
-        ...validatedTour,
-        price:   {
-            usd: Number(usd),
-            eur: Number(eur),
-            uah: Number(uah),
-        },
+        hotel: Map(hotel)
+            .update('datebeg', transformDateToMoment)
+            .update('dateend', transformDateToMoment)
+            .update((value) => 
+                value.set('date', { from: value.get('datebeg'), to: value.get('dateend') }))
+            .remove('price')
+            .remove('datebeg')
+            .remove('dateend')
+            .toObject(),
+        status: { code: status, message },
+        transports: Map(transports)
+            .mapKeys((key) => {
+                switch (key) {
+                    case 'departure': return 'outbound';
+                    case 'return': return 'inbound';
+                    default: return key;
+                }
+            })
+            .update('outbound', normalizeFlights)
+            .update('inbound', normalizeFlights)
+            .toObject(),
+        offer: {
+            currency,
+            price: Map({ uah, eur, usd })
+                .filter(Boolean)
+                .toObject()
+        }
     };
 }

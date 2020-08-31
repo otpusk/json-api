@@ -5,21 +5,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getToursValidate = getToursValidate;
 
-var _normalizr = require("normalizr");
+var _pathToRegexp = require("path-to-regexp");
+
+var _moment = _interopRequireDefault(require("moment"));
+
+var _immutable = require("immutable");
 
 var _fn = require("../fn");
 
-var _schemas = require("../normalize/schemas");
-
 var _config = require("../config");
 
-var _dictionary = require("../dictionary");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -29,76 +35,118 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var transformDateToMoment = function transformDateToMoment(string) {
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'DD.MM.YYYY';
+
+  if (string) {
+    var date = (0, _moment.default)(string, format);
+    return date.isValid() ? date : null;
+  }
+
+  return null;
+};
+
+var normalizeFlights = function normalizeFlights(flights) {
+  return (0, _immutable.Map)(flights).map(function (_ref) {
+    var datebeg = _ref.datebeg,
+        dateend = _ref.dateend,
+        flight = _ref.name,
+        price = _ref.price;
+    return {
+      date: {
+        from: transformDateToMoment(datebeg, 'DD.MM.YYYY HH:mm'),
+        to: transformDateToMoment(dateend, 'DD.MM.YYYY HH:mm')
+      },
+      flight: flight,
+      price: parseInt(price)
+    };
+  }).toObject();
+};
 
 function getToursValidate(_x, _x2) {
   return _getToursValidate.apply(this, arguments);
 }
 
 function _getToursValidate() {
-  _getToursValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId) {
-    var tempEndpoint, _getDepartureCityById, _getDepartureCityById2, name, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, _normalize$result$cur, currency, validatedTour, converter, flights, recalculatedFlights;
+  _getToursValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerID) {
+    var params,
+        createEndpoint,
+        query,
+        _yield$makeCall,
+        uah,
+        eur,
+        usd,
+        currency,
+        _yield$makeCall$info,
+        _yield$makeCall$info$,
+        hotel,
+        transports,
+        message,
+        status,
+        _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            // const prodEndpoint = ENDPOINTS.validate;
-            tempEndpoint = 'https://api.otpusk.com/api/3.0/tours/validate';
+            params = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
+            createEndpoint = _config.ENDPOINTS.validate;
+            query = _objectSpread(_objectSpread({}, params), token);
+            _context.next = 5;
+            return (0, _fn.makeCall)(createEndpoint(_pathToRegexp.compile)({
+              offerID: offerID
+            }), query, null, 60000);
 
-            if (token && token.city) {
-              _getDepartureCityById = (0, _dictionary.getDepartureCityById)(token.city), _getDepartureCityById2 = _getDepartureCityById.name, name = _getDepartureCityById2 === void 0 ? '' : _getDepartureCityById2;
-              token.city = name;
-            }
+          case 5:
+            _yield$makeCall = _context.sent;
+            uah = _yield$makeCall.uah;
+            eur = _yield$makeCall.eur;
+            usd = _yield$makeCall.usd;
+            currency = _yield$makeCall.currency;
+            _yield$makeCall$info = _yield$makeCall.info;
+            _yield$makeCall$info$ = _slicedToArray(_yield$makeCall$info.hotels, 1);
+            hotel = _yield$makeCall$info$[0];
+            transports = _yield$makeCall$info.transports;
+            message = _yield$makeCall.message;
+            status = _yield$makeCall.status;
+            return _context.abrupt("return", {
+              hotel: (0, _immutable.Map)(hotel).update('datebeg', transformDateToMoment).update('dateend', transformDateToMoment).update(function (value) {
+                return value.set('date', {
+                  from: value.get('datebeg'),
+                  to: value.get('dateend')
+                });
+              }).remove('price').remove('datebeg').remove('dateend').toObject(),
+              status: {
+                code: status,
+                message: message
+              },
+              transports: (0, _immutable.Map)(transports).mapKeys(function (key) {
+                switch (key) {
+                  case 'departure':
+                    return 'outbound';
 
-            _context.next = 4;
-            return (0, _fn.makeCall)("".concat(tempEndpoint, "/").concat(offerId), _objectSpread({}, token), null, 60000);
+                  case 'return':
+                    return 'inbound';
 
-          case 4:
-            _ref = _context.sent;
-            status = _ref.status;
-            denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
-            _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
-              info: _schemas.infoSchema
-            }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$usd = _normalize$result.usd, usd = _normalize$result$usd === void 0 ? 0 : _normalize$result$usd, _normalize$result$uah = _normalize$result.uah, uah = _normalize$result$uah === void 0 ? 0 : _normalize$result$uah, _normalize$result$eur = _normalize$result.eur, eur = _normalize$result$eur === void 0 ? 0 : _normalize$result$eur, _normalize$result$cur = _normalize$result.currency, currency = _normalize$result$cur === void 0 ? 'usd' : _normalize$result$cur, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "usd", "uah", "eur", "currency"]);
-            converter = {
-              usd: Number(uah) / Number(usd),
-              eur: Number(uah) / Number(eur),
-              uah: 1
-            };
-            flights = _objectSpread({}, outbound, {}, inbound);
-            recalculatedFlights = Object.entries(flights).reduce(function (prev, _ref2) {
-              var _ref3 = _slicedToArray(_ref2, 2),
-                  key = _ref3[0],
-                  value = _ref3[1];
-
-              return _objectSpread({}, prev, _defineProperty({}, key, _objectSpread({}, value, {
-                priceChange: {
-                  usd: currency === 'usd' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.usd),
-                  eur: currency === 'eur' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.eur),
-                  uah: currency === 'uah' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.uah)
+                  default:
+                    return key;
                 }
-              })));
-            }, {});
-            return _context.abrupt("return", _objectSpread({
-              status: status,
-              currency: currency,
-              flights: recalculatedFlights
-            }, validatedTour, {
-              price: {
-                usd: Number(usd),
-                eur: Number(eur),
-                uah: Number(uah)
+              }).update('outbound', normalizeFlights).update('inbound', normalizeFlights).toObject(),
+              offer: {
+                currency: currency,
+                price: (0, _immutable.Map)({
+                  uah: uah,
+                  eur: eur,
+                  usd: usd
+                }).filter(Boolean).toObject()
               }
-            }));
+            });
 
-          case 12:
+          case 17:
           case "end":
             return _context.stop();
         }

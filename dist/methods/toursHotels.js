@@ -40,7 +40,7 @@ function _getToursHotels() {
         services,
         _options$withPrice,
         withPrice,
-        _ref,
+        _yield$makeCall,
         denormalizedHotels,
         _normalize,
         hotels,
@@ -59,8 +59,8 @@ function _getToursHotels() {
             }, token), [1, 'day']);
 
           case 4:
-            _ref = _context.sent;
-            denormalizedHotels = _ref.hotels;
+            _yield$makeCall = _context.sent;
+            denormalizedHotels = _yield$makeCall.hotels;
             _normalize = (0, _normalizr.normalize)(denormalizedHotels.filter(function (hotel) {
               var inCities = !cities.length || cities.includes(Number(hotel.cityId));
               var inCategory = !categories.length || categories.includes(hotel.stars);
@@ -87,7 +87,7 @@ function getToursHotelsMarkers(_x3, _x4, _x5, _x6) {
 
 function _getToursHotelsMarkers() {
   _getToursHotelsMarkers = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(token, countryId, cityId, options) {
-    var center, radius, _ref2, denormalizedHotels, _normalize2, markers;
+    var center, radius, _yield$makeCall2, denormalizedHotels, _normalize2, markers;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -104,10 +104,10 @@ function _getToursHotelsMarkers() {
             }, token));
 
           case 3:
-            _ref2 = _context2.sent;
-            denormalizedHotels = _ref2.hotels;
+            _yield$makeCall2 = _context2.sent;
+            denormalizedHotels = _yield$makeCall2.hotels;
             _normalize2 = (0, _normalizr.normalize)(denormalizedHotels.map(function (h) {
-              return _objectSpread({}, h, {
+              return _objectSpread(_objectSpread({}, h), {}, {
                 countryId: countryId
               });
             }), [_schemas.hotelShortSchema]), markers = _normalize2.entities.hotel;
@@ -130,7 +130,7 @@ function getToursHotel(_x7, _x8) {
 function _getToursHotel() {
   _getToursHotel = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(token, hotelId) {
     var lang,
-        _ref3,
+        _yield$makeCall3,
         denormalizedHotel,
         _normalize3,
         _normalize3$entities,
@@ -152,8 +152,8 @@ function _getToursHotel() {
             }, token), [1, 'hour']);
 
           case 3:
-            _ref3 = _context3.sent;
-            denormalizedHotel = _ref3.hotel;
+            _yield$makeCall3 = _context3.sent;
+            denormalizedHotel = _yield$makeCall3.hotel;
             _normalize3 = (0, _normalizr.normalize)(denormalizedHotel, _schemas.hotelSchema), _normalize3$entities = _normalize3.entities, hotels = _normalize3$entities.hotel, offers = _normalize3$entities.offer, id = _normalize3.result;
             hotel = hotels[id];
             return _context3.abrupt("return", {
