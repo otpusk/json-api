@@ -44,19 +44,32 @@ export const parseDiscountPrice = (input) => {
     };
 };
 
+const parseSeats = (seats) => {
+    switch (seats) {
+        case !isNaN(Number(seats)): return seats;
+        case 'yes': return 'Есть';
+        case 'many': return 'Много';
+        case 'few': return 'Мало';
+        case 'request': return 'По запросу';
+        case 'no': return 'Нет мест';
+        default: return null;
+    }
+}
+
 export const parseFlights = (input) => {
     const { from: outbound = [], to: inbound = []} = input;
 
     return Map({ outbound, inbound })
         .map((flights) => Array.isArray(flights) ? flights : Object.values(flights))
         .map((flights) => List(flights)
-            .filter(({ place = 0 }) => place > 0)
+            .map((flight) => Map(flight).update('seats', (seats) =>
+                ({ label: parseSeats(seats), value: seats })))
+            .filter(({ seats }) => seats !== null)
             .sort(({ additional: a }, { additional: b }) => {
                 const [indexA, indexB] = [a, b].map((value) => value ? 1 : 0);
 
                 return indexA - indexB;
             })
-            .toArray()
         )
         .toJS();
 };

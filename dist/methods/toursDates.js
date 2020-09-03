@@ -25,19 +25,19 @@ function getToursDates(_x, _x2) {
 
 function _getToursDates() {
   _getToursDates = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, options) {
-    var _ref, _ref$dates, denormalizedDates;
+    var _yield$makeCall, _yield$makeCall$dates, denormalizedDates;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.dates, _objectSpread({}, token, {}, options), [7, 'days']);
+            return (0, _fn.makeCall)(_config.ENDPOINTS.dates, _objectSpread(_objectSpread({}, token), options), [7, 'days']);
 
           case 2:
-            _ref = _context.sent;
-            _ref$dates = _ref.dates;
-            denormalizedDates = _ref$dates === void 0 ? {} : _ref$dates;
+            _yield$makeCall = _context.sent;
+            _yield$makeCall$dates = _yield$makeCall.dates;
+            denormalizedDates = _yield$makeCall$dates === void 0 ? {} : _yield$makeCall$dates;
             return _context.abrupt("return", Object.keys(denormalizedDates));
 
           case 6:
