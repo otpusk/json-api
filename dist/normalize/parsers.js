@@ -3,11 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
+exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
 var _fn = require("../fn");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -357,3 +365,12 @@ var parsePromo = function parsePromo(promo) {
 };
 
 exports.parsePromo = parsePromo;
+
+var parseChildrenAges = function parseChildrenAges() {
+  var ages = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return ages.map(function (age) {
+    return Math.max.apply(Math, _toConsumableArray(age));
+  });
+};
+
+exports.parseChildrenAges = parseChildrenAges;

@@ -7,7 +7,8 @@ import {
     parsePrice,
     parseFlights,
     parseDiscountPrice,
-    parsePromo
+    parsePromo,
+    parseChildrenAges
 } from '../parsers';
 
 export const offerSchema = new schema.Entity(
@@ -94,6 +95,7 @@ export const fullOfferSchema = new schema.Entity(
                 adult: adults,
                 child: children,
                 childAges: childrenAge,
+                childAgesArray,
                 food,
                 fromCity: departure,
                 tourOptions: includes,
@@ -130,6 +132,7 @@ export const fullOfferSchema = new schema.Entity(
                 adults:       Number(adults),
                 children,
                 childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
+                chilrenAges: parseChildrenAges(childAgesArray),
                 food,
                 departure,
                 includes,

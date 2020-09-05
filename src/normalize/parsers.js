@@ -218,3 +218,5 @@ export const parsePromo = (promo) => {
 
     return { promo, heightPromo: null };
 }
+
+export const parseChildrenAges = (ages = []) => ages.map((age) => Math.max(...age));
