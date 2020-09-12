@@ -6,7 +6,7 @@ const TURPRAVDA = 'https://www.turpravda.com';
 export const ENDPOINTS = Object.freeze({
     static:             `${API}/tours/static`,
     countries:          `${API}/tours/countries`,
-    currencyRates:          `${API}/tours/currencyRates`,
+    currencyRates:      `${API}/tours/currencyRates`,
     cities:             `${API}/tours/cities`,
     hotel:              `${API}/tours/hotel`,
     hotels:             `${API}/tours/hotels`,
@@ -28,4 +28,5 @@ export const ENDPOINTS = Object.freeze({
     operators:          `${API}/tours/operators`,
     validate:           `${API}/tours/validate`,
     init:               `${API}/init`,
+    cache_validate:     `${API}/tours/cacheControl`
 });

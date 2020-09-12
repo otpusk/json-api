@@ -19,3 +19,4 @@ export { getToursOperators } from './methods/toursOperators';
 export { getToursValidate } from './methods/toursValidate';
 export { getToursDates } from './methods/toursDates';
 export { getInit } from './methods/init';
+export { cacheValidate } from './methods/toursCacheValidate';
