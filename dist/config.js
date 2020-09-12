@@ -35,6 +35,7 @@ var ENDPOINTS = Object.freeze({
   hotTour: "".concat(API, "/tours/hotTour"),
   operators: "".concat(API, "/tours/operators"),
   validate: "".concat(API, "/tours/validate"),
-  init: "".concat(API, "/init")
+  init: "".concat(API, "/init"),
+  cache_validate: "".concat(API, "/tours/cacheControl")
 });
 exports.ENDPOINTS = ENDPOINTS;

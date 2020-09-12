@@ -153,6 +153,12 @@ Object.defineProperty(exports, "getInit", {
     return _init.getInit;
   }
 });
+Object.defineProperty(exports, "cacheValidate", {
+  enumerable: true,
+  get: function get() {
+    return _toursCacheValidate.cacheValidate;
+  }
+});
 
 var _toursSuggests = require("./methods/toursSuggests");
 
@@ -195,3 +201,5 @@ var _toursValidate = require("./methods/toursValidate");
 var _toursDates = require("./methods/toursDates");
 
 var _init = require("./methods/init");
+
+var _toursCacheValidate = require("./methods/toursCacheValidate");

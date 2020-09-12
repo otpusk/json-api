@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CacheItem = void 0;
+exports.cacheStorage = exports.CacheItem = void 0;
 
 var _moment = _interopRequireDefault(require("moment"));
 
@@ -15,9 +15,13 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -25,31 +29,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 var cacheStorage = (0, _storage.createStorage)('otpusk_api_cache');
-var LAST_FORCE_UPDATE_CLIENT_STORAGE = (0, _moment.default)('12:48', 'HH:mm');
-cacheStorage.findAll().then(function (all) {
-  for (var _i = 0, _Object$entries = Object.entries(all); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-        key = _Object$entries$_i[0],
-        expires = _Object$entries$_i[1].expires;
-
-    if (expires <= (0, _moment.default)().format('X')) {
-      cacheStorage.remove(key);
-    }
-  }
-});
+exports.cacheStorage = cacheStorage;
 
 var CacheItem = function CacheItem(key) {
   var _this = this;
@@ -94,7 +75,7 @@ var CacheItem = function CacheItem(key) {
 
   this.isHit = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(ttl) {
-      var dateLoadedResource, isResourceLoadedBeforeForceUpdate, timeLeft, maxTime, isAlive;
+      var timeLeft, maxTime, isAlive;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -111,28 +92,12 @@ var CacheItem = function CacheItem(key) {
               return _this.read();
 
             case 4:
-              if (!ttl) {
-                _context2.next = 9;
-                break;
-              }
-
-              dateLoadedResource = (0, _moment.default)(_this.record.expires, 'X').subtract(_moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)));
-              isResourceLoadedBeforeForceUpdate = LAST_FORCE_UPDATE_CLIENT_STORAGE.isBefore(dateLoadedResource);
-
-              if (isResourceLoadedBeforeForceUpdate) {
-                _context2.next = 9;
-                break;
-              }
-
-              return _context2.abrupt("return", false);
-
-            case 9:
               timeLeft = _this.record.expires - (0, _moment.default)().format('X');
               maxTime = ttl ? _moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)).asSeconds() : null;
               isAlive = maxTime ? 0 < timeLeft && timeLeft < maxTime : 0 < timeLeft;
               return _context2.abrupt("return", isAlive);
 
-            case 13:
+            case 8:
             case "end":
               return _context2.stop();
           }
