@@ -36,7 +36,7 @@ function getToursGraph(_x) {
 function _getToursGraph() {
   _getToursGraph = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var options,
-        _yield$makeCall,
+        _ref,
         denormalizedDays,
         start,
         end,
@@ -51,15 +51,15 @@ function _getToursGraph() {
           case 0:
             options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.graph, _objectSpread(_objectSpread({}, token), options));
+            return (0, _fn.makeCall)(_config.ENDPOINTS.graph, _objectSpread({}, token, {}, options));
 
           case 3:
-            _yield$makeCall = _context.sent;
-            denormalizedDays = _yield$makeCall.graph;
+            _ref = _context.sent;
+            denormalizedDays = _ref.graph;
             start = options.checkIn, end = options.checkTo;
             points = (0, _immutable.Range)(0, (0, _moment.default)(end).diff((0, _moment.default)(start), 'days') + 1);
-            daysWithPrice = (0, _immutable.List)(denormalizedDays).toMap().mapKeys(function (key, _ref) {
-              var dt = _ref.dt;
+            daysWithPrice = (0, _immutable.List)(denormalizedDays).toMap().mapKeys(function (key, _ref2) {
+              var dt = _ref2.dt;
               return (0, _moment.default)(dt).format('X');
             });
             peak = {};
@@ -76,9 +76,9 @@ function _getToursGraph() {
                 day: day,
                 price: price
               };
-            }).map(function (_ref2) {
-              var day = _ref2.day,
-                  price = _ref2.price;
+            }).map(function (_ref3) {
+              var day = _ref3.day,
+                  price = _ref3.price;
               var delta = price && peak ? Number((price.uah / peak.uah * 100).toFixed(2)) : null;
               return {
                 day: day,

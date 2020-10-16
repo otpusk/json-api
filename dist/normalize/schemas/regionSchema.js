@@ -21,14 +21,14 @@ var regionSchema = new _normalizr.schema.Entity('region', {}, {
     var id = input.id,
         regionId = input.regionId,
         deptCities = input.deptCities,
-        _input$IPSelected = input.IPSelected,
-        IPSelected = _input$IPSelected === void 0 ? false : _input$IPSelected,
+        _input$IPselected = input.IPselected,
+        IPselected = _input$IPselected === void 0 ? false : _input$IPselected,
         name = input.name;
     var entity = {
       id: String(id || regionId),
       name: name,
       departures: deptCities && deptCities.split(','),
-      default: IPSelected,
+      default: IPselected,
       location: (0, _parsers.parseLocation)(input),
       names: (0, _parsers.parseNames)(input)
     };

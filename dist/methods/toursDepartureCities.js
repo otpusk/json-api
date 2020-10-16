@@ -30,7 +30,7 @@ function getToursDepartureCities(_x) {
 function _getToursDepartureCities() {
   _getToursDepartureCities = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var options,
-        _yield$makeCall,
+        _ref,
         deptCities,
         _args = arguments;
 
@@ -40,16 +40,16 @@ function _getToursDepartureCities() {
           case 0:
             options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.departureCities, _objectSpread(_objectSpread({}, token), options), [7, 'days']);
+            return (0, _fn.makeCall)(_config.ENDPOINTS.departureCities, _objectSpread({}, token, {}, options), [7, 'days']);
 
           case 3:
-            _yield$makeCall = _context.sent;
-            deptCities = _yield$makeCall.deptCities;
-            return _context.abrupt("return", deptCities.map(function (_ref) {
-              var rel = _ref.rel,
-                  rest = _objectWithoutProperties(_ref, ["rel"]);
+            _ref = _context.sent;
+            deptCities = _ref.deptCities;
+            return _context.abrupt("return", deptCities.map(function (_ref2) {
+              var rel = _ref2.rel,
+                  rest = _objectWithoutProperties(_ref2, ["rel"]);
 
-              return _objectSpread(_objectSpread({}, rest), {}, {
+              return _objectSpread({}, rest, {
                 names: {
                   rd: rel
                 }

@@ -30,8 +30,8 @@ function _getToursCurrencyRates() {
     var options,
         from,
         to,
-        _yield$makeCall,
-        _yield$makeCall$rates,
+        _ref,
+        _ref$rates,
         rates,
         results,
         _args = arguments;
@@ -43,15 +43,15 @@ function _getToursCurrencyRates() {
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             from = date.from, to = date.to;
             _context.next = 4;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.currencyRates, _objectSpread(_objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.currencyRates, _objectSpread({
               'datebegin': from,
               'dateend': to
-            }, options), token));
+            }, options, {}, token));
 
           case 4:
-            _yield$makeCall = _context.sent;
-            _yield$makeCall$rates = _yield$makeCall.rates;
-            rates = _yield$makeCall$rates === void 0 ? {} : _yield$makeCall$rates;
+            _ref = _context.sent;
+            _ref$rates = _ref.rates;
+            rates = _ref$rates === void 0 ? {} : _ref$rates;
             results = (0, _immutable.Map)(rates).map(function (rate) {
               return (0, _immutable.Map)(rate).map(function (operators) {
                 return (0, _immutable.Map)(operators).map(function (operator) {

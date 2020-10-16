@@ -16,15 +16,11 @@ var _schemas = require("../normalize/schemas");
 
 var _config = require("../config");
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -45,7 +41,7 @@ function getToursSuggests(_x, _x2) {
 function _getToursSuggests() {
   _getToursSuggests = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, query) {
     var options,
-        _yield$makeCall,
+        _ref,
         denormalizedLocations,
         _normalize,
         locations,
@@ -59,13 +55,13 @@ function _getToursSuggests() {
               'with': 'price'
             };
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread(_objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread({
               text: query
-            }, token), options), [1, 'hour']);
+            }, token, {}, options), [1, 'hour']);
 
           case 3:
-            _yield$makeCall = _context.sent;
-            denormalizedLocations = _yield$makeCall.response;
+            _ref = _context.sent;
+            denormalizedLocations = _ref.response;
             _normalize = (0, _normalizr.normalize)(denormalizedLocations, [_schemas.geoSchema]), locations = _normalize.entities;
             return _context.abrupt("return", (0, _immutable.Map)(locations).map(function (group) {
               return Object.values(group);
@@ -88,7 +84,7 @@ function getToursGeoById(_x3, _x4) {
 function _getToursGeoById() {
   _getToursGeoById = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(token, id) {
     var options,
-        _yield$makeCall2,
+        _ref2,
         denormalizedLocations,
         _normalize2,
         _normalize2$result,
@@ -106,13 +102,13 @@ function _getToursGeoById() {
               'with': 'price'
             };
             _context2.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread(_objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread({
               text: id
-            }, token), options), [1, 'hour']);
+            }, token, {}, options), [1, 'hour']);
 
           case 3:
-            _yield$makeCall2 = _context2.sent;
-            denormalizedLocations = _yield$makeCall2.response;
+            _ref2 = _context2.sent;
+            denormalizedLocations = _ref2.response;
             _normalize2 = (0, _normalizr.normalize)(denormalizedLocations, [_schemas.geoSchema]), _normalize2$result = _slicedToArray(_normalize2.result, 1), _normalize2$result$ = _normalize2$result[0], locationId = _normalize2$result$.id, type = _normalize2$result$.schema, locations = _normalize2.entities;
             return _context2.abrupt("return", locationId ? locations[type][locationId] : null);
 

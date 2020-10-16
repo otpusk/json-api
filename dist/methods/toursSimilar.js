@@ -30,7 +30,7 @@ function getToursSimilar(_x, _x2) {
 function _getToursSimilar() {
   _getToursSimilar = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, hotelId) {
     var limit,
-        _yield$makeCall,
+        _ref,
         hotels,
         _normalize,
         similar,
@@ -48,8 +48,8 @@ function _getToursSimilar() {
             }, token));
 
           case 3:
-            _yield$makeCall = _context.sent;
-            hotels = _yield$makeCall.hotels;
+            _ref = _context.sent;
+            hotels = _ref.hotels;
             _normalize = (0, _normalizr.normalize)(hotels, [_schemas.hotelSimilarSchema]), similar = _normalize.entities.hotel;
             return _context.abrupt("return", similar);
 
