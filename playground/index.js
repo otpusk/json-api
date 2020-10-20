@@ -39,7 +39,7 @@ page: 1,
 // API.getToursHotels(token, 34, 899, { center: {lat: 35.31631, lng: 25.38968}, radius: 1}).then(console.log);
 // API.getToursCurrencyRates(token, { from: '', to: '' }).then(console.log);
 //
-// API.getToursOffer(token, 2393529320809282).then(console.log)
+API.getToursFlightPort(token, 'SSH').then(console.log)
 
 // API.getToursDates(token, { regionId: 1544 }).then(console.log);
 

@@ -3,13 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getToursOperators = getToursOperators;
+exports.getToursFlightPort = getToursFlightPort;
 
 var _fn = require("../fn");
 
 var _config = require("../config");
 
-var _dictionary = require("../dictionary");
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -21,17 +23,23 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function getToursOperators(_x, _x2) {
-  return _getToursOperators.apply(this, arguments);
+function getToursFlightPort(_x, _x2) {
+  return _getToursFlightPort.apply(this, arguments);
 }
 
-function _getToursOperators() {
-  _getToursOperators = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
+function _getToursFlightPort() {
+  _getToursFlightPort = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, iata) {
     var options,
         _yield$makeCall,
-        _yield$makeCall$opera,
-        raw,
-        operators,
+        port,
+        id,
+        countryId,
+        countryIata,
+        countryName,
+        lat,
+        lng,
+        rel,
+        rest,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -40,35 +48,36 @@ function _getToursOperators() {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.operators, _objectSpread(_objectSpread({
-              countryId: countryId
-            }, options), token));
+            return (0, _fn.makeCall)(_config.ENDPOINTS.flightPort, _objectSpread(_objectSpread({
+              iata: iata
+            }, token), options), [7, 'days']);
 
           case 3:
             _yield$makeCall = _context.sent;
-            _yield$makeCall$opera = _yield$makeCall.operators;
-            raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
-            operators = Object.values(raw).map(function (_ref) {
-              var id = _ref.id,
-                  name = _ref.name,
-                  url = _ref.url,
-                  currencies = _ref.currencies;
-              return {
-                id: id,
-                name: name,
-                url: url,
-                currencyRates: currencies,
-                logo: (0, _dictionary.getOperatorLogoById)(id)
-              };
-            });
-            return _context.abrupt("return", operators);
+            port = _yield$makeCall.port;
+            id = port.id, countryId = port.countryId, countryIata = port.countryIata, countryName = port.countryName, lat = port.lat, lng = port.lng, rel = port.rel, rest = _objectWithoutProperties(port, ["id", "countryId", "countryIata", "countryName", "lat", "lng", "rel"]);
+            return _context.abrupt("return", _objectSpread(_objectSpread({}, rest), {}, {
+              country: {
+                id: Number(countryId),
+                name: countryName,
+                iata: countryIata
+              },
+              id: Number(id),
+              location: {
+                lat: lat,
+                lng: lng
+              },
+              names: {
+                rd: rel
+              }
+            }));
 
-          case 8:
+          case 7:
           case "end":
             return _context.stop();
         }
       }
     }, _callee);
   }));
-  return _getToursOperators.apply(this, arguments);
+  return _getToursFlightPort.apply(this, arguments);
 }
