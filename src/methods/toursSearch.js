@@ -55,11 +55,9 @@ export async function getToursSearch (token, query) {
             .map(Number)
             .filter(Boolean)
             .sort((a, b) => a - b);
-        const injectUahCurrency = !query.currency;
 
         for (const id in offers) {
             offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
-            offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
         }
     }
     

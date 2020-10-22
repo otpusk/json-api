@@ -72,36 +72,34 @@ function getToursSearch(_x, _x2) {
 
 function _getToursSearch() {
   _getToursSearch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, query) {
-    var _yield$makeCall, denormalizedHotels, _yield$makeCall$pg, denormalizedChart, _yield$makeCall$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, injectUahCurrency, id, _normalize2, countries, countryId, meta;
+    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, id, _normalize2, countries, countryId, meta;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.search, _objectSpread(_objectSpread({}, query), token));
+            return (0, _fn.makeCall)(_config.ENDPOINTS.search, _objectSpread({}, query, {}, token));
 
           case 2:
-            _yield$makeCall = _context.sent;
-            denormalizedHotels = _yield$makeCall.hotels;
-            _yield$makeCall$pg = _yield$makeCall.pg;
-            denormalizedChart = _yield$makeCall$pg === void 0 ? null : _yield$makeCall$pg;
-            _yield$makeCall$cnt = _yield$makeCall.cnt;
-            denormalizedCountry = _yield$makeCall$cnt === void 0 ? null : _yield$makeCall$cnt;
-            other = _objectWithoutProperties(_yield$makeCall, ["hotels", "pg", "cnt"]);
+            _ref2 = _context.sent;
+            denormalizedHotels = _ref2.hotels;
+            _ref2$pg = _ref2.pg;
+            denormalizedChart = _ref2$pg === void 0 ? null : _ref2$pg;
+            _ref2$cnt = _ref2.cnt;
+            denormalizedCountry = _ref2$cnt === void 0 ? null : _ref2$cnt;
+            other = _objectWithoutProperties(_ref2, ["hotels", "pg", "cnt"]);
             _normalize = (0, _normalizr.normalize)(Object.values(denormalizedHotels || {}).reduce(function (all, h) {
-              return _objectSpread(_objectSpread({}, all), h);
+              return _objectSpread({}, all, {}, h);
             }, {}), new _normalizr.schema.Values(_schemas.hotelSchema)), _normalize$entities = _normalize.entities, hotels = _normalize$entities.hotel, offers = _normalize$entities.offer;
 
             if (offers) {
               exactChildrenAges = String(query.people).slice(1).split(/(\d{2})/).map(Number).filter(Boolean).sort(function (a, b) {
                 return a - b;
               });
-              injectUahCurrency = !query.currency;
 
               for (id in offers) {
                 offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
-                offers[id].currency = injectUahCurrency ? 'uah' : offers[id].currency;
               }
             }
 
