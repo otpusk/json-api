@@ -72,7 +72,7 @@ function getToursSearch(_x, _x2) {
 
 function _getToursSearch() {
   _getToursSearch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, query) {
-    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, id, _normalize2, countries, countryId, meta;
+    var _ref2, denormalizedHotels, _ref2$pg, denormalizedChart, _ref2$cnt, denormalizedCountry, other, _normalize, _normalize$entities, hotels, offers, exactChildrenAges, id, responseHotels, _id, _responseHotels$_id, p, po, pu, _normalize2, countries, countryId, meta;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -99,7 +99,24 @@ function _getToursSearch() {
               });
 
               for (id in offers) {
-                offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
+                if (offers.hasOwnProperty(id)) {
+                  offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
+                }
+              }
+            }
+
+            responseHotels = denormalizedHotels[query.page];
+
+            if (offers) {
+              for (_id in hotels) {
+                if (hotels.hasOwnProperty(_id)) {
+                  _responseHotels$_id = responseHotels[_id], p = _responseHotels$_id.p, po = _responseHotels$_id.po, pu = _responseHotels$_id.pu;
+                  hotels[_id].bestPrice = {
+                    price: p,
+                    originalPrice: po,
+                    currency: pu
+                  };
+                }
               }
             }
 
@@ -115,7 +132,7 @@ function _getToursSearch() {
               meta: meta
             }, other));
 
-          case 14:
+          case 16:
           case "end":
             return _context.stop();
         }

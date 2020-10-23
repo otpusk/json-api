@@ -57,10 +57,23 @@ export async function getToursSearch (token, query) {
             .sort((a, b) => a - b);
 
         for (const id in offers) {
-            offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
+            if (offers.hasOwnProperty(id)) {
+                offers[id].exactChildrenAges = exactChildrenAges.slice(0, offers[id].children);
+            }
         }
     }
-    
+    const responseHotels = denormalizedHotels[query.page];
+
+    if (offers) {
+        for (const id in hotels) {
+            if (hotels.hasOwnProperty(id)) {
+                const { p, po, pu } = responseHotels[id];
+
+                hotels[id].bestPrice = { price: p, originalPrice: po, currency: pu };
+            }
+        }
+    }
+
     const { entities: { country: countries }, result: countryId } = normalize(denormalizedCountry || {}, countrySchema);
     const meta = parseSearchMeta(other, query);
 
