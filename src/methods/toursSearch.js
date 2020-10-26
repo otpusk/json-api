@@ -62,9 +62,10 @@ export async function getToursSearch (token, query) {
             }
         }
     }
-    const responseHotels = denormalizedHotels[query.page];
 
-    if (offers) {
+    if (hotels) {
+        const responseHotels = denormalizedHotels[query.page];
+
         for (const id in hotels) {
             if (hotels.hasOwnProperty(id)) {
                 const { p, po, pu } = responseHotels[id];

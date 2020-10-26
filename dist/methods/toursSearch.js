@@ -105,9 +105,9 @@ function _getToursSearch() {
               }
             }
 
-            responseHotels = denormalizedHotels[query.page];
+            if (hotels) {
+              responseHotels = denormalizedHotels[query.page];
 
-            if (offers) {
               for (_id in hotels) {
                 if (hotels.hasOwnProperty(_id)) {
                   _responseHotels$_id = responseHotels[_id], p = _responseHotels$_id.p, po = _responseHotels$_id.po, pu = _responseHotels$_id.pu;
@@ -132,7 +132,7 @@ function _getToursSearch() {
               meta: meta
             }, other));
 
-          case 16:
+          case 15:
           case "end":
             return _context.stop();
         }
