@@ -119,6 +119,7 @@ export const hotelSchema = new schema.Entity(
                 r,
                 v,
                 h: code,
+                hru: alternativeNames,
                 n,
                 c,
                 t,
@@ -139,6 +140,7 @@ export const hotelSchema = new schema.Entity(
                 id: String(i),
                 name: n,
                 code,
+                alternativeNames: alternativeNames ? alternativeNames.split(','): [],
                 city: parseHotelGeo(c),
                 country: parseHotelGeo(t),
                 stars: Boolean(stars) ?
