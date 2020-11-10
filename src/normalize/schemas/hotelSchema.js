@@ -222,7 +222,7 @@ export const hotelSchema = new schema.Entity(
                     },
                     rooms,
                     contacts: { address, email, website, phone },
-                    turpravdaRating: Object.values(turpravdaRating),
+                    turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
                 });
             }
 

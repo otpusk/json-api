@@ -263,7 +263,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
           website: website,
           phone: phone
         },
-        turpravdaRating: Object.values(turpravdaRating)
+        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : []
       });
     }
 
