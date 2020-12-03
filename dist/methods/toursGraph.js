@@ -66,7 +66,8 @@ function _getToursGraph() {
             return _context.abrupt("return", points.toArray().map(function (day) {
               return (0, _moment.default)(start).add(day, 'days').format('X');
             }).map(function (day) {
-              var price = daysWithPrice.has(day) ? (0, _parsers.parsePrice)(daysWithPrice.get(day)) : null;
+              var dayObject = daysWithPrice.get(day) || {};
+              var price = daysWithPrice.has(day) ? (0, _parsers.parsePrice)(dayObject) : null;
 
               if (price && (!peak.uah || peak.uah < price.uah)) {
                 Object.assign(peak, price);
@@ -74,16 +75,19 @@ function _getToursGraph() {
 
               return {
                 day: day,
-                price: price
+                price: price,
+                transport: dayObject.t
               };
             }).map(function (_ref3) {
               var day = _ref3.day,
-                  price = _ref3.price;
+                  price = _ref3.price,
+                  transport = _ref3.transport;
               var delta = price && peak ? Number((price.uah / peak.uah * 100).toFixed(2)) : null;
               return {
                 day: day,
                 price: price,
-                delta: delta
+                delta: delta,
+                transport: transport
               };
             }));
 

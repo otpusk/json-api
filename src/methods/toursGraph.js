@@ -26,19 +26,20 @@ export async function getToursGraph (token, options = { }) {
         .toArray()
         .map((day) => moment(start).add(day, 'days').format('X'))
         .map((day) => {
-            const price = daysWithPrice.has(day) ? parsePrice(daysWithPrice.get(day)) : null;
+            const dayObject = daysWithPrice.get(day) || {};
+            const price = daysWithPrice.has(day) ? parsePrice(dayObject) : null;
 
             if (price && (!peak.uah || peak.uah < price.uah)) {
                 Object.assign(peak, price);
             }
 
-            return { day, price };
+            return { day, price, transport: dayObject.t };
         })
-        .map(({ day, price }) => {
+        .map(({ day, price, transport }) => {
             const delta = price && peak
                 ? Number((price.uah / peak.uah * 100).toFixed(2))
                 : null;
 
-            return { day, price, delta };
+            return { day, price, delta, transport };
         });
 }
