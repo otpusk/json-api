@@ -15,11 +15,23 @@ export async function getToursSuggests (token, query, options = { 'with': 'price
         ...options,
     }, [1, 'hour']);
 
-    const { entities: locations } = normalize(denormalizedLocations, [geoSchema]);
+    const { result, entities: locations } = normalize(denormalizedLocations, [geoSchema]);
 
-    return Map(locations).map(
+    const resultLocations = Map(locations).map(
         (group) => Object.values(group)
     ).toJS();
+
+    for (const key in resultLocations) {
+        if (resultLocations.hasOwnProperty(key)) {
+            const items = resultLocations[key];
+
+            for (const item of items) {
+                item.sortIndex = result.findIndex((i) => i.id === item.id);
+            }
+        }
+    }
+
+    return resultLocations;
 }
 
 export async function getToursGeoById (token, id, options = { 'with': 'price' }) {

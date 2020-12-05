@@ -44,7 +44,17 @@ function _getToursSuggests() {
         _ref,
         denormalizedLocations,
         _normalize,
+        result,
         locations,
+        resultLocations,
+        key,
+        items,
+        _iteratorNormalCompletion,
+        _didIteratorError,
+        _iteratorError,
+        _loop,
+        _iterator,
+        _step,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -62,17 +72,88 @@ function _getToursSuggests() {
           case 3:
             _ref = _context.sent;
             denormalizedLocations = _ref.response;
-            _normalize = (0, _normalizr.normalize)(denormalizedLocations, [_schemas.geoSchema]), locations = _normalize.entities;
-            return _context.abrupt("return", (0, _immutable.Map)(locations).map(function (group) {
+            _normalize = (0, _normalizr.normalize)(denormalizedLocations, [_schemas.geoSchema]), result = _normalize.result, locations = _normalize.entities;
+            resultLocations = (0, _immutable.Map)(locations).map(function (group) {
               return Object.values(group);
-            }).toJS());
+            }).toJS();
+            _context.t0 = regeneratorRuntime.keys(resultLocations);
 
-          case 7:
+          case 8:
+            if ((_context.t1 = _context.t0()).done) {
+              _context.next = 34;
+              break;
+            }
+
+            key = _context.t1.value;
+
+            if (!resultLocations.hasOwnProperty(key)) {
+              _context.next = 32;
+              break;
+            }
+
+            items = resultLocations[key];
+            _iteratorNormalCompletion = true;
+            _didIteratorError = false;
+            _iteratorError = undefined;
+            _context.prev = 15;
+
+            _loop = function _loop() {
+              var item = _step.value;
+              item.sortIndex = result.findIndex(function (i) {
+                return i.id === item.id;
+              });
+            };
+
+            for (_iterator = items[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              _loop();
+            }
+
+            _context.next = 24;
+            break;
+
+          case 20:
+            _context.prev = 20;
+            _context.t2 = _context["catch"](15);
+            _didIteratorError = true;
+            _iteratorError = _context.t2;
+
+          case 24:
+            _context.prev = 24;
+            _context.prev = 25;
+
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+
+          case 27:
+            _context.prev = 27;
+
+            if (!_didIteratorError) {
+              _context.next = 30;
+              break;
+            }
+
+            throw _iteratorError;
+
+          case 30:
+            return _context.finish(27);
+
+          case 31:
+            return _context.finish(24);
+
+          case 32:
+            _context.next = 8;
+            break;
+
+          case 34:
+            return _context.abrupt("return", resultLocations);
+
+          case 35:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[15, 20, 24, 32], [25,, 27, 31]]);
   }));
   return _getToursSuggests.apply(this, arguments);
 }
