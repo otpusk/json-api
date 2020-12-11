@@ -143,7 +143,8 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         code = input.h,
         alternativeNames = input.hru,
         n = input.n,
-        c = input.c,
+        _input$c = input.c,
+        c = _input$c === void 0 ? {} : _input$c,
         t = input.t,
         _input$g = input.g,
         g = _input$g === void 0 ? {} : _input$g,
@@ -168,7 +169,9 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       name: n,
       code: code,
       alternativeNames: alternativeNames ? alternativeNames.split(',') : [],
-      city: (0, _parsers.parseHotelGeo)(c),
+      city: c.p ? _objectSpread({}, (0, _parsers.parseHotelGeo)(c), {
+        namePr: c.p
+      }) : (0, _parsers.parseHotelGeo)(c),
       country: (0, _parsers.parseHotelGeo)(t),
       stars: Boolean(stars) ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
