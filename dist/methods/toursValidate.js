@@ -85,25 +85,24 @@ function _getToursValidate() {
             newYears = (0, _immutable.Map)(info.services || {}).filter(function (_ref) {
               var type = _ref.type;
               return type === NEW_YEAR_PAY;
-            }).map(function (_ref2) {
-              var price = _ref2.price,
-                  rest = _objectWithoutProperties(_ref2, ["price"]);
-
-              return _objectSpread(_objectSpread({}, rest), {}, {
-                price: (0, _immutable.Map)({
+            }).map(function (item) {
+              return (0, _immutable.Map)(item).update('price', normalizePrice).update('price', function (price) {
+                return price * converter[currency];
+              }).update('price', function (uah) {
+                return (0, _immutable.Map)({
                   usd: null,
                   eur: null,
                   uah: null
                 }).map(function (_, key) {
-                  return normalizePrice(price / converter[key]);
-                })
+                  return normalizePrice(uah / converter[key]);
+                });
               });
             }).toList().toJS();
             flights = _objectSpread(_objectSpread({}, outbound), inbound);
-            recalculatedFlights = Object.entries(flights).reduce(function (prev, _ref3) {
-              var _ref4 = _slicedToArray(_ref3, 2),
-                  key = _ref4[0],
-                  value = _ref4[1];
+            recalculatedFlights = Object.entries(flights).reduce(function (prev, _ref2) {
+              var _ref3 = _slicedToArray(_ref2, 2),
+                  key = _ref3[0],
+                  value = _ref3[1];
 
               return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, key, _objectSpread(_objectSpread({}, value), {}, {
                 priceChange: {

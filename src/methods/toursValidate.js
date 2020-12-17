@@ -37,11 +37,16 @@ export async function getToursValidate (token, offerId) {
 
     const newYears = Map(info.services || {})
         .filter(({ type }) => type === NEW_YEAR_PAY)
-        .map(({ price, ...rest }) => ({
-            ...rest,
-            price: Map({ usd: null, eur: null, uah: null })
-                .map((_, key) => normalizePrice(price / converter[key]))
-        }))
+        .map(
+            (item) => Map(item)
+                .update('price', normalizePrice)
+                .update('price', price  => price * converter[currency])
+                .update(
+                    'price', 
+                    uah => Map({ usd: null, eur: null, uah: null })
+                        .map((_, key) => normalizePrice(uah / converter[key]))
+                )
+        )
         .toList()
         .toJS();
         
