@@ -1,11 +1,16 @@
 // Core
 import { normalize } from 'normalizr';
+import { Map } from 'immutable';
 
 // Instruments
 import { makeCall } from '../fn';
 import { infoSchema } from '../normalize/schemas';
-import { ENDPOINTS } from '../config';
+// import { ENDPOINTS } from '../config';
 import { getDepartureCityById } from '../dictionary';
+
+const NEW_YEAR_PAY = 'N.Y. Holidays';
+
+const normalizePrice = price => Math.ceil(parseInt(price));
 
 export async function getToursValidate (token, offerId) {
     // const prodEndpoint = ENDPOINTS.validate;
@@ -30,6 +35,16 @@ export async function getToursValidate (token, offerId) {
         uah: 1,
     };
 
+    const newYears = Map(info.services || {})
+        .filter(({ type }) => type === NEW_YEAR_PAY)
+        .map(({ price, ...rest }) => ({
+            ...rest,
+            price: Map({ usd: null, eur: null, uah: null })
+                .map((_, key) => normalizePrice(price / converter[key]))
+        }))
+        .toList()
+        .toJS();
+        
     const flights = { ...outbound, ...inbound };
     const recalculatedFlights = Object.entries(flights).reduce((prev, [key, value]) => ({
         ...prev,
@@ -47,6 +62,7 @@ export async function getToursValidate (token, offerId) {
         status,
         currency,
         flights: recalculatedFlights,
+        newYears,
         ...validatedTour,
         price:   {
             usd: Number(usd),

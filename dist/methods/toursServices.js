@@ -33,7 +33,7 @@ function _getToursServices() {
   _getToursServices = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var country,
         lang,
-        _ref,
+        _yield$makeCall,
         api_version,
         time,
         checked,
@@ -48,18 +48,18 @@ function _getToursServices() {
             country = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
             lang = _args.length > 2 && _args[2] !== undefined ? _args[2] : 'ru';
             _context.next = 4;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.services, _objectSpread({}, token, {
+            return (0, _fn.makeCall)(_config.ENDPOINTS.services, _objectSpread(_objectSpread({}, token), {}, {
               countryId: country,
               lang: lang
             }), [7, 'days']);
 
           case 4:
-            _ref = _context.sent;
-            api_version = _ref.api_version;
-            time = _ref.time;
-            checked = _ref.checked;
-            result = _ref.result;
-            groups = _objectWithoutProperties(_ref, ["api_version", "time", "checked", "result"]);
+            _yield$makeCall = _context.sent;
+            api_version = _yield$makeCall.api_version;
+            time = _yield$makeCall.time;
+            checked = _yield$makeCall.checked;
+            result = _yield$makeCall.result;
+            groups = _objectWithoutProperties(_yield$makeCall, ["api_version", "time", "checked", "result"]);
             return _context.abrupt("return", (0, _immutable.Map)(groups).mapKeys(function (k) {
               return k.replace('Service', '');
             }).toJS());

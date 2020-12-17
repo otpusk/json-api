@@ -29,25 +29,25 @@ function getToursActual(_x, _x2, _x3) {
 
 function _getToursActual() {
   _getToursActual = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId, people) {
-    var _ref, code, denormalizedOffer, _ref2, _ref2$entities, _ref2$entities$offer, offers, id;
+    var _yield$makeCall, code, denormalizedOffer, _ref, _ref$entities, _ref$entities$offer, offers, id;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.actual, _objectSpread({}, token, {
+            return (0, _fn.makeCall)(_config.ENDPOINTS.actual, _objectSpread(_objectSpread({}, token), {}, {
               offerId: offerId,
               people: people
             }));
 
           case 2:
-            _ref = _context.sent;
-            code = _ref.code;
-            denormalizedOffer = _ref.offer;
-            _ref2 = denormalizedOffer ? (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema) : {}, _ref2$entities = _ref2.entities;
-            _ref2$entities = _ref2$entities === void 0 ? {} : _ref2$entities;
-            _ref2$entities$offer = _ref2$entities.offer, offers = _ref2$entities$offer === void 0 ? null : _ref2$entities$offer, id = _ref2.result;
+            _yield$makeCall = _context.sent;
+            code = _yield$makeCall.code;
+            denormalizedOffer = _yield$makeCall.offer;
+            _ref = denormalizedOffer ? (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema) : {}, _ref$entities = _ref.entities;
+            _ref$entities = _ref$entities === void 0 ? {} : _ref$entities;
+            _ref$entities$offer = _ref$entities.offer, offers = _ref$entities$offer === void 0 ? null : _ref$entities$offer, id = _ref.result;
             return _context.abrupt("return", {
               code: code,
               offer: id ? offers[id] : null

@@ -28,8 +28,8 @@ function getToursOperators(_x, _x2) {
 function _getToursOperators() {
   _getToursOperators = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
     var options,
-        _ref,
-        _ref$operators,
+        _yield$makeCall,
+        _yield$makeCall$opera,
         raw,
         operators,
         _args = arguments;
@@ -40,19 +40,19 @@ function _getToursOperators() {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.operators, _objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.operators, _objectSpread(_objectSpread({
               countryId: countryId
-            }, options, {}, token));
+            }, options), token));
 
           case 3:
-            _ref = _context.sent;
-            _ref$operators = _ref.operators;
-            raw = _ref$operators === void 0 ? {} : _ref$operators;
-            operators = Object.values(raw).map(function (_ref2) {
-              var id = _ref2.id,
-                  name = _ref2.name,
-                  url = _ref2.url,
-                  currencies = _ref2.currencies;
+            _yield$makeCall = _context.sent;
+            _yield$makeCall$opera = _yield$makeCall.operators;
+            raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
+            operators = Object.values(raw).map(function (_ref) {
+              var id = _ref.id,
+                  name = _ref.name,
+                  url = _ref.url,
+                  currencies = _ref.currencies;
               return {
                 id: id,
                 name: name,
