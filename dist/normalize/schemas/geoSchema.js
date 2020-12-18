@@ -38,7 +38,7 @@ var countrySchema = new _normalizr.schema.Entity('country', {}, {
         _input$weight = input.weight,
         weight = _input$weight === void 0 ? '0' : _input$weight;
 
-    var entity = _objectSpread(_objectSpread({}, input), {}, {
+    var entity = _objectSpread({}, input, {
       id: String(id),
       name: input.name,
       type: 'country',
@@ -73,7 +73,7 @@ var citySchema = new _normalizr.schema.Entity('city', {}, {
         value = input.value,
         name = input.name;
 
-    var entity = _objectSpread(_objectSpread({}, input), {}, {
+    var entity = _objectSpread({}, input, {
       id: String(id),
       name: value ? value : name,
       country: String(countryId),

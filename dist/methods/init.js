@@ -19,7 +19,7 @@ function getInit(_x) {
 
 function _getInit() {
   _getInit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
-    var _yield$makeCall, gmapkey;
+    var _ref, gmapkey;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -29,8 +29,8 @@ function _getInit() {
             return (0, _fn.makeCall)(_config.ENDPOINTS.init, token);
 
           case 2:
-            _yield$makeCall = _context.sent;
-            gmapkey = _yield$makeCall.gmapkey;
+            _ref = _context.sent;
+            gmapkey = _ref.gmapkey;
             return _context.abrupt("return", {
               apis: {
                 googleMap: gmapkey || null

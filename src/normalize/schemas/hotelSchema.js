@@ -133,6 +133,8 @@ export const hotelSchema = new schema.Entity(
                 vh: videos,
                 offers = [],
                 watermark = null,
+                x,
+                rt = {},
             } = input;
 
             const defaultPhoto = '00/03/85/49/3854941.jpg';
@@ -166,6 +168,8 @@ export const hotelSchema = new schema.Entity(
                 area: area ? Number(area) : null,
                 description: a,
                 watermark,
+                averageRating: x,
+                restType: rt,
             };
 
             const optional = {
