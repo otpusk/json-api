@@ -135,6 +135,7 @@ export const hotelSchema = new schema.Entity(
                 watermark = null,
                 x,
                 rt = {},
+                sc: searchCurrency
             } = input;
 
             const defaultPhoto = '00/03/85/49/3854941.jpg';
@@ -170,6 +171,7 @@ export const hotelSchema = new schema.Entity(
                 watermark,
                 averageRating: x,
                 restType: rt,
+                searchCurrency
             };
 
             const optional = {

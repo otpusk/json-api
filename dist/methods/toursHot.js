@@ -12,11 +12,15 @@ var _parsers = require("../normalize/parsers");
 
 var _config = require("../config");
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -36,7 +40,7 @@ function getToursHotBlock(_x, _x2) {
 
 function _getToursHotBlock() {
   _getToursHotBlock = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, blockId) {
-    var _ref, block, tours;
+    var _yield$makeCall, block, tours;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -48,9 +52,9 @@ function _getToursHotBlock() {
             }, token));
 
           case 2:
-            _ref = _context.sent;
-            block = _ref.block;
-            tours = _ref.tours;
+            _yield$makeCall = _context.sent;
+            block = _yield$makeCall.block;
+            tours = _yield$makeCall.tours;
             return _context.abrupt("return", {
               block: block,
               tours: tours
@@ -72,7 +76,7 @@ function getToursHotTour(_x3, _x4, _x5) {
 
 function _getToursHotTour() {
   _getToursHotTour = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(token, blockId, tourId) {
-    var _ref2, _ref2$searchedTour, offers;
+    var _yield$makeCall2, _yield$makeCall2$sear, offers;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -85,10 +89,10 @@ function _getToursHotTour() {
             }, token));
 
           case 2:
-            _ref2 = _context2.sent;
-            _ref2$searchedTour = _ref2.searchedTour;
-            _ref2$searchedTour = _ref2$searchedTour === void 0 ? {} : _ref2$searchedTour;
-            offers = _ref2$searchedTour.offers;
+            _yield$makeCall2 = _context2.sent;
+            _yield$makeCall2$sear = _yield$makeCall2.searchedTour;
+            _yield$makeCall2$sear = _yield$makeCall2$sear === void 0 ? {} : _yield$makeCall2$sear;
+            offers = _yield$makeCall2$sear.offers;
 
             if (offers) {
               _context2.next = 8;
@@ -112,9 +116,9 @@ function _getToursHotTour() {
                   hotelStars = tour.hotelStars,
                   imgSrc = tour.imgSrc;
 
-              var _ref3 = tourLink.match(/oid=(\d+)/) || [],
-                  _ref4 = _slicedToArray(_ref3, 2),
-                  offerId = _ref4[1];
+              var _ref = tourLink.match(/oid=(\d+)/) || [],
+                  _ref2 = _slicedToArray(_ref, 2),
+                  offerId = _ref2[1];
 
               return {
                 id: String(hotelId),

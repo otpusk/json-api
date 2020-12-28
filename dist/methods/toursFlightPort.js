@@ -30,7 +30,7 @@ function getToursFlightPort(_x, _x2) {
 function _getToursFlightPort() {
   _getToursFlightPort = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, iata) {
     var options,
-        _ref,
+        _yield$makeCall,
         port,
         id,
         countryId,
@@ -48,15 +48,15 @@ function _getToursFlightPort() {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.flightPort, _objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.flightPort, _objectSpread(_objectSpread({
               iata: iata
-            }, token, {}, options), [7, 'days']);
+            }, token), options), [7, 'days']);
 
           case 3:
-            _ref = _context.sent;
-            port = _ref.port;
+            _yield$makeCall = _context.sent;
+            port = _yield$makeCall.port;
             id = port.id, countryId = port.countryId, countryIata = port.countryIata, countryName = port.countryName, lat = port.lat, lng = port.lng, rel = port.rel, rest = _objectWithoutProperties(port, ["id", "countryId", "countryIata", "countryName", "lat", "lng", "rel"]);
-            return _context.abrupt("return", _objectSpread({}, rest, {
+            return _context.abrupt("return", _objectSpread(_objectSpread({}, rest), {}, {
               country: {
                 id: Number(countryId),
                 name: countryName,
