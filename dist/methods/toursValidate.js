@@ -15,15 +15,11 @@ var _schemas = require("../normalize/schemas");
 
 var _dictionary = require("../dictionary");
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -53,7 +49,7 @@ function getToursValidate(_x, _x2) {
 
 function _getToursValidate() {
   _getToursValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId) {
-    var tempEndpoint, _getDepartureCityById, _getDepartureCityById2, name, _yield$makeCall, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, _normalize$result$cur, currency, validatedTour, converter, newYears, flights, recalculatedFlights;
+    var tempEndpoint, _getDepartureCityById, _getDepartureCityById2, name, _ref, status, denormalizedOffer, _normalize, _normalize$entities, outbound, inbound, _normalize$result, info, _normalize$result$usd, usd, _normalize$result$uah, uah, _normalize$result$eur, eur, _normalize$result$cur, currency, validatedTour, converter, newYears, flights, recalculatedFlights;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -71,9 +67,9 @@ function _getToursValidate() {
             return (0, _fn.makeCall)("".concat(tempEndpoint, "/").concat(offerId), _objectSpread({}, token), null, 60000);
 
           case 4:
-            _yield$makeCall = _context.sent;
-            status = _yield$makeCall.status;
-            denormalizedOffer = _objectWithoutProperties(_yield$makeCall, ["status"]);
+            _ref = _context.sent;
+            status = _ref.status;
+            denormalizedOffer = _objectWithoutProperties(_ref, ["status"]);
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, {
               info: _schemas.infoSchema
             }), _normalize$entities = _normalize.entities, outbound = _normalize$entities.outbound, inbound = _normalize$entities.inbound, _normalize$result = _normalize.result, info = _normalize$result.info, _normalize$result$usd = _normalize$result.usd, usd = _normalize$result$usd === void 0 ? 0 : _normalize$result$usd, _normalize$result$uah = _normalize$result.uah, uah = _normalize$result$uah === void 0 ? 0 : _normalize$result$uah, _normalize$result$eur = _normalize$result.eur, eur = _normalize$result$eur === void 0 ? 0 : _normalize$result$eur, _normalize$result$cur = _normalize$result.currency, currency = _normalize$result$cur === void 0 ? 'usd' : _normalize$result$cur, validatedTour = _objectWithoutProperties(_normalize$result, ["info", "usd", "uah", "eur", "currency"]);
@@ -82,8 +78,8 @@ function _getToursValidate() {
               eur: Number(uah) / Number(eur),
               uah: 1
             };
-            newYears = (0, _immutable.Map)(info.services || {}).filter(function (_ref) {
-              var type = _ref.type;
+            newYears = (0, _immutable.Map)(info.services || {}).filter(function (_ref2) {
+              var type = _ref2.type;
               return type === NEW_YEAR_PAY;
             }).map(function (item) {
               return (0, _immutable.Map)(item).update('price', normalizePrice).update('price', function (price) {
@@ -98,13 +94,13 @@ function _getToursValidate() {
                 });
               });
             }).toList().toJS();
-            flights = _objectSpread(_objectSpread({}, outbound), inbound);
-            recalculatedFlights = Object.entries(flights).reduce(function (prev, _ref2) {
-              var _ref3 = _slicedToArray(_ref2, 2),
-                  key = _ref3[0],
-                  value = _ref3[1];
+            flights = _objectSpread({}, outbound, {}, inbound);
+            recalculatedFlights = Object.entries(flights).reduce(function (prev, _ref3) {
+              var _ref4 = _slicedToArray(_ref3, 2),
+                  key = _ref4[0],
+                  value = _ref4[1];
 
-              return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, key, _objectSpread(_objectSpread({}, value), {}, {
+              return _objectSpread({}, prev, _defineProperty({}, key, _objectSpread({}, value, {
                 priceChange: {
                   usd: currency === 'usd' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.usd),
                   eur: currency === 'eur' ? Math.ceil(value.priceChange) : Math.ceil(value.priceChange * converter[currency] / converter.eur),
@@ -112,12 +108,12 @@ function _getToursValidate() {
                 }
               })));
             }, {});
-            return _context.abrupt("return", _objectSpread(_objectSpread({
+            return _context.abrupt("return", _objectSpread({
               status: status,
               currency: currency,
               flights: recalculatedFlights,
               newYears: newYears
-            }, validatedTour), {}, {
+            }, validatedTour, {
               price: {
                 usd: Number(usd),
                 eur: Number(eur),

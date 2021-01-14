@@ -16,19 +16,13 @@ var _schemas = require("../normalize/schemas");
 
 var _config = require("../config");
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -47,7 +41,7 @@ function getToursSuggests(_x, _x2) {
 function _getToursSuggests() {
   _getToursSuggests = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, query) {
     var options,
-        _yield$makeCall,
+        _ref,
         denormalizedLocations,
         _normalize,
         result,
@@ -55,9 +49,12 @@ function _getToursSuggests() {
         resultLocations,
         key,
         items,
+        _iteratorNormalCompletion,
+        _didIteratorError,
+        _iteratorError,
+        _loop,
         _iterator,
         _step,
-        _loop,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -68,50 +65,95 @@ function _getToursSuggests() {
               'with': 'price'
             };
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread(_objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread({
               text: query
-            }, token), options), [1, 'hour']);
+            }, token, {}, options), [1, 'hour']);
 
           case 3:
-            _yield$makeCall = _context.sent;
-            denormalizedLocations = _yield$makeCall.response;
+            _ref = _context.sent;
+            denormalizedLocations = _ref.response;
             _normalize = (0, _normalizr.normalize)(denormalizedLocations, [_schemas.geoSchema]), result = _normalize.result, locations = _normalize.entities;
             resultLocations = (0, _immutable.Map)(locations).map(function (group) {
               return Object.values(group);
             }).toJS();
+            _context.t0 = regeneratorRuntime.keys(resultLocations);
 
-            for (key in resultLocations) {
-              if (resultLocations.hasOwnProperty(key)) {
-                items = resultLocations[key];
-                _iterator = _createForOfIteratorHelper(items);
-
-                try {
-                  _loop = function _loop() {
-                    var item = _step.value;
-                    item.sortIndex = result.findIndex(function (i) {
-                      return i.id === item.id;
-                    });
-                  };
-
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    _loop();
-                  }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
-                }
-              }
+          case 8:
+            if ((_context.t1 = _context.t0()).done) {
+              _context.next = 34;
+              break;
             }
 
+            key = _context.t1.value;
+
+            if (!resultLocations.hasOwnProperty(key)) {
+              _context.next = 32;
+              break;
+            }
+
+            items = resultLocations[key];
+            _iteratorNormalCompletion = true;
+            _didIteratorError = false;
+            _iteratorError = undefined;
+            _context.prev = 15;
+
+            _loop = function _loop() {
+              var item = _step.value;
+              item.sortIndex = result.findIndex(function (i) {
+                return i.id === item.id;
+              });
+            };
+
+            for (_iterator = items[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              _loop();
+            }
+
+            _context.next = 24;
+            break;
+
+          case 20:
+            _context.prev = 20;
+            _context.t2 = _context["catch"](15);
+            _didIteratorError = true;
+            _iteratorError = _context.t2;
+
+          case 24:
+            _context.prev = 24;
+            _context.prev = 25;
+
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+
+          case 27:
+            _context.prev = 27;
+
+            if (!_didIteratorError) {
+              _context.next = 30;
+              break;
+            }
+
+            throw _iteratorError;
+
+          case 30:
+            return _context.finish(27);
+
+          case 31:
+            return _context.finish(24);
+
+          case 32:
+            _context.next = 8;
+            break;
+
+          case 34:
             return _context.abrupt("return", resultLocations);
 
-          case 9:
+          case 35:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[15, 20, 24, 32], [25,, 27, 31]]);
   }));
   return _getToursSuggests.apply(this, arguments);
 }
@@ -123,7 +165,7 @@ function getToursGeoById(_x3, _x4) {
 function _getToursGeoById() {
   _getToursGeoById = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(token, id) {
     var options,
-        _yield$makeCall2,
+        _ref2,
         denormalizedLocations,
         _normalize2,
         _normalize2$result,
@@ -141,13 +183,13 @@ function _getToursGeoById() {
               'with': 'price'
             };
             _context2.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread(_objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread({
               text: id
-            }, token), options), [1, 'hour']);
+            }, token, {}, options), [1, 'hour']);
 
           case 3:
-            _yield$makeCall2 = _context2.sent;
-            denormalizedLocations = _yield$makeCall2.response;
+            _ref2 = _context2.sent;
+            denormalizedLocations = _ref2.response;
             _normalize2 = (0, _normalizr.normalize)(denormalizedLocations, [_schemas.geoSchema]), _normalize2$result = _slicedToArray(_normalize2.result, 1), _normalize2$result$ = _normalize2$result[0], locationId = _normalize2$result$.id, type = _normalize2$result$.schema, locations = _normalize2.entities;
             return _context2.abrupt("return", locationId ? locations[type][locationId] : null);
 

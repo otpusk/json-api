@@ -30,7 +30,7 @@ function getToursCities(_x, _x2) {
 function _getToursCities() {
   _getToursCities = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
     var options,
-        _yield$makeCall,
+        _ref,
         denormalizedCities,
         _normalize,
         cities,
@@ -44,13 +44,13 @@ function _getToursCities() {
               'with': 'price'
             };
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.cities, _objectSpread(_objectSpread({
+            return (0, _fn.makeCall)(_config.ENDPOINTS.cities, _objectSpread({
               countryId: countryId
-            }, token), options), [7, 'days']);
+            }, token, {}, options), [7, 'days']);
 
           case 3:
-            _yield$makeCall = _context.sent;
-            denormalizedCities = _yield$makeCall.cities;
+            _ref = _context.sent;
+            denormalizedCities = _ref.cities;
             _normalize = (0, _normalizr.normalize)(denormalizedCities.map(function (city) {
               return Object.assign(city, {
                 countryId: countryId

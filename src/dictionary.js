@@ -193,7 +193,7 @@ export const createOtpuskClickUrl = (regionId, agency, hotel, offer, tourists) =
         tr: offer.tourId,
     };
 
-    return `/tour/go/${hotel.id}_${agency.adId}?${convertObjectToUrlFormData(params)}`;
+    return `/api/go/${hotel.id}_${agency.adId}?${convertObjectToUrlFormData(params)}`;
 };
 
 export const getNounForCommonNumerals = (number, noun) => {
