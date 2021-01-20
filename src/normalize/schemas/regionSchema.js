@@ -13,7 +13,7 @@ export const regionSchema = new schema.Entity(
     {
         idAttribute:     ({ regionId, id }) => String(id || regionId),
         processStrategy: (input) => {
-            const { id, regionId, deptCities, IPselected = false, name } = input;
+            const { id, regionId, deptCities, IPselected = false, name, priority } = input;
             const entity = {
                 id:         String(id || regionId),
                 name,
@@ -21,6 +21,7 @@ export const regionSchema = new schema.Entity(
                 default:    IPselected,
                 location:   parseLocation(input),
                 names:      parseNames(input),
+                priority,
             };
 
             return entity;

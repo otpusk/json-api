@@ -23,14 +23,16 @@ var regionSchema = new _normalizr.schema.Entity('region', {}, {
         deptCities = input.deptCities,
         _input$IPselected = input.IPselected,
         IPselected = _input$IPselected === void 0 ? false : _input$IPselected,
-        name = input.name;
+        name = input.name,
+        priority = input.priority;
     var entity = {
       id: String(id || regionId),
       name: name,
       departures: deptCities && deptCities.split(','),
       default: IPselected,
       location: (0, _parsers.parseLocation)(input),
-      names: (0, _parsers.parseNames)(input)
+      names: (0, _parsers.parseNames)(input),
+      priority: priority
     };
     return entity;
   }
