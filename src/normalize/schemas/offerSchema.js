@@ -113,10 +113,13 @@ export const fullOfferSchema = new schema.Entity(
                 tourId,
                 bron,
                 currency = null,
-                currencyRate,
+                currencyRate: rateByNBU,
+                currencyOperatorRate: rateByOperator,
                 hotelId = null,
                 additional = []
             } = input;
+
+            const currencyRate = rateByOperator || rateByNBU;
 
             /* travel insurance for TPG */
             if (operator === 2700) {

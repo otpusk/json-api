@@ -120,11 +120,13 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         bron = input.bron,
         _input$currency = input.currency,
         currency = _input$currency === void 0 ? null : _input$currency,
-        currencyRate = input.currencyRate,
+        rateByNBU = input.currencyRate,
+        rateByOperator = input.currencyOperatorRate,
         _input$hotelId = input.hotelId,
         hotelId = _input$hotelId === void 0 ? null : _input$hotelId,
         _input$additional = input.additional,
         additional = _input$additional === void 0 ? [] : _input$additional;
+    var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
