@@ -29,7 +29,7 @@ function getToursOffer(_x, _x2, _x3) {
 
 function _getToursOffer() {
   _getToursOffer = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId, fresh) {
-    var _ref, denormalizedOffer, _normalize, offers, result;
+    var _yield$makeCall, denormalizedOffer, _normalize, offers, result;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -41,8 +41,8 @@ function _getToursOffer() {
             }, token), fresh ? null : [30, 'minutes']);
 
           case 2:
-            _ref = _context.sent;
-            denormalizedOffer = _ref.offer;
+            _yield$makeCall = _context.sent;
+            denormalizedOffer = _yield$makeCall.offer;
             _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.fullOfferSchema), offers = _normalize.entities.offer, result = _normalize.result;
             return _context.abrupt("return", result ? offers[result] : null);
 

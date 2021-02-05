@@ -9,10 +9,11 @@ export const parsePrice = (input) => {
     const {
         uah, p, pl, priceUah,
         price, po, minPrice,
-        currency, pu, u, c, ur,
+        currency, pu, u, c, ur: rateByNBU, uto: rateByOperator
     } = input;
 
-    const convertPriceWithoutDiscount = po ? po * ur : pl;
+    const currencyRate = rateByOperator || rateByNBU;
+    const convertPriceWithoutDiscount = po ? po * currencyRate : pl;
     const original = po || p || price || minPrice || null;
     const converted = convertPriceWithoutDiscount || uah || typeof c !== 'object' && pu || p || priceUah || null;
     const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
