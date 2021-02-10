@@ -3,33 +3,29 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parsePrice = void 0;
+exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
 var _fn = require("../fn");
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -75,8 +71,19 @@ var parsePrice = function parsePrice(input) {
 
 exports.parsePrice = parsePrice;
 
+var parseOfferPrice = function parseOfferPrice(input) {
+  var p = input.p,
+      pl = input.pl,
+      u = input.u;
+  return _defineProperty({
+    uah: pl
+  }, u, p);
+};
+
+exports.parseOfferPrice = parseOfferPrice;
+
 var parseDiscountPrice = function parseDiscountPrice(input) {
-  var _ref;
+  var _ref2;
 
   var po = input.po,
       pl = input.pl,
@@ -91,7 +98,7 @@ var parseDiscountPrice = function parseDiscountPrice(input) {
     return null;
   }
 
-  return _ref = {}, _defineProperty(_ref, originalCurrency, p), _defineProperty(_ref, "uah", pl), _ref;
+  return _ref2 = {}, _defineProperty(_ref2, originalCurrency, p), _defineProperty(_ref2, "uah", pl), _ref2;
 };
 
 exports.parseDiscountPrice = parseDiscountPrice;
@@ -139,12 +146,12 @@ var parseFlights = function parseFlights(input) {
           value: seats
         };
       });
-    }).filter(function (_ref2) {
-      var seats = _ref2.seats;
+    }).filter(function (_ref3) {
+      var seats = _ref3.seats;
       return seats !== null;
-    }).sort(function (_ref3, _ref4) {
-      var a = _ref3.additional;
-      var b = _ref4.additional;
+    }).sort(function (_ref4, _ref5) {
+      var a = _ref4.additional;
+      var b = _ref5.additional;
 
       var _map = [a, b].map(function (value) {
         return value ? 1 : 0;
@@ -305,10 +312,10 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
 exports.parseSearchMeta = parseSearchMeta;
 
 var parseHotelVideos = function parseHotelVideos(raw) {
-  return raw && Array.isArray(raw) ? raw.map(function (_ref6) {
-    var thumbnail = _ref6.thumbnail,
-        id = _ref6.videoId,
-        code = _ref6.code;
+  return raw && Array.isArray(raw) ? raw.map(function (_ref7) {
+    var thumbnail = _ref7.thumbnail,
+        id = _ref7.videoId,
+        code = _ref7.code;
 
     var getProvider = function getProvider(iframe) {
       if (iframe.match(new RegExp('(youtu.|youtube.)'))) {
@@ -333,15 +340,15 @@ var parseHotelVideos = function parseHotelVideos(raw) {
 exports.parseHotelVideos = parseHotelVideos;
 
 var parseBadges = function parseBadges(raw) {
-  return Object.entries(raw).filter(function (_ref7) {
-    var _ref8 = _slicedToArray(_ref7, 2),
-        badge = _ref8[1];
+  return Object.entries(raw).filter(function (_ref8) {
+    var _ref9 = _slicedToArray(_ref8, 2),
+        badge = _ref9[1];
 
     return Boolean(badge);
-  }).map(function (_ref9) {
-    var _ref10 = _slicedToArray(_ref9, 2),
-        area = _ref10[0],
-        badge = _ref10[1];
+  }).map(function (_ref10) {
+    var _ref11 = _slicedToArray(_ref10, 2),
+        area = _ref11[0],
+        badge = _ref11[1];
 
     return _objectSpread({
       area: area

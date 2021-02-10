@@ -25,7 +25,7 @@ function cacheValidate(_x) {
 
 function _cacheValidate() {
   _cacheValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
-    var _yield$makeCall, lastTimeUpdated, hash, cache, result;
+    var _ref, lastTimeUpdated, hash, cache, result;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -35,8 +35,8 @@ function _cacheValidate() {
             return (0, _fn.makeCall)(_config.ENDPOINTS.cache_validate, token);
 
           case 2:
-            _yield$makeCall = _context.sent;
-            lastTimeUpdated = _yield$makeCall.timestamp;
+            _ref = _context.sent;
+            lastTimeUpdated = _ref.timestamp;
             hash = btoa("".concat(lastTimeUpdated));
             cache = new _cache.CacheItem(_config.ENDPOINTS.cache_validate);
             _context.next = 8;

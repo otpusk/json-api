@@ -5,6 +5,7 @@ import { schema } from 'normalizr';
 // Instruments
 import {
     parsePrice,
+    parseOfferPrice,
     parseFlights,
     parseDiscountPrice,
     parsePromo,
@@ -66,8 +67,8 @@ export const offerSchema = new schema.Entity(
                     .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
-                room:    { id: roomId, name: roomName, type: roomType },
-                price: parsePrice(input),
+                room:   { id: roomId, name: roomName, type: roomType },
+                price: parseOfferPrice(input),
                 currency,
                 discountPrice: parseDiscountPrice(input),
                 stopsale,

@@ -31,6 +31,12 @@ export const parsePrice = (input) => {
     return entity;
 };
 
+export const parseOfferPrice = (input) => {
+    const { p, pl, u } = input;
+
+    return { uah: pl, [u]: p };
+};
+
 export const parseDiscountPrice = (input) => {
     const { po, pl, p, u, c, pu, currency } = input;
     const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
