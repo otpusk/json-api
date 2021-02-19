@@ -117,7 +117,8 @@ export const fullOfferSchema = new schema.Entity(
                 currencyRate: rateByNBU,
                 currencyOperatorRate: rateByOperator,
                 hotelId = null,
-                additional = []
+                additional = [],
+                updateTime,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -157,6 +158,7 @@ export const fullOfferSchema = new schema.Entity(
                 hotelId,
                 additionalPayments: additional,
                 currencyRate,
+                updateTime,
                 ...(promo && promo),
             };
 
