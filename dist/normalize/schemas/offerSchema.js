@@ -43,7 +43,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         code = input.vid,
         _input$u = input.u,
         currency = _input$u === void 0 ? null : _input$u,
-        currencyRate = input.ur;
+        currencyRate = input.ur,
+        updateTime = input.last;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -84,7 +85,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       flights: (0, _parsers.parseFlights)(flights || {}),
       tourId: tourId,
       additionalPayments: [],
-      currencyRate: currencyRate
+      currencyRate: currencyRate,
+      updateTime: updateTime
     }, promo && promo);
 
     return entity;
