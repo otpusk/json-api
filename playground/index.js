@@ -42,7 +42,8 @@ number: 1,
 //
 // API.getToursFlightPort(token, 'SSH').then(console.log)
 
-API.getToursValidate(token, '2263694910748412').then(console.log)
+// API.getToursValidate(token, '2263694910748412').then(console.log)
+API.getToursDepartureCities(token).then(console.log)
 
 // API.getToursDates(token, { regionId: 1544 }).then(console.log);
 

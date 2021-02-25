@@ -31,7 +31,7 @@ function _getToursDepartureCities() {
   _getToursDepartureCities = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var options,
         _yield$makeCall,
-        deptCities,
+        fromCities,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -44,8 +44,8 @@ function _getToursDepartureCities() {
 
           case 3:
             _yield$makeCall = _context.sent;
-            deptCities = _yield$makeCall.deptCities;
-            return _context.abrupt("return", deptCities.map(function (_ref) {
+            fromCities = _yield$makeCall.fromCities;
+            return _context.abrupt("return", fromCities.map(function (_ref) {
               var rel = _ref.rel,
                   rest = _objectWithoutProperties(_ref, ["rel"]);
 
