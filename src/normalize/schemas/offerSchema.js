@@ -5,6 +5,7 @@ import { schema } from 'normalizr';
 // Instruments
 import {
     parsePrice,
+    parseOfferPrice,
     parseFlights,
     parseDiscountPrice,
     parsePromo,
@@ -39,7 +40,8 @@ export const offerSchema = new schema.Entity(
                 to: flights,
                 vid: code,
                 u: currency = null,
-                ur: currencyRate
+                ur: currencyRate,
+                last: updateTime,
             } = input;
 
             /* travel insurance for TPG */
@@ -66,8 +68,8 @@ export const offerSchema = new schema.Entity(
                     .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
-                room:    { id: roomId, name: roomName, type: roomType },
-                price: parsePrice(input),
+                room:   { id: roomId, name: roomName, type: roomType },
+                price: parseOfferPrice(input),
                 currency,
                 discountPrice: parseDiscountPrice(input),
                 stopsale,
@@ -76,6 +78,7 @@ export const offerSchema = new schema.Entity(
                 tourId,
                 additionalPayments: [],
                 currencyRate,
+                updateTime,
                 ...(promo && promo)
             };
 
@@ -116,7 +119,8 @@ export const fullOfferSchema = new schema.Entity(
                 currencyRate: rateByNBU,
                 currencyOperatorRate: rateByOperator,
                 hotelId = null,
-                additional = []
+                additional = [],
+                updateTime,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -156,6 +160,7 @@ export const fullOfferSchema = new schema.Entity(
                 hotelId,
                 additionalPayments: additional,
                 currencyRate,
+                updateTime,
                 ...(promo && promo),
             };
 

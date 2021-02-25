@@ -35,7 +35,7 @@ export async function getToursValidate (token, offerId) {
         uah: 1,
     };
 
-    const newYears = Map(info.services || {})
+    const newYears = Map(info && info.services || {})
         .filter(({ type }) => type === NEW_YEAR_PAY)
         .map(
             (item) => Map(item)

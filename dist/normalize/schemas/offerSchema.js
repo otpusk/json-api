@@ -43,7 +43,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         code = input.vid,
         _input$u = input.u,
         currency = _input$u === void 0 ? null : _input$u,
-        currencyRate = input.ur;
+        currencyRate = input.ur,
+        updateTime = input.last;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -76,7 +77,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         name: roomName,
         type: roomType
       },
-      price: (0, _parsers.parsePrice)(input),
+      price: (0, _parsers.parseOfferPrice)(input),
       currency: currency,
       discountPrice: (0, _parsers.parseDiscountPrice)(input),
       stopsale: stopsale,
@@ -84,7 +85,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       flights: (0, _parsers.parseFlights)(flights || {}),
       tourId: tourId,
       additionalPayments: [],
-      currencyRate: currencyRate
+      currencyRate: currencyRate,
+      updateTime: updateTime
     }, promo && promo);
 
     return entity;
@@ -125,7 +127,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         _input$hotelId = input.hotelId,
         hotelId = _input$hotelId === void 0 ? null : _input$hotelId,
         _input$additional = input.additional,
-        additional = _input$additional === void 0 ? [] : _input$additional;
+        additional = _input$additional === void 0 ? [] : _input$additional,
+        updateTime = input.updateTime;
     var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
@@ -168,7 +171,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       bookingUrl: bron,
       hotelId: hotelId,
       additionalPayments: additional,
-      currencyRate: currencyRate
+      currencyRate: currencyRate,
+      updateTime: updateTime
     }, promo && promo);
 
     return entity;

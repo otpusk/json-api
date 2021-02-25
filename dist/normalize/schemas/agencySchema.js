@@ -35,7 +35,10 @@ var agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
         phoneViber3 = _input$phoneViber3 === void 0 ? false : _input$phoneViber3,
         district = input.district,
         area = input.rn,
-        callback = input.callback;
+        callback = input.callback,
+        messenger = input.messenger,
+        skype = input.skype,
+        telegram = input.telegram;
     return {
       id: id,
       location: (0, _parsers.parseLocation)(input),
@@ -44,6 +47,9 @@ var agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
       agency: agency,
       district: district,
       area: area,
+      messenger: messenger,
+      skype: skype,
+      telegram: telegram,
       options: {
         callback: !!callback
       },
