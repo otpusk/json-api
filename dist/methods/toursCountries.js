@@ -34,7 +34,7 @@ function getToursCountries(_x) {
 function _getToursCountries() {
   _getToursCountries = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var options,
-        _ref,
+        _yield$makeCall,
         denormalizedCountries,
         _normalize,
         countries,
@@ -48,11 +48,11 @@ function _getToursCountries() {
               'with': 'price'
             };
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.countries, _objectSpread({}, token, {}, options), withPrice(options) ? void 0 : [7, 'days']);
+            return (0, _fn.makeCall)(_config.ENDPOINTS.countries, _objectSpread(_objectSpread({}, token), options), withPrice(options) ? void 0 : [7, 'days']);
 
           case 3:
-            _ref = _context.sent;
-            denormalizedCountries = _ref.countries;
+            _yield$makeCall = _context.sent;
+            denormalizedCountries = _yield$makeCall.countries;
             _normalize = (0, _normalizr.normalize)(denormalizedCountries, [_schemas.countrySchema]), countries = _normalize.entities.country;
             return _context.abrupt("return", Object.values(countries));
 
