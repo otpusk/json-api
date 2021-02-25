@@ -7,7 +7,7 @@ import { ENDPOINTS } from '../config';
 import { hotelSimilarSchema } from '../normalize/schemas';
 
 export async function getToursSimilar (token, hotelId, limit = 3) {
-    const { hotels } = await makeCall(ENDPOINTS.similar, { hotelId, limit, ...token });
+    const { hotels } = await makeCall({ endpoint: ENDPOINTS.similar, query: { hotelId, limit, ...token }});
     const { entities: { hotel: similar }} = normalize(hotels, [hotelSimilarSchema]);
 
     return similar;

@@ -47,9 +47,12 @@ function _getToursHotBlock() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.hotBlock, _objectSpread({
-              blockId: blockId
-            }, token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.hotBlock,
+              query: _objectSpread({
+                blockId: blockId
+              }, token)
+            });
 
           case 2:
             _yield$makeCall = _context.sent;
@@ -83,10 +86,13 @@ function _getToursHotTour() {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.hotTour, _objectSpread({
-              blockId: blockId,
-              id: tourId
-            }, token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.hotTour,
+              query: _objectSpread({
+                blockId: blockId,
+                id: tourId
+              }, token)
+            });
 
           case 2:
             _yield$makeCall2 = _context2.sent;

@@ -9,10 +9,12 @@ import { countrySchema } from '../normalize/schemas';
 const withPrice = (options) => options && options.with === 'price';
 
 export async function getToursCountries (token, options = { 'with': 'price' }) {
-    const { countries: denormalizedCountries } = await makeCall(ENDPOINTS.countries, {
-        ...token,
-        ...options,
-    }, withPrice(options) ? void 0 : [7, 'days']);
+    const { countries: denormalizedCountries } = await makeCall({ endpoint: ENDPOINTS.countries,
+        query: {
+            ...token,
+            ...options,
+        },
+        ttl: withPrice(options) ? void 0 : [7, 'days']});
 
     const { entities: { country: countries }}  = normalize(denormalizedCountries, [countrySchema]);
 

@@ -37,7 +37,7 @@ number: 1,
 // API.getToursSearch(token, query).then(console.log);
 // API.getToursOffer(token, '3460563240820295').then(console.log);
 // API.getToursActual(token, '1800663620869018', 2).then(console.log);
-API.getToursAgencies(token, { regionId:2, hotelId:'82231', offerId:'1970598340947050' }).then(console.log);
+// API.getToursAgencies(token, { regionId:'2', hotelId:'82231', offerId:'1970598340947050' }).then(console.log);
 // API.cacheValidate(token)
 //     .then(() => API.getToursHotel(token, 7976))
 // API.getToursHotels(token, 34, 899, { center: {lat: 35.31631, lng: 25.38968}, radius: 1}).then(console.log);
@@ -45,13 +45,16 @@ API.getToursAgencies(token, { regionId:2, hotelId:'82231', offerId:'197059834094
 //
 // API.getToursFlightPort(token, 'SSH').then(console.log)
 
-<<<<<<< HEAD
-// API.getToursValidate(token, '2263694910748412').then(console.log)
-API.getToursDepartureCities(token).then(console.log)
-=======
+// API.getToursValidate(token, '2263694910748412').then(console.log);
+// API.getToursDepartureCities(token).then(console.log)
 //API.getToursValidate(token, '2263694910748412').then(console.log)
->>>>>>> 0890353b78d84a0cf81ceb75be8ec2b67577bfaa
-
 // API.getToursDates(token, { regionId: 1544 }).then(console.log);
-
-// .then(console.log);
+// API.getToursCities(token, '115').then(console.log);
+// API.getToursCountries(token).then(console.log);
+// API.getToursCountries(token).then(console.log);
+// API.getToursGraph(token).then(console.log);
+// API.getToursOperators(token, '115').then(console.log);
+// API.getToursOrder(token).then(console.log);
+// API.getToursRegions(token).then(console.log);
+// API.getToursSimilar(token, '9749').then(console.log);
+// API.getToursSuggests(token, 'ту').then(console.log);

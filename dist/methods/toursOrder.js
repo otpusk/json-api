@@ -31,9 +31,12 @@ function _getToursOrder() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.order, _objectSpread(_objectSpread({
-              widget: 'order'
-            }, claim), token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.order,
+              query: _objectSpread(_objectSpread({
+                widget: 'order'
+              }, claim), token)
+            });
 
           case 2:
             response = _context.sent;

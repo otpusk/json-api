@@ -7,10 +7,12 @@ import { ENDPOINTS } from '../config';
 import { fullOfferSchema } from '../normalize/schemas';
 
 export async function getToursOffer (token, offerId, fresh) {
-    const { offer: denormalizedOffer } = await makeCall(ENDPOINTS.offer, {
-        offerId,
-        ...token,
-    }, fresh ? null : [30, 'minutes']);
+    const { offer: denormalizedOffer } = await makeCall({ endpoint: ENDPOINTS.offer,
+        query: {
+            offerId,
+            ...token,
+        },
+        ttl: fresh ? null : [30, 'minutes']});
 
     const { entities: { offer: offers }, result } = normalize(denormalizedOffer, fullOfferSchema);
 

@@ -4,11 +4,12 @@ import { ENDPOINTS } from '../config';
 import { getOperatorLogoById } from '../dictionary';
 
 export async function getToursOperators(token, countryId, options = {}) {
-    const { operators: raw = {} } = await makeCall(ENDPOINTS.operators, {
-        countryId,
-        ...options,
-        ...token,
-    });
+    const { operators: raw = {} } = await makeCall({ endpoint: ENDPOINTS.operators,
+        query: {
+            countryId,
+            ...options,
+            ...token,
+        }});
     const operators = Object.values(raw).map(({ id, name, url, currencies }) => ({
         id,
         name,

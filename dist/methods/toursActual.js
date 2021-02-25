@@ -36,10 +36,13 @@ function _getToursActual() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.actual, _objectSpread(_objectSpread({}, token), {}, {
-              offerId: offerId,
-              people: people
-            }));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.actual,
+              query: _objectSpread(_objectSpread({}, token), {}, {
+                offerId: offerId,
+                people: people
+              })
+            });
 
           case 2:
             _yield$makeCall = _context.sent;

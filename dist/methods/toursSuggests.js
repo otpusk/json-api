@@ -68,9 +68,13 @@ function _getToursSuggests() {
               'with': 'price'
             };
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread(_objectSpread({
-              text: query
-            }, token), options), [1, 'hour']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.suggests,
+              query: _objectSpread(_objectSpread({
+                text: query
+              }, token), options),
+              ttl: [1, 'hour']
+            });
 
           case 3:
             _yield$makeCall = _context.sent;
@@ -141,9 +145,13 @@ function _getToursGeoById() {
               'with': 'price'
             };
             _context2.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.suggests, _objectSpread(_objectSpread({
-              text: id
-            }, token), options), [1, 'hour']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.suggests,
+              query: _objectSpread(_objectSpread({
+                text: id
+              }, token), options),
+              ttl: [1, 'hour']
+            });
 
           case 3:
             _yield$makeCall2 = _context2.sent;

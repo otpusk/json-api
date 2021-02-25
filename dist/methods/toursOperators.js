@@ -40,9 +40,12 @@ function _getToursOperators() {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.operators, _objectSpread(_objectSpread({
-              countryId: countryId
-            }, options), token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.operators,
+              query: _objectSpread(_objectSpread({
+                countryId: countryId
+              }, options), token)
+            });
 
           case 3:
             _yield$makeCall = _context.sent;

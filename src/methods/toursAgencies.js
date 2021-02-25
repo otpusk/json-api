@@ -17,7 +17,7 @@ export async function getToursAgencies (token, { regionId, hotelId, offerId, noS
     };
 
     noStats && Object.assign(params, { nst: 1 });
-    const { operators, _gaq: analytics = null, regions: denormalizedRegions } = await makeCall(ENDPOINTS.agencies, params);
+    const { operators, _gaq: analytics = null, regions: denormalizedRegions } = await makeCall({ endpoint: ENDPOINTS.agencies, query: params });
 
     const { entities: { agency: agencies, office: offices }, result: { 1: { viewAgencies: viewAgenciesOrder, clickAgencies: clickAgenciesOrder } = {}}} = normalize(operators, new schema.Values({
         clickAgencies: [agencySchema],

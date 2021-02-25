@@ -43,10 +43,13 @@ function _getToursCurrencyRates() {
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             from = date.from, to = date.to;
             _context.next = 4;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.currencyRates, _objectSpread(_objectSpread({
-              'datebegin': from,
-              'dateend': to
-            }, options), token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.currencyRates,
+              query: _objectSpread(_objectSpread({
+                'datebegin': from,
+                'dateend': to
+              }, options), token)
+            });
 
           case 4:
             _yield$makeCall = _context.sent;

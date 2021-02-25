@@ -41,7 +41,7 @@ export async function getToursSearch (token, query) {
         pg: denormalizedChart = null,
         cnt: denormalizedCountry = null,
         ...other
-    } = await makeCall(ENDPOINTS.search, { ...query, ...token });
+    } = await makeCall({ endpoint: ENDPOINTS.search, query: { ...query, ...token }});
 
     const { entities: { hotel: hotels, offer: offers }} = normalize(
         Object.values(denormalizedHotels || {}).reduce((all, h) => ({ ...all, ...h }), {}),

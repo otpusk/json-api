@@ -44,9 +44,13 @@ function _getToursCities() {
               'with': 'price'
             };
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.cities, _objectSpread(_objectSpread({
-              countryId: countryId
-            }, token), options), [7, 'days']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.cities,
+              query: _objectSpread(_objectSpread({
+                countryId: countryId
+              }, token), options),
+              ttl: [7, 'days']
+            });
 
           case 3:
             _yield$makeCall = _context.sent;

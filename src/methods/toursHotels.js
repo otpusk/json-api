@@ -7,12 +7,14 @@ import { ENDPOINTS } from '../config';
 import { hotelSchema, hotelShortSchema } from '../normalize/schemas';
 
 export async function getToursHotels(token, countryId, options = {}) {
-    const { cities = [], categories = [], services = [], withPrice = true} = options;
-    const { hotels: denormalizedHotels } = await makeCall(ENDPOINTS.hotels, {
-        countryId,
-        with: withPrice ? 'price' : null,
-        ...token,
-    }, [1, 'day']);
+    const { cities = [], categories = [], services = [], withPrice = true } = options;
+    const { hotels: denormalizedHotels } = await makeCall({ endpoint: ENDPOINTS.hotels,
+        query: {
+            countryId,
+            with: withPrice ? 'price' : null,
+            ...token,
+        },
+        ttl: [1, 'day']});
 
     const { entities: { hotel: hotels }} = normalize(
         denormalizedHotels.filter(
@@ -32,14 +34,15 @@ export async function getToursHotels(token, countryId, options = {}) {
 
 export async function getToursHotelsMarkers (token, countryId, cityId, options) {
     const { center, radius } = options;
-    const { hotels: denormalizedHotels } = await makeCall(ENDPOINTS.hotels, {
-        countryId,
-        cityId,
-        geo:  `${center.lat},${center.lng}`,
-        rad:  radius || 1,
-        with: 'price',
-        ...token,
-    });
+    const { hotels: denormalizedHotels } = await makeCall({ endpoint: ENDPOINTS.hotels,
+        query: {
+            countryId,
+            cityId,
+            geo:  `${center.lat},${center.lng}`,
+            rad:  radius || 1,
+            with: 'price',
+            ...token,
+        }});
 
     const { entities: { hotel: markers }} = normalize(
         denormalizedHotels.map((h) => ({ ...h, countryId })),
@@ -50,11 +53,13 @@ export async function getToursHotelsMarkers (token, countryId, cityId, options) 
 }
 
 export async function getToursHotel (token, hotelId, lang = 'ru') {
-    const { hotel: denormalizedHotel } = await makeCall(ENDPOINTS.hotel, {
-        hotelId,
-        lang,
-        ...token,
-    }, [1, 'hour']);
+    const { hotel: denormalizedHotel } = await makeCall({ endpoint: ENDPOINTS.hotel,
+        query: {
+            hotelId,
+            lang,
+            ...token,
+        },
+        ttl: [1, 'hour']});
 
     const { entities: { hotel: hotels, offer: offers }, result: id } = normalize(denormalizedHotel, hotelSchema);
     const hotel = hotels[id];

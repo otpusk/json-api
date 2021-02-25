@@ -32,7 +32,10 @@ function _cacheValidate() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.cache_validate, token);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.cache_validate,
+              query: token
+            });
 
           case 2:
             _yield$makeCall = _context.sent;

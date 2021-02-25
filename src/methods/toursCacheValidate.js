@@ -7,7 +7,7 @@ import { ENDPOINTS } from '../config';
 import { CacheItem, cacheStorage } from './../cache';
 
 export async function cacheValidate (token) {
-    const { timestamp: lastTimeUpdated } = await makeCall(ENDPOINTS.cache_validate, token);
+    const { timestamp: lastTimeUpdated } = await makeCall({ endpoint: ENDPOINTS.cache_validate, query: token });
     const hash = btoa(`${lastTimeUpdated}`);
     const cache = new CacheItem(ENDPOINTS.cache_validate);
 
