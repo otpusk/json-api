@@ -48,10 +48,14 @@ function _getToursServices() {
             country = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
             lang = _args.length > 2 && _args[2] !== undefined ? _args[2] : 'ru';
             _context.next = 4;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.services, _objectSpread(_objectSpread({}, token), {}, {
-              countryId: country,
-              lang: lang
-            }), [7, 'days']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.services,
+              query: _objectSpread(_objectSpread({}, token), {}, {
+                countryId: country,
+                lang: lang
+              }),
+              ttl: [7, 'days']
+            });
 
           case 4:
             _yield$makeCall = _context.sent;

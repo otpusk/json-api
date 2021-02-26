@@ -22,9 +22,11 @@ export async function getToursValidate (token, offerId) {
         token.city = name;
     }
 
-    const { status, ...denormalizedOffer } = await makeCall(`${tempEndpoint}/${offerId}`, {
-        ...token,
-    }, null, 60000);
+    const { status, ...denormalizedOffer } = await makeCall({ endpoint: `${tempEndpoint}/${offerId}`,
+        query: {
+            ...token,
+        },
+        timeout: 60000 });
 
     const { entities: { outbound, inbound },
         result: { info, usd = 0, uah = 0, eur = 0, currency = 'usd', ...validatedTour }} = normalize(denormalizedOffer, { info: infoSchema });

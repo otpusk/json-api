@@ -42,10 +42,13 @@ function _getToursSimilar() {
           case 0:
             limit = _args.length > 2 && _args[2] !== undefined ? _args[2] : 3;
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.similar, _objectSpread({
-              hotelId: hotelId,
-              limit: limit
-            }, token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.similar,
+              query: _objectSpread({
+                hotelId: hotelId,
+                limit: limit
+              }, token)
+            });
 
           case 3:
             _yield$makeCall = _context.sent;

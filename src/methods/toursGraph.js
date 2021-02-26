@@ -10,10 +10,11 @@ import { parsePrice } from '../normalize/parsers';
 
 export async function getToursGraph (token, options = { }) {
 
-    const { graph: denormalizedDays } = await makeCall(ENDPOINTS.graph, {
-        ...token,
-        ...options,
-    });
+    const { graph: denormalizedDays } = await makeCall({ endpoint: ENDPOINTS.graph,
+        query: {
+            ...token,
+            ...options,
+        }});
 
     const { checkIn: start, checkTo: end } = options;
     const points = Range(0, moment(end).diff(moment(start), 'days') + 1);

@@ -53,10 +53,14 @@ function _getToursHotels() {
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _options$cities = options.cities, cities = _options$cities === void 0 ? [] : _options$cities, _options$categories = options.categories, categories = _options$categories === void 0 ? [] : _options$categories, _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice;
             _context.next = 4;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.hotels, _objectSpread({
-              countryId: countryId,
-              with: withPrice ? 'price' : null
-            }, token), [1, 'day']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.hotels,
+              query: _objectSpread({
+                countryId: countryId,
+                with: withPrice ? 'price' : null
+              }, token),
+              ttl: [1, 'day']
+            });
 
           case 4:
             _yield$makeCall = _context.sent;
@@ -95,13 +99,16 @@ function _getToursHotelsMarkers() {
           case 0:
             center = options.center, radius = options.radius;
             _context2.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.hotels, _objectSpread({
-              countryId: countryId,
-              cityId: cityId,
-              geo: "".concat(center.lat, ",").concat(center.lng),
-              rad: radius || 1,
-              with: 'price'
-            }, token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.hotels,
+              query: _objectSpread({
+                countryId: countryId,
+                cityId: cityId,
+                geo: "".concat(center.lat, ",").concat(center.lng),
+                rad: radius || 1,
+                with: 'price'
+              }, token)
+            });
 
           case 3:
             _yield$makeCall2 = _context2.sent;
@@ -146,10 +153,14 @@ function _getToursHotel() {
           case 0:
             lang = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 'ru';
             _context3.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.hotel, _objectSpread({
-              hotelId: hotelId,
-              lang: lang
-            }, token), [1, 'hour']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.hotel,
+              query: _objectSpread({
+                hotelId: hotelId,
+                lang: lang
+              }, token),
+              ttl: [1, 'hour']
+            });
 
           case 3:
             _yield$makeCall3 = _context3.sent;

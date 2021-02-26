@@ -8,6 +8,8 @@ exports.createQueryStringFromObject = createQueryStringFromObject;
 exports.mergeDefinedObjectValues = mergeDefinedObjectValues;
 exports.HttpResponseError = void 0;
 
+var _isomorphicFetch = _interopRequireDefault(require("isomorphic-fetch"));
+
 var _fetchJsonp = _interopRequireDefault(require("fetch-jsonp"));
 
 var _moment = _interopRequireDefault(require("moment"));
@@ -84,17 +86,6 @@ function hash(str) {
 function parseResponse(_x) {
   return _parseResponse.apply(this, arguments);
 }
-/**
- * Make api call
- *
- * @param {string} endpoint Request endpoint
- * @param {Object} query Request query
- * @param {Object} ttl Moment duration
- * @param {number} timeout Request timeout
- *
- * @returns {Promise} Response
- */
-
 
 function _parseResponse() {
   _parseResponse = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(response) {
@@ -130,7 +121,28 @@ function _parseResponse() {
   return _parseResponse.apply(this, arguments);
 }
 
-function makeCall(_x2, _x3) {
+function fetchWithTimeout(request, timeout) {
+  return Promise.race([(0, _isomorphicFetch.default)(request, {
+    method: 'GET'
+  }), new Promise(function (_, reject) {
+    return setTimeout(function () {
+      return reject(new Error("request to ".concat(request, " timed out")));
+    }, timeout);
+  })]);
+}
+/**
+ * Make api call
+ *
+ * @param {string} endpoint Request endpoint
+ * @param {Object} query Request query
+ * @param {Object} ttl Moment duration
+ * @param {number} timeout Request timeout
+ *
+ * @returns {Promise} Response
+ */
+
+
+function makeCall(_x2) {
   return _makeCall.apply(this, arguments);
 }
 /**
@@ -143,68 +155,81 @@ function makeCall(_x2, _x3) {
 
 
 function _makeCall() {
-  _makeCall = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(endpoint, query) {
-    var ttl,
-        timeout,
-        request,
-        cache,
-        _body,
-        response,
-        body,
-        _args2 = arguments;
+  _makeCall = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref) {
+    var endpoint, _ref$query, query, _ref$ttl, ttl, _ref$timeout, timeout, _ref$jsonp, jsonp, request, cache, _body, response, body;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            ttl = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : null;
-            timeout = _args2.length > 3 && _args2[3] !== undefined ? _args2[3] : 10000;
+            endpoint = _ref.endpoint, _ref$query = _ref.query, query = _ref$query === void 0 ? {} : _ref$query, _ref$ttl = _ref.ttl, ttl = _ref$ttl === void 0 ? null : _ref$ttl, _ref$timeout = _ref.timeout, timeout = _ref$timeout === void 0 ? 10000 : _ref$timeout, _ref$jsonp = _ref.jsonp, jsonp = _ref$jsonp === void 0 ? false : _ref$jsonp;
             request = "".concat(endpoint, "?").concat(createQueryStringFromObject(query));
             cache = new _cache.CacheItem(hash(request));
-            _context2.next = 6;
+            _context2.next = 5;
             return cache.isHit(ttl);
 
-          case 6:
+          case 5:
             if (!_context2.sent) {
-              _context2.next = 11;
+              _context2.next = 10;
               break;
             }
 
-            _context2.next = 9;
+            _context2.next = 8;
             return cache.get();
 
-          case 9:
+          case 8:
             _body = _context2.sent;
             return _context2.abrupt("return", _body);
 
-          case 11:
-            _context2.next = 13;
+          case 10:
+            response = null;
+
+            if (!jsonp) {
+              _context2.next = 15;
+              break;
+            }
+
+            _context2.next = 14;
             return (0, _fetchJsonp.default)(request, {
               timeout: timeout
             });
 
-          case 13:
+          case 14:
             response = _context2.sent;
-            _context2.next = 16;
+
+          case 15:
+            if (jsonp) {
+              _context2.next = 19;
+              break;
+            }
+
+            _context2.next = 18;
+            return fetchWithTimeout(request, timeout);
+
+          case 18:
+            response = _context2.sent;
+
+          case 19:
+            _context2.next = 21;
             return parseResponse(response);
 
-          case 16:
+          case 21:
             body = _context2.sent;
 
             if (!ttl) {
-              _context2.next = 22;
+              _context2.next = 27;
               break;
             }
 
             cache.set(body);
             cache.expiresAfter(_moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)));
-            _context2.next = 22;
+            _context2.next = 27;
             return cache.save();
 
-          case 22:
+          case 27:
             return _context2.abrupt("return", body);
 
-          case 23:
+          case 28:
           case "end":
             return _context2.stop();
         }

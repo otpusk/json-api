@@ -4,11 +4,13 @@ import { ENDPOINTS } from '../config';
 
 export async function getToursFlightPort (token, iata, options = {}) {
 
-    const { port } = await makeCall(ENDPOINTS.flightPort, {
-      iata,
-        ...token,
-        ...options,
-    }, [7, 'days']);
+    const { port } = await makeCall({ endpoint: ENDPOINTS.flightPort,
+        query: {
+            iata,
+            ...token,
+            ...options,
+        },
+        ttl: [7, 'days']});
 
     const {
       id,

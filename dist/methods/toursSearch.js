@@ -79,7 +79,10 @@ function _getToursSearch() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.search, _objectSpread(_objectSpread({}, query), token));
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.search,
+              query: _objectSpread(_objectSpread({}, query), token)
+            });
 
           case 2:
             _yield$makeCall = _context.sent;

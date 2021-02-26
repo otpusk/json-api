@@ -9,11 +9,13 @@ import { ENDPOINTS } from '../config';
 
 export async function getToursSuggests (token, query, options = { 'with': 'price' }) {
 
-    const { response: denormalizedLocations } = await makeCall(ENDPOINTS.suggests, {
-        text: query,
-        ...token,
-        ...options,
-    }, [1, 'hour']);
+    const { response: denormalizedLocations } = await makeCall({ endpoint: ENDPOINTS.suggests,
+        query: {
+            text: query,
+            ...token,
+            ...options,
+        },
+        ttl: [1, 'hour']});
 
     const { result, entities: locations } = normalize(denormalizedLocations, [geoSchema]);
 
@@ -35,11 +37,13 @@ export async function getToursSuggests (token, query, options = { 'with': 'price
 }
 
 export async function getToursGeoById (token, id, options = { 'with': 'price' }) {
-    const { response: denormalizedLocations } = await makeCall(ENDPOINTS.suggests, {
-        text: id,
-        ...token,
-        ...options,
-    }, [1, 'hour']);
+    const { response: denormalizedLocations } = await makeCall({ endpoint: ENDPOINTS.suggests,
+        query: {
+            text: id,
+            ...token,
+            ...options,
+        },
+        ttl: [1, 'hour']});
 
     const { result: [{ id: locationId, schema: type }], entities: locations } = normalize(denormalizedLocations, [geoSchema]);
 

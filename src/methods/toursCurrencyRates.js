@@ -7,12 +7,13 @@ import { ENDPOINTS } from '../config';
 
 export async function getToursCurrencyRates(token, date, options = {}) {
     const { from, to } = date;
-    const { rates = {} } = await makeCall(ENDPOINTS.currencyRates, {
-        'datebegin': from,
-        'dateend': to,
-        ...options,
-        ...token,
-    });
+    const { rates = {}} = await makeCall({ endpoint: ENDPOINTS.currencyRates,
+        query: {
+            'datebegin': from,
+            'dateend': to,
+            ...options,
+            ...token,
+        }});
     const results = Map(rates)
         .map((rate) => {
             return Map(rate)

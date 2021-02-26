@@ -39,5 +39,12 @@ API.getToursSearch(token, query).then(console.log);
 // API.getToursDepartureCities(token).then(console.log)
 
 // API.getToursDates(token, { regionId: 1544 }).then(console.log);
-
-// .then(console.log);
+// API.getToursCities(token, '115').then(console.log);
+// API.getToursCountries(token).then(console.log);
+// API.getToursCountries(token).then(console.log);
+// API.getToursGraph(token).then(console.log);
+// API.getToursOperators(token, '115').then(console.log);
+// API.getToursOrder(token).then(console.log);
+// API.getToursRegions(token).then(console.log);
+// API.getToursSimilar(token, '9749').then(console.log);
+// API.getToursSuggests(token, 'ту').then(console.log);

@@ -47,7 +47,10 @@ function _getToursAgencies() {
               nst: 1
             });
             _context.next = 5;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.agencies, params);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.agencies,
+              query: params
+            });
 
           case 5:
             _yield$makeCall = _context.sent;

@@ -26,7 +26,10 @@ function _getInit() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.init, token);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.init,
+              token: token
+            });
 
           case 2:
             _yield$makeCall = _context.sent;

@@ -1,5 +1,6 @@
 // Core
-import fetch from 'fetch-jsonp';
+import fetch from 'isomorphic-fetch';
+import fetchJsonp from 'fetch-jsonp';
 import moment from 'moment';
 
 // Instruments
@@ -28,7 +29,7 @@ function createQueryStringFromObject (params) {
 function hash (str) {
     let hash = 5381;
 
-    let i    = str.length;
+    let i = str.length;
 
     while (i) {
         hash = hash * 33 ^ str.charCodeAt(--i);
@@ -54,6 +55,16 @@ async function parseResponse (response) {
     }
 }
 
+function fetchWithTimeout (request, timeout) {
+    return Promise.race([
+        fetch(request, {
+            method: 'GET' }),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error(`request to ${request} timed out`)), timeout)
+        )
+    ]);
+}
+
 /**
  * Make api call
  *
@@ -64,7 +75,7 @@ async function parseResponse (response) {
  *
  * @returns {Promise} Response
  */
-async function makeCall (endpoint, query, ttl = null, timeout = 10000) {
+async function makeCall ({ endpoint, query = {}, ttl = null, timeout = 10000, jsonp = false }) {
     const request = `${endpoint}?${createQueryStringFromObject(query)}`;
     const cache = new CacheItem(hash(request));
 
@@ -74,7 +85,16 @@ async function makeCall (endpoint, query, ttl = null, timeout = 10000) {
         return body;
     }
 
-    const response = await fetch(request, { timeout });
+    let response = null;
+
+    if (jsonp) {
+        response = await fetchJsonp(request, { timeout });
+    }
+
+    if (!jsonp) {
+        response = await fetchWithTimeout(request, timeout);
+    }
+
     const body = await parseResponse(response);
 
     if (ttl) {

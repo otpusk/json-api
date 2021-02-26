@@ -32,7 +32,11 @@ function _getToursDates() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.dates, _objectSpread(_objectSpread({}, token), options), [7, 'days']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.dates,
+              query: _objectSpread(_objectSpread({}, token), options),
+              ttl: [7, 'days']
+            });
 
           case 2:
             _yield$makeCall = _context.sent;

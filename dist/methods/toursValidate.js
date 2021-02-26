@@ -68,7 +68,11 @@ function _getToursValidate() {
             }
 
             _context.next = 4;
-            return (0, _fn.makeCall)("".concat(tempEndpoint, "/").concat(offerId), _objectSpread({}, token), null, 60000);
+            return (0, _fn.makeCall)({
+              endpoint: "".concat(tempEndpoint, "/").concat(offerId),
+              query: _objectSpread({}, token),
+              timeout: 60000
+            });
 
           case 4:
             _yield$makeCall = _context.sent;

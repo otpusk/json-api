@@ -36,9 +36,13 @@ function _getToursOffer() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.offer, _objectSpread({
-              offerId: offerId
-            }, token), fresh ? null : [30, 'minutes']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.offer,
+              query: _objectSpread({
+                offerId: offerId
+              }, token),
+              ttl: fresh ? null : [30, 'minutes']
+            });
 
           case 2:
             _yield$makeCall = _context.sent;

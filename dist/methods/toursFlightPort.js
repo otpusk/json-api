@@ -48,9 +48,13 @@ function _getToursFlightPort() {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             _context.next = 3;
-            return (0, _fn.makeCall)(_config.ENDPOINTS.flightPort, _objectSpread(_objectSpread({
-              iata: iata
-            }, token), options), [7, 'days']);
+            return (0, _fn.makeCall)({
+              endpoint: _config.ENDPOINTS.flightPort,
+              query: _objectSpread(_objectSpread({
+                iata: iata
+              }, token), options),
+              ttl: [7, 'days']
+            });
 
           case 3:
             _yield$makeCall = _context.sent;
