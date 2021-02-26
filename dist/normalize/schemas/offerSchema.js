@@ -53,7 +53,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
 
     var promo = (0, _parsers.parsePromo)(promoValue);
 
-    var entity = _objectSpread({
+    var entity = _objectSpread(_objectSpread({
       id: String(id),
       code: code,
       date: date,
@@ -87,7 +87,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       additionalPayments: [],
       currencyRate: currencyRate,
       updateTime: updateTime
-    }, promo && promo);
+    }, promo && promo), (0, _parsers.getPriceEntity)(input));
 
     return entity;
   }

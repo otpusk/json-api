@@ -51,6 +51,33 @@ export const parseDiscountPrice = (input) => {
     };
 };
 
+const createPriceEntity = {
+    byOperator: ({ pl, plo, u, uo }) => ({
+        uah: plo || pl,
+        [u]: (plo || pl) / uo
+    }),
+    byNBU: ({ pl, plo, u, ur }) => ({
+        uah: plo || pl,
+        [u]: (plo || pl) / ur
+    })
+};
+
+const createDiscountPriceEntity = {
+    byOperator: ({ plo, pl, u, uo }) => plo ? ({
+        uah: pl, [u]: pl / uo
+    }) : null,
+    byNBU: ({ plo, pl, u, ur }) => plo ? ({
+        uah: pl, [u]: pl / ur
+    }) : null
+};
+
+export const getPriceEntity = (offer) => ({
+    '@price': createPriceEntity.byOperator(offer),
+    '@priceNBU': createPriceEntity.byNBU(offer),
+    '@discountPrice': createDiscountPriceEntity.byOperator(offer),
+    '@discountPriceNBU': createDiscountPriceEntity.byNBU(offer)
+});
+
 const parseSeats = (seats) => {
     switch (seats) {
         case !isNaN(Number(seats)): return seats;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
+exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.getPriceEntity = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -106,6 +106,57 @@ var parseDiscountPrice = function parseDiscountPrice(input) {
 };
 
 exports.parseDiscountPrice = parseDiscountPrice;
+var createPriceEntity = {
+  byOperator: function byOperator(_ref3) {
+    var pl = _ref3.pl,
+        plo = _ref3.plo,
+        u = _ref3.u,
+        uo = _ref3.uo;
+    return _defineProperty({
+      uah: plo || pl
+    }, u, (plo || pl) / uo);
+  },
+  byNBU: function byNBU(_ref5) {
+    var pl = _ref5.pl,
+        plo = _ref5.plo,
+        u = _ref5.u,
+        ur = _ref5.ur;
+    return _defineProperty({
+      uah: plo || pl
+    }, u, (plo || pl) / ur);
+  }
+};
+var createDiscountPriceEntity = {
+  byOperator: function byOperator(_ref7) {
+    var plo = _ref7.plo,
+        pl = _ref7.pl,
+        u = _ref7.u,
+        uo = _ref7.uo;
+    return plo ? _defineProperty({
+      uah: pl
+    }, u, pl / uo) : null;
+  },
+  byNBU: function byNBU(_ref9) {
+    var plo = _ref9.plo,
+        pl = _ref9.pl,
+        u = _ref9.u,
+        ur = _ref9.ur;
+    return plo ? _defineProperty({
+      uah: pl
+    }, u, pl / ur) : null;
+  }
+};
+
+var getPriceEntity = function getPriceEntity(offer) {
+  return {
+    '@price': createPriceEntity.byOperator(offer),
+    '@priceNBU': createPriceEntity.byNBU(offer),
+    '@discountPrice': createDiscountPriceEntity.byOperator(offer),
+    '@discountPriceNBU': createDiscountPriceEntity.byNBU(offer)
+  };
+};
+
+exports.getPriceEntity = getPriceEntity;
 
 var parseSeats = function parseSeats(seats) {
   switch (seats) {
@@ -150,12 +201,12 @@ var parseFlights = function parseFlights(input) {
           value: seats
         };
       });
-    }).filter(function (_ref3) {
-      var seats = _ref3.seats;
+    }).filter(function (_ref11) {
+      var seats = _ref11.seats;
       return seats !== null;
-    }).sort(function (_ref4, _ref5) {
-      var a = _ref4.additional;
-      var b = _ref5.additional;
+    }).sort(function (_ref12, _ref13) {
+      var a = _ref12.additional;
+      var b = _ref13.additional;
 
       var _map = [a, b].map(function (value) {
         return value ? 1 : 0;
@@ -316,10 +367,10 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
 exports.parseSearchMeta = parseSearchMeta;
 
 var parseHotelVideos = function parseHotelVideos(raw) {
-  return raw && Array.isArray(raw) ? raw.map(function (_ref7) {
-    var thumbnail = _ref7.thumbnail,
-        id = _ref7.videoId,
-        code = _ref7.code;
+  return raw && Array.isArray(raw) ? raw.map(function (_ref15) {
+    var thumbnail = _ref15.thumbnail,
+        id = _ref15.videoId,
+        code = _ref15.code;
 
     var getProvider = function getProvider(iframe) {
       if (iframe.match(new RegExp('(youtu.|youtube.)'))) {
@@ -344,15 +395,15 @@ var parseHotelVideos = function parseHotelVideos(raw) {
 exports.parseHotelVideos = parseHotelVideos;
 
 var parseBadges = function parseBadges(raw) {
-  return Object.entries(raw).filter(function (_ref8) {
-    var _ref9 = _slicedToArray(_ref8, 2),
-        badge = _ref9[1];
+  return Object.entries(raw).filter(function (_ref16) {
+    var _ref17 = _slicedToArray(_ref16, 2),
+        badge = _ref17[1];
 
     return Boolean(badge);
-  }).map(function (_ref10) {
-    var _ref11 = _slicedToArray(_ref10, 2),
-        area = _ref11[0],
-        badge = _ref11[1];
+  }).map(function (_ref18) {
+    var _ref19 = _slicedToArray(_ref18, 2),
+        area = _ref19[0],
+        badge = _ref19[1];
 
     return _objectSpread({
       area: area

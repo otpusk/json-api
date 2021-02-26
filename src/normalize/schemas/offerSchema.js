@@ -9,7 +9,8 @@ import {
     parseFlights,
     parseDiscountPrice,
     parsePromo,
-    parseChildrenAges
+    parseChildrenAges,
+    getPriceEntity
 } from '../parsers';
 
 export const offerSchema = new schema.Entity(
@@ -79,7 +80,8 @@ export const offerSchema = new schema.Entity(
                 additionalPayments: [],
                 currencyRate,
                 updateTime,
-                ...(promo && promo)
+                ...(promo && promo),
+                ...getPriceEntity(input)
             };
 
             return entity;
