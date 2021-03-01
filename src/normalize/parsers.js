@@ -78,6 +78,33 @@ export const getPriceEntity = (offer) => ({
     '@discountPriceNBU': createDiscountPriceEntity.byNBU(offer)
 });
 
+const createOfferPriceEntity = {
+    byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => ({
+        uah: priceUahOriginal || priceUah,
+        [currency]: (priceUahOriginal || priceUah) / currencyOperatorRate
+    }),
+    byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => ({
+        uah: priceUahOriginal || priceUah,
+        [currency]: (priceUahOriginal || priceUah) / currencyRate
+    })
+};
+
+const createOfferDiscountPriceEntity = {
+    byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => priceUahOriginal ? ({
+        uah: priceUah, [currency]: priceUah / currencyOperatorRate
+    }) : null,
+    byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => priceUahOriginal ? ({
+        uah: priceUah, [currency]: priceUah / currencyRate
+    }) : null
+};
+
+export const getOfferPriceEntity = (offer) => ({
+    '@price': createOfferPriceEntity.byOperator(offer),
+    '@priceNBU': createOfferPriceEntity.byNBU(offer),
+    '@discountPrice': createOfferDiscountPriceEntity.byOperator(offer),
+    '@discountPriceNBU': createOfferDiscountPriceEntity.byNBU(offer)
+})
+
 const parseSeats = (seats) => {
     switch (seats) {
         case !isNaN(Number(seats)): return seats;

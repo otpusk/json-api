@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.getPriceEntity = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
+exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.getOfferPriceEntity = exports.getPriceEntity = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -157,6 +157,57 @@ var getPriceEntity = function getPriceEntity(offer) {
 };
 
 exports.getPriceEntity = getPriceEntity;
+var createOfferPriceEntity = {
+  byOperator: function byOperator(_ref11) {
+    var currency = _ref11.currency,
+        currencyOperatorRate = _ref11.currencyOperatorRate,
+        priceUahOriginal = _ref11.priceUahOriginal,
+        priceUah = _ref11.priceUah;
+    return _defineProperty({
+      uah: priceUahOriginal || priceUah
+    }, currency, (priceUahOriginal || priceUah) / currencyOperatorRate);
+  },
+  byNBU: function byNBU(_ref13) {
+    var currency = _ref13.currency,
+        currencyRate = _ref13.currencyRate,
+        priceUahOriginal = _ref13.priceUahOriginal,
+        priceUah = _ref13.priceUah;
+    return _defineProperty({
+      uah: priceUahOriginal || priceUah
+    }, currency, (priceUahOriginal || priceUah) / currencyRate);
+  }
+};
+var createOfferDiscountPriceEntity = {
+  byOperator: function byOperator(_ref15) {
+    var currency = _ref15.currency,
+        currencyOperatorRate = _ref15.currencyOperatorRate,
+        priceUahOriginal = _ref15.priceUahOriginal,
+        priceUah = _ref15.priceUah;
+    return priceUahOriginal ? _defineProperty({
+      uah: priceUah
+    }, currency, priceUah / currencyOperatorRate) : null;
+  },
+  byNBU: function byNBU(_ref17) {
+    var currency = _ref17.currency,
+        currencyRate = _ref17.currencyRate,
+        priceUahOriginal = _ref17.priceUahOriginal,
+        priceUah = _ref17.priceUah;
+    return priceUahOriginal ? _defineProperty({
+      uah: priceUah
+    }, currency, priceUah / currencyRate) : null;
+  }
+};
+
+var getOfferPriceEntity = function getOfferPriceEntity(offer) {
+  return {
+    '@price': createOfferPriceEntity.byOperator(offer),
+    '@priceNBU': createOfferPriceEntity.byNBU(offer),
+    '@discountPrice': createOfferDiscountPriceEntity.byOperator(offer),
+    '@discountPriceNBU': createOfferDiscountPriceEntity.byNBU(offer)
+  };
+};
+
+exports.getOfferPriceEntity = getOfferPriceEntity;
 
 var parseSeats = function parseSeats(seats) {
   switch (seats) {
@@ -201,12 +252,12 @@ var parseFlights = function parseFlights(input) {
           value: seats
         };
       });
-    }).filter(function (_ref11) {
-      var seats = _ref11.seats;
+    }).filter(function (_ref19) {
+      var seats = _ref19.seats;
       return seats !== null;
-    }).sort(function (_ref12, _ref13) {
-      var a = _ref12.additional;
-      var b = _ref13.additional;
+    }).sort(function (_ref20, _ref21) {
+      var a = _ref20.additional;
+      var b = _ref21.additional;
 
       var _map = [a, b].map(function (value) {
         return value ? 1 : 0;
@@ -367,10 +418,10 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
 exports.parseSearchMeta = parseSearchMeta;
 
 var parseHotelVideos = function parseHotelVideos(raw) {
-  return raw && Array.isArray(raw) ? raw.map(function (_ref15) {
-    var thumbnail = _ref15.thumbnail,
-        id = _ref15.videoId,
-        code = _ref15.code;
+  return raw && Array.isArray(raw) ? raw.map(function (_ref23) {
+    var thumbnail = _ref23.thumbnail,
+        id = _ref23.videoId,
+        code = _ref23.code;
 
     var getProvider = function getProvider(iframe) {
       if (iframe.match(new RegExp('(youtu.|youtube.)'))) {
@@ -395,15 +446,15 @@ var parseHotelVideos = function parseHotelVideos(raw) {
 exports.parseHotelVideos = parseHotelVideos;
 
 var parseBadges = function parseBadges(raw) {
-  return Object.entries(raw).filter(function (_ref16) {
-    var _ref17 = _slicedToArray(_ref16, 2),
-        badge = _ref17[1];
+  return Object.entries(raw).filter(function (_ref24) {
+    var _ref25 = _slicedToArray(_ref24, 2),
+        badge = _ref25[1];
 
     return Boolean(badge);
-  }).map(function (_ref18) {
-    var _ref19 = _slicedToArray(_ref18, 2),
-        area = _ref19[0],
-        badge = _ref19[1];
+  }).map(function (_ref26) {
+    var _ref27 = _slicedToArray(_ref26, 2),
+        area = _ref27[0],
+        badge = _ref27[1];
 
     return _objectSpread({
       area: area
