@@ -7,6 +7,8 @@ import { makeCall } from '../fn';
 import { geoSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
+const getIndexFromResult = (id, result) => result.findIndex(({ id: own }) => id === own)
+
 export async function getToursSuggests (token, query, options = { 'with': 'price' }) {
 
     const { response: denormalizedLocations } = await makeCall({ endpoint: ENDPOINTS.suggests,
@@ -19,19 +21,9 @@ export async function getToursSuggests (token, query, options = { 'with': 'price
 
     const { result, entities: locations } = normalize(denormalizedLocations, [geoSchema]);
 
-    const resultLocations = Map(locations).map(
-        (group) => Object.values(group)
-    ).toJS();
-
-    for (const key in resultLocations) {
-        if (resultLocations.hasOwnProperty(key)) {
-            const items = resultLocations[key];
-
-            for (const item of items) {
-                item.sortIndex = result.findIndex((i) => i.id === item.id);
-            }
-        }
-    }
+    const resultLocations = Map(locations)
+        .map((group) => Object.values(group).sort(({ id: a }, { id: b }) => getIndexFromResult(a, result) - getIndexFromResult(b, result)))
+        .toJS();
 
     return resultLocations;
 }
