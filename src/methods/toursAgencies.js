@@ -29,7 +29,7 @@ export async function getToursAgencies (token, { regionId, hotelId, offerId, noS
     return {
         agencies: Map(agencies).map((agency) => ({
             ...agency,
-            transaction: analytics ? agency.clickId && {
+            transaction: analytics ? {
                 transactionId:          analytics._dataLayer.transactionId,
                 transactionAffiliation: 'Clicks',
                 transactionTotal:       parseInt(agency.clickId, 8) / 100,
