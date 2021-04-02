@@ -68,7 +68,7 @@ function _getToursAgencies() {
             return _context.abrupt("return", {
               agencies: (0, _immutable.Map)(agencies).map(function (agency) {
                 return _objectSpread(_objectSpread({}, agency), {}, {
-                  transaction: analytics ? agency.clickId && {
+                  transaction: analytics ? {
                     transactionId: analytics._dataLayer.transactionId,
                     transactionAffiliation: 'Clicks',
                     transactionTotal: parseInt(agency.clickId, 8) / 100,
