@@ -195,6 +195,7 @@ export const hotelSchema = new schema.Entity(
                         cs: childServices,
                         ds: roomDescription,
                         di: locationDescription,
+                        ts: featuresServices
                     },
                     vs: turpravdaRating,
                     ad: {
@@ -225,6 +226,7 @@ export const hotelSchema = new schema.Entity(
                         child: { description: childDescription, services: typeof childServices === 'object' ? childServices : {} },
                         room: { description: roomDescription, services: typeof roomServices === 'object' ? roomServices : {} },
                         location: { description: locationDescription },
+                        feature: { services: typeof featuresServices === 'object' ? featuresServices : {} }
                     },
                     rooms,
                     contacts: { address, email, website, phone },
