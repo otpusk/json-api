@@ -1,6 +1,6 @@
 {
   "name": "@otpusk/json-api",
-  "version": "0.0.147",
+  "version": "0.0.148",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
