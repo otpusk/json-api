@@ -69,9 +69,10 @@ export const getImageUrl = (part, size = 'medium', watermark = null) => {
         small:     `2${watermarkPart}/240x160`,
         medium:    `2${watermarkPart}/320x240`,
         large:     `3${watermarkPart}/800x600`,
+        veryLarge: `3${watermarkPart}/1200x900`,
     };
 
-    return `https://www.otpusk.com/foto/${sizes[size]}/${part}`;
+    return `https://newimg.otpusk.com/${sizes[size]}/${part}`;
 };
 
 export const getOperatorLogoById = (id) => `https://export.otpusk.com/images/onsite/logo/logo-${id}.png`;

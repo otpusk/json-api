@@ -119,9 +119,10 @@ var getImageUrl = function getImageUrl(part) {
     verySmall: "2".concat(watermarkPart, "/160x120"),
     small: "2".concat(watermarkPart, "/240x160"),
     medium: "2".concat(watermarkPart, "/320x240"),
-    large: "3".concat(watermarkPart, "/800x600")
+    large: "3".concat(watermarkPart, "/800x600"),
+    veryLarge: "3".concat(watermarkPart, "/1200x900")
   };
-  return "https://www.otpusk.com/foto/".concat(sizes[size], "/").concat(part);
+  return "https://newimg.otpusk.com/".concat(sizes[size], "/").concat(part);
 };
 
 exports.getImageUrl = getImageUrl;
