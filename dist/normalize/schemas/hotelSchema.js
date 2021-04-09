@@ -225,6 +225,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
           childServices = _input$o.cs,
           roomDescription = _input$o.ds,
           locationDescription = _input$o.di,
+          featuresServices = _input$o.ts,
           turpravdaRating = input.vs,
           _input$ad = input.ad;
       _input$ad = _input$ad === void 0 ? {} : _input$ad;
@@ -268,6 +269,9 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
           },
           location: {
             description: locationDescription
+          },
+          feature: {
+            services: _typeof(featuresServices) === 'object' ? featuresServices : {}
           }
         },
         rooms: rooms,
