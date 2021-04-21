@@ -17,7 +17,7 @@ export async function getToursAgencies (token, { regionId, hotelId, offerId, noS
     };
 
     noStats && Object.assign(params, { nst: 1 });
-    const { operators, _gaq: analytics = null, regions: denormalizedRegions } = await makeCall({ endpoint: ENDPOINTS.agencies, query: params });
+    const { operators, regions: denormalizedRegions } = await makeCall({ endpoint: ENDPOINTS.agencies, query: params });
 
     const { entities: { agency: agencies, office: offices }, result: { 1: { viewAgencies: viewAgenciesOrder, clickAgencies: clickAgenciesOrder } = {}}} = normalize(operators, new schema.Values({
         clickAgencies: [agencySchema],
@@ -27,30 +27,11 @@ export async function getToursAgencies (token, { regionId, hotelId, offerId, noS
     const { entities: { region: regions }} = normalize(denormalizedRegions, [regionSchema]);
 
     return {
-        agencies: Map(agencies).map((agency) => ({
-            ...agency,
-            transaction: analytics ? {
-                transactionId:          analytics._dataLayer.transactionId,
-                transactionAffiliation: 'Clicks',
-                transactionTotal:       parseInt(agency.clickId, 8) / 100,
-                currencyCode:           analytics._dataLayer.currencyCode,
-                transactionShipping:    0,
-                transactionTax:         0,
-                transactionProducts:    [{
-                    sku:      agency.adId,
-                    name:     agency.id,
-                    category: 'Clicks',
-                    price:    parseInt(agency.clickId, 8) / 100,
-                    quantity: 1,
-                }],
-                event: analytics._dataLayer.event,
-            } : null,
-        })).sortBy(({ adId }) => clickAgenciesOrder.includes(adId)
+        agencies: Map(agencies).sortBy(({ adId }) => clickAgenciesOrder.includes(adId)
             ? clickAgenciesOrder.indexOf(adId)
             : viewAgenciesOrder.indexOf(adId) + 100
         ),
         offices,
-        analytics,
         regions,
     };
 }
