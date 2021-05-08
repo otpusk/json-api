@@ -276,7 +276,7 @@ var createOtpuskClickUrl = function createOtpuskClickUrl(regionId, agency, hotel
     t: offer.id,
     tr: offer.tourId
   };
-  return "/api/go/".concat(hotel.id, "_").concat(agency.adId, "?").concat(convertObjectToUrlFormData(params));
+  return "/go/".concat(hotel.id, "_").concat(agency.adId, "?").concat(convertObjectToUrlFormData(params));
 };
 
 exports.createOtpuskClickUrl = createOtpuskClickUrl;
