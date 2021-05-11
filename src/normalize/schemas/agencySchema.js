@@ -28,9 +28,11 @@ export const agencyOfficeSchema = new schema.Entity(
                 messenger,
                 skype,
                 telegram,
+                image
             } = input;
 
             return {
+                image,
                 id,
                 location: parseLocation(input),
                 address,
