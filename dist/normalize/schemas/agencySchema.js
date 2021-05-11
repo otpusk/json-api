@@ -38,8 +38,10 @@ var agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
         callback = input.callback,
         messenger = input.messenger,
         skype = input.skype,
-        telegram = input.telegram;
+        telegram = input.telegram,
+        image = input.image;
     return {
+      image: image,
       id: id,
       location: (0, _parsers.parseLocation)(input),
       address: address,
