@@ -9,7 +9,7 @@ var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var API = _jsCookie.default.get('api-host') || 'https://api.otpusk.com/api/2.4';
+var API = _jsCookie.default.get('api-host') || 'https://api.otpusk.com/api/2.5';
 var TURPRAVDA = 'https://www.turpravda.com';
 var ENDPOINTS = Object.freeze({
   static: "".concat(API, "/tours/static"),

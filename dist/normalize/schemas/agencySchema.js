@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.agencySchema = exports.agencyOfficeSchema = void 0;
+exports.agencySchema = exports.mapAgencyOffice = void 0;
 
 var _normalizr = require("normalizr");
 
@@ -11,72 +11,65 @@ var _parsers = require("../parsers");
 
 // Core
 // Instruments
-var agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
-  idAttribute: function idAttribute(_ref) {
-    var officeId = _ref.officeId;
-    return String(officeId);
-  },
-  processStrategy: function processStrategy(input) {
-    var id = input.officeId,
-        address = input.address,
-        region = input.city,
-        agency = input.agencyId,
-        _input$fPhone = input.fPhone1,
-        fPhone1 = _input$fPhone === void 0 ? false : _input$fPhone,
-        _input$fPhone2 = input.fPhone2,
-        fPhone2 = _input$fPhone2 === void 0 ? false : _input$fPhone2,
-        _input$fPhone3 = input.fPhone3,
-        fPhone3 = _input$fPhone3 === void 0 ? false : _input$fPhone3,
-        _input$phoneViber = input.phoneViber1,
-        phoneViber1 = _input$phoneViber === void 0 ? false : _input$phoneViber,
-        _input$phoneViber2 = input.phoneViber2,
-        phoneViber2 = _input$phoneViber2 === void 0 ? false : _input$phoneViber2,
-        _input$phoneViber3 = input.phoneViber3,
-        phoneViber3 = _input$phoneViber3 === void 0 ? false : _input$phoneViber3,
-        district = input.district,
-        area = input.rn,
-        callback = input.callback,
-        messenger = input.messenger,
-        skype = input.skype,
-        telegram = input.telegram,
-        image = input.image;
-    return {
-      image: image,
-      id: id,
-      location: (0, _parsers.parseLocation)(input),
-      address: address,
-      region: region,
-      agency: agency,
-      district: district,
-      area: area,
-      messenger: messenger,
-      skype: skype,
-      telegram: telegram,
-      options: {
-        callback: !!callback
-      },
-      phones: [{
-        number: fPhone1,
-        viber: phoneViber1
-      }, {
-        number: fPhone2,
-        viber: phoneViber2
-      }, {
-        number: fPhone3,
-        viber: phoneViber3
-      }].filter(function (_ref2) {
-        var number = _ref2.number;
-        return Boolean(number);
-      })
-    };
-  }
-});
-exports.agencyOfficeSchema = agencyOfficeSchema;
-var agencySchema = new _normalizr.schema.Entity('agency', {
-  offices: new _normalizr.schema.Array(agencyOfficeSchema)
-}, {
-  idAttribute: function idAttribute(_ref3) {
-    var advertId = _ref3.advertId;
+var mapAgencyOffice = function mapAgencyOffice(office) {
+  var id = office.officeId,
+      address = office.address,
+      region = office.city,
+      agency = office.agencyId,
+      _office$fPhone = office.fPhone1,
+      fPhone1 = _office$fPhone === void 0 ? false : _office$fPhone,
+      _office$fPhone2 = office.fPhone2,
+      fPhone2 = _office$fPhone2 === void 0 ? false : _office$fPhone2,
+      _office$fPhone3 = office.fPhone3,
+      fPhone3 = _office$fPhone3 === void 0 ? false : _office$fPhone3,
+      _office$phoneViber = office.phoneViber1,
+      phoneViber1 = _office$phoneViber === void 0 ? false : _office$phoneViber,
+      _office$phoneViber2 = office.phoneViber2,
+      phoneViber2 = _office$phoneViber2 === void 0 ? false : _office$phoneViber2,
+      _office$phoneViber3 = office.phoneViber3,
+      phoneViber3 = _office$phoneViber3 === void 0 ? false : _office$phoneViber3,
+      district = office.district,
+      area = office.rn,
+      callback = office.callback,
+      messenger = office.messenger,
+      skype = office.skype,
+      telegram = office.telegram,
+      image = office.image;
+  return {
+    image: image,
+    id: id,
+    location: (0, _parsers.parseLocation)(office),
+    address: address,
+    region: region,
+    agency: agency,
+    district: district,
+    area: area,
+    messenger: messenger,
+    skype: skype,
+    telegram: telegram,
+    options: {
+      callback: !!callback
+    },
+    phones: [{
+      number: fPhone1,
+      viber: phoneViber1
+    }, {
+      number: fPhone2,
+      viber: phoneViber2
+    }, {
+      number: fPhone3,
+      viber: phoneViber3
+    }].filter(function (_ref) {
+      var number = _ref.number;
+      return Boolean(number);
+    })
+  };
+};
+
+exports.mapAgencyOffice = mapAgencyOffice;
+var agencySchema = new _normalizr.schema.Entity('agency', {}, {
+  idAttribute: function idAttribute(_ref2) {
+    var advertId = _ref2.advertId;
     return String(advertId);
   },
   processStrategy: function processStrategy(input, parent) {
@@ -91,11 +84,11 @@ var agencySchema = new _normalizr.schema.Entity('agency', {
         title = input.title,
         website = input.url,
         type = input.type,
-        offices = input.offices,
+        office = input.office,
         _input$present = input.present,
         giftText = _input$present === void 0 ? null : _input$present,
         giftType = input.gift;
-    var isOnline = !(offices && offices.length) && text;
+    var isOnline = !office && text;
     return {
       id: String(id),
       adId: String(adId),
@@ -110,7 +103,7 @@ var agencySchema = new _normalizr.schema.Entity('agency', {
         type: giftType
       },
       type: type,
-      offices: offices,
+      office: mapAgencyOffice(office),
       adGroupId: parent.id,
       isOnline: isOnline
     };

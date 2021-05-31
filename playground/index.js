@@ -1,7 +1,7 @@
 import * as API from '../src';
 import { getPriceExtraFares } from './../src/dictionary';
 
-const token = { 'access_token': '298e9-774cd-1118a-5ccb7-fc8c6' };
+const token = { 'access_token': '53264-35d37-d10fa-0cf36-67c32' };
 
 const query = {
     from: 1544,
@@ -27,7 +27,7 @@ number: 2,
 // API.getToursSearch(token, query).then(console.log);
 // API.getToursOffer(token, '3310692830814499').then(console.log);
 // API.getToursActual(token, '1800663620869018', 2).then(console.log);
-// API.getToursAgencies(token, { regionId:2, hotelId:'82231', offerId:'1970598340947050' }).then(console.log);
+API.getToursAgencies(token, { regionId:1, hotelId:'7908', offerId:'1681612960838494' }).then(console.log);
 // API.cacheValidate(token)
 //     .then(() => API.getToursHotel(token, 7976))
 // API.getToursHotels(token, 34, 899, { center: {lat: 35.31631, lng: 25.38968}, radius: 1}).then(console.log);
@@ -47,4 +47,4 @@ number: 2,
 // API.getToursOrder(token).then(console.log);
 // API.getToursRegions(token).then(console.log);
 // API.getToursSimilar(token, '9749').then(console.log);
-API.getToursSuggests(token, 'Green Life Hotel').then(console.log).catch(console.log);
+// API.getToursSuggests(token, 'Green Life Hotel').then(console.log).catch(console.log);
