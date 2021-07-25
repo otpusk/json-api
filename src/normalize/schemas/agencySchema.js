@@ -5,67 +5,58 @@ import { schema } from 'normalizr';
 // Instruments
 import { parseLocation } from '../parsers';
 
-export const agencyOfficeSchema = new schema.Entity(
-    'office',
-    {},
-    {
-        idAttribute:     ({ officeId }) => String(officeId),
-        processStrategy: (input) => {
-            const {
-                officeId: id,
-                address,
-                city: region,
-                agencyId: agency,
-                fPhone1 = false,
-                fPhone2 = false,
-                fPhone3 = false,
-                phoneViber1 = false,
-                phoneViber2 = false,
-                phoneViber3 = false,
-                district,
-                rn: area,
-                callback,
-                messenger,
-                skype,
-                telegram,
-                image
-            } = input;
+export const mapAgencyOffice = (office) => {
+    const {
+        officeId: id,
+        address,
+        city: region,
+        agencyId: agency,
+        fPhone1 = false,
+        fPhone2 = false,
+        fPhone3 = false,
+        phoneViber1 = false,
+        phoneViber2 = false,
+        phoneViber3 = false,
+        district,
+        rn: area,
+        callback,
+        messenger,
+        skype,
+        telegram,
+        image
+    } = office;
 
-            return {
-                image,
-                id,
-                location: parseLocation(input),
-                address,
-                region,
-                agency,
-                district,
-                area,
-                messenger,
-                skype,
-                telegram,
-                options: {
-                    callback: !!callback
-                },
-                phones:   [{
-                    number: fPhone1,
-                    viber:  phoneViber1,
-                }, {
-                    number: fPhone2,
-                    viber:  phoneViber2,
-                }, {
-                    number: fPhone3,
-                    viber:  phoneViber3,
-                }].filter(({ number }) => Boolean(number)),
-            };
+    return {
+        image,
+        id,
+        location: parseLocation(office),
+        address,
+        region,
+        agency,
+        district,
+        area,
+        messenger,
+        skype,
+        telegram,
+        options: {
+            callback: !!callback
         },
-    }
-);
+        phones:   [{
+            number: fPhone1,
+            viber:  phoneViber1,
+        }, {
+            number: fPhone2,
+            viber:  phoneViber2,
+        }, {
+            number: fPhone3,
+            viber:  phoneViber3,
+        }].filter(({ number }) => Boolean(number)),
+    };
+}
 
 export const agencySchema = new schema.Entity(
     'agency',
-    {
-        offices: new schema.Array(agencyOfficeSchema),
-    },
+    {},
     {
         idAttribute:     ({ advertId }) => String(advertId),
         processStrategy: (input, parent) => {
@@ -79,12 +70,12 @@ export const agencySchema = new schema.Entity(
                 title,
                 url: website,
                 type,
-                offices,
+                office,
                 present: giftText = null,
                 gift: giftType,
             } = input;
 
-            const isOnline = !(offices && offices.length) && text;
+            const isOnline = !office && text;
 
             return {
                 id:   String(id),
@@ -100,7 +91,7 @@ export const agencySchema = new schema.Entity(
                     type: giftType,
                 },
                 type,
-                offices,
+                office: mapAgencyOffice(office),
                 adGroupId: parent.id,
                 isOnline,
             };
