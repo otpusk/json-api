@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 
 // Core
 import { schema } from 'normalizr';
@@ -14,7 +15,7 @@ export const hotelShortSchema = new schema.Entity(
     'hotel',
     {},
     {
-        idAttribute: ({ id }) => String(id),
+        idAttribute:     ({ id }) => String(id),
         processStrategy: (input) => {
             const {
                 id,
@@ -32,18 +33,18 @@ export const hotelShortSchema = new schema.Entity(
 
             const entity = {
                 ...input,
-                id: String(id),
-                name: value ? value : name,
-                price: parsePrice(input),
-                stars: parseStars(stars),
-                rating: Number(rating),
-                reviews: Number(reviews),
-                photos: image ? [image] : [],
-                location: parseLocation(input),
-                country: countryId ? String(countryId) : null,
-                city: cityId ? String(cityId) : null,
-                services: services ? services.split(',') : null,
-                type: 'hotel',
+                id:        String(id),
+                name:      value ? value : name,
+                price:     parsePrice(input),
+                stars:     parseStars(stars),
+                rating:    Number(rating),
+                reviews:   Number(reviews),
+                photos:    image ? [image] : [],
+                location:  parseLocation(input),
+                country:   countryId ? String(countryId) : null,
+                city:      cityId ? String(cityId) : null,
+                services:  services ? services.split(',') : null,
+                type:      'hotel',
                 hotelCode: code,
             };
 
@@ -56,7 +57,7 @@ export const hotelSimilarSchema = new schema.Entity(
     'hotel',
     {},
     {
-        idAttribute: ({ id }) => String(id),
+        idAttribute:     ({ id }) => String(id),
         processStrategy: (input) => {
             const {
                 id,
@@ -73,22 +74,22 @@ export const hotelSimilarSchema = new schema.Entity(
             const { offerId, date, length, food, transport, link } = offer;
 
             const entity = {
-                id: String(id),
-                name: value ? value : name,
+                id:       String(id),
+                name:     value ? value : name,
                 code,
-                stars: parseStars(stars),
-                rating: Number(rating),
-                reviews: Number(reviewsCount),
-                photos: image ? [image] : [],
+                stars:    parseStars(stars),
+                rating:   Number(rating),
+                reviews:  Number(reviewsCount),
+                photos:   image ? [image] : [],
                 location: parseLocation(input),
-                country: parseCountry(input),
-                city: parseCity(input),
-                weight: similar,
-                offer: {
-                    id: offerId,
-                    price: parsePrice(offer),
+                country:  parseCountry(input),
+                city:     parseCity(input),
+                weight:   similar,
+                offer:    {
+                    id:     offerId,
+                    price:  parsePrice(offer),
                     date,
-                    days: Number(length),
+                    days:   Number(length),
                     nights: Number(length) - 1,
                     food,
                     transport,
@@ -107,7 +108,7 @@ export const hotelSchema = new schema.Entity(
         offers: [offerSchema],
     },
     {
-        idAttribute: ({ i }) => String(i),
+        idAttribute:     ({ i }) => String(i),
         processStrategy: (input) => {
             const {
                 area,
@@ -135,48 +136,50 @@ export const hotelSchema = new schema.Entity(
                 watermark = null,
                 x,
                 rt = {},
-                sc: searchCurrency
+                sc: searchCurrency,
             } = input;
 
             const defaultPhoto = '00/03/85/49/3854941.jpg';
+
             let entity = {
-                id: String(i),
-                name: n,
+                id:               String(i),
+                name:             n,
                 code,
                 alternativeNames: alternativeNames ? alternativeNames.split(','): [],
-                city: c.p ? { ...parseHotelGeo(c), namePr: c.p } : parseHotelGeo(c),
-                country: parseHotelGeo(t),
-                stars: Boolean(stars) ?
+                city:             c.p ? { ...parseHotelGeo(c), namePr: c.p } : parseHotelGeo(c),
+                country:          parseHotelGeo(t),
+                stars:            stars ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
-                rating: !Number.isNaN(Number(r)) ? Number(r) : null,
-                reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
+                rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
+                reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
-                photos: photos
+                photos:   photos
                     ? Array.isArray(photos)
-                        ? Boolean(photos.length) ? photos : [defaultPhoto]
+                        ? photos.length ? photos : [defaultPhoto]
                         : [photos]
                     : [defaultPhoto],
                 photosCount,
-                videos: parseHotelVideos(videos),
+                videos:        parseHotelVideos(videos),
                 sourceRatings: Object.values(rb),
-                hotelTypes: Object.keys(tp),
-                price: parsePrice(price),
-                location: parseLocation(g),
-                updated: typeof price === 'object' && 'up' in price ? price.up : null,
-                badges: parseBadges(m),
+                hotelTypes:    Object.keys(tp),
+                price:         parsePrice(price),
+                location:      parseLocation(g),
+                updated:       typeof price === 'object' && 'up' in price ? price.up : null,
+                badges:        parseBadges(m),
                 offers,
-                area: area ? Number(area) : null,
-                description: a,
+                area:          area ? Number(area) : null,
+                description:   a,
                 watermark,
                 averageRating: x,
-                restType: rt,
-                searchCurrency
+                restType:      rt,
+                searchCurrency,
             };
 
             const optional = {
-                secondaryStars: secondaryStars ? Number(secondaryStars) : undefined
-            }
+                secondaryStars: secondaryStars ? Number(secondaryStars) : undefined,
+            };
+
             entity = mergeDefinedObjectValues(entity, optional);
 
             if ('o' in input) {
@@ -195,7 +198,7 @@ export const hotelSchema = new schema.Entity(
                         cs: childServices,
                         ds: roomDescription,
                         di: locationDescription,
-                        ts: featuresServices
+                        ts: featuresServices,
                     },
                     vs: turpravdaRating,
                     ad: {
@@ -220,16 +223,151 @@ export const hotelSchema = new schema.Entity(
                     name: nm,
                     description,
                     info: {
-                        beach: { description: beachDescription, services: typeof beachServices === 'object' ? beachServices : {} },
-                        sport: { description: sportDescription, services: typeof sportServices === 'object' ? sportServices : {} },
-                        hotel: { description: hotelDescription, services: typeof hotelServices === 'object' ? hotelServices : {} },
-                        child: { description: childDescription, services: typeof childServices === 'object' ? childServices : {} },
-                        room: { description: roomDescription, services: typeof roomServices === 'object' ? roomServices : {} },
+                        beach:    { description: beachDescription, services: typeof beachServices === 'object' ? beachServices : {}},
+                        sport:    { description: sportDescription, services: typeof sportServices === 'object' ? sportServices : {}},
+                        hotel:    { description: hotelDescription, services: typeof hotelServices === 'object' ? hotelServices : {}},
+                        child:    { description: childDescription, services: typeof childServices === 'object' ? childServices : {}},
+                        room:     { description: roomDescription, services: typeof roomServices === 'object' ? roomServices : {}},
                         location: { description: locationDescription },
-                        feature: { services: typeof featuresServices === 'object' ? featuresServices : {} }
+                        feature:  { services: typeof featuresServices === 'object' ? featuresServices : {}},
                     },
                     rooms,
-                    contacts: { address, email, website, phone },
+                    contacts:        { address, email, website, phone },
+                    turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
+                });
+            }
+
+            return entity;
+        },
+    }
+);
+
+export const hotelNextSchema = new schema.Entity(
+    'hotel',
+    {},
+    {
+        idAttribute:     ({ i }) => String(i),
+        processStrategy: (input) => {
+            const {
+                area,
+                i,
+                a,
+                s: stars,
+                ss: secondaryStars,
+                p: price,
+                r,
+                v,
+                h: code,
+                hru: alternativeNames,
+                n,
+                c = {},
+                t,
+                g = {},
+                e = {},
+                rb = {},
+                tp = {},
+                f: photos,
+                fc: photosCount,
+                m = {},
+                vh: videos,
+                offers = [],
+                watermark = null,
+                x,
+                rt = {},
+            } = input;
+
+            const defaultPhoto = '00/03/85/49/3854941.jpg';
+
+            let entity = {
+                id:               String(i),
+                name:             n,
+                code,
+                alternativeNames: alternativeNames ? alternativeNames.split(','): [],
+                city:             c.p ? { ...parseHotelGeo(c), namePr: c.p } : parseHotelGeo(c),
+                country:          parseHotelGeo(t),
+                stars:            stars ?
+                    typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
+                    : null,
+                rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
+                reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
+                services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
+                photos:   photos
+                    ? Array.isArray(photos)
+                        ? photos.length ? photos : [defaultPhoto]
+                        : [photos]
+                    : [defaultPhoto],
+                photosCount,
+                videos:        parseHotelVideos(videos),
+                sourceRatings: Object.values(rb),
+                hotelTypes:    Object.keys(tp),
+                location:      parseLocation(g),
+                updated:       typeof price === 'object' && 'up' in price ? price.up : null,
+                badges:        parseBadges(m),
+                offers,
+                area:          area ? Number(area) : null,
+                description:   a,
+                watermark,
+                averageRating: x,
+                restType:      rt,
+            };
+
+            const optional = {
+                secondaryStars: secondaryStars ? Number(secondaryStars) : undefined,
+            };
+
+            entity = mergeDefinedObjectValues(entity, optional);
+
+            if ('o' in input) {
+                const {
+                    nm,
+                    o: {
+                        r: rooms = [],
+                        dc: description,
+                        b: beachDescription,
+                        bs: beachServices,
+                        s: sportDescription,
+                        ss: sportServices,
+                        fh: hotelDescription,
+                        hs: hotelServices,
+                        c: childDescription,
+                        cs: childServices,
+                        ds: roomDescription,
+                        di: locationDescription,
+                        ts: featuresServices,
+                    },
+                    vs: turpravdaRating,
+                    ad: {
+                        a: address,
+                        ml: email,
+                        u: website,
+                        ph: phone,
+                    } = {},
+                } = input;
+
+                const roomServices = 'r' in e
+                    ? Object.entries(e.r)
+                        .reduce((services, [service, { id: status, all = false }]) => ({
+                            ...services,
+                            [service]: status
+                                ? status
+                                : all ? 'all' : 'not-for-all',
+                        }), {})
+                    : {};
+
+                Object.assign(entity, {
+                    name: nm,
+                    description,
+                    info: {
+                        beach:    { description: beachDescription, services: typeof beachServices === 'object' ? beachServices : {}},
+                        sport:    { description: sportDescription, services: typeof sportServices === 'object' ? sportServices : {}},
+                        hotel:    { description: hotelDescription, services: typeof hotelServices === 'object' ? hotelServices : {}},
+                        child:    { description: childDescription, services: typeof childServices === 'object' ? childServices : {}},
+                        room:     { description: roomDescription, services: typeof roomServices === 'object' ? roomServices : {}},
+                        location: { description: locationDescription },
+                        feature:  { services: typeof featuresServices === 'object' ? featuresServices : {}},
+                    },
+                    rooms,
+                    contacts:        { address, email, website, phone },
                     turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
                 });
             }

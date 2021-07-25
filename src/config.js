@@ -28,6 +28,7 @@ export const ENDPOINTS = Object.freeze({
     operators:          `${API}/tours/operators`,
     validate:           `${API}/tours/validate`,
     init:               `${API}/init`,
-    cache_validate:     `${API}/tours/cacheControl`,
-    flightPort:         `${API}/tours/port`
+    cacheValidate:      `${API}/tours/cacheControl`,
+    flightPort:         `${API}/tours/port`,
+    nextSearch:         `${API}/tours/getResults`,
 });

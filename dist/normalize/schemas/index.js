@@ -45,6 +45,12 @@ Object.defineProperty(exports, "hotelSchema", {
     return _hotelSchema.hotelSchema;
   }
 });
+Object.defineProperty(exports, "hotelNextSchema", {
+  enumerable: true,
+  get: function get() {
+    return _hotelSchema.hotelNextSchema;
+  }
+});
 Object.defineProperty(exports, "hotelShortSchema", {
   enumerable: true,
   get: function get() {
