@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hotelSchema = exports.hotelSimilarSchema = exports.hotelShortSchema = void 0;
+exports.hotelNextSchema = exports.hotelSchema = exports.hotelSimilarSchema = exports.hotelShortSchema = void 0;
 
 var _normalizr = require("normalizr");
 
@@ -181,13 +181,13 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         namePr: c.p
       }) : (0, _parsers.parseHotelGeo)(c),
       country: (0, _parsers.parseHotelGeo)(t),
-      stars: Boolean(stars) ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
+      stars: stars ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
       services: Array.isArray(e) ? e : Object.values(e).reduce(function (services, group) {
         return [].concat(_toConsumableArray(services), _toConsumableArray(Object.keys(group)));
       }, []),
-      photos: photos ? Array.isArray(photos) ? Boolean(photos.length) ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
+      photos: photos ? Array.isArray(photos) ? photos.length ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
       photosCount: photosCount,
       videos: (0, _parsers.parseHotelVideos)(videos),
       sourceRatings: Object.values(rb),
@@ -289,3 +289,159 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
   }
 });
 exports.hotelSchema = hotelSchema;
+var hotelNextSchema = new _normalizr.schema.Entity('hotel', {}, {
+  idAttribute: function idAttribute(_ref6) {
+    var i = _ref6.i;
+    return String(i);
+  },
+  processStrategy: function processStrategy(input) {
+    var area = input.area,
+        i = input.i,
+        a = input.a,
+        stars = input.s,
+        secondaryStars = input.ss,
+        price = input.p,
+        r = input.r,
+        v = input.v,
+        code = input.h,
+        alternativeNames = input.hru,
+        n = input.n,
+        _input$c2 = input.c,
+        c = _input$c2 === void 0 ? {} : _input$c2,
+        t = input.t,
+        _input$g2 = input.g,
+        g = _input$g2 === void 0 ? {} : _input$g2,
+        _input$e2 = input.e,
+        e = _input$e2 === void 0 ? {} : _input$e2,
+        _input$rb2 = input.rb,
+        rb = _input$rb2 === void 0 ? {} : _input$rb2,
+        _input$tp2 = input.tp,
+        tp = _input$tp2 === void 0 ? {} : _input$tp2,
+        photos = input.f,
+        photosCount = input.fc,
+        _input$m2 = input.m,
+        m = _input$m2 === void 0 ? {} : _input$m2,
+        videos = input.vh,
+        _input$offers2 = input.offers,
+        offers = _input$offers2 === void 0 ? [] : _input$offers2,
+        _input$watermark2 = input.watermark,
+        watermark = _input$watermark2 === void 0 ? null : _input$watermark2,
+        x = input.x,
+        _input$rt2 = input.rt,
+        rt = _input$rt2 === void 0 ? {} : _input$rt2;
+    var defaultPhoto = '00/03/85/49/3854941.jpg';
+    var entity = {
+      id: String(i),
+      name: n,
+      code: code,
+      alternativeNames: alternativeNames ? alternativeNames.split(',') : [],
+      city: c.p ? _objectSpread(_objectSpread({}, (0, _parsers.parseHotelGeo)(c)), {}, {
+        namePr: c.p
+      }) : (0, _parsers.parseHotelGeo)(c),
+      country: (0, _parsers.parseHotelGeo)(t),
+      stars: stars ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
+      rating: !Number.isNaN(Number(r)) ? Number(r) : null,
+      reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
+      services: Array.isArray(e) ? e : Object.values(e).reduce(function (services, group) {
+        return [].concat(_toConsumableArray(services), _toConsumableArray(Object.keys(group)));
+      }, []),
+      photos: photos ? Array.isArray(photos) ? photos.length ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
+      photosCount: photosCount,
+      videos: (0, _parsers.parseHotelVideos)(videos),
+      sourceRatings: Object.values(rb),
+      hotelTypes: Object.keys(tp),
+      location: (0, _parsers.parseLocation)(g),
+      updated: _typeof(price) === 'object' && 'up' in price ? price.up : null,
+      badges: (0, _parsers.parseBadges)(m),
+      offers: offers,
+      area: area ? Number(area) : null,
+      description: a,
+      watermark: watermark,
+      averageRating: x,
+      restType: rt
+    };
+    var optional = {
+      secondaryStars: secondaryStars ? Number(secondaryStars) : undefined
+    };
+    entity = (0, _fn.mergeDefinedObjectValues)(entity, optional);
+
+    if ('o' in input) {
+      var nm = input.nm,
+          _input$o2 = input.o,
+          _input$o2$r = _input$o2.r,
+          rooms = _input$o2$r === void 0 ? [] : _input$o2$r,
+          description = _input$o2.dc,
+          beachDescription = _input$o2.b,
+          beachServices = _input$o2.bs,
+          sportDescription = _input$o2.s,
+          sportServices = _input$o2.ss,
+          hotelDescription = _input$o2.fh,
+          hotelServices = _input$o2.hs,
+          childDescription = _input$o2.c,
+          childServices = _input$o2.cs,
+          roomDescription = _input$o2.ds,
+          locationDescription = _input$o2.di,
+          featuresServices = _input$o2.ts,
+          turpravdaRating = input.vs,
+          _input$ad2 = input.ad;
+      _input$ad2 = _input$ad2 === void 0 ? {} : _input$ad2;
+      var address = _input$ad2.a,
+          email = _input$ad2.ml,
+          website = _input$ad2.u,
+          phone = _input$ad2.ph;
+      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref7) {
+        var _ref8 = _slicedToArray(_ref7, 2),
+            service = _ref8[0],
+            _ref8$ = _ref8[1],
+            status = _ref8$.id,
+            _ref8$$all = _ref8$.all,
+            all = _ref8$$all === void 0 ? false : _ref8$$all;
+
+        return _objectSpread(_objectSpread({}, services), {}, _defineProperty({}, service, status ? status : all ? 'all' : 'not-for-all'));
+      }, {}) : {};
+      Object.assign(entity, {
+        name: nm,
+        description: description,
+        info: {
+          beach: {
+            description: beachDescription,
+            services: _typeof(beachServices) === 'object' ? beachServices : {}
+          },
+          sport: {
+            description: sportDescription,
+            services: _typeof(sportServices) === 'object' ? sportServices : {}
+          },
+          hotel: {
+            description: hotelDescription,
+            services: _typeof(hotelServices) === 'object' ? hotelServices : {}
+          },
+          child: {
+            description: childDescription,
+            services: _typeof(childServices) === 'object' ? childServices : {}
+          },
+          room: {
+            description: roomDescription,
+            services: _typeof(roomServices) === 'object' ? roomServices : {}
+          },
+          location: {
+            description: locationDescription
+          },
+          feature: {
+            services: _typeof(featuresServices) === 'object' ? featuresServices : {}
+          }
+        },
+        rooms: rooms,
+        contacts: {
+          address: address,
+          email: email,
+          website: website,
+          phone: phone
+        },
+        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : []
+      });
+    }
+
+    return entity;
+  }
+});
+exports.hotelNextSchema = hotelNextSchema;

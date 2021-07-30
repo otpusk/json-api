@@ -33,7 +33,7 @@ function _cacheValidate() {
           case 0:
             _context.next = 2;
             return (0, _fn.makeCall)({
-              endpoint: _config.ENDPOINTS.cache_validate,
+              endpoint: _config.ENDPOINTS.cacheValidate,
               query: token
             });
 
@@ -41,7 +41,7 @@ function _cacheValidate() {
             _yield$makeCall = _context.sent;
             lastTimeUpdated = _yield$makeCall.timestamp;
             hash = btoa("".concat(lastTimeUpdated));
-            cache = new _cache.CacheItem(_config.ENDPOINTS.cache_validate);
+            cache = new _cache.CacheItem(_config.ENDPOINTS.cacheValidate);
             _context.next = 8;
             return cache.read();
 
