@@ -116,7 +116,7 @@ export const hotelSchema = new schema.Entity(
                 a,
                 s: stars,
                 ss: secondaryStars,
-                p: price,
+                p: price = {},
                 r,
                 v,
                 h: code,
