@@ -52,11 +52,13 @@ function _getToursOperators() {
             _yield$makeCall$opera = _yield$makeCall.operators;
             raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
             operators = Object.values(raw).map(function (_ref) {
-              var id = _ref.id,
+              var active = _ref.active,
+                  id = _ref.id,
                   name = _ref.name,
                   url = _ref.url,
                   currencies = _ref.currencies;
               return {
+                active: active,
                 id: id,
                 name: name,
                 url: url,
