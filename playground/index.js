@@ -44,4 +44,4 @@ const query = {
 // API.getToursRegions(token).then(console.log);
 // API.getToursSimilar(token, '9749').then(console.log);
 // API.getToursSuggests(token, 'Green Life Hotel').then(console.log).catch(console.log);
-API.getToursHotel(token, 91496).then(console.log);
+API.getToursServices(token, 115).then(console.log);
