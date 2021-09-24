@@ -59,7 +59,9 @@ function _getToursServices() {
         lang,
         _yield$makeCall,
         searchGroup,
+        _yield$makeCall$icons,
         icons,
+        _yield$makeCall$tabs,
         tabs,
         _args = arguments;
 
@@ -82,15 +84,17 @@ function _getToursServices() {
           case 4:
             _yield$makeCall = _context.sent;
             searchGroup = _yield$makeCall.search;
-            icons = _yield$makeCall.icons;
-            tabs = _yield$makeCall.tabs;
+            _yield$makeCall$icons = _yield$makeCall.icons;
+            icons = _yield$makeCall$icons === void 0 ? [] : _yield$makeCall$icons;
+            _yield$makeCall$tabs = _yield$makeCall.tabs;
+            tabs = _yield$makeCall$tabs === void 0 ? [] : _yield$makeCall$tabs;
             return _context.abrupt("return", R.mergeAll([{
               icons: icons
             }, {
               tabs: tabs
             }, renameGroupKeys(searchGroup)]));
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }
