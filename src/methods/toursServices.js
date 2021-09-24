@@ -16,7 +16,7 @@ const renameGroupKeys = (group) => R.call(
 );
 
 export async function getToursServices (token, country = null, lang = 'ru') {
-    const response = await makeCall({
+    const { search: searchGroup, icons, tabs } = await makeCall({
         endpoint: ENDPOINTS.services,
         query:    {
             ...token, countryId: country, lang,
@@ -24,20 +24,9 @@ export async function getToursServices (token, country = null, lang = 'ru') {
         ttl: [7, 'days'],
     });
 
-    return R.call(
-        R.pipe(
-            R.omit(['api_version', 'time', 'checked', 'result']),
-            ({ icons, tabs, ...rest }) => R.mergeAll([
-                rest,
-                { country: { icons, tabs }}
-            ]),
-            R.toPairs,
-            R.map(([rootServiceKey, group]) => [
-                rootServiceKey,
-                renameGroupKeys(group)
-            ]),
-            R.fromPairs
-        ),
-        response
-    );
+    return R.mergeAll([
+        { icons },
+        { tabs },
+        renameGroupKeys(searchGroup)
+    ]);
 }

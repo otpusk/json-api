@@ -17,10 +17,6 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -61,8 +57,12 @@ function _getToursServices() {
   _getToursServices = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var country,
         lang,
-        response,
+        _yield$makeCall,
+        searchGroup,
+        icons,
+        tabs,
         _args = arguments;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -80,27 +80,17 @@ function _getToursServices() {
             });
 
           case 4:
-            response = _context.sent;
-            return _context.abrupt("return", R.call(R.pipe(R.omit(['api_version', 'time', 'checked', 'result']), function (_ref3) {
-              var icons = _ref3.icons,
-                  tabs = _ref3.tabs,
-                  rest = _objectWithoutProperties(_ref3, ["icons", "tabs"]);
+            _yield$makeCall = _context.sent;
+            searchGroup = _yield$makeCall.search;
+            icons = _yield$makeCall.icons;
+            tabs = _yield$makeCall.tabs;
+            return _context.abrupt("return", R.mergeAll([{
+              icons: icons
+            }, {
+              tabs: tabs
+            }, renameGroupKeys(searchGroup)]));
 
-              return R.mergeAll([rest, {
-                country: {
-                  icons: icons,
-                  tabs: tabs
-                }
-              }]);
-            }, R.toPairs, R.map(function (_ref4) {
-              var _ref5 = _slicedToArray(_ref4, 2),
-                  rootServiceKey = _ref5[0],
-                  group = _ref5[1];
-
-              return [rootServiceKey, renameGroupKeys(group)];
-            }), R.fromPairs), response));
-
-          case 6:
+          case 9:
           case "end":
             return _context.stop();
         }
