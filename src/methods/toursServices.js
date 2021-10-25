@@ -16,7 +16,7 @@ const renameGroupKeys = (group) => R.call(
 );
 
 export async function getToursServices (token, country = null, lang = 'ru') {
-    const { search: searchGroup, icons = [], tabs = []} = await makeCall({
+    const { search: searchGroup, icons = [], tabs = [], nameServices = {}} = await makeCall({
         endpoint: ENDPOINTS.services,
         query:    {
             ...token, countryId: country, lang,
@@ -27,6 +27,7 @@ export async function getToursServices (token, country = null, lang = 'ru') {
     return R.mergeAll([
         { icons },
         { tabs },
+        { rootGroups: renameGroupKeys(nameServices) },
         renameGroupKeys(searchGroup)
     ]);
 }

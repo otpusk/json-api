@@ -63,6 +63,8 @@ function _getToursServices() {
         icons,
         _yield$makeCall$tabs,
         tabs,
+        _yield$makeCall$nameS,
+        nameServices,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -88,13 +90,17 @@ function _getToursServices() {
             icons = _yield$makeCall$icons === void 0 ? [] : _yield$makeCall$icons;
             _yield$makeCall$tabs = _yield$makeCall.tabs;
             tabs = _yield$makeCall$tabs === void 0 ? [] : _yield$makeCall$tabs;
+            _yield$makeCall$nameS = _yield$makeCall.nameServices;
+            nameServices = _yield$makeCall$nameS === void 0 ? {} : _yield$makeCall$nameS;
             return _context.abrupt("return", R.mergeAll([{
               icons: icons
             }, {
               tabs: tabs
+            }, {
+              rootGroups: renameGroupKeys(nameServices)
             }, renameGroupKeys(searchGroup)]));
 
-          case 11:
+          case 13:
           case "end":
             return _context.stop();
         }
