@@ -6,12 +6,13 @@ import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 import { hotelSchema, hotelShortSchema } from '../normalize/schemas';
 
-export async function getToursHotels(token, countryId, options = {}) {
-    const { cities = [], categories = [], services = [], withPrice = true } = options;
+export async function getToursHotels (token, countryId, options = {}) {
+    const { cities = [], categories = [], services = [], withPrice = true, lang } = options;
     const { hotels: denormalizedHotels } = await makeCall({ endpoint: ENDPOINTS.hotels,
-        query: {
+        query:    {
             countryId,
             with: withPrice ? 'price' : null,
+            lang,
             ...token,
         },
         ttl: [1, 'day']});
@@ -35,7 +36,7 @@ export async function getToursHotels(token, countryId, options = {}) {
 export async function getToursHotelsMarkers (token, countryId, cityId, options) {
     const { center, radius } = options;
     const { hotels: denormalizedHotels } = await makeCall({ endpoint: ENDPOINTS.hotels,
-        query: {
+        query:    {
             countryId,
             cityId,
             geo:  `${center.lat},${center.lng}`,
@@ -54,7 +55,7 @@ export async function getToursHotelsMarkers (token, countryId, cityId, options) 
 
 export async function getToursHotel (token, hotelId, lang = 'ru') {
     const { hotel: denormalizedHotel } = await makeCall({ endpoint: ENDPOINTS.hotel,
-        query: {
+        query:    {
             hotelId,
             lang,
             ...token,
