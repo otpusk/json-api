@@ -274,6 +274,7 @@ export const hotelNextSchema = new schema.Entity(
                 watermark = null,
                 x,
                 rt = {},
+                ds,
             } = input;
 
             const defaultPhoto = '00/03/85/49/3854941.jpg';
@@ -284,6 +285,7 @@ export const hotelNextSchema = new schema.Entity(
                 code,
                 alternativeNames: alternativeNames ? alternativeNames.split(','): [],
                 city:             c.p ? { ...parseHotelGeo(c), namePr: c.p } : parseHotelGeo(c),
+                district:         ds ? parseHotelGeo(ds) : undefined,
                 country:          parseHotelGeo(t),
                 stars:            stars ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
