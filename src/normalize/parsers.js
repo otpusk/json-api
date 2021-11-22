@@ -9,7 +9,7 @@ export const parsePrice = (input) => {
     const {
         uah, p, pl, priceUah,
         price, po, minPrice,
-        currency, pu, u, c, ur: rateByNBU, uto: rateByOperator
+        currency, pu, u, c, ur: rateByNBU, uto: rateByOperator,
     } = input;
 
     const currencyRate = rateByOperator || rateByNBU;
@@ -54,56 +54,56 @@ export const parseDiscountPrice = (input) => {
 const createPriceEntity = {
     byOperator: ({ pl, plo, u, uo }) => ({
         uah: plo || pl,
-        [u]: (plo || pl) / uo
+        [u]: (plo || pl) / uo,
     }),
     byNBU: ({ pl, plo, u, ur }) => ({
         uah: plo || pl,
-        [u]: (plo || pl) / ur
-    })
+        [u]: (plo || pl) / ur,
+    }),
 };
 
 const createDiscountPriceEntity = {
-    byOperator: ({ plo, pl, u, uo }) => plo ? ({
-        uah: pl, [u]: pl / uo
-    }) : null,
-    byNBU: ({ plo, pl, u, ur }) => plo ? ({
-        uah: pl, [u]: pl / ur
-    }) : null
+    byOperator: ({ plo, pl, u, uo }) => plo ? {
+        uah: pl, [u]: pl / uo,
+    } : null,
+    byNBU: ({ plo, pl, u, ur }) => plo ? {
+        uah: pl, [u]: pl / ur,
+    } : null,
 };
 
 export const getPriceEntity = (offer) => ({
-    '@price': createPriceEntity.byOperator(offer),
-    '@priceNBU': createPriceEntity.byNBU(offer),
-    '@discountPrice': createDiscountPriceEntity.byOperator(offer),
-    '@discountPriceNBU': createDiscountPriceEntity.byNBU(offer)
+    '@price':            createPriceEntity.byOperator(offer),
+    '@priceNBU':         createPriceEntity.byNBU(offer),
+    '@discountPrice':    createDiscountPriceEntity.byOperator(offer),
+    '@discountPriceNBU': createDiscountPriceEntity.byNBU(offer),
 });
 
 const createOfferPriceEntity = {
     byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => ({
-        uah: priceUahOriginal || priceUah,
-        [currency]: (priceUahOriginal || priceUah) / currencyOperatorRate
+        uah:        priceUahOriginal || priceUah,
+        [currency]: (priceUahOriginal || priceUah) / currencyOperatorRate,
     }),
     byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => ({
-        uah: priceUahOriginal || priceUah,
-        [currency]: (priceUahOriginal || priceUah) / currencyRate
-    })
+        uah:        priceUahOriginal || priceUah,
+        [currency]: (priceUahOriginal || priceUah) / currencyRate,
+    }),
 };
 
 const createOfferDiscountPriceEntity = {
-    byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => priceUahOriginal ? ({
-        uah: priceUah, [currency]: priceUah / currencyOperatorRate
-    }) : null,
-    byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => priceUahOriginal ? ({
-        uah: priceUah, [currency]: priceUah / currencyRate
-    }) : null
+    byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => priceUahOriginal ? {
+        uah: priceUah, [currency]: priceUah / currencyOperatorRate,
+    } : null,
+    byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => priceUahOriginal ? {
+        uah: priceUah, [currency]: priceUah / currencyRate,
+    } : null,
 };
 
 export const getOfferPriceEntity = (offer) => ({
-    '@price': createOfferPriceEntity.byOperator(offer),
-    '@priceNBU': createOfferPriceEntity.byNBU(offer),
-    '@discountPrice': createOfferDiscountPriceEntity.byOperator(offer),
-    '@discountPriceNBU': createOfferDiscountPriceEntity.byNBU(offer)
-})
+    '@price':            createOfferPriceEntity.byOperator(offer),
+    '@priceNBU':         createOfferPriceEntity.byNBU(offer),
+    '@discountPrice':    createOfferDiscountPriceEntity.byOperator(offer),
+    '@discountPriceNBU': createOfferDiscountPriceEntity.byNBU(offer),
+});
 
 const parseSeats = (seats) => {
     switch (seats) {
@@ -115,7 +115,7 @@ const parseSeats = (seats) => {
         case 'no': return 'Нет мест';
         default: return null;
     }
-}
+};
 
 export const parseFlights = (input) => {
     const { from: outbound = [], to: inbound = []} = input;
@@ -272,12 +272,12 @@ export const parsePromo = (promo) => {
         const isHeightPromo = promo.startsWith('!');
 
         return {
-            promo: !isHeightPromo ? promo.trim() : null,
-            heightPromo: isHeightPromo ? promo.slice(1) : null
+            promo:       !isHeightPromo ? promo.trim() : null,
+            heightPromo: isHeightPromo ? promo.slice(1) : null,
         };
     }
 
     return { promo, heightPromo: null };
-}
+};
 
 export const parseChildrenAges = (ages = []) => ages.map((age) => Math.max(...age));

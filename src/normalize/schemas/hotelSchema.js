@@ -130,6 +130,7 @@ export const hotelSchema = new schema.Entity(
                 tp = {},
                 f: photos,
                 fc: photosCount,
+                fh: photosByCategory,
                 m = {},
                 vh: videos,
                 offers = [],
@@ -153,12 +154,27 @@ export const hotelSchema = new schema.Entity(
                     : null,
                 rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
                 reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
-                services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
-                photos:   photos
+                services: Array.isArray(e)
+                    ? e
+                    : Object
+                        .values(e)
+                        .reduce((services, group) => [...services, ...Object.keys(group)], []),
+                photos: photos
                     ? Array.isArray(photos)
                         ? photos.length ? photos : [defaultPhoto]
                         : [photos]
                     : [defaultPhoto],
+                photosByCategory: Array.isArray(photosByCategory)
+                    ? photosByCategory.map(({ category, catId, src }) => ({
+                        photo:    src,
+                        category: catId
+                            ? {
+                                id:   catId,
+                                name: category,
+                            }
+                            : undefined,
+                    }))
+                    : [],
                 photosCount,
                 videos:        parseHotelVideos(videos),
                 sourceRatings: Object.values(rb),
@@ -295,7 +311,9 @@ export const hotelNextSchema = new schema.Entity(
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
                 photos:   photos
                     ? Array.isArray(photos)
-                        ? photos.length ? photos : [defaultPhoto]
+                        ? photos.length
+                            ? photos
+                            : [defaultPhoto]
                         : [photos]
                     : [defaultPhoto],
                 photosCount,

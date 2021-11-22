@@ -161,6 +161,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         tp = _input$tp === void 0 ? {} : _input$tp,
         photos = input.f,
         photosCount = input.fc,
+        photosByCategory = input.fh,
         _input$m = input.m,
         m = _input$m === void 0 ? {} : _input$m,
         videos = input.vh,
@@ -189,6 +190,18 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         return [].concat(_toConsumableArray(services), _toConsumableArray(Object.keys(group)));
       }, []),
       photos: photos ? Array.isArray(photos) ? photos.length ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
+      photosByCategory: Array.isArray(photosByCategory) ? photosByCategory.map(function (_ref4) {
+        var category = _ref4.category,
+            catId = _ref4.catId,
+            src = _ref4.src;
+        return {
+          photo: src,
+          category: catId ? {
+            id: catId,
+            name: category
+          } : undefined
+        };
+      }) : [],
       photosCount: photosCount,
       videos: (0, _parsers.parseHotelVideos)(videos),
       sourceRatings: Object.values(rb),
@@ -234,13 +247,13 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
           email = _input$ad.ml,
           website = _input$ad.u,
           phone = _input$ad.ph;
-      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref4) {
-        var _ref5 = _slicedToArray(_ref4, 2),
-            service = _ref5[0],
-            _ref5$ = _ref5[1],
-            status = _ref5$.id,
-            _ref5$$all = _ref5$.all,
-            all = _ref5$$all === void 0 ? false : _ref5$$all;
+      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref5) {
+        var _ref6 = _slicedToArray(_ref5, 2),
+            service = _ref6[0],
+            _ref6$ = _ref6[1],
+            status = _ref6$.id,
+            _ref6$$all = _ref6$.all,
+            all = _ref6$$all === void 0 ? false : _ref6$$all;
 
         return _objectSpread(_objectSpread({}, services), {}, _defineProperty({}, service, status ? status : all ? 'all' : 'not-for-all'));
       }, {}) : {};
@@ -291,8 +304,8 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
 });
 exports.hotelSchema = hotelSchema;
 var hotelNextSchema = new _normalizr.schema.Entity('hotel', {}, {
-  idAttribute: function idAttribute(_ref6) {
-    var i = _ref6.i;
+  idAttribute: function idAttribute(_ref7) {
+    var i = _ref7.i;
     return String(i);
   },
   processStrategy: function processStrategy(input) {
@@ -392,13 +405,13 @@ var hotelNextSchema = new _normalizr.schema.Entity('hotel', {}, {
           email = _input$ad2.ml,
           website = _input$ad2.u,
           phone = _input$ad2.ph;
-      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref7) {
-        var _ref8 = _slicedToArray(_ref7, 2),
-            service = _ref8[0],
-            _ref8$ = _ref8[1],
-            status = _ref8$.id,
-            _ref8$$all = _ref8$.all,
-            all = _ref8$$all === void 0 ? false : _ref8$$all;
+      var roomServices = 'r' in e ? Object.entries(e.r).reduce(function (services, _ref8) {
+        var _ref9 = _slicedToArray(_ref8, 2),
+            service = _ref9[0],
+            _ref9$ = _ref9[1],
+            status = _ref9$.id,
+            _ref9$$all = _ref9$.all,
+            all = _ref9$$all === void 0 ? false : _ref9$$all;
 
         return _objectSpread(_objectSpread({}, services), {}, _defineProperty({}, service, status ? status : all ? 'all' : 'not-for-all'));
       }, {}) : {};

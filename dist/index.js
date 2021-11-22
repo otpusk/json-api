@@ -171,6 +171,12 @@ Object.defineProperty(exports, "getToursFlightPort", {
     return _toursFlightPort.getToursFlightPort;
   }
 });
+Object.defineProperty(exports, "getStaticData", {
+  enumerable: true,
+  get: function get() {
+    return _static.getStaticData;
+  }
+});
 
 var _toursSuggests = require("./methods/toursSuggests");
 
@@ -219,3 +225,5 @@ var _init = require("./methods/init");
 var _toursCacheValidate = require("./methods/toursCacheValidate");
 
 var _toursFlightPort = require("./methods/toursFlightPort");
+
+var _static = require("./methods/static");
