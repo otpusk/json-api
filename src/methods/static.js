@@ -12,7 +12,7 @@ export async function getStaticData (query) {
         photoCategories: imageCategory
             ? Object
                 .entries(imageCategory)
-                .map(([id, name]) => ({ id, name }))
+                .map(([id, name]) => ({ id: Number(id), name }))
             : [],
     };
 }

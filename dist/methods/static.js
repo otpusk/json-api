@@ -54,7 +54,7 @@ function _getStaticData() {
                     name = _ref2[1];
 
                 return {
-                  id: id,
+                  id: Number(id),
                   name: name
                 };
               }) : []
