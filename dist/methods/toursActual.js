@@ -29,7 +29,7 @@ function getToursActual(_x, _x2, _x3) {
 
 function _getToursActual() {
   _getToursActual = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId, people) {
-    var _yield$makeCall, code, denormalizedOffer, _ref, _ref$entities, _ref$entities$offer, offers, id;
+    var _yield$makeCall, code, denormalizedOffer, message, _ref, _ref$entities, _ref$entities$offer, offers, id;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -48,15 +48,17 @@ function _getToursActual() {
             _yield$makeCall = _context.sent;
             code = _yield$makeCall.code;
             denormalizedOffer = _yield$makeCall.offer;
+            message = _yield$makeCall.message;
             _ref = denormalizedOffer ? (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema) : {}, _ref$entities = _ref.entities;
             _ref$entities = _ref$entities === void 0 ? {} : _ref$entities;
             _ref$entities$offer = _ref$entities.offer, offers = _ref$entities$offer === void 0 ? null : _ref$entities$offer, id = _ref.result;
             return _context.abrupt("return", {
               code: code,
-              offer: id ? offers[id] : null
+              offer: id ? offers[id] : null,
+              message: message
             });
 
-          case 9:
+          case 10:
           case "end":
             return _context.stop();
         }

@@ -7,8 +7,8 @@ import { offerSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
 export async function getToursActual (token, offerId, people) {
-    const { code, offer: denormalizedOffer } = await makeCall({ endpoint: ENDPOINTS.actual,
-        query: {
+    const { code, offer: denormalizedOffer, message } = await makeCall({ endpoint: ENDPOINTS.actual,
+        query:    {
             ...token,
             offerId,
             people,
@@ -19,5 +19,6 @@ export async function getToursActual (token, offerId, people) {
     return {
         code,
         offer: id ? offers[id] : null,
+        message,
     };
 }
