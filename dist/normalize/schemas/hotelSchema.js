@@ -172,7 +172,8 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
         x = input.x,
         _input$rt = input.rt,
         rt = _input$rt === void 0 ? {} : _input$rt,
-        searchCurrency = input.sc;
+        searchCurrency = input.sc,
+        ds = input.ds;
     var defaultPhoto = '00/03/85/49/3854941.jpg';
     var entity = {
       id: String(i),
@@ -182,6 +183,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       city: c.p ? _objectSpread(_objectSpread({}, (0, _parsers.parseHotelGeo)(c)), {}, {
         namePr: c.p
       }) : (0, _parsers.parseHotelGeo)(c),
+      ds: ds ? (0, _parsers.parseHotelGeo)(ds) : undefined,
       country: (0, _parsers.parseHotelGeo)(t),
       stars: stars ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
