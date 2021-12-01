@@ -183,7 +183,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       city: c.p ? _objectSpread(_objectSpread({}, (0, _parsers.parseHotelGeo)(c)), {}, {
         namePr: c.p
       }) : (0, _parsers.parseHotelGeo)(c),
-      ds: ds ? (0, _parsers.parseHotelGeo)(ds) : undefined,
+      district: ds ? (0, _parsers.parseHotelGeo)(ds) : undefined,
       country: (0, _parsers.parseHotelGeo)(t),
       stars: stars ? _typeof(stars) === 'object' ? (0, _parsers.parseStars)(stars.n) : (0, _parsers.parseStars)(stars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
