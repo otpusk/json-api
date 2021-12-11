@@ -23,6 +23,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
   processStrategy: function processStrategy(input) {
     var id = input.i,
         date = input.d,
+        oldPriceUah = input.dpl,
+        oldPriceCurrency = input.dp,
         length = input.l,
         adults = input.a,
         children = input.h,
@@ -78,7 +80,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parseOfferPrice)(input),
-      oldPrice: (0, _parsers.parseOldOfferPrice)(input),
+      oldPrice: oldPriceCurrency && oldPrice ? _defineProperty({
+        uah: oldPriceUah
+      }, currency, oldPriceCurrency) : undefined,
       currency: currency,
       discountPrice: (0, _parsers.parseDiscountPrice)(input),
       stopsale: stopsale,
@@ -95,8 +99,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
 });
 exports.offerSchema = offerSchema;
 var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
-  idAttribute: function idAttribute(_ref2) {
-    var id = _ref2.id;
+  idAttribute: function idAttribute(_ref3) {
+    var id = _ref3.id;
     return String(id);
   },
   processStrategy: function processStrategy(input) {
@@ -107,6 +111,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         children = input.child,
         childrenAge = input.childAges,
         childAgesArray = input.childAgesArray,
+        oldPriceUah = input.oldPriceUah,
+        oldPriceCurrency = input.oldPrice,
         food = input.food,
         departure = input.fromCity,
         includes = input.tourOptions,
@@ -164,7 +170,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parsePrice)(input),
-      oldPrice: (0, _parsers.parseOldOfferPrice)(input),
+      oldPrice: oldPriceUah && oldPriceCurrency ? _defineProperty({
+        uah: oldPriceUah
+      }, currency, oldPriceCurrency) : undefined,
       currency: currency,
       stopsale: stopsale,
       transport: transport,

@@ -5,7 +5,6 @@ import { schema } from 'normalizr';
 // Instruments
 import {
     parsePrice,
-    parseOldOfferPrice,
     parseOfferPrice,
     parseFlights,
     parseDiscountPrice,
@@ -24,6 +23,8 @@ export const offerSchema = new schema.Entity(
             const {
                 i: id,
                 d: date,
+                dpl: oldPriceUah,
+                dp: oldPriceCurrency,
                 l: length,
                 a: adults,
                 h: children,
@@ -71,9 +72,11 @@ export const offerSchema = new schema.Entity(
                     .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
-                room:               { id: roomId, name: roomName, type: roomType },
-                price:              parseOfferPrice(input),
-                oldPrice:           parseOldOfferPrice(input),
+                room:     { id: roomId, name: roomName, type: roomType },
+                price:    parseOfferPrice(input),
+                oldPrice: oldPriceCurrency && oldPrice
+                    ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
+                    : undefined,
                 currency,
                 discountPrice:      parseDiscountPrice(input),
                 stopsale,
@@ -106,6 +109,8 @@ export const fullOfferSchema = new schema.Entity(
                 child: children,
                 childAges: childrenAge,
                 childAgesArray,
+                oldPriceUah,
+                oldPrice: oldPriceCurrency,
                 food,
                 fromCity: departure,
                 tourOptions: includes,
@@ -154,9 +159,11 @@ export const fullOfferSchema = new schema.Entity(
                     .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
-                room:               { id: roomId, name: roomName, type: roomType },
-                price:              parsePrice(input),
-                oldPrice:           parseOldOfferPrice(input),
+                room:     { id: roomId, name: roomName, type: roomType },
+                price:    parsePrice(input),
+                oldPrice: oldPriceUah && oldPriceCurrency
+                    ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
+                    : undefined,
                 currency,
                 stopsale,
                 transport,
