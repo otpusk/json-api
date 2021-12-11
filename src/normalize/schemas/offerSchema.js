@@ -5,6 +5,7 @@ import { schema } from 'normalizr';
 // Instruments
 import {
     parsePrice,
+    parseOldOfferPrice,
     parseOfferPrice,
     parseFlights,
     parseDiscountPrice,
@@ -52,7 +53,7 @@ export const offerSchema = new schema.Entity(
             }
 
             const promo = parsePromo(promoValue);
-            
+
             const entity = {
                 id:           String(id),
                 code,
@@ -62,7 +63,7 @@ export const offerSchema = new schema.Entity(
                 adults:       Number(adults),
                 children,
                 childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
-                chilrenAges: parseChildrenAges(childAgesArray),
+                chilrenAges:  parseChildrenAges(childAgesArray),
                 food,
                 departure,
                 includes,
@@ -70,19 +71,20 @@ export const offerSchema = new schema.Entity(
                     .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
-                room:   { id: roomId, name: roomName, type: roomType },
-                price: parseOfferPrice(input),
+                room:               { id: roomId, name: roomName, type: roomType },
+                price:              parseOfferPrice(input),
+                oldPrice:           parseOldOfferPrice(input),
                 currency,
-                discountPrice: parseDiscountPrice(input),
+                discountPrice:      parseDiscountPrice(input),
                 stopsale,
                 transport,
-                flights: parseFlights(flights || {}),
+                flights:            parseFlights(flights || {}),
                 tourId,
                 additionalPayments: [],
                 currencyRate,
                 updateTime,
-                ...(promo && promo),
-                ...getPriceEntity(input)
+                ...promo && promo,
+                ...getPriceEntity(input),
             };
 
             return entity;
@@ -144,7 +146,7 @@ export const fullOfferSchema = new schema.Entity(
                 adults:       Number(adults),
                 children,
                 childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
-                chilrenAges: parseChildrenAges(childAgesArray),
+                chilrenAges:  parseChildrenAges(childAgesArray),
                 food,
                 departure,
                 includes,
@@ -152,20 +154,21 @@ export const fullOfferSchema = new schema.Entity(
                     .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
-                room:    { id: roomId, name: roomName, type: roomType },
-                price: parsePrice(input),
+                room:               { id: roomId, name: roomName, type: roomType },
+                price:              parsePrice(input),
+                oldPrice:           parseOldOfferPrice(input),
                 currency,
                 stopsale,
                 transport,
-                flights: parseFlights(flights || {}),
+                flights:            parseFlights(flights || {}),
                 tourId,
-                bookingUrl: bron,
+                bookingUrl:         bron,
                 hotelId,
                 additionalPayments: additional,
                 currencyRate,
                 updateTime,
-                ...(promo && promo),
-                ...getOfferPriceEntity(input)
+                ...promo && promo,
+                ...getOfferPriceEntity(input),
             };
 
             return entity;

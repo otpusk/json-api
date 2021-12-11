@@ -37,6 +37,10 @@ export const parseOfferPrice = (input) => {
     return { uah: pl, [u]: p };
 };
 
+export const parseOldOfferPrice = ({ dp, dpl, u }) => dp && dpl
+    ? { uah: dpl, [u]: dp }
+    : undefined;
+
 export const parseDiscountPrice = (input) => {
     const { po, pl, p, u, c, pu, currency } = input;
     const originalCurrency = u || typeof c !== 'object' && c || pu || currency || null;
