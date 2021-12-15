@@ -80,7 +80,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parseOfferPrice)(input),
-      oldPrice: oldPriceCurrency && oldPrice ? _defineProperty({
+      oldPrice: oldPriceCurrency && oldPriceUah ? _defineProperty({
         uah: oldPriceUah
       }, currency, oldPriceCurrency) : undefined,
       currency: currency,
