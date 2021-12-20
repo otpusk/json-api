@@ -281,3 +281,21 @@ export const parsePromo = (promo) => {
 };
 
 export const parseChildrenAges = (ages = []) => ages.map((age) => Math.max(...age));
+
+const convertStringifyChildren2Array = (children, result = []) => children
+    ? convertStringifyChildren2Array(
+        children.slice(2),
+        [...result, children.slice(0, 2)]
+    )
+    : result;
+
+export const parsePeople = (people) => ({
+    adults:   Number(people.toString()[0]),
+    children: convertStringifyChildren2Array(
+        people
+            .toString()
+            .slice(1)
+    )
+        .map((age) => age.startsWith('0') ? age.slice(1) : age)
+        .map(Number),
+});

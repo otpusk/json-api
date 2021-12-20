@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.getOfferPriceEntity = exports.getPriceEntity = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
+exports.parsePeople = exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.getOfferPriceEntity = exports.getPriceEntity = exports.parseDiscountPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -489,3 +489,19 @@ var parseChildrenAges = function parseChildrenAges() {
 };
 
 exports.parseChildrenAges = parseChildrenAges;
+
+var convertStringifyChildren2Array = function convertStringifyChildren2Array(children) {
+  var result = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  return children ? convertStringifyChildren2Array(children.slice(2), [].concat(_toConsumableArray(result), [children.slice(0, 2)])) : result;
+};
+
+var parsePeople = function parsePeople(people) {
+  return {
+    adults: Number(people.toString()[0]),
+    children: convertStringifyChildren2Array(people.toString().slice(1)).map(function (age) {
+      return age.startsWith('0') ? age.slice(1) : age;
+    }).map(Number)
+  };
+};
+
+exports.parsePeople = parsePeople;

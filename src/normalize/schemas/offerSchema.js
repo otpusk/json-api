@@ -10,6 +10,7 @@ import {
     parseDiscountPrice,
     parsePromo,
     parseChildrenAges,
+    parsePeople,
     getPriceEntity,
     getOfferPriceEntity
 } from '../parsers';
@@ -131,6 +132,7 @@ export const fullOfferSchema = new schema.Entity(
                 hotelId = null,
                 additional = [],
                 updateTime,
+                people,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -174,6 +176,7 @@ export const fullOfferSchema = new schema.Entity(
                 additionalPayments: additional,
                 currencyRate,
                 updateTime,
+                people:             parsePeople(people),
                 ...promo && promo,
                 ...getOfferPriceEntity(input),
             };
