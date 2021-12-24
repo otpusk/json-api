@@ -15,8 +15,17 @@ const renameGroupKeys = (group) => R.call(
     group
 );
 
+const mapCountriesByIDs = (countryService) => R.reduce(
+    (acc, byCountriesMap) => R.mergeAll([
+        acc,
+        byCountriesMap
+    ]),
+    {},
+    countryService
+);
+
 export async function getToursServices (token, country = null, lang = 'ru') {
-    const { search: searchGroup, icons = [], tabs = [], nameServices = {}} = await makeCall({
+    const { search: { countryService, ...searchGroup }, icons = [], tabs = [], nameServices = {}} = await makeCall({
         endpoint: ENDPOINTS.services,
         query:    {
             ...token, countryId: country, lang,
@@ -25,9 +34,19 @@ export async function getToursServices (token, country = null, lang = 'ru') {
     });
 
     return R.mergeAll([
-        { icons },
-        { tabs },
+        {
+            icons,
+            tabs,
+        },
         { rootGroups: renameGroupKeys(nameServices) },
-        renameGroupKeys(searchGroup)
+        renameGroupKeys(searchGroup),
+        {
+            country: Number(country) && countryService
+                ? countryService
+                : [],
+            byCountries: !Number(country) && countryService
+                ? mapCountriesByIDs(countryService)
+                : {},
+        }
     ]);
 }

@@ -23,6 +23,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -49,6 +53,12 @@ var renameGroupKeys = function renameGroupKeys(group) {
   }), R.fromPairs), group);
 };
 
+var mapCountriesByIDs = function mapCountriesByIDs(countryService) {
+  return R.reduce(function (acc, byCountriesMap) {
+    return R.mergeAll([acc, byCountriesMap]);
+  }, {}, countryService);
+};
+
 function getToursServices(_x) {
   return _getToursServices.apply(this, arguments);
 }
@@ -58,6 +68,8 @@ function _getToursServices() {
     var country,
         lang,
         _yield$makeCall,
+        _yield$makeCall$searc,
+        countryService,
         searchGroup,
         _yield$makeCall$icons,
         icons,
@@ -85,7 +97,9 @@ function _getToursServices() {
 
           case 4:
             _yield$makeCall = _context.sent;
-            searchGroup = _yield$makeCall.search;
+            _yield$makeCall$searc = _yield$makeCall.search;
+            countryService = _yield$makeCall$searc.countryService;
+            searchGroup = _objectWithoutProperties(_yield$makeCall$searc, ["countryService"]);
             _yield$makeCall$icons = _yield$makeCall.icons;
             icons = _yield$makeCall$icons === void 0 ? [] : _yield$makeCall$icons;
             _yield$makeCall$tabs = _yield$makeCall.tabs;
@@ -93,14 +107,16 @@ function _getToursServices() {
             _yield$makeCall$nameS = _yield$makeCall.nameServices;
             nameServices = _yield$makeCall$nameS === void 0 ? {} : _yield$makeCall$nameS;
             return _context.abrupt("return", R.mergeAll([{
-              icons: icons
-            }, {
+              icons: icons,
               tabs: tabs
             }, {
               rootGroups: renameGroupKeys(nameServices)
-            }, renameGroupKeys(searchGroup)]));
+            }, renameGroupKeys(searchGroup), {
+              country: Number(country) && countryService ? countryService : [],
+              byCountries: !Number(country) && countryService ? mapCountriesByIDs(countryService) : {}
+            }]));
 
-          case 13:
+          case 15:
           case "end":
             return _context.stop();
         }
