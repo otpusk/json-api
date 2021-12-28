@@ -26,6 +26,12 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.it
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -89,7 +95,7 @@ function parseResponse(_x) {
 
 function _parseResponse() {
   _parseResponse = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(response) {
-    var body, error, message;
+    var body, error, message, errorInstance;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -102,16 +108,20 @@ function _parseResponse() {
             error = body.error, message = body.message;
 
             if (!(!response.ok || error)) {
-              _context.next = 8;
+              _context.next = 10;
               break;
             }
 
-            throw new Error(message);
+            errorInstance = new Error(message);
+            errorInstance.response = _objectSpread(_objectSpread({}, body), {}, {
+              statusCode: response.status
+            });
+            throw errorInstance;
 
-          case 8:
+          case 10:
             return _context.abrupt("return", body);
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }

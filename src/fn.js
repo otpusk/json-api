@@ -49,7 +49,14 @@ async function parseResponse (response) {
     const { error, message } = body;
 
     if (!response.ok || error) {
-        throw new Error(message);
+        const errorInstance = new Error(message);
+
+        errorInstance.response = {
+            ...body,
+            statusCode: response.status,
+        };
+
+        throw errorInstance;
     } else {
         return body;
     }
