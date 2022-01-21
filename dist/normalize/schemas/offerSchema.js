@@ -29,6 +29,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         nights = input.n,
         nightsInHotel = input.nh,
         adults = input.a,
+        people = input.ah,
         children = input.h,
         childAgesArray = input.hr,
         childrenAge = input.ha,
@@ -94,7 +95,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       tourId: tourId,
       additionalPayments: [],
       currencyRate: currencyRate,
-      updateTime: updateTime
+      updateTime: updateTime,
+      people: (0, _parsers.parsePeople)(people)
     }, promo && promo), (0, _parsers.getPriceEntity)(input));
 
     return entity;

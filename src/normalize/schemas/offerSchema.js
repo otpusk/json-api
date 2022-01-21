@@ -30,6 +30,7 @@ export const offerSchema = new schema.Entity(
                 n: nights,
                 nh: nightsInHotel,
                 a: adults,
+                ah: people,
                 h: children,
                 hr: childAgesArray,
                 ha: childrenAge,
@@ -90,6 +91,7 @@ export const offerSchema = new schema.Entity(
                 additionalPayments: [],
                 currencyRate,
                 updateTime,
+                people:             parsePeople(people),
                 ...promo && promo,
                 ...getPriceEntity(input),
             };
