@@ -141,7 +141,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         _input$additional = input.additional,
         additional = _input$additional === void 0 ? [] : _input$additional,
         updateTime = input.updateTime,
-        people = input.people;
+        people = input.people,
+        nightsInHotel = input.duration;
     var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
@@ -157,6 +158,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       date: date,
       days: length,
       nights: length - 1,
+      nightsInHotel: nightsInHotel,
       adults: Number(adults),
       children: children,
       childrenAge: childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',

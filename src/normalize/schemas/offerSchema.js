@@ -138,6 +138,7 @@ export const fullOfferSchema = new schema.Entity(
                 additional = [],
                 updateTime,
                 people,
+                duration: nightsInHotel,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -155,6 +156,7 @@ export const fullOfferSchema = new schema.Entity(
                 date,
                 days:         length,
                 nights:       length - 1,
+                nightsInHotel,
                 adults:       Number(adults),
                 children,
                 childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
