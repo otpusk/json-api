@@ -39,6 +39,7 @@ export async function getToursHotelsMarkers (token, countryId, cityId, options) 
         query:    {
             countryId,
             cityId,
+            data: 'minOffer',
             geo:  `${center.lat},${center.lng}`,
             rad:  radius || 1,
             with: 'price',

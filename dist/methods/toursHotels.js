@@ -106,6 +106,7 @@ function _getToursHotelsMarkers() {
               query: _objectSpread({
                 countryId: countryId,
                 cityId: cityId,
+                data: 'minOffer',
                 geo: "".concat(center.lat, ",").concat(center.lng),
                 rad: radius || 1,
                 with: 'price'
