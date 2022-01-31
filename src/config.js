@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 
-const API = Cookies.get('api-host') || 'https://api.otpusk.com/api/2.5';
+export const API_VERSION = '2.5';
+
+const API = Cookies.get('api-host') || `https://api.otpusk.com/api/${API_VERSION}`;
 const TURPRAVDA = 'https://www.turpravda.com';
 
 export const ENDPOINTS = Object.freeze({

@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -9,11 +11,17 @@ exports.getToursHotel = getToursHotel;
 
 var _normalizr = require("normalizr");
 
+var R = _interopRequireWildcard(require("ramda"));
+
 var _fn = require("../fn");
 
 var _config = require("../config");
 
 var _schemas = require("../normalize/schemas");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -32,6 +40,7 @@ function getToursHotels(_x, _x2) {
 function _getToursHotels() {
   _getToursHotels = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
     var options,
+        methodVersion,
         _options$cities,
         cities,
         _options$categories,
@@ -52,10 +61,11 @@ function _getToursHotels() {
         switch (_context.prev = _context.next) {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
+            methodVersion = _args.length > 3 ? _args[3] : undefined;
             _options$cities = options.cities, cities = _options$cities === void 0 ? [] : _options$cities, _options$categories = options.categories, categories = _options$categories === void 0 ? [] : _options$categories, _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice, lang = options.lang;
-            _context.next = 4;
+            _context.next = 5;
             return (0, _fn.makeCall)({
-              endpoint: _config.ENDPOINTS.hotels,
+              endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.hotels) : _config.ENDPOINTS.hotels,
               query: _objectSpread({
                 countryId: countryId,
                 with: withPrice ? 'price' : null,
@@ -64,7 +74,7 @@ function _getToursHotels() {
               ttl: [1, 'day']
             });
 
-          case 4:
+          case 5:
             _yield$makeCall = _context.sent;
             denormalizedHotels = _yield$makeCall.hotels;
             _normalize = (0, _normalizr.normalize)(denormalizedHotels.filter(function (hotel) {
@@ -77,7 +87,7 @@ function _getToursHotels() {
             }), [_schemas.hotelShortSchema]), hotels = _normalize.entities.hotel;
             return _context.abrupt("return", Object.values(hotels));
 
-          case 8:
+          case 9:
           case "end":
             return _context.stop();
         }

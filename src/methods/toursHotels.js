@@ -1,21 +1,24 @@
-// Core
 import { normalize } from 'normalizr';
+import * as R from 'ramda';
 
-// Instruments
 import { makeCall } from '../fn';
-import { ENDPOINTS } from '../config';
+import { API_VERSION, ENDPOINTS } from '../config';
 import { hotelSchema, hotelShortSchema } from '../normalize/schemas';
 
-export async function getToursHotels (token, countryId, options = {}) {
+export async function getToursHotels (token, countryId, options = {}, methodVersion) {
     const { cities = [], categories = [], services = [], withPrice = true, lang } = options;
-    const { hotels: denormalizedHotels } = await makeCall({ endpoint: ENDPOINTS.hotels,
-        query:    {
+    const { hotels: denormalizedHotels } = await makeCall({
+        endpoint: methodVersion
+            ? R.replace(API_VERSION, methodVersion, ENDPOINTS.hotels)
+            : ENDPOINTS.hotels,
+        query: {
             countryId,
             with: withPrice ? 'price' : null,
             lang,
             ...token,
         },
-        ttl: [1, 'day']});
+        ttl: [1, 'day'],
+    });
 
     const { entities: { hotel: hotels }} = normalize(
         denormalizedHotels.filter(

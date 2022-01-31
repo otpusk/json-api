@@ -3,13 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ENDPOINTS = void 0;
+exports.ENDPOINTS = exports.API_VERSION = void 0;
 
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var API = _jsCookie.default.get('api-host') || 'https://api.otpusk.com/api/2.5';
+var API_VERSION = '2.5';
+exports.API_VERSION = API_VERSION;
+var API = _jsCookie.default.get('api-host') || "https://api.otpusk.com/api/".concat(API_VERSION);
 var TURPRAVDA = 'https://www.turpravda.com';
 var ENDPOINTS = Object.freeze({
   static: "".concat(API, "/tours/static"),
