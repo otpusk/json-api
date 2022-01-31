@@ -41,10 +41,6 @@ function _getToursHotels() {
   _getToursHotels = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
     var options,
         methodVersion,
-        _options$cities,
-        cities,
-        _options$categories,
-        categories,
         _options$services,
         services,
         _options$rating,
@@ -64,16 +60,18 @@ function _getToursHotels() {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             methodVersion = _args.length > 3 ? _args[3] : undefined;
-            _options$cities = options.cities, cities = _options$cities === void 0 ? [] : _options$cities, _options$categories = options.categories, categories = _options$categories === void 0 ? [] : _options$categories, _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$rating = options.rating, rating = _options$rating === void 0 ? {} : _options$rating, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice, lang = options.lang;
+            _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$rating = options.rating, rating = _options$rating === void 0 ? {} : _options$rating, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice, lang = options.lang;
             _context.next = 5;
             return (0, _fn.makeCall)({
               endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.hotels) : _config.ENDPOINTS.hotels,
-              query: _objectSpread(_objectSpread({
+              query: _objectSpread(_objectSpread(_objectSpread({
                 countryId: countryId,
                 with: withPrice ? 'price' : null,
                 lang: lang
               }, token), !R.isEmpty(rating) ? {
                 rating: "".concat(rating.from, "-").concat(rating.to)
+              } : {}), !R.isEmpty(services) ? {
+                services: services
               } : {}),
               ttl: [1, 'day']
             });
@@ -81,14 +79,7 @@ function _getToursHotels() {
           case 5:
             _yield$makeCall = _context.sent;
             denormalizedHotels = _yield$makeCall.hotels;
-            _normalize = (0, _normalizr.normalize)(denormalizedHotels.filter(function (hotel) {
-              var inCities = !cities.length || cities.includes(Number(hotel.cityId));
-              var inCategory = !categories.length || categories.includes(hotel.stars);
-              var inServices = !services.length || services.every(function (s) {
-                return hotel.services.split(',').includes(s);
-              });
-              return inCities && inCategory && inServices;
-            }), [_schemas.hotelShortSchema]), hotels = _normalize.entities.hotel;
+            _normalize = (0, _normalizr.normalize)(denormalizedHotels, [_schemas.hotelShortSchema]), hotels = _normalize.entities.hotel;
             return _context.abrupt("return", Object.values(hotels));
 
           case 9:
