@@ -1,15 +1,23 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getToursOperators = getToursOperators;
+
+var R = _interopRequireWildcard(require("ramda"));
 
 var _fn = require("../fn");
 
 var _config = require("../config");
 
 var _dictionary = require("../dictionary");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -28,6 +36,7 @@ function getToursOperators(_x, _x2) {
 function _getToursOperators() {
   _getToursOperators = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, countryId) {
     var options,
+        methodVersion,
         _yield$makeCall,
         _yield$makeCall$opera,
         raw,
@@ -39,21 +48,23 @@ function _getToursOperators() {
         switch (_context.prev = _context.next) {
           case 0:
             options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
-            _context.next = 3;
+            methodVersion = _args.length > 3 ? _args[3] : undefined;
+            _context.next = 4;
             return (0, _fn.makeCall)({
-              endpoint: _config.ENDPOINTS.operators,
+              endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.operators) : _config.ENDPOINTS.operators,
               query: _objectSpread(_objectSpread({
                 countryId: countryId
               }, options), token)
             });
 
-          case 3:
+          case 4:
             _yield$makeCall = _context.sent;
             _yield$makeCall$opera = _yield$makeCall.operators;
             raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
             operators = Object.values(raw).map(function (_ref) {
               var active = _ref.active,
                   id = _ref.id,
+                  hastours = _ref.hastours,
                   name = _ref.name,
                   url = _ref.url,
                   currencies = _ref.currencies;
@@ -63,12 +74,13 @@ function _getToursOperators() {
                 name: name,
                 url: url,
                 currencyRates: currencies,
-                logo: (0, _dictionary.getOperatorLogoById)(id)
+                logo: (0, _dictionary.getOperatorLogoById)(id),
+                hasTours: hastours
               };
             });
             return _context.abrupt("return", operators);
 
-          case 8:
+          case 9:
           case "end":
             return _context.stop();
         }
