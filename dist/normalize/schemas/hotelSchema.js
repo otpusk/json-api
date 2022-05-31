@@ -69,7 +69,7 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
       photos: image ? [image] : [],
       location: (0, _parsers.parseLocation)(input),
       country: countryId ? String(countryId) : null,
-      city: cityId ? String(cityId) : null,
+      city: cityId,
       services: services ? services.split(',') : null,
       type: 'hotel',
       hotelCode: code

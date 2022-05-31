@@ -42,7 +42,7 @@ export const hotelShortSchema = new schema.Entity(
                 photos:    image ? [image] : [],
                 location:  parseLocation(input),
                 country:   countryId ? String(countryId) : null,
-                city:      cityId ? String(cityId) : null,
+                city:      cityId,
                 services:  services ? services.split(',') : null,
                 type:      'hotel',
                 hotelCode: code,
