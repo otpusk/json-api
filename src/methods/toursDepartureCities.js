@@ -17,7 +17,7 @@ export async function getToursDepartureCities (token, options = {}, methodVersio
 
     return fromCities.map(({ rel, transport, ...rest }) => ({
         ...rest,
-        names:     { rd: rel },
-        transport: transport && !R.isEmpty(transport) ? transport[0] : null,
+        names:      { rd: rel },
+        transports: transport || [],
     }));
 }

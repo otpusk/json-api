@@ -68,7 +68,7 @@ function _getToursDepartureCities() {
                 names: {
                   rd: rel
                 },
-                transport: transport && !R.isEmpty(transport) ? transport[0] : null
+                transports: transport || []
               });
             }));
 
