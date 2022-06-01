@@ -1,9 +1,7 @@
-// Core
 import fetch from 'isomorphic-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import moment from 'moment';
 
-// Instruments
 import { CacheItem } from './cache';
 
 /**

@@ -1,13 +1,21 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getToursDepartureCities = getToursDepartureCities;
 
+var R = _interopRequireWildcard(require("ramda"));
+
 var _fn = require("../fn");
 
 var _config = require("../config");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
@@ -30,6 +38,7 @@ function getToursDepartureCities(_x) {
 function _getToursDepartureCities() {
   _getToursDepartureCities = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var options,
+        methodVersion,
         _yield$makeCall,
         fromCities,
         _args = arguments;
@@ -39,28 +48,31 @@ function _getToursDepartureCities() {
         switch (_context.prev = _context.next) {
           case 0:
             options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
-            _context.next = 3;
+            methodVersion = _args.length > 2 ? _args[2] : undefined;
+            _context.next = 4;
             return (0, _fn.makeCall)({
-              endpoint: _config.ENDPOINTS.departureCities,
+              endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.departureCities) : _config.ENDPOINTS.departureCities,
               query: _objectSpread(_objectSpread({}, token), options),
               ttl: [7, 'days']
             });
 
-          case 3:
+          case 4:
             _yield$makeCall = _context.sent;
             fromCities = _yield$makeCall.fromCities;
             return _context.abrupt("return", fromCities.map(function (_ref) {
               var rel = _ref.rel,
-                  rest = _objectWithoutProperties(_ref, ["rel"]);
+                  transport = _ref.transport,
+                  rest = _objectWithoutProperties(_ref, ["rel", "transport"]);
 
               return _objectSpread(_objectSpread({}, rest), {}, {
                 names: {
                   rd: rel
-                }
+                },
+                transport: transport && !R.isEmpty(transport) ? transport[0] : null
               });
             }));
 
-          case 6:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -69,5 +81,3 @@ function _getToursDepartureCities() {
   }));
   return _getToursDepartureCities.apply(this, arguments);
 }
-
-;
