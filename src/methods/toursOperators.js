@@ -18,14 +18,14 @@ export async function getToursOperators (token, countryId, options = {}, methodV
     });
     const operators = Object
         .values(raw)
-        .map(({ active, id, hastours, name, url, currencies }) => ({
+        .map(({ active, currencies, id, name, url, transports }) => ({
             active,
             id,
             name,
             url,
             currencyRates: currencies,
             logo:          getOperatorLogoById(id),
-            hasTours:      hastours,
+            transports,
         }));
 
     return operators;

@@ -63,11 +63,11 @@ function _getToursOperators() {
             raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
             operators = Object.values(raw).map(function (_ref) {
               var active = _ref.active,
+                  currencies = _ref.currencies,
                   id = _ref.id,
-                  hastours = _ref.hastours,
                   name = _ref.name,
                   url = _ref.url,
-                  currencies = _ref.currencies;
+                  transports = _ref.transports;
               return {
                 active: active,
                 id: id,
@@ -75,7 +75,7 @@ function _getToursOperators() {
                 url: url,
                 currencyRates: currencies,
                 logo: (0, _dictionary.getOperatorLogoById)(id),
-                hasTours: hastours
+                transports: transports
               };
             });
             return _context.abrupt("return", operators);
