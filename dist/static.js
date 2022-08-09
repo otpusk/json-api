@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.OPERATORS = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
+exports.OPERATORS = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
 var DEPARTURE_CITIES = [{
   "id": 1925,
   "name": "Белая Церковь",
@@ -202,8 +202,40 @@ var CURRENCIES = [{
   code: 'eur',
   label: '€',
   symbol: '€'
+}, {
+  code: 'mdl',
+  label: 'лей',
+  symbol: 'L'
+}, {
+  code: 'uzs',
+  label: 'сум',
+  symbol: 'сўм'
+}, {
+  code: 'azn',
+  label: 'ман',
+  symbol: '₼'
+}, {
+  code: 'kgs',
+  label: 'сом',
+  symbol: 'с'
+}, {
+  code: 'kzt',
+  label: 'тңг',
+  symbol: '₸'
+}, {
+  code: 'tjs',
+  label: 'сом',
+  symbol: 'с'
+}, {
+  code: 'pln',
+  label: 'zł',
+  symbol: 'zł'
 }];
 exports.CURRENCIES = CURRENCIES;
+var CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
+  return [currency.code, currency];
+}));
+exports.CURRENCIES_MAP = CURRENCIES_MAP;
 var OPERATORS = [{
   id: 2,
   vendor: 'tztr',

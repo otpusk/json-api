@@ -242,8 +242,47 @@ export const CURRENCIES = [
         code:   'eur',
         label:  '€',
         symbol: '€',
+    },
+    {
+        code:   'mdl',
+        label:  'лей',
+        symbol: 'L',
+    },
+    {
+        code:   'uzs',
+        label:  'сум',
+        symbol: 'сўм',
+    },
+    {
+        code:   'azn',
+        label:  'ман',
+        symbol: '₼',
+    },
+    {
+        code:   'kgs',
+        label:  'сом',
+        symbol: 'с',
+    },
+    {
+        code:   'kzt',
+        label:  'тңг',
+        symbol: '₸',
+    },
+    {
+        code:   'tjs',
+        label:  'сом',
+        symbol: 'с',
+    },
+    {
+        code:   'pln',
+        label:  'zł',
+        symbol: 'zł',
     }
 ];
+
+export const CURRENCIES_MAP = Object.fromEntries(
+    CURRENCIES.map((currency) => [currency.code, currency])
+);
 
 export const OPERATORS = [
     {
