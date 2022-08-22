@@ -5,8 +5,15 @@ import { schema } from 'normalizr';
 
 // Instruments
 import {
-    parsePrice, parseLocation, parseHotelGeo,
-    parseCountry, parseCity, parseStars, parseHotelVideos, parseBadges
+    parsePrice,
+    parseLocation,
+    parseHotelGeo,
+    parseCountry,
+    parseCity,
+    parseStars,
+    parseHotelVideos,
+    parseBadges,
+    parseFullOfferPrice
 } from '../parsers';
 import { offerSchema } from './offerSchema';
 import { mergeDefinedObjectValues } from '../../fn';
@@ -87,7 +94,7 @@ export const hotelSimilarSchema = new schema.Entity(
                 weight:   similar,
                 offer:    {
                     id:     offerId,
-                    price:  parsePrice(offer),
+                    price:  parseFullOfferPrice(offer),
                     date,
                     days:   Number(length),
                     nights: Number(length) - 1,

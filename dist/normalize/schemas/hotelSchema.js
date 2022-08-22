@@ -115,7 +115,7 @@ var hotelSimilarSchema = new _normalizr.schema.Entity('hotel', {}, {
       weight: similar,
       offer: {
         id: offerId,
-        price: (0, _parsers.parsePrice)(offer),
+        price: (0, _parsers.parseFullOfferPrice)(offer),
         date: date,
         days: Number(length),
         nights: Number(length) - 1,

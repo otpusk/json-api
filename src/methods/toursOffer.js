@@ -6,11 +6,12 @@ import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 import { fullOfferSchema } from '../normalize/schemas';
 
-export async function getToursOffer (token, offerId, fresh) {
+export async function getToursOffer (token, offerId, fresh, currency) {
     const { offer: denormalizedOffer } = await makeCall({ endpoint: ENDPOINTS.offer,
-        query: {
+        query:    {
             offerId,
             ...token,
+            ...currency ? { currencyLocal: currency } : {},
         },
         ttl: fresh ? null : [30, 'minutes']});
 

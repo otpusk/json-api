@@ -4,7 +4,7 @@ import { schema } from 'normalizr';
 
 // Instruments
 import {
-    parsePrice,
+    parseFullOfferPrice,
     parseOfferPrice,
     parseFlights,
     parseDiscountPrice,
@@ -169,7 +169,7 @@ export const fullOfferSchema = new schema.Entity(
                     .filter((s) => includes.indexOf(s) === -1),
                 operator,
                 room:     { id: roomId, name: roomName, type: roomType },
-                price:    parsePrice(input),
+                price:    parseFullOfferPrice(input),
                 oldPrice: oldPriceUah && oldPriceCurrency
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,

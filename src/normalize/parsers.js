@@ -32,10 +32,15 @@ export const parsePrice = (input) => {
 };
 
 export const parseOfferPrice = (input) => {
-    const { p, pl, u } = input;
+    const { p, pl, u, ul } = input;
 
-    return { uah: pl, [u]: p };
+    return { [ul]: pl, [u]: p };
 };
+
+export const parseFullOfferPrice = (offer) => ({
+    [offer.currency]:      offer.price,
+    [offer.currencyLocal]: offer.priceLocal,
+});
 
 export const parseDiscountPrice = (input) => {
     const { po, pl, p, u, c, pu, currency } = input;

@@ -31,6 +31,7 @@ function _getToursSimilar() {
   _getToursSimilar = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, hotelId) {
     var limit,
         withPrice,
+        currency,
         _yield$makeCall,
         hotels,
         _normalize,
@@ -43,24 +44,27 @@ function _getToursSimilar() {
           case 0:
             limit = _args.length > 2 && _args[2] !== undefined ? _args[2] : 3;
             withPrice = _args.length > 3 ? _args[3] : undefined;
-            _context.next = 4;
+            currency = _args.length > 4 && _args[4] !== undefined ? _args[4] : 'uah';
+            _context.next = 5;
             return (0, _fn.makeCall)({
               endpoint: _config.ENDPOINTS.similar,
-              query: _objectSpread(_objectSpread({
+              query: _objectSpread(_objectSpread(_objectSpread({
                 hotelId: hotelId,
                 limit: limit
               }, withPrice ? {
                 with: 'price'
-              } : {}), token)
+              } : {}), token), currency ? {
+                currencyLocal: currency
+              } : {})
             });
 
-          case 4:
+          case 5:
             _yield$makeCall = _context.sent;
             hotels = _yield$makeCall.hotels;
             _normalize = (0, _normalizr.normalize)(hotels, [_schemas.hotelSimilarSchema]), similar = _normalize.entities.hotel;
             return _context.abrupt("return", similar);
 
-          case 8:
+          case 9:
           case "end":
             return _context.stop();
         }
