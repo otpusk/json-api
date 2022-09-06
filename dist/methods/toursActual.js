@@ -29,22 +29,34 @@ function getToursActual(_x, _x2, _x3) {
 
 function _getToursActual() {
   _getToursActual = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, offerId, people) {
-    var _yield$makeCall, code, denormalizedOffer, message, _ref, _ref$entities, _ref$entities$offer, offers, id;
+    var currency,
+        _yield$makeCall,
+        code,
+        denormalizedOffer,
+        message,
+        _ref,
+        _ref$entities,
+        _ref$entities$offer,
+        offers,
+        id,
+        _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            currency = _args.length > 3 && _args[3] !== undefined ? _args[3] : 'uah';
+            _context.next = 3;
             return (0, _fn.makeCall)({
               endpoint: _config.ENDPOINTS.actual,
               query: _objectSpread(_objectSpread({}, token), {}, {
                 offerId: offerId,
-                people: people
+                people: people,
+                currencyLocal: currency
               })
             });
 
-          case 2:
+          case 3:
             _yield$makeCall = _context.sent;
             code = _yield$makeCall.code;
             denormalizedOffer = _yield$makeCall.offer;
@@ -58,7 +70,7 @@ function _getToursActual() {
               message: message
             });
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
