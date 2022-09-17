@@ -134,6 +134,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         bron = input.bron,
         _input$currency = input.currency,
         currency = _input$currency === void 0 ? null : _input$currency,
+        currencyLocal = input.currencyLocal,
         rateByNBU = input.currencyRate,
         rateByOperator = input.currencyOperatorRate,
         _input$hotelId = input.hotelId,
@@ -182,6 +183,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         uah: oldPriceUah
       }, currency, oldPriceCurrency) : undefined,
       currency: currency,
+      currencyLocal: currencyLocal,
       stopsale: stopsale,
       transport: transport,
       flights: (0, _parsers.parseFlights)(flights || {}),

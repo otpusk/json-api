@@ -132,6 +132,7 @@ export const fullOfferSchema = new schema.Entity(
                 tourId,
                 bron,
                 currency = null,
+                currencyLocal,
                 currencyRate: rateByNBU,
                 currencyOperatorRate: rateByOperator,
                 hotelId = null,
@@ -174,6 +175,7 @@ export const fullOfferSchema = new schema.Entity(
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
                 currency,
+                currencyLocal,
                 stopsale,
                 transport,
                 flights:            parseFlights(flights || {}),
