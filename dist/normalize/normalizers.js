@@ -9,8 +9,12 @@ var _normalizr = require("normalizr");
 
 var _schemas = require("./schemas");
 
-var normalizeOffer = function normalizeOffer(offer) {
-  return (0, _normalizr.normalize)(offer, _schemas.offerSchema);
+var normalizeOffer = function normalizeOffer(denormalizedOffer) {
+  var _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema),
+      offer = _normalize.entities.offer,
+      result = _normalize.result;
+
+  return offer[result];
 };
 
 exports.normalizeOffer = normalizeOffer;
