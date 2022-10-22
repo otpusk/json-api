@@ -208,7 +208,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       videos: (0, _parsers.parseHotelVideos)(videos),
       sourceRatings: Object.values(rb),
       hotelTypes: Object.keys(tp),
-      price: (0, _parsers.parsePrice)(price),
+      price: (0, _parsers.parseOfferPrice)(price),
       location: (0, _parsers.parseLocation)(g),
       updated: _typeof(price) === 'object' && 'up' in price ? price.up : null,
       badges: (0, _parsers.parseBadges)(m),

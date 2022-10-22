@@ -10,9 +10,7 @@ import {
     parseDiscountPrice,
     parsePromo,
     parseChildrenAges,
-    parsePeople,
-    getPriceEntity,
-    getOfferPriceEntity
+    parsePeople
 } from '../parsers';
 
 export const offerSchema = new schema.Entity(
@@ -93,7 +91,6 @@ export const offerSchema = new schema.Entity(
                 updateTime,
                 people:             parsePeople(people),
                 ...promo && promo,
-                ...getPriceEntity(input),
             };
 
             return entity;
@@ -187,7 +184,6 @@ export const fullOfferSchema = new schema.Entity(
                 updateTime,
                 people:             parsePeople(people),
                 ...promo && promo,
-                ...getOfferPriceEntity(input),
             };
 
             return entity;

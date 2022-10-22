@@ -5,8 +5,9 @@ import * as R from 'ramda';
 import { makeCall } from '../fn';
 import { API_VERSION, ENDPOINTS } from '../config';
 
-const parsePrice = ({ c: currency, p: priceByCurrency }) => ({
+const parsePrice = ({ c: currency, p: priceByCurrency, pu: uahPrice }) => ({
     [currency]: priceByCurrency,
+    ...uahPrice ? { uah: uahPrice } : {},
 });
 
 export async function getToursGraph (token, options = {}, methodVersion) {

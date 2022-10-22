@@ -1,9 +1,6 @@
-// Core
-import { Map, List, mergeWith, get } from 'immutable';
+import { Map, List, mergeWith } from 'immutable';
 
-//Instruments
 import { mergeDefinedObjectValues } from '../fn';
-
 
 export const parsePrice = (input) => {
     const {
@@ -55,60 +52,6 @@ export const parseDiscountPrice = (input) => {
         uah:                pl,
     };
 };
-
-const createPriceEntity = {
-    byOperator: ({ pl, plo, u, uo }) => ({
-        uah: plo || pl,
-        [u]: (plo || pl) / uo,
-    }),
-    byNBU: ({ pl, plo, u, ur }) => ({
-        uah: plo || pl,
-        [u]: (plo || pl) / ur,
-    }),
-};
-
-const createDiscountPriceEntity = {
-    byOperator: ({ plo, pl, u, uo }) => plo ? {
-        uah: pl, [u]: pl / uo,
-    } : null,
-    byNBU: ({ plo, pl, u, ur }) => plo ? {
-        uah: pl, [u]: pl / ur,
-    } : null,
-};
-
-export const getPriceEntity = (offer) => ({
-    '@price':            createPriceEntity.byOperator(offer),
-    '@priceNBU':         createPriceEntity.byNBU(offer),
-    '@discountPrice':    createDiscountPriceEntity.byOperator(offer),
-    '@discountPriceNBU': createDiscountPriceEntity.byNBU(offer),
-});
-
-const createOfferPriceEntity = {
-    byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => ({
-        uah:        priceUahOriginal || priceUah,
-        [currency]: (priceUahOriginal || priceUah) / currencyOperatorRate,
-    }),
-    byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => ({
-        uah:        priceUahOriginal || priceUah,
-        [currency]: (priceUahOriginal || priceUah) / currencyRate,
-    }),
-};
-
-const createOfferDiscountPriceEntity = {
-    byOperator: ({ currency, currencyOperatorRate, priceUahOriginal, priceUah }) => priceUahOriginal ? {
-        uah: priceUah, [currency]: priceUah / currencyOperatorRate,
-    } : null,
-    byNBU: ({ currency, currencyRate, priceUahOriginal, priceUah }) => priceUahOriginal ? {
-        uah: priceUah, [currency]: priceUah / currencyRate,
-    } : null,
-};
-
-export const getOfferPriceEntity = (offer) => ({
-    '@price':            createOfferPriceEntity.byOperator(offer),
-    '@priceNBU':         createOfferPriceEntity.byNBU(offer),
-    '@discountPrice':    createOfferDiscountPriceEntity.byOperator(offer),
-    '@discountPriceNBU': createOfferDiscountPriceEntity.byNBU(offer),
-});
 
 const parseSeats = (seats) => {
     switch (seats) {

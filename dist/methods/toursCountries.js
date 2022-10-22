@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -7,11 +9,17 @@ exports.getToursCountries = getToursCountries;
 
 var _normalizr = require("normalizr");
 
+var R = _interopRequireWildcard(require("ramda"));
+
+var _schemas = require("../normalize/schemas");
+
 var _fn = require("../fn");
 
 var _config = require("../config");
 
-var _schemas = require("../normalize/schemas");
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -34,6 +42,7 @@ function getToursCountries(_x) {
 function _getToursCountries() {
   _getToursCountries = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
     var options,
+        methodVersion,
         _yield$makeCall,
         denormalizedCountries,
         _normalize,
@@ -47,20 +56,21 @@ function _getToursCountries() {
             options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {
               'with': 'price'
             };
-            _context.next = 3;
+            methodVersion = _args.length > 2 ? _args[2] : undefined;
+            _context.next = 4;
             return (0, _fn.makeCall)({
-              endpoint: _config.ENDPOINTS.countries,
+              endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.countries) : _config.ENDPOINTS.countries,
               query: _objectSpread(_objectSpread({}, token), options),
               ttl: withPrice(options) ? void 0 : [7, 'days']
             });
 
-          case 3:
+          case 4:
             _yield$makeCall = _context.sent;
             denormalizedCountries = _yield$makeCall.countries;
             _normalize = (0, _normalizr.normalize)(denormalizedCountries, [_schemas.countrySchema]), countries = _normalize.entities.country;
             return _context.abrupt("return", Object.values(countries));
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }

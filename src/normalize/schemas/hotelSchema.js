@@ -13,6 +13,7 @@ import {
     parseStars,
     parseHotelVideos,
     parseBadges,
+    parseOfferPrice,
     parseFullOfferPrice
 } from '../parsers';
 import { offerSchema } from './offerSchema';
@@ -188,7 +189,7 @@ export const hotelSchema = new schema.Entity(
                 videos:        parseHotelVideos(videos),
                 sourceRatings: Object.values(rb),
                 hotelTypes:    Object.keys(tp),
-                price:         parsePrice(price),
+                price:         parseOfferPrice(price),
                 location:      parseLocation(g),
                 updated:       typeof price === 'object' && 'up' in price ? price.up : null,
                 badges:        parseBadges(m),
