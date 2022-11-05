@@ -1,8 +1,6 @@
-// Core
 import { normalize, schema } from 'normalizr';
 import { Map } from 'immutable';
 
-// Instruments
 import { makeCall } from '../fn';
 import { hotelNextSchema, countrySchema, offerSchema } from '../normalize/schemas';
 import { parseSearchMeta } from '../normalize/parsers';
@@ -72,7 +70,7 @@ export async function getToursNextSearch (token, query) {
                         offers:  Object
                             .keys(offersShape)
                             .map((offerID) => result.offers[offerID])
-                            .sort((a, b) => a['@price'].uah - b['@price'].uah),
+                            .sort((a, b) => a.price[query.currencyLocal] - b.price[query.currencyLocal]),
                     }))
             )
             .filter((group) => group.length)
@@ -83,7 +81,7 @@ export async function getToursNextSearch (token, query) {
                         const nextOffers = [
                             ...acc[hotelID].offers,
                             ...offers
-                        ].sort((a, b) => a['@price'].uah - b['@price'].uah);
+                        ].sort((a, b) => a.price[query.currencyLocal] - b.price[query.currencyLocal]);
 
                         acc[hotelID].offers = nextOffers;
                     } else {
@@ -97,7 +95,7 @@ export async function getToursNextSearch (token, query) {
 
         result.prices = Object
             .values(pricesMap)
-            .sort((hotelA, hotelB) => hotelA.offers[0]['@price'].uah - hotelB.offers[0]['@price'].uah)
+            .sort((hotelA, hotelB) => hotelA.offers[0].price[query.currencyLocal] - hotelB.offers[0].price[query.currencyLocal])
             .map(({ offers, ...rest }) => ({ ...rest, offers: offers.map(({ id }) => id) }));
     }
 

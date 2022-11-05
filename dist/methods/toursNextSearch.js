@@ -108,7 +108,7 @@ function _getToursNextSearch() {
                     offers: Object.keys(offersShape).map(function (offerID) {
                       return result.offers[offerID];
                     }).sort(function (a, b) {
-                      return a['@price'].uah - b['@price'].uah;
+                      return a.price[query.currencyLocal] - b.price[query.currencyLocal];
                     })
                   };
                 });
@@ -120,7 +120,7 @@ function _getToursNextSearch() {
 
                 if (acc[hotelID]) {
                   var nextOffers = [].concat(_toConsumableArray(acc[hotelID].offers), _toConsumableArray(offers)).sort(function (a, b) {
-                    return a['@price'].uah - b['@price'].uah;
+                    return a.price[query.currencyLocal] - b.price[query.currencyLocal];
                   });
                   acc[hotelID].offers = nextOffers;
                 } else {
@@ -133,7 +133,7 @@ function _getToursNextSearch() {
                 return acc;
               }, {});
               result.prices = Object.values(pricesMap).sort(function (hotelA, hotelB) {
-                return hotelA.offers[0]['@price'].uah - hotelB.offers[0]['@price'].uah;
+                return hotelA.offers[0].price[query.currencyLocal] - hotelB.offers[0].price[query.currencyLocal];
               }).map(function (_ref4) {
                 var offers = _ref4.offers,
                     rest = _objectWithoutProperties(_ref4, ["offers"]);
