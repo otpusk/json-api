@@ -237,7 +237,7 @@ const convertStringifyChildren2Array = (children, result = []) => children
     )
     : result;
 
-export const parsePeople = (people) => ({
+export const parsePeople = (people, childAgesArray = []) => ({
     adults:   Number(people.toString()[0]),
     children: convertStringifyChildren2Array(
         people
@@ -246,4 +246,5 @@ export const parsePeople = (people) => ({
     )
         .map((age) => age.startsWith('0') ? age.slice(1) : age)
         .map(Number),
+    childrenAgesRange: childAgesArray.map((range) => ({ from: range[0], to: range[1] })),
 });

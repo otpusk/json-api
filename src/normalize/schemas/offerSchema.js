@@ -89,7 +89,7 @@ export const offerSchema = new schema.Entity(
                 additionalPayments: [],
                 currencyRate,
                 updateTime,
-                people:             parsePeople(people),
+                people:             parsePeople(people, childAgesArray),
                 ...promo && promo,
             };
 
@@ -182,7 +182,7 @@ export const fullOfferSchema = new schema.Entity(
                 additionalPayments: additional,
                 currencyRate,
                 updateTime,
-                people:             parsePeople(people),
+                people:             parsePeople(people, childAgesArray),
                 ...promo && promo,
             };
 

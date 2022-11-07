@@ -403,11 +403,18 @@ var convertStringifyChildren2Array = function convertStringifyChildren2Array(chi
 };
 
 var parsePeople = function parsePeople(people) {
+  var childAgesArray = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   return {
     adults: Number(people.toString()[0]),
     children: convertStringifyChildren2Array(people.toString().slice(1)).map(function (age) {
       return age.startsWith('0') ? age.slice(1) : age;
-    }).map(Number)
+    }).map(Number),
+    childrenAgesRange: childAgesArray.map(function (range) {
+      return {
+        from: range[0],
+        to: range[1]
+      };
+    })
   };
 };
 

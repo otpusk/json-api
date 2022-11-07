@@ -96,7 +96,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       additionalPayments: [],
       currencyRate: currencyRate,
       updateTime: updateTime,
-      people: (0, _parsers.parsePeople)(people)
+      people: (0, _parsers.parsePeople)(people, childAgesArray)
     }, promo && promo);
 
     return entity;
@@ -193,7 +193,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       additionalPayments: additional,
       currencyRate: currencyRate,
       updateTime: updateTime,
-      people: (0, _parsers.parsePeople)(people)
+      people: (0, _parsers.parsePeople)(people, childAgesArray)
     }, promo && promo);
 
     return entity;
