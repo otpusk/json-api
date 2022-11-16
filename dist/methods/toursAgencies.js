@@ -31,18 +31,20 @@ function getToursAgencies(_x, _x2) {
 
 function _getToursAgencies() {
   _getToursAgencies = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, _ref) {
-    var regionId, hotelId, offerId, _ref$noStats, noStats, params, _yield$makeCall, operators, denormalizedRegions, _normalize, _normalize$entities, agencies, offices, _normalize$result$, viewAgenciesOrder, clickAgenciesOrder, _normalize2, regions;
+    var regionId, hotelId, offerId, _ref$noStats, noStats, adMarketId, params, _yield$makeCall, operators, denormalizedRegions, _normalize, _normalize$entities, agencies, offices, _normalize$result$, viewAgenciesOrder, clickAgenciesOrder, _normalize2, regions;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            regionId = _ref.regionId, hotelId = _ref.hotelId, offerId = _ref.offerId, _ref$noStats = _ref.noStats, noStats = _ref$noStats === void 0 ? false : _ref$noStats;
+            regionId = _ref.regionId, hotelId = _ref.hotelId, offerId = _ref.offerId, _ref$noStats = _ref.noStats, noStats = _ref$noStats === void 0 ? false : _ref$noStats, adMarketId = _ref.adMarketId;
             params = _objectSpread(_objectSpread({}, token), {}, {
               regionId: regionId,
               hotelId: hotelId,
               offers: offerId
-            });
+            }, adMarketId ? {
+              adMarketId: adMarketId
+            } : {});
             noStats && Object.assign(params, {
               nst: 1
             });

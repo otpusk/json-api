@@ -7,12 +7,12 @@ import { makeCall } from '../fn';
 import { geoSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
-const getIndexFromResult = (id, result) => result.findIndex(({ id: own }) => id === own)
+const getIndexFromResult = (id, result) => result.findIndex(({ id: own }) => id === own);
 
 export async function getToursSuggests (token, query, options = { 'with': 'price' }) {
 
     const { response: denormalizedLocations } = await makeCall({ endpoint: ENDPOINTS.suggests,
-        query: {
+        query:    {
             text: query,
             ...token,
             ...options,
@@ -30,7 +30,7 @@ export async function getToursSuggests (token, query, options = { 'with': 'price
 
 export async function getToursGeoById (token, id, options = { 'with': 'price' }) {
     const { response: denormalizedLocations } = await makeCall({ endpoint: ENDPOINTS.suggests,
-        query: {
+        query:    {
             text: id,
             ...token,
             ...options,

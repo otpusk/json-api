@@ -7,13 +7,14 @@ import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 import { agencySchema, regionSchema } from '../normalize/schemas';
 
-export async function getToursAgencies (token, { regionId, hotelId, offerId, noStats = false }) {
+export async function getToursAgencies (token, { regionId, hotelId, offerId, noStats = false, adMarketId }) {
 
     const params = {
         ...token,
         regionId,
         hotelId,
         offers: offerId,
+        ...adMarketId ? { adMarketId } : {},
     };
 
     noStats && Object.assign(params, { nst: 1 });
