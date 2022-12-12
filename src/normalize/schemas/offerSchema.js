@@ -33,6 +33,7 @@ export const offerSchema = new schema.Entity(
                 hr: childAgesArray,
                 ha: childrenAge,
                 f: food,
+                fn: foodFullName,
                 c: departure,
                 o: includes,
                 oi: operator,
@@ -69,6 +70,7 @@ export const offerSchema = new schema.Entity(
                 childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
                 childrenAges: parseChildrenAges(childAgesArray),
                 food,
+                foodFullName,
                 departure,
                 includes,
                 requirements: ['visa', 'insurance', 'transfer']
@@ -115,6 +117,7 @@ export const fullOfferSchema = new schema.Entity(
                 oldPriceUah,
                 oldPrice: oldPriceCurrency,
                 food,
+                foodName: foodFullName,
                 fromCity: departure,
                 tourOptions: includes,
                 operatorId: operator,
@@ -160,6 +163,7 @@ export const fullOfferSchema = new schema.Entity(
                 childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
                 childrenAges: parseChildrenAges(childAgesArray),
                 food,
+                foodFullName,
                 departure,
                 includes,
                 requirements: ['visa', 'insurance', 'transfer']

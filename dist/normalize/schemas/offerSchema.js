@@ -34,6 +34,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         childAgesArray = input.hr,
         childrenAge = input.ha,
         food = input.f,
+        foodFullName = input.fn,
         departure = input.c,
         includes = input.o,
         operator = input.oi,
@@ -70,6 +71,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       childrenAge: childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
       childrenAges: (0, _parsers.parseChildrenAges)(childAgesArray),
       food: food,
+      foodFullName: foodFullName,
       departure: departure,
       includes: includes,
       requirements: ['visa', 'insurance', 'transfer'].filter(function (s) {
@@ -119,6 +121,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         oldPriceUah = input.oldPriceUah,
         oldPriceCurrency = input.oldPrice,
         food = input.food,
+        foodFullName = input.foodName,
         departure = input.fromCity,
         includes = input.tourOptions,
         operator = input.operatorId,
@@ -165,6 +168,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       childrenAge: childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
       childrenAges: (0, _parsers.parseChildrenAges)(childAgesArray),
       food: food,
+      foodFullName: foodFullName,
       departure: departure,
       includes: includes,
       requirements: ['visa', 'insurance', 'transfer'].filter(function (s) {
