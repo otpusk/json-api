@@ -20,18 +20,14 @@ export async function getToursAgencies (token, { regionId, hotelId, offerId, noS
     noStats && Object.assign(params, { nst: 1 });
     const { operators, regions: denormalizedRegions } = await makeCall({ endpoint: ENDPOINTS.agencies, query: params });
 
-    const { entities: { agency: agencies, office: offices }, result: { 1: { viewAgencies: viewAgenciesOrder, clickAgencies: clickAgenciesOrder } = {}}} = normalize(operators, new schema.Values({
-        clickAgencies: [agencySchema],
-        viewAgencies:  [agencySchema],
+    const { entities: { agency: agencies, office: offices }, result: { 1: { viewAgencies: viewAgenciesOrder } = {}}} = normalize(operators, new schema.Values({
+        viewAgencies: [agencySchema],
     }));
 
     const { entities: { region: regions }} = normalize(denormalizedRegions, [regionSchema]);
 
     return {
-        agencies: Map(agencies).sortBy(({ adId }) => clickAgenciesOrder.includes(adId)
-            ? clickAgenciesOrder.indexOf(adId)
-            : viewAgenciesOrder.indexOf(adId) + 100
-        ),
+        agencies: Map(agencies).sortBy(({ adId }) => viewAgenciesOrder.indexOf(adId) + 100),
         offices,
         regions,
     };

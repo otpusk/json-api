@@ -31,7 +31,7 @@ function getToursAgencies(_x, _x2) {
 
 function _getToursAgencies() {
   _getToursAgencies = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token, _ref) {
-    var regionId, hotelId, offerId, _ref$noStats, noStats, adMarketId, params, _yield$makeCall, operators, denormalizedRegions, _normalize, _normalize$entities, agencies, offices, _normalize$result$, viewAgenciesOrder, clickAgenciesOrder, _normalize2, regions;
+    var regionId, hotelId, offerId, _ref$noStats, noStats, adMarketId, params, _yield$makeCall, operators, denormalizedRegions, _normalize, _normalize$entities, agencies, offices, _normalize$result$, viewAgenciesOrder, _normalize2, regions;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -59,16 +59,15 @@ function _getToursAgencies() {
             operators = _yield$makeCall.operators;
             denormalizedRegions = _yield$makeCall.regions;
             _normalize = (0, _normalizr.normalize)(operators, new _normalizr.schema.Values({
-              clickAgencies: [_schemas.agencySchema],
               viewAgencies: [_schemas.agencySchema]
             })), _normalize$entities = _normalize.entities, agencies = _normalize$entities.agency, offices = _normalize$entities.office, _normalize$result$ = _normalize.result[1];
             _normalize$result$ = _normalize$result$ === void 0 ? {} : _normalize$result$;
-            viewAgenciesOrder = _normalize$result$.viewAgencies, clickAgenciesOrder = _normalize$result$.clickAgencies;
+            viewAgenciesOrder = _normalize$result$.viewAgencies;
             _normalize2 = (0, _normalizr.normalize)(denormalizedRegions, [_schemas.regionSchema]), regions = _normalize2.entities.region;
             return _context.abrupt("return", {
               agencies: (0, _immutable.Map)(agencies).sortBy(function (_ref2) {
                 var adId = _ref2.adId;
-                return clickAgenciesOrder.includes(adId) ? clickAgenciesOrder.indexOf(adId) : viewAgenciesOrder.indexOf(adId) + 100;
+                return viewAgenciesOrder.indexOf(adId) + 100;
               }),
               offices: offices,
               regions: regions
