@@ -21,6 +21,7 @@ export const offerSchema = new schema.Entity(
         processStrategy: (input) => {
             const {
                 i: id,
+                hi: hotelId,
                 d: date,
                 dpl: oldPriceUah,
                 dp: oldPriceCurrency,
@@ -88,6 +89,7 @@ export const offerSchema = new schema.Entity(
                 transport,
                 flights:            parseFlights(flights || {}),
                 tourId,
+                hotelId,
                 additionalPayments: [],
                 currencyRate,
                 updateTime,
