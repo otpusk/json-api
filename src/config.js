@@ -33,4 +33,5 @@ export const ENDPOINTS = Object.freeze({
     cacheValidate:      `${API}/tours/cacheControl`,
     flightPort:         `${API}/tours/port`,
     nextSearch:         `${API}/tours/getResults`,
+    session:            `${API}/session/json`,
 });

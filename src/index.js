@@ -23,3 +23,4 @@ export { getInit } from './methods/init';
 export { cacheValidate } from './methods/toursCacheValidate';
 export { getToursFlightPort } from './methods/toursFlightPort';
 export { getStaticData } from './methods/static';
+export { getSession } from './methods/session';
