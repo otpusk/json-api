@@ -15,37 +15,66 @@ const renameGroupKeys = (group) => R.call(
     group
 );
 
-const mapCountriesByIDs = (countryService) => R.reduce(
-    (acc, byCountriesMap) => R.mergeAll([
-        acc,
-        byCountriesMap
-    ]),
-    {},
-    countryService
+const objectToArray = (object) => R.call(
+    R.pipe(
+        R.toPairs,
+        R.map(([key, value]) => ({ [key]: value }))
+    ),
+    object
+);
+
+const extractServicesFromResponse = (response) => R.call(
+    R.pipe(
+        R.toPairs,
+        R.filter(([, value]) => value !== null && typeof value === 'object'),
+        R.map(([key, value]) => [
+            key,
+            objectToArray(value)
+        ]),
+        R.fromPairs
+    ),
+    response
 );
 
 export async function getToursServices (token, country = null, lang = 'ru') {
-    const { search: { countryService, ...searchGroup }, icons = [], tabs = [], nameServices = {}} = await makeCall({
+    const {
+        icons = [],
+        tabs = [],
+        nameServices = {},
+        search,
+        ...response
+    } = await makeCall({
         endpoint: ENDPOINTS.services,
         query:    {
-            ...token, countryId: country, lang,
+            ...token,
+            countryId: country,
+            lang,
         },
         ttl: [7, 'days'],
     });
+
+    const isSetCountry = Boolean(Number(country));
+
+    const countryService = isSetCountry
+        ? search.countryService
+        : response.countryService;
+    const searchGroup = isSetCountry
+        ? R.omit(['countryService'], search)
+        : extractServicesFromResponse(R.omit(['countryService'], response));
 
     return R.mergeAll([
         {
             icons,
             tabs,
         },
-        { rootGroups: renameGroupKeys(nameServices) },
+        { rootGroups: objectToArray(renameGroupKeys(nameServices)) },
         renameGroupKeys(searchGroup),
         {
-            country: Number(country) && countryService
+            country: isSetCountry && countryService
                 ? countryService
                 : [],
-            byCountries: !Number(country) && countryService
-                ? mapCountriesByIDs(countryService)
+            byCountries: !isSetCountry && countryService
+                ? countryService
                 : {},
         }
     ]);
