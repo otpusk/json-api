@@ -8,7 +8,7 @@ export async function getToursDates (token, options) {
             ...token,
             ...options,
         },
-        ttl: [7, 'days']});
+        ttl: [2, 'hour']});
 
     return Object.keys(denormalizedDates);
 }

@@ -54,7 +54,8 @@ function _getToursOperators() {
               endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.operators) : _config.ENDPOINTS.operators,
               query: _objectSpread(_objectSpread({
                 countryId: countryId
-              }, options), token)
+              }, options), token),
+              ttl: [2, 'hour']
             });
 
           case 4:

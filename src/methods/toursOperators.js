@@ -15,6 +15,7 @@ export async function getToursOperators (token, countryId, options = {}, methodV
             ...options,
             ...token,
         },
+        ttl: [2, 'hour'],
     });
     const operators = Object
         .values(raw)
