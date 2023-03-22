@@ -60,11 +60,17 @@ function _getToursDepartureCities() {
             _yield$makeCall = _context.sent;
             fromCities = _yield$makeCall.fromCities;
             return _context.abrupt("return", fromCities.map(function (_ref) {
-              var rel = _ref.rel,
+              var country = _ref.country,
+                  countryId = _ref.countryId,
+                  rel = _ref.rel,
                   transport = _ref.transport,
-                  rest = _objectWithoutProperties(_ref, ["rel", "transport"]);
+                  rest = _objectWithoutProperties(_ref, ["country", "countryId", "rel", "transport"]);
 
               return _objectSpread(_objectSpread({}, rest), {}, {
+                country: {
+                  id: countryId,
+                  name: country
+                },
                 names: {
                   rd: rel
                 },

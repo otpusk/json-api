@@ -35,7 +35,7 @@ function _getToursDates() {
             return (0, _fn.makeCall)({
               endpoint: _config.ENDPOINTS.dates,
               query: _objectSpread(_objectSpread({}, token), options),
-              ttl: [7, 'days']
+              ttl: [2, 'hour']
             });
 
           case 2:
