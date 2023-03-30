@@ -50,6 +50,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         code = input.vid,
         _input$u = input.u,
         currency = _input$u === void 0 ? null : _input$u,
+        _input$ul = input.ul,
+        currencyLocal = _input$ul === void 0 ? null : _input$ul,
         currencyRate = input.ur,
         updateTime = input.last;
     /* travel insurance for TPG */
@@ -91,6 +93,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         uah: oldPriceUah
       }, currency, oldPriceCurrency) : undefined,
       currency: currency,
+      currencyLocal: currencyLocal,
       discountPrice: (0, _parsers.parseDiscountPrice)(input),
       stopsale: stopsale,
       transport: transport,
