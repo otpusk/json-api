@@ -48,6 +48,7 @@ export const offerSchema = new schema.Entity(
                 to: flights,
                 vid: code,
                 u: currency = null,
+                ul: currencyLocal = null,
                 ur: currencyRate,
                 last: updateTime,
             } = input;
@@ -84,6 +85,7 @@ export const offerSchema = new schema.Entity(
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
                 currency,
+                currencyLocal,
                 discountPrice:      parseDiscountPrice(input),
                 stopsale,
                 transport,
