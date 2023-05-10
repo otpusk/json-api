@@ -40,7 +40,6 @@ function _getToursOperators() {
         _yield$makeCall,
         _yield$makeCall$opera,
         raw,
-        operators,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -62,26 +61,17 @@ function _getToursOperators() {
             _yield$makeCall = _context.sent;
             _yield$makeCall$opera = _yield$makeCall.operators;
             raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
-            operators = Object.values(raw).map(function (_ref) {
-              var active = _ref.active,
-                  currencies = _ref.currencies,
-                  id = _ref.id,
-                  name = _ref.name,
-                  url = _ref.url,
-                  transports = _ref.transports;
-              return {
-                active: active,
-                id: id,
-                name: name,
-                url: url,
-                currencyRates: currencies,
-                logo: (0, _dictionary.getOperatorLogoById)(id),
-                transports: transports
-              };
-            });
-            return _context.abrupt("return", operators);
+            return _context.abrupt("return", R.call(R.pipe(R.values, R.map(function (operator) {
+              var _operator$offer_ttl;
 
-          case 9:
+              return R.mergeAll([R.pick(['active', 'id', 'name', 'url', 'transports'], operator), {
+                currencyRates: operator.currencies,
+                logo: (0, _dictionary.getOperatorLogoById)(operator.id),
+                offerTTLAsMinutes: (_operator$offer_ttl = operator.offer_ttl) !== null && _operator$offer_ttl !== void 0 ? _operator$offer_ttl : undefined
+              }]);
+            })), raw));
+
+          case 8:
           case "end":
             return _context.stop();
         }

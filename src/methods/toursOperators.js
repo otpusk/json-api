@@ -17,17 +17,20 @@ export async function getToursOperators (token, countryId, options = {}, methodV
         },
         ttl: [2, 'hour'],
     });
-    const operators = Object
-        .values(raw)
-        .map(({ active, currencies, id, name, url, transports }) => ({
-            active,
-            id,
-            name,
-            url,
-            currencyRates: currencies,
-            logo:          getOperatorLogoById(id),
-            transports,
-        }));
 
-    return operators;
+
+    return R.call(
+        R.pipe(
+            R.values,
+            R.map((operator) => R.mergeAll([
+                R.pick(['active', 'id', 'name', 'url', 'transports'], operator),
+                {
+                    currencyRates:     operator.currencies,
+                    logo:              getOperatorLogoById(operator.id),
+                    offerTTLAsMinutes: operator.offer_ttl ?? undefined,
+                }
+            ]))
+        ),
+        raw
+    );
 }
