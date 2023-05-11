@@ -144,6 +144,7 @@ export const fullOfferSchema = new schema.Entity(
                 updateTime,
                 people,
                 duration: nightsInHotel,
+                priceOperator,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -176,6 +177,7 @@ export const fullOfferSchema = new schema.Entity(
                 operator,
                 room:     { id: roomId, name: roomName, type: roomType },
                 price:    parseFullOfferPrice(input),
+                priceOperator,
                 oldPrice: oldPriceUah && oldPriceCurrency
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
