@@ -51,6 +51,7 @@ export const offerSchema = new schema.Entity(
                 ul: currencyLocal = null,
                 ur: currencyRate,
                 last: updateTime,
+                pto: priceOperator
             } = input;
 
             /* travel insurance for TPG */
@@ -84,6 +85,7 @@ export const offerSchema = new schema.Entity(
                 oldPrice: oldPriceCurrency && oldPriceUah
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
+                priceOperator,
                 currency,
                 currencyLocal,
                 discountPrice:      parseDiscountPrice(input),
