@@ -53,7 +53,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         _input$ul = input.ul,
         currencyLocal = _input$ul === void 0 ? null : _input$ul,
         currencyRate = input.ur,
-        updateTime = input.last;
+        updateTime = input.last,
+        priceOperator = input.pto;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -92,6 +93,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       oldPrice: oldPriceCurrency && oldPriceUah ? _defineProperty({
         uah: oldPriceUah
       }, currency, oldPriceCurrency) : undefined,
+      priceByOperator: _defineProperty({}, currency, priceOperator),
       currency: currency,
       currencyLocal: currencyLocal,
       discountPrice: (0, _parsers.parseDiscountPrice)(input),
@@ -151,7 +153,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         additional = _input$additional === void 0 ? [] : _input$additional,
         updateTime = input.updateTime,
         people = input.people,
-        nightsInHotel = input.duration;
+        nightsInHotel = input.duration,
+        priceOperator = input.priceOperator;
     var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
@@ -188,6 +191,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         type: roomType
       },
       price: (0, _parsers.parseFullOfferPrice)(input),
+      priceByOperator: _defineProperty({}, currency, priceOperator),
       oldPrice: oldPriceUah && oldPriceCurrency ? _defineProperty({
         uah: oldPriceUah
       }, currency, oldPriceCurrency) : undefined,
