@@ -51,6 +51,7 @@ export const offerSchema = new schema.Entity(
                 ul: currencyLocal = null,
                 ur: currencyRate,
                 last: updateTime,
+                pto: priceOperator
             } = input;
 
             /* travel insurance for TPG */
@@ -84,6 +85,9 @@ export const offerSchema = new schema.Entity(
                 oldPrice: oldPriceCurrency && oldPriceUah
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
+                priceByOperator: {
+                    [currency]: priceOperator,
+                },
                 currency,
                 currencyLocal,
                 discountPrice:      parseDiscountPrice(input),
@@ -144,6 +148,7 @@ export const fullOfferSchema = new schema.Entity(
                 updateTime,
                 people,
                 duration: nightsInHotel,
+                priceOperator,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -176,6 +181,9 @@ export const fullOfferSchema = new schema.Entity(
                 operator,
                 room:     { id: roomId, name: roomName, type: roomType },
                 price:    parseFullOfferPrice(input),
+                priceByOperator: {
+                    [currency]: priceOperator,
+                },
                 oldPrice: oldPriceUah && oldPriceCurrency
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
