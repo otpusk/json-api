@@ -85,7 +85,7 @@ export const offerSchema = new schema.Entity(
                 oldPrice: oldPriceCurrency && oldPriceUah
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
-                priceOperator: {
+                priceByOperator: {
                     [currency]: priceOperator,
                 },
                 currency,
@@ -181,7 +181,7 @@ export const fullOfferSchema = new schema.Entity(
                 operator,
                 room:     { id: roomId, name: roomName, type: roomType },
                 price:    parseFullOfferPrice(input),
-                priceOperator: {
+                priceByOperator: {
                     [currency]: priceOperator,
                 },
                 oldPrice: oldPriceUah && oldPriceCurrency
