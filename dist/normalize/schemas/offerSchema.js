@@ -151,7 +151,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         additional = _input$additional === void 0 ? [] : _input$additional,
         updateTime = input.updateTime,
         people = input.people,
-        nightsInHotel = input.duration;
+        nightsInHotel = input.duration,
+        hash = input.objectId;
     var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
@@ -202,7 +203,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       additionalPayments: additional,
       currencyRate: currencyRate,
       updateTime: updateTime,
-      people: (0, _parsers.parsePeople)(people, childAgesArray)
+      people: (0, _parsers.parsePeople)(people, childAgesArray),
+      hash: hash
     }, promo && promo);
 
     return entity;
