@@ -46,6 +46,7 @@ export const offerSchema = new schema.Entity(
                 ss: stopsale,
                 t: transport,
                 to: flights,
+                tn: informationOfCrossTour,
                 vid: code,
                 u: currency = null,
                 ul: currencyLocal = null,
@@ -100,6 +101,8 @@ export const offerSchema = new schema.Entity(
                 currencyRate,
                 updateTime,
                 people:             parsePeople(people, childAgesArray),
+                isCrossTour:        includes.includes('crosstour'),
+                informationOfCrossTour,
                 ...promo && promo,
             };
 
@@ -150,6 +153,7 @@ export const fullOfferSchema = new schema.Entity(
                 duration: nightsInHotel,
                 objectId: hash,
                 priceOperator,
+                tour: informationOfCrossTour,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -201,6 +205,8 @@ export const fullOfferSchema = new schema.Entity(
                 updateTime,
                 people:             parsePeople(people, childAgesArray),
                 hash,
+                isCrossTour:        includes.includes('crosstour'),
+                informationOfCrossTour,
                 ...promo && promo,
             };
 

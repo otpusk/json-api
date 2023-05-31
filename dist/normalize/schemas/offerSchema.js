@@ -47,6 +47,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         stopsale = input.ss,
         transport = input.t,
         flights = input.to,
+        informationOfCrossTour = input.tn,
         code = input.vid,
         _input$u = input.u,
         currency = _input$u === void 0 ? null : _input$u,
@@ -105,7 +106,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       additionalPayments: [],
       currencyRate: currencyRate,
       updateTime: updateTime,
-      people: (0, _parsers.parsePeople)(people, childAgesArray)
+      people: (0, _parsers.parsePeople)(people, childAgesArray),
+      isCrossTour: includes.includes('crosstour'),
+      informationOfCrossTour: informationOfCrossTour
     }, promo && promo);
 
     return entity;
@@ -155,7 +158,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         people = input.people,
         nightsInHotel = input.duration,
         hash = input.objectId,
-        priceOperator = input.priceOperator;
+        priceOperator = input.priceOperator,
+        informationOfCrossTour = input.tour;
     var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
@@ -208,7 +212,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       currencyRate: currencyRate,
       updateTime: updateTime,
       people: (0, _parsers.parsePeople)(people, childAgesArray),
-      hash: hash
+      hash: hash,
+      isCrossTour: includes.includes('crosstour'),
+      informationOfCrossTour: informationOfCrossTour
     }, promo && promo);
 
     return entity;
