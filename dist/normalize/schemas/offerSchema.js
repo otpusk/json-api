@@ -55,7 +55,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         currencyLocal = _input$ul === void 0 ? null : _input$ul,
         currencyRate = input.ur,
         updateTime = input.last,
-        priceOperator = input.pto;
+        priceOperator = input.pto,
+        _input$subOperator = input.subOperator,
+        subOperator = _input$subOperator === void 0 ? null : _input$subOperator;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -64,7 +66,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
 
     var promo = (0, _parsers.parsePromo)(promoValue);
 
-    var entity = _objectSpread({
+    var entity = _objectSpread(_objectSpread({
       id: String(id),
       code: code,
       date: date,
@@ -109,7 +111,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       people: (0, _parsers.parsePeople)(people, childAgesArray),
       isCrossTour: includes.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
-    }, promo && promo);
+    }, promo && promo), {}, {
+      subOperator: subOperator
+    });
 
     return entity;
   }
@@ -159,7 +163,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         nightsInHotel = input.duration,
         hash = input.objectId,
         priceOperator = input.priceOperator,
-        informationOfCrossTour = input.tour;
+        informationOfCrossTour = input.tour,
+        _input$subOperator2 = input.subOperator,
+        subOperator = _input$subOperator2 === void 0 ? null : _input$subOperator2;
     var currencyRate = rateByOperator || rateByNBU;
     /* travel insurance for TPG */
 
@@ -169,7 +175,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
 
     var promo = (0, _parsers.parsePromo)(promoValue);
 
-    var entity = _objectSpread({
+    var entity = _objectSpread(_objectSpread({
       id: String(id),
       code: code,
       date: date,
@@ -215,7 +221,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       hash: hash,
       isCrossTour: includes.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
-    }, promo && promo);
+    }, promo && promo), {}, {
+      subOperator: subOperator
+    });
 
     return entity;
   }
