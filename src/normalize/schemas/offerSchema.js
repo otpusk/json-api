@@ -153,13 +153,14 @@ export const fullOfferSchema = new schema.Entity(
                 updateTime,
                 people,
                 duration: nightsInHotel,
-                objectId: hash,
+                bron_url: bronURL = '',
                 priceOperator,
                 tour: informationOfCrossTour,
                 subOperator = null,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
+            const [hash] = bronURL.split('|');
 
             /* travel insurance for TPG */
             if (operator === 2700) {
