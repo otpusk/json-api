@@ -53,7 +53,7 @@ export const offerSchema = new schema.Entity(
                 ur: currencyRate,
                 last: updateTime,
                 pto: priceOperator,
-                subOperator = null,
+                so: subOperator = null,
             } = input;
 
             /* travel insurance for TPG */

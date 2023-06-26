@@ -68,8 +68,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         currencyRate = input.ur,
         updateTime = input.last,
         priceOperator = input.pto,
-        _input$subOperator = input.subOperator,
-        subOperator = _input$subOperator === void 0 ? null : _input$subOperator;
+        _input$so = input.so,
+        subOperator = _input$so === void 0 ? null : _input$so;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -177,8 +177,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         bronURL = _input$bron_url === void 0 ? '' : _input$bron_url,
         priceOperator = input.priceOperator,
         informationOfCrossTour = input.tour,
-        _input$subOperator2 = input.subOperator,
-        subOperator = _input$subOperator2 === void 0 ? null : _input$subOperator2;
+        _input$subOperator = input.subOperator,
+        subOperator = _input$subOperator === void 0 ? null : _input$subOperator;
     var currencyRate = rateByOperator || rateByNBU;
 
     var _bronURL$split = bronURL.split('|'),
