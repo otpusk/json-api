@@ -68,8 +68,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         currencyRate = input.ur,
         updateTime = input.last,
         priceOperator = input.pto,
-        _input$so = input.so,
-        subOperator = _input$so === void 0 ? null : _input$so;
+        _input$os = input.os,
+        subOperator = _input$os === void 0 ? null : _input$os;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
