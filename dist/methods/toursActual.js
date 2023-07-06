@@ -49,6 +49,7 @@ function _getToursActual() {
             _context.next = 3;
             return (0, _fn.makeCall)({
               endpoint: _config.ENDPOINTS.actual,
+              timeout: 40000,
               query: _objectSpread(_objectSpread({}, token), {}, {
                 offerId: offerId,
                 people: people,

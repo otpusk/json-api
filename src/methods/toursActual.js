@@ -7,7 +7,9 @@ import { offerSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
 export async function getToursActual (token, offerId, people, currency = 'uah') {
-    const { code, offer: denormalizedOffer, message } = await makeCall({ endpoint: ENDPOINTS.actual,
+    const { code, offer: denormalizedOffer, message } = await makeCall({
+        endpoint: ENDPOINTS.actual,
+        timeout:  40000,
         query:    {
             ...token,
             offerId,
