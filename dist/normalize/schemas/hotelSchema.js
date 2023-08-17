@@ -57,7 +57,8 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
         value = input.value,
         image = input.image,
         reviews = input.reviews,
-        services = input.services;
+        services = input.services,
+        secondaryStars = input.starsAdd;
 
     var entity = _objectSpread(_objectSpread({}, input), {}, {
       id: String(id),
@@ -72,7 +73,8 @@ var hotelShortSchema = new _normalizr.schema.Entity('hotel', {}, {
       city: cityId,
       services: services ? services.split(',') : null,
       type: 'hotel',
-      hotelCode: code
+      hotelCode: code,
+      secondaryStars: (0, _parsers.parseSecondaryStars)(stars, secondaryStars)
     });
 
     return entity;
@@ -221,7 +223,7 @@ var hotelSchema = new _normalizr.schema.Entity('hotel', {
       searchCurrency: searchCurrency
     };
     var optional = {
-      secondaryStars: secondaryStars ? Number(secondaryStars) : undefined
+      secondaryStars: (0, _parsers.parseSecondaryStars)(_typeof(stars) === 'object' ? stars.n : stars, _typeof(secondaryStars) === 'object' ? secondaryStars.n : secondaryStars)
     };
     entity = (0, _fn.mergeDefinedObjectValues)(entity, optional);
 

@@ -14,7 +14,8 @@ import {
     parseHotelVideos,
     parseBadges,
     parseOfferPrice,
-    parseFullOfferPrice
+    parseFullOfferPrice,
+    parseSecondaryStars
 } from '../parsers';
 import { offerSchema } from './offerSchema';
 import { mergeDefinedObjectValues } from '../../fn';
@@ -37,23 +38,25 @@ export const hotelShortSchema = new schema.Entity(
                 image,
                 reviews,
                 services,
+                starsAdd: secondaryStars,
             } = input;
 
             const entity = {
                 ...input,
-                id:        String(id),
-                name:      value ? value : name,
-                price:     parsePrice(input),
-                stars:     parseStars(stars),
-                rating:    Number(rating),
-                reviews:   Number(reviews),
-                photos:    image ? [image] : [],
-                location:  parseLocation(input),
-                country:   countryId ? String(countryId) : null,
-                city:      cityId,
-                services:  services ? services.split(',') : null,
-                type:      'hotel',
-                hotelCode: code,
+                id:             String(id),
+                name:           value ? value : name,
+                price:          parsePrice(input),
+                stars:          parseStars(stars),
+                rating:         Number(rating),
+                reviews:        Number(reviews),
+                photos:         image ? [image] : [],
+                location:       parseLocation(input),
+                country:        countryId ? String(countryId) : null,
+                city:           cityId,
+                services:       services ? services.split(',') : null,
+                type:           'hotel',
+                hotelCode:      code,
+                secondaryStars: parseSecondaryStars(stars, secondaryStars),
             };
 
             return entity;
@@ -203,7 +206,10 @@ export const hotelSchema = new schema.Entity(
             };
 
             const optional = {
-                secondaryStars: secondaryStars ? Number(secondaryStars) : undefined,
+                secondaryStars: parseSecondaryStars(
+                    typeof stars === 'object' ? stars.n : stars,
+                    typeof secondaryStars === 'object' ? secondaryStars.n : secondaryStars
+                ),
             };
 
             entity = mergeDefinedObjectValues(entity, optional);

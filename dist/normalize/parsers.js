@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parsePeople = exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parseFullOfferPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
+exports.parsePeople = exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseSecondaryStars = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parseFullOfferPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -282,13 +282,25 @@ var parseStars = function parseStars(input) {
       return parseInt(String(input).replace(/\D/, ''), 10);
   }
 };
+
+exports.parseStars = parseStars;
+
+var parseSecondaryStars = function parseSecondaryStars(stars, secondaryStars) {
+  var parsedSecondaryStars = secondaryStars ? parseStars(secondaryStars) : undefined;
+
+  if (parsedSecondaryStars) {
+    return parseStars(stars) !== parsedSecondaryStars ? parsedSecondaryStars : undefined;
+  }
+
+  return undefined;
+};
 /**
  *
  * @param {object} input
  */
 
 
-exports.parseStars = parseStars;
+exports.parseSecondaryStars = parseSecondaryStars;
 
 var parseSearchMeta = function parseSearchMeta(input, query) {
   var _input$searchOperator = input.searchOperators,

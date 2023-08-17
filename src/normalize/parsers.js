@@ -151,6 +151,20 @@ export const parseStars = (input) => {
     }
 };
 
+export const parseSecondaryStars = (stars, secondaryStars) => {
+    const parsedSecondaryStars = secondaryStars
+        ? parseStars(secondaryStars)
+        : undefined;
+
+    if (parsedSecondaryStars) {
+        return parseStars(stars) !== parsedSecondaryStars
+            ? parsedSecondaryStars
+            : undefined;
+    }
+
+    return undefined;
+};
+
 /**
  *
  * @param {object} input
