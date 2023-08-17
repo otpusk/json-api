@@ -69,7 +69,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         updateTime = input.last,
         priceOperator = input.pto,
         _input$os = input.os,
-        subOperator = _input$os === void 0 ? null : _input$os;
+        subOperator = _input$os === void 0 ? null : _input$os,
+        _input$gds = input.gds,
+        isTransportGDS = _input$gds === void 0 ? false : _input$gds;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
@@ -124,7 +126,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       isCrossTour: includes.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
     }, promo && promo), {}, {
-      subOperator: subOperator
+      subOperator: subOperator,
+      isTransportGDS: isTransportGDS
     });
 
     return entity;
@@ -178,7 +181,9 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         priceOperator = input.priceOperator,
         informationOfCrossTour = input.tour,
         _input$subOperator = input.subOperator,
-        subOperator = _input$subOperator === void 0 ? null : _input$subOperator;
+        subOperator = _input$subOperator === void 0 ? null : _input$subOperator,
+        _input$transportGDS = input.transportGDS,
+        isTransportGDS = _input$transportGDS === void 0 ? false : _input$transportGDS;
     var currencyRate = rateByOperator || rateByNBU;
 
     var _bronURL$split = bronURL.split('|'),
@@ -240,7 +245,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       isCrossTour: includes.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
     }, promo && promo), {}, {
-      subOperator: subOperator
+      subOperator: subOperator,
+      isTransportGDS: isTransportGDS
     });
 
     return entity;

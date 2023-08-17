@@ -54,6 +54,7 @@ export const offerSchema = new schema.Entity(
                 last: updateTime,
                 pto: priceOperator,
                 os: subOperator = null,
+                gds: isTransportGDS = false,
             } = input;
 
             /* travel insurance for TPG */
@@ -106,6 +107,7 @@ export const offerSchema = new schema.Entity(
                 informationOfCrossTour,
                 ...promo && promo,
                 subOperator,
+                isTransportGDS,
             };
 
             return entity;
@@ -157,6 +159,7 @@ export const fullOfferSchema = new schema.Entity(
                 priceOperator,
                 tour: informationOfCrossTour,
                 subOperator = null,
+                transportGDS: isTransportGDS = false,
             } = input;
 
             const currencyRate = rateByOperator || rateByNBU;
@@ -213,6 +216,7 @@ export const fullOfferSchema = new schema.Entity(
                 informationOfCrossTour,
                 ...promo && promo,
                 subOperator,
+                isTransportGDS,
             };
 
             return entity;
