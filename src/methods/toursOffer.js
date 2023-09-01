@@ -1,19 +1,35 @@
-// Core
 import { normalize } from 'normalizr';
+import { always, call, mergeLeft, pipe, when } from 'ramda';
 
-// Instruments
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 import { fullOfferSchema } from '../normalize/schemas';
 
-export async function getToursOffer (token, offerId, fresh, currency) {
-    const { offer: denormalizedOffer } = await makeCall({ endpoint: ENDPOINTS.offer,
-        query:    {
-            offerId,
-            ...token,
-            ...currency ? { currencyLocal: currency } : {},
-        },
-        ttl: fresh ? null : [30, 'minutes']});
+const addCurrency = (currencyLocal) => when(
+    always(currencyLocal),
+    mergeLeft({ currencyLocal })
+);
+
+const addLang = (lang) => when(
+    always(lang),
+    mergeLeft({ lang })
+);
+
+export async function getToursOffer (token, offerId, fresh, currency, lang) {
+    const { offer: denormalizedOffer } = await makeCall({
+        endpoint: ENDPOINTS.offer,
+        query:    call(
+            pipe(
+                mergeLeft(token),
+                addCurrency(currency),
+                addLang(lang)
+            ),
+            { offerId }
+        ),
+        ttl: fresh
+            ? null
+            : [30, 'minutes'],
+    });
 
     const { entities: { offer: offers }, result } = normalize(denormalizedOffer, fullOfferSchema);
 
