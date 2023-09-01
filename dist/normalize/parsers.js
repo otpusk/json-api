@@ -7,6 +7,8 @@ exports.parsePeople = exports.parseChildrenAges = exports.parsePromo = exports.p
 
 var _immutable = require("immutable");
 
+var _ramda = require("ramda");
+
 var _fn = require("../fn");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -141,41 +143,41 @@ var parseSeats = function parseSeats(seats) {
   }
 };
 
+var parsePortDetails = function parsePortDetails(details) {
+  return {
+    city: {
+      id: details.cityId,
+      name: details.cityName
+    },
+    country: {
+      id: details.countryId,
+      name: details.countryName
+    },
+    name: details.name,
+    timezone: details.timezone
+  };
+};
+
 var parseFlights = function parseFlights(input) {
   var _input$from = input.from,
       outbound = _input$from === void 0 ? [] : _input$from,
       _input$to = input.to,
       inbound = _input$to === void 0 ? [] : _input$to;
-  return (0, _immutable.Map)({
+  return (0, _ramda.call)((0, _ramda.pipe)(_ramda.toPairs, (0, _ramda.map)(function (_ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
+        type = _ref5[0],
+        flights = _ref5[1];
+
+    return [type, (0, _ramda.map)((0, _ramda.pipe)((0, _ramda.over)((0, _ramda.lensProp)('seats'), function (seats) {
+      return {
+        label: parseSeats(seats),
+        value: seats
+      };
+    }), (0, _ramda.over)((0, _ramda.lensProp)('portFrDetails'), (0, _ramda.ifElse)(Boolean, parsePortDetails, (0, _ramda.always)(null))), (0, _ramda.over)((0, _ramda.lensProp)('portToDetails'), (0, _ramda.ifElse)(Boolean, parsePortDetails, (0, _ramda.always)(null)))), flights)];
+  }), _ramda.fromPairs), {
     outbound: outbound,
     inbound: inbound
-  }).map(function (flights) {
-    return Array.isArray(flights) ? flights : Object.values(flights);
-  }).map(function (flights) {
-    return (0, _immutable.List)(flights).map(function (flight) {
-      return (0, _immutable.Map)(flight).update('seats', function (seats) {
-        return {
-          label: parseSeats(seats),
-          value: seats
-        };
-      });
-    }).filter(function (_ref4) {
-      var seats = _ref4.seats;
-      return seats !== null;
-    }).sort(function (_ref5, _ref6) {
-      var a = _ref5.additional;
-      var b = _ref6.additional;
-
-      var _map = [a, b].map(function (value) {
-        return value ? 1 : 0;
-      }),
-          _map2 = _slicedToArray(_map, 2),
-          indexA = _map2[0],
-          indexB = _map2[1];
-
-      return indexA - indexB;
-    });
-  }).toJS();
+  });
 };
 
 exports.parseFlights = parseFlights;
@@ -337,10 +339,10 @@ var parseSearchMeta = function parseSearchMeta(input, query) {
 exports.parseSearchMeta = parseSearchMeta;
 
 var parseHotelVideos = function parseHotelVideos(raw) {
-  return raw && Array.isArray(raw) ? raw.map(function (_ref8) {
-    var thumbnail = _ref8.thumbnail,
-        id = _ref8.videoId,
-        code = _ref8.code;
+  return raw && Array.isArray(raw) ? raw.map(function (_ref7) {
+    var thumbnail = _ref7.thumbnail,
+        id = _ref7.videoId,
+        code = _ref7.code;
 
     var getProvider = function getProvider(iframe) {
       if (iframe.match(new RegExp('(youtu.|youtube.)'))) {
@@ -365,15 +367,15 @@ var parseHotelVideos = function parseHotelVideos(raw) {
 exports.parseHotelVideos = parseHotelVideos;
 
 var parseBadges = function parseBadges(raw) {
-  return Object.entries(raw).filter(function (_ref9) {
-    var _ref10 = _slicedToArray(_ref9, 2),
-        badge = _ref10[1];
+  return Object.entries(raw).filter(function (_ref8) {
+    var _ref9 = _slicedToArray(_ref8, 2),
+        badge = _ref9[1];
 
     return Boolean(badge);
-  }).map(function (_ref11) {
-    var _ref12 = _slicedToArray(_ref11, 2),
-        area = _ref12[0],
-        badge = _ref12[1];
+  }).map(function (_ref10) {
+    var _ref11 = _slicedToArray(_ref10, 2),
+        area = _ref11[0],
+        badge = _ref11[1];
 
     return _objectSpread({
       area: area

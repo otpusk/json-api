@@ -1,4 +1,5 @@
-import { Map, List, mergeWith } from 'immutable';
+import { Map, mergeWith } from 'immutable';
+import { always, call, fromPairs, ifElse, lensProp, over, map, pipe, toPairs } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
 
@@ -65,22 +66,50 @@ const parseSeats = (seats) => {
     }
 };
 
+const parsePortDetails = (details) => ({
+    city: {
+        id:   details.cityId,
+        name: details.cityName,
+    },
+    country: {
+        id:   details.countryId,
+        name: details.countryName,
+    },
+    name:     details.name,
+    timezone: details.timezone,
+});
+
 export const parseFlights = (input) => {
     const { from: outbound = [], to: inbound = []} = input;
 
-    return Map({ outbound, inbound })
-        .map((flights) => Array.isArray(flights) ? flights : Object.values(flights))
-        .map((flights) => List(flights)
-            .map((flight) => Map(flight).update('seats', (seats) =>
-                ({ label: parseSeats(seats), value: seats })))
-            .filter(({ seats }) => seats !== null)
-            .sort(({ additional: a }, { additional: b }) => {
-                const [indexA, indexB] = [a, b].map((value) => value ? 1 : 0);
+    return call(
+        pipe(
+            toPairs,
+            map(([type, flights]) => [
+                type,
+                map(
+                    pipe(
+                        over(
+                            lensProp('seats'),
+                            (seats) => ({ label: parseSeats(seats), value: seats })
+                        ),
+                        over(
+                            lensProp('portFrDetails'),
+                            ifElse(Boolean, parsePortDetails, always(null))
+                        ),
+                        over(
+                            lensProp('portToDetails'),
+                            ifElse(Boolean, parsePortDetails, always(null))
+                        )
+                    ),
+                    flights
+                )
+            ]),
+            fromPairs
 
-                return indexA - indexB;
-            })
-        )
-        .toJS();
+        ),
+        { outbound, inbound }
+    );
 };
 
 export const parseLocation = (input) => {
