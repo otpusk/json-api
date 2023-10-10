@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.OPERATORS = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
+exports.TOUR_OPTIONS = exports.OPERATORS = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
 var DEPARTURE_CITIES = [{
   "id": 1925,
   "name": "Белая Церковь",
@@ -374,3 +374,12 @@ var OPERATORS = [{
   name: 'Indiana Travel'
 }];
 exports.OPERATORS = OPERATORS;
+var TOUR_OPTIONS = {
+  GALA_DINNER: 'gala',
+  REQUIREMENT_GALA_DINNER: 'galaCompulsory',
+  INSURANCE: 'insurance',
+  TRANSFER: 'transfer',
+  VISA: 'visa',
+  NOT_NEED_VISA: 'notNeedVisa'
+};
+exports.TOUR_OPTIONS = TOUR_OPTIONS;

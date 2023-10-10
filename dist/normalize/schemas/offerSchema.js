@@ -7,6 +7,8 @@ exports.fullOfferSchema = exports.offerSchema = void 0;
 
 var _normalizr = require("normalizr");
 
+var _normalizers = require("../normalizers");
+
 var _parsers = require("../parsers");
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -49,7 +51,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         food = input.f,
         foodFullName = input.fn,
         departure = input.c,
-        includes = input.o,
+        tourOptions = input.o,
         operator = input.oi,
         roomName = input.r,
         roomId = input.ri,
@@ -75,7 +77,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
     /* travel insurance for TPG */
 
     if (operator === 2700) {
-      includes.push('travelinsurance');
+      tourOptions.push('travelinsurance');
     }
 
     var promo = (0, _parsers.parsePromo)(promoValue);
@@ -94,12 +96,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       food: food,
       foodFullName: foodFullName,
       departure: departure,
-      includes: includes,
-      requirements: ['visa', 'insurance', 'transfer'].filter(function (s) {
-        return !(includes.includes('notNeedVisa') && s === 'visa');
-      }).filter(function (s) {
-        return includes.indexOf(s) === -1;
-      }),
+      includes: (0, _normalizers.excludeRequirementTourOptions)(tourOptions),
+      requirements: (0, _normalizers.normalizeRequiremenets)(tourOptions),
       operator: operator,
       room: {
         id: roomId,
@@ -123,7 +121,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       currencyRate: currencyRate,
       updateTime: updateTime,
       people: (0, _parsers.parsePeople)(people, childAgesArray),
-      isCrossTour: includes.includes('crosstour'),
+      isCrossTour: tourOptions.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
     }, promo && promo), {}, {
       subOperator: subOperator,
@@ -152,7 +150,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
         food = input.food,
         foodFullName = input.foodName,
         departure = input.fromCity,
-        includes = input.tourOptions,
+        tourOptions = input.tourOptions,
         operator = input.operatorId,
         roomName = input.room,
         roomId = input.roomId,
@@ -193,7 +191,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
 
 
     if (operator === 2700) {
-      includes.push('travelinsurance');
+      tourOptions.push('travelinsurance');
     }
 
     var promo = (0, _parsers.parsePromo)(promoValue);
@@ -212,12 +210,8 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       food: food,
       foodFullName: foodFullName,
       departure: departure,
-      includes: includes,
-      requirements: ['visa', 'insurance', 'transfer'].filter(function (s) {
-        return !(includes.includes('notNeedVisa') && s === 'visa');
-      }).filter(function (s) {
-        return includes.indexOf(s) === -1;
-      }),
+      includes: (0, _normalizers.excludeRequirementTourOptions)(tourOptions),
+      requirements: (0, _normalizers.normalizeRequiremenets)(tourOptions),
       operator: operator,
       room: {
         id: roomId,
@@ -242,7 +236,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       updateTime: updateTime,
       people: (0, _parsers.parsePeople)(people, childAgesArray),
       hash: hash,
-      isCrossTour: includes.includes('crosstour'),
+      isCrossTour: tourOptions.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
     }, promo && promo), {}, {
       subOperator: subOperator,

@@ -456,3 +456,12 @@ export const OPERATORS = [
         name:   'Indiana Travel',
     }
 ];
+
+export const TOUR_OPTIONS = {
+    GALA_DINNER:             'gala',
+    REQUIREMENT_GALA_DINNER: 'galaCompulsory',
+    INSURANCE:               'insurance',
+    TRANSFER:                'transfer',
+    VISA:                    'visa',
+    NOT_NEED_VISA:           'notNeedVisa',
+};

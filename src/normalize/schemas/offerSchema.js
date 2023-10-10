@@ -1,8 +1,6 @@
-
-// Core
 import { schema } from 'normalizr';
 
-// Instruments
+import { excludeRequirementTourOptions, normalizeRequiremenets } from '../normalizers';
 import {
     parseFullOfferPrice,
     parseOfferPrice,
@@ -36,7 +34,7 @@ export const offerSchema = new schema.Entity(
                 f: food,
                 fn: foodFullName,
                 c: departure,
-                o: includes,
+                o: tourOptions,
                 oi: operator,
                 r: roomName,
                 ri: roomId,
@@ -59,7 +57,7 @@ export const offerSchema = new schema.Entity(
 
             /* travel insurance for TPG */
             if (operator === 2700) {
-                includes.push('travelinsurance');
+                tourOptions.push('travelinsurance');
             }
 
             const promo = parsePromo(promoValue);
@@ -78,14 +76,12 @@ export const offerSchema = new schema.Entity(
                 food,
                 foodFullName,
                 departure,
-                includes,
-                requirements: ['visa', 'insurance', 'transfer']
-                    .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
-                    .filter((s) => includes.indexOf(s) === -1),
+                includes:     excludeRequirementTourOptions(tourOptions),
+                requirements: normalizeRequiremenets(tourOptions),
                 operator,
-                room:     { id: roomId, name: roomName, type: roomType },
-                price:    parseOfferPrice(input),
-                oldPrice: oldPriceCurrency && oldPriceUah
+                room:         { id: roomId, name: roomName, type: roomType },
+                price:        parseOfferPrice(input),
+                oldPrice:     oldPriceCurrency && oldPriceUah
                     ? { uah: oldPriceUah, [currency]: oldPriceCurrency }
                     : undefined,
                 priceByOperator: {
@@ -103,7 +99,7 @@ export const offerSchema = new schema.Entity(
                 currencyRate,
                 updateTime,
                 people:             parsePeople(people, childAgesArray),
-                isCrossTour:        includes.includes('crosstour'),
+                isCrossTour:        tourOptions.includes('crosstour'),
                 informationOfCrossTour,
                 ...promo && promo,
                 subOperator,
@@ -134,7 +130,7 @@ export const fullOfferSchema = new schema.Entity(
                 food,
                 foodName: foodFullName,
                 fromCity: departure,
-                tourOptions: includes,
+                tourOptions,
                 operatorId: operator,
                 room: roomName,
                 roomId,
@@ -167,29 +163,27 @@ export const fullOfferSchema = new schema.Entity(
 
             /* travel insurance for TPG */
             if (operator === 2700) {
-                includes.push('travelinsurance');
+                tourOptions.push('travelinsurance');
             }
 
             const promo = parsePromo(promoValue);
 
             const entity = {
-                id:           String(id),
+                id:              String(id),
                 code,
                 date,
-                days:         length,
-                nights:       length - 1,
+                days:            length,
+                nights:          length - 1,
                 nightsInHotel,
-                adults:       Number(adults),
+                adults:          Number(adults),
                 children,
-                childrenAge:  childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
-                childrenAges: parseChildrenAges(childAgesArray),
+                childrenAge:     childrenAge ? childrenAge.replace(/^\((\d+-\d+)\).*/g, '$1').replace('0-', '1-') : '1-16',
+                childrenAges:    parseChildrenAges(childAgesArray),
                 food,
                 foodFullName,
                 departure,
-                includes,
-                requirements: ['visa', 'insurance', 'transfer']
-                    .filter((s) => !(includes.includes('notNeedVisa') && s === 'visa'))
-                    .filter((s) => includes.indexOf(s) === -1),
+                includes:        excludeRequirementTourOptions(tourOptions),
+                requirements:    normalizeRequiremenets(tourOptions),
                 operator,
                 room:            { id: roomId, name: roomName, type: roomType },
                 price:           parseFullOfferPrice(input),
@@ -212,7 +206,7 @@ export const fullOfferSchema = new schema.Entity(
                 updateTime,
                 people:             parsePeople(people, childAgesArray),
                 hash,
-                isCrossTour:        includes.includes('crosstour'),
+                isCrossTour:        tourOptions.includes('crosstour'),
                 informationOfCrossTour,
                 ...promo && promo,
                 subOperator,
