@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parsePeople = exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseSecondaryStars = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parseFullOfferPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
+exports.parseSubOperator = exports.parsePeople = exports.parseChildrenAges = exports.parsePromo = exports.parseBadges = exports.parseHotelVideos = exports.parseSearchMeta = exports.parseSecondaryStars = exports.parseStars = exports.parseCity = exports.parseCountry = exports.parseHotelGeo = exports.parseNames = exports.parseLocation = exports.parseFlights = exports.parseDiscountPrice = exports.parseFullOfferPrice = exports.parseOfferPrice = exports.parsePrice = void 0;
 
 var _immutable = require("immutable");
 
@@ -433,3 +433,19 @@ var parsePeople = function parsePeople(people) {
 };
 
 exports.parsePeople = parsePeople;
+
+var parseSubOperator = function parseSubOperator(subOperator) {
+  return (0, _ramda.call)((0, _ramda.ifElse)(_ramda.isEmpty, function () {
+    return {
+      code: null,
+      name: null
+    };
+  }, function (mbStringOrObject) {
+    return typeof operator === 'string' ? {
+      code: mbStringOrObject,
+      name: null
+    } : mbStringOrObject;
+  }), subOperator);
+};
+
+exports.parseSubOperator = parseSubOperator;

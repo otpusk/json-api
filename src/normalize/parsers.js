@@ -1,5 +1,5 @@
 import { Map, mergeWith } from 'immutable';
-import { always, call, fromPairs, ifElse, lensProp, over, map, pipe, toPairs } from 'ramda';
+import { always, call, fromPairs, ifElse, lensProp, over, map, pipe, toPairs, when, isEmpty } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
 
@@ -291,3 +291,14 @@ export const parsePeople = (people, childAgesArray = []) => ({
         .map(Number),
     childrenAgesRange: childAgesArray.map((range) => ({ from: range[0], to: range[1] })),
 });
+
+export const parseSubOperator = (subOperator) => call(
+    ifElse(
+        (data) => !data || isEmpty(data),
+        () => ({ code: null, name: null }),
+        (data) => typeof data === 'string'
+            ? { code: data, name: null }
+            : data
+    ),
+    subOperator
+);

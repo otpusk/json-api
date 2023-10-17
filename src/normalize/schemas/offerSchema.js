@@ -8,7 +8,8 @@ import {
     parseDiscountPrice,
     parsePromo,
     parseChildrenAges,
-    parsePeople
+    parsePeople,
+    parseSubOperator
 } from '../parsers';
 
 export const offerSchema = new schema.Entity(
@@ -51,7 +52,7 @@ export const offerSchema = new schema.Entity(
                 ur: currencyRate,
                 last: updateTime,
                 pto: priceOperator,
-                os: subOperator = null,
+                os: subOperator = {},
                 gds: isTransportGDS = false,
             } = input;
 
@@ -102,7 +103,7 @@ export const offerSchema = new schema.Entity(
                 isCrossTour:        tourOptions.includes('crosstour'),
                 informationOfCrossTour,
                 ...promo && promo,
-                subOperator,
+                subOperator:        parseSubOperator(subOperator),
                 isTransportGDS,
             };
 
@@ -154,7 +155,7 @@ export const fullOfferSchema = new schema.Entity(
                 bron_url: bronURL = '',
                 priceOperator,
                 tour: informationOfCrossTour,
-                subOperator = null,
+                subOperator = {},
                 transportGDS: isTransportGDS = false,
             } = input;
 
@@ -209,7 +210,7 @@ export const fullOfferSchema = new schema.Entity(
                 isCrossTour:        tourOptions.includes('crosstour'),
                 informationOfCrossTour,
                 ...promo && promo,
-                subOperator,
+                subOperator:        parseSubOperator(subOperator),
                 isTransportGDS,
             };
 
