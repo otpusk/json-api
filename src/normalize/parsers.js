@@ -194,10 +194,6 @@ export const parseSecondaryStars = (stars, secondaryStars) => {
     return undefined;
 };
 
-/**
- *
- * @param {object} input
- */
 export const parseSearchMeta = (input, query) => {
     const {
         searchOperators = {},
@@ -293,12 +289,9 @@ export const parsePeople = (people, childAgesArray = []) => ({
 });
 
 export const parseSubOperator = (subOperator) => call(
-    ifElse(
+    when(
         (data) => !data || isEmpty(data),
-        () => ({ code: null, name: null }),
-        (data) => typeof data === 'string'
-            ? { code: data, name: null }
-            : data
+        () => ({ code: null, name: null })
     ),
     subOperator
 );

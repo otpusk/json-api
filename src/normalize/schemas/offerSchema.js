@@ -52,7 +52,7 @@ export const offerSchema = new schema.Entity(
                 ur: currencyRate,
                 last: updateTime,
                 pto: priceOperator,
-                os: subOperator = {},
+                os: subOperator,
                 gds: isTransportGDS = false,
             } = input;
 
@@ -155,7 +155,7 @@ export const fullOfferSchema = new schema.Entity(
                 bron_url: bronURL = '',
                 priceOperator,
                 tour: informationOfCrossTour,
-                subOperator = {},
+                subOperator,
                 transportGDS: isTransportGDS = false,
             } = input;
 

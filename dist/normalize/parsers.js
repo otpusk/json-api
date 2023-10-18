@@ -296,11 +296,6 @@ var parseSecondaryStars = function parseSecondaryStars(stars, secondaryStars) {
 
   return undefined;
 };
-/**
- *
- * @param {object} input
- */
-
 
 exports.parseSecondaryStars = parseSecondaryStars;
 
@@ -435,16 +430,13 @@ var parsePeople = function parsePeople(people) {
 exports.parsePeople = parsePeople;
 
 var parseSubOperator = function parseSubOperator(subOperator) {
-  return (0, _ramda.call)((0, _ramda.ifElse)(_ramda.isEmpty, function () {
+  return (0, _ramda.call)((0, _ramda.when)(function (data) {
+    return !data || (0, _ramda.isEmpty)(data);
+  }, function () {
     return {
       code: null,
       name: null
     };
-  }, function (mbStringOrObject) {
-    return typeof operator === 'string' ? {
-      code: mbStringOrObject,
-      name: null
-    } : mbStringOrObject;
   }), subOperator);
 };
 
