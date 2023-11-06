@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
 
-import { excludeRequirementTourOptions, normalizeRequiremenets } from '../normalizers';
+import { applyTimeZoneToDate, excludeRequirementTourOptions, normalizeRequiremenets } from '../normalizers';
 import {
     parseFullOfferPrice,
     parseOfferPrice,
@@ -11,6 +11,11 @@ import {
     parsePeople,
     parseSubOperator
 } from '../parsers';
+
+const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
+    updateTime,
+    'YYYY-MM-DD HH:mm:ss'
+);
 
 export const offerSchema = new schema.Entity(
     'offer',
@@ -98,7 +103,7 @@ export const offerSchema = new schema.Entity(
                 hotelId,
                 additionalPayments: [],
                 currencyRate,
-                updateTime,
+                updateTime:         applyTimeZoneToOfferUpdateTime(updateTime),
                 people:             parsePeople(people, childAgesArray),
                 isCrossTour:        tourOptions.includes('crosstour'),
                 informationOfCrossTour,
@@ -204,7 +209,7 @@ export const fullOfferSchema = new schema.Entity(
                 hotelId,
                 additionalPayments: additional,
                 currencyRate,
-                updateTime,
+                updateTime:         applyTimeZoneToOfferUpdateTime(updateTime),
                 people:             parsePeople(people, childAgesArray),
                 hash,
                 isCrossTour:        tourOptions.includes('crosstour'),

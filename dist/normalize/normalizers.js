@@ -3,15 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.excludeRequirementTourOptions = exports.normalizeRequiremenets = exports.normalizeOffer = void 0;
+exports.applyTimeZoneToDate = exports.excludeRequirementTourOptions = exports.normalizeRequiremenets = exports.normalizeOffer = void 0;
 
 var _normalizr = require("normalizr");
 
 var _ramda = require("ramda");
 
+var _moment = _interopRequireDefault(require("moment"));
+
 var _schemas = require("./schemas");
 
 var _static = require("../static");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var normalizeOffer = function normalizeOffer(denormalizedOffer) {
   var _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema),
@@ -46,3 +50,9 @@ var excludeRequirementTourOptions = function excludeRequirementTourOptions(tourO
 };
 
 exports.excludeRequirementTourOptions = excludeRequirementTourOptions;
+
+var applyTimeZoneToDate = function applyTimeZoneToDate(date, outerFormat) {
+  return (0, _moment.default)(date).format(outerFormat);
+};
+
+exports.applyTimeZoneToDate = applyTimeZoneToDate;

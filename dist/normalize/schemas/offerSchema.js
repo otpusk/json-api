@@ -29,6 +29,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var applyTimeZoneToOfferUpdateTime = function applyTimeZoneToOfferUpdateTime(updateTime) {
+  return (0, _normalizers.applyTimeZoneToDate)(updateTime, 'YYYY-MM-DD HH:mm:ss');
+};
+
 var offerSchema = new _normalizr.schema.Entity('offer', {}, {
   idAttribute: function idAttribute(_ref) {
     var i = _ref.i;
@@ -118,7 +122,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       hotelId: hotelId,
       additionalPayments: [],
       currencyRate: currencyRate,
-      updateTime: updateTime,
+      updateTime: applyTimeZoneToOfferUpdateTime(updateTime),
       people: (0, _parsers.parsePeople)(people, childAgesArray),
       isCrossTour: tourOptions.includes('crosstour'),
       informationOfCrossTour: informationOfCrossTour
@@ -231,7 +235,7 @@ var fullOfferSchema = new _normalizr.schema.Entity('offer', {}, {
       hotelId: hotelId,
       additionalPayments: additional,
       currencyRate: currencyRate,
-      updateTime: updateTime,
+      updateTime: applyTimeZoneToOfferUpdateTime(updateTime),
       people: (0, _parsers.parsePeople)(people, childAgesArray),
       hash: hash,
       isCrossTour: tourOptions.includes('crosstour'),

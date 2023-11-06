@@ -1,5 +1,6 @@
-import { normalize } from "normalizr";
+import { normalize } from 'normalizr';
 import { append, call, curryN, filter, includes, pipe } from 'ramda';
+import moment from 'moment';
 
 import { offerSchema } from "./schemas";
 import { TOUR_OPTIONS } from '../static';
@@ -50,4 +51,8 @@ export const excludeRequirementTourOptions = (tourOptions) => {
         (option) => !requirementOptions.has(option),
         tourOptions
     );
+};
+
+export const applyTimeZoneToDate = (date, outerFormat) => {
+    return moment(date).format(outerFormat);
 };
