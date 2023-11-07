@@ -55,7 +55,7 @@ function _getToursOffer() {
           case 2:
             _yield$makeCall = _context.sent;
             denormalizedOffer = _yield$makeCall.offer;
-            _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.fullOfferSchema), offers = _normalize.entities.offer, result = _normalize.result;
+            _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema), offers = _normalize.entities.offer, result = _normalize.result;
             return _context.abrupt("return", result ? offers[result] : null);
 
           case 6:

@@ -80,11 +80,11 @@ exports.parsePrice = parsePrice;
 var parseOfferPrice = function parseOfferPrice(input) {
   var _ref;
 
-  var p = input.p,
-      pl = input.pl,
-      u = input.u,
-      ul = input.ul;
-  return _ref = {}, _defineProperty(_ref, ul, pl), _defineProperty(_ref, u, p), _ref;
+  var price = input.p,
+      priceLocal = input.pl,
+      currency = input.u,
+      currencyLocal = input.ul;
+  return _ref = {}, _defineProperty(_ref, currencyLocal, priceLocal), _defineProperty(_ref, currency, price), _ref;
 };
 
 exports.parseOfferPrice = parseOfferPrice;

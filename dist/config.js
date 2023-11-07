@@ -11,9 +11,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var API_VERSION = '2.5';
 exports.API_VERSION = API_VERSION;
-var API = _jsCookie.default.get('api-host') || "https://api.otpusk.com/api/".concat(API_VERSION);
+var API_VERSION_2_6 = '2.6';
+
+var apiHostFromCookie = _jsCookie.default.get('api-host');
+
+var API_HOST = 'https://api.otpusk.com/api/';
+var API = apiHostFromCookie || "".concat(API_HOST).concat(API_VERSION);
 var TURPRAVDA = 'https://www.turpravda.com';
-var ENDPOINTS = Object.freeze({
+var ENDPOINTS = {
   static: "".concat(API, "/tours/static"),
   countries: "".concat(API, "/tours/countries"),
   currencyRates: "".concat(API, "/tours/currencyRates"),
@@ -26,8 +31,17 @@ var ENDPOINTS = Object.freeze({
   suggests: "".concat(API, "/tours/suggests"),
   dates: "".concat(API, "/tours/dates"),
   search: "".concat(API, "/tours/search"),
-  offer: "".concat(API, "/tours/offer"),
-  actual: "".concat(API, "/tours/actual"),
+
+  get offer() {
+    var path = '/tours/offer';
+    return apiHostFromCookie ? "".concat(apiHostFromCookie).concat(path) : "".concat(API_HOST).concat(API_VERSION_2_6).concat(path);
+  },
+
+  get actual() {
+    var path = '/tours/actual';
+    return apiHostFromCookie ? "".concat(apiHostFromCookie).concat(path) : "".concat(API_HOST).concat(API_VERSION_2_6).concat(path);
+  },
+
   similar: "".concat(API, "/tours/similars"),
   order: "".concat(API, "/tours/order"),
   departureCities: "".concat(API, "/tours/fromCities"),
@@ -40,7 +54,12 @@ var ENDPOINTS = Object.freeze({
   init: "".concat(API, "/init"),
   cacheValidate: "".concat(API, "/tours/cacheControl"),
   flightPort: "".concat(API, "/tours/port"),
-  nextSearch: "".concat(API, "/tours/getResults"),
+
+  get nextSearch() {
+    var path = '/tours/getResults';
+    return apiHostFromCookie ? "".concat(apiHostFromCookie).concat(path) : "".concat(API_HOST).concat(API_VERSION_2_6).concat(path);
+  },
+
   session: "".concat(API, "/session/json")
-});
+};
 exports.ENDPOINTS = ENDPOINTS;

@@ -3,7 +3,7 @@ import { always, call, mergeLeft, pipe, when } from 'ramda';
 
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
-import { fullOfferSchema } from '../normalize/schemas';
+import { offerSchema } from '../normalize/schemas';
 
 const addCurrency = (currencyLocal) => when(
     always(currencyLocal),
@@ -31,7 +31,7 @@ export async function getToursOffer (token, offerId, fresh, currency, lang) {
             : [30, 'minutes'],
     });
 
-    const { entities: { offer: offers }, result } = normalize(denormalizedOffer, fullOfferSchema);
+    const { entities: { offer: offers }, result } = normalize(denormalizedOffer, offerSchema);
 
     return result ? offers[result] : null;
 }

@@ -1,7 +1,6 @@
 // Core
 import { normalize } from 'normalizr';
 
-// Instruments
 import { makeCall } from '../fn';
 import { offerSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';

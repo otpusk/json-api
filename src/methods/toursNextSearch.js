@@ -13,7 +13,10 @@ export async function getToursNextSearch (token, query) {
         results,
         workProgress: progressMeta,
         ...other
-    } = await makeCall({ endpoint: ENDPOINTS.nextSearch, query: { ...query, ...token }});
+    } = await makeCall({
+        endpoint: ENDPOINTS.nextSearch,
+        query:    { ...query, ...token },
+    });
 
     const result = {};
 
