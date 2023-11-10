@@ -59,7 +59,7 @@ export const offerSchema = new schema.Entity(
                 os: subOperator,
                 gds: isTransportGDS = false,
                 b: bookingUrl,
-                bh: bronURL,
+                bh: bronURL = '',
             } = input;
 
             /* travel insurance for TPG */

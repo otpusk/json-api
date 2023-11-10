@@ -78,7 +78,8 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         _input$gds = input.gds,
         isTransportGDS = _input$gds === void 0 ? false : _input$gds,
         bookingUrl = input.b,
-        bronURL = input.bh;
+        _input$bh = input.bh,
+        bronURL = _input$bh === void 0 ? '' : _input$bh;
     /* travel insurance for TPG */
 
     if (operator === 2700) {
