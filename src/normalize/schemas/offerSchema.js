@@ -58,6 +58,8 @@ export const offerSchema = new schema.Entity(
                 pto: priceOperator,
                 os: subOperator,
                 gds: isTransportGDS = false,
+                b: bookingUrl,
+                bh: bronURL,
             } = input;
 
             /* travel insurance for TPG */
@@ -66,6 +68,7 @@ export const offerSchema = new schema.Entity(
             }
 
             const promo = parsePromo(promoValue);
+            const [hash] = bronURL.split('|');
 
             const entity = {
                 id:           String(id),
@@ -109,6 +112,8 @@ export const offerSchema = new schema.Entity(
                 ...promo && promo,
                 subOperator:        parseSubOperator(subOperator),
                 isTransportGDS,
+                bookingUrl,
+                hash,
             };
 
             return entity;
