@@ -88,9 +88,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
 
     var promo = (0, _parsers.parsePromo)(promoValue);
 
-    var _bronURL$split = bronURL.split('|'),
-        _bronURL$split2 = _slicedToArray(_bronURL$split, 1),
-        hash = _bronURL$split2[0];
+    var _ref2 = bronURL ? bronURL.split('|') : [null],
+        _ref3 = _slicedToArray(_ref2, 1),
+        hash = _ref3[0];
 
     var entity = _objectSpread(_objectSpread({
       id: String(id),

@@ -68,7 +68,7 @@ export const offerSchema = new schema.Entity(
             }
 
             const promo = parsePromo(promoValue);
-            const [hash] = bronURL.split('|');
+            const [hash] = bronURL ? bronURL.split('|') : [null];
 
             const entity = {
                 id:           String(id),
