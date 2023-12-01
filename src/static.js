@@ -464,4 +464,6 @@ export const TOUR_OPTIONS = {
     TRANSFER:                'transfer',
     VISA:                    'visa',
     NOT_NEED_VISA:           'notNeedVisa',
+    HOTEL:                   'hotel',
+    AIR_TICKET:              'air_ticket',
 };
