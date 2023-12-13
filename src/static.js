@@ -464,4 +464,5 @@ export const TOUR_OPTIONS = {
     TRANSFER:                'transfer',
     VISA:                    'visa',
     NOT_NEED_VISA:           'notNeedVisa',
+    NEVER_LAND:              'neverland',
 };

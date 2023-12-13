@@ -380,6 +380,7 @@ var TOUR_OPTIONS = {
   INSURANCE: 'insurance',
   TRANSFER: 'transfer',
   VISA: 'visa',
-  NOT_NEED_VISA: 'notNeedVisa'
+  NOT_NEED_VISA: 'notNeedVisa',
+  NEVER_LAND: 'neverland'
 };
 exports.TOUR_OPTIONS = TOUR_OPTIONS;
