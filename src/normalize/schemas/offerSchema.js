@@ -50,7 +50,7 @@ export const offerSchema = new schema.Entity(
                 t: transport,
                 to: flights,
                 tn: informationOfCrossTour,
-                vid: code,
+                vi: code,
                 u: currency = null,
                 ul: currencyLocal = null,
                 ur: currencyRate,

@@ -66,7 +66,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
         transport = input.t,
         flights = input.to,
         informationOfCrossTour = input.tn,
-        code = input.vid,
+        code = input.vi,
         _input$u = input.u,
         currency = _input$u === void 0 ? null : _input$u,
         _input$ul = input.ul,
