@@ -68,6 +68,7 @@ export const getImageUrl = (part, size = 'medium', watermark = null) => {
         verySmall: `2${watermarkPart}/160x120`,
         small:     `2${watermarkPart}/240x160`,
         medium:    `2${watermarkPart}/320x240`,
+        xMedium:   `2${watermarkPart}/400x300`,
         large:     `3${watermarkPart}/800x600`,
         veryLarge: `3${watermarkPart}/1200x900`,
     };
