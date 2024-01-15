@@ -230,6 +230,10 @@ var CURRENCIES = [{
   code: 'pln',
   label: 'zł',
   symbol: 'zł'
+}, {
+  code: 'czk',
+  label: 'Kč',
+  symbol: 'Kč'
 }];
 exports.CURRENCIES = CURRENCIES;
 var CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {

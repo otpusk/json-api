@@ -277,6 +277,11 @@ export const CURRENCIES = [
         code:   'pln',
         label:  'zł',
         symbol: 'zł',
+    },
+    {
+        code:   'czk',
+        label:  'Kč',
+        symbol: 'Kč',
     }
 ];
 
