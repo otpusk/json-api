@@ -106,7 +106,7 @@ export const offerSchema = new schema.Entity(
                 hotelId,
                 additionalPayments: [],
                 currencyRate,
-                currencyOperatorRate: Number(currencyOperatorRate),
+                currencyOperatorRate,
                 updateTime:         applyTimeZoneToOfferUpdateTime(updateTime),
                 people:             parsePeople(people, childAgesArray),
                 isCrossTour:        tourOptions.includes('crosstour'),
