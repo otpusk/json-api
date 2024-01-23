@@ -60,6 +60,7 @@ var ENDPOINTS = {
     return apiHostFromCookie ? "".concat(apiHostFromCookie).concat(path) : "".concat(API_HOST).concat(API_VERSION_2_6).concat(path);
   },
 
-  session: "".concat(API, "/session/json")
+  session: "".concat(API, "/session/json"),
+  bookServices: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/services")
 };
 exports.ENDPOINTS = ENDPOINTS;

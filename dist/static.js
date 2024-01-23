@@ -385,6 +385,7 @@ var TOUR_OPTIONS = {
   TRANSFER: 'transfer',
   VISA: 'visa',
   NOT_NEED_VISA: 'notNeedVisa',
-  NEVER_LAND: 'neverland'
+  NEVER_LAND: 'neverland',
+  LUGGAGE: 'luggage'
 };
 exports.TOUR_OPTIONS = TOUR_OPTIONS;

@@ -56,5 +56,6 @@ export const ENDPOINTS = {
             : `${API_HOST}${API_VERSION_2_6}${path}`;
 
     },
-    session: `${API}/session/json`,
+    session:      `${API}/session/json`,
+    bookServices: `${API_HOST}${API_VERSION_2_6}/tours/book/services`,
 };
