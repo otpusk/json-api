@@ -11,6 +11,8 @@ var _fn = require("../fn");
 
 var _config = require("../config");
 
+var _static = require("../static");
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -35,13 +37,23 @@ var normalizeBookServices = function normalizeBookServices(services) {
         price_original = _ref.price_original,
         service = _objectWithoutProperties(_ref, ["currency", "currency_original", "price", "price_original"]);
 
-    injectPriceByCurrency(currency, price, {});
-    injectPriceByCurrency(currency_original, price_original, {});
     return (0, _ramda.mergeAll)([service, {
       price: (0, _ramda.call)((0, _ramda.pipe)(injectPriceByCurrency(currency, price), injectPriceByCurrency(currency_original, price_original)), {})
     }]);
   }, services);
 };
+
+var getWeightOfBookingService = function getWeightOfBookingService(service) {
+  var BASE_WEIGHT = 100;
+  var WEIGHT_STEP = 10;
+  var weightOfType = (0, _ramda.call)((0, _ramda.cond)([[(0, _ramda.propEq)(_static.TOUR_OPTIONS.LUGGAGE, 'type'), (0, _ramda.always)(BASE_WEIGHT)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.INSURANCE, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP)], [_ramda.T, (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 2)]]), service);
+  var weightOfPrice = (0, _ramda.isEmpty)(service.price) ? 0 : 1;
+  return (0, _ramda.sum)([weightOfType, weightOfPrice]);
+};
+
+var sortBookingServices = (0, _ramda.sort)(function (a, b) {
+  return getWeightOfBookingService(b) - getWeightOfBookingService(a);
+});
 
 function getToursBookServices(_x, _x2) {
   return _getToursBookServices.apply(this, arguments);
@@ -64,7 +76,7 @@ function _getToursBookServices() {
           case 2:
             _yield$makeCall = _context.sent;
             services = _yield$makeCall.services;
-            return _context.abrupt("return", normalizeBookServices(services));
+            return _context.abrupt("return", (0, _ramda.call)((0, _ramda.pipe)(normalizeBookServices, sortBookingServices), services));
 
           case 5:
           case "end":

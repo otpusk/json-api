@@ -1,7 +1,8 @@
-import { call, curryN, pipe, map, mergeAll } from 'ramda';
+import { always, call, cond, curryN, isEmpty, map, mergeAll, pipe, propEq, sort, sum, T } from 'ramda';
 
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
+import { TOUR_OPTIONS } from '../static';
 
 const injectPriceByCurrency = curryN(3, (currency, price, object) => {
     if (currency && typeof price === 'number') {
@@ -19,9 +20,6 @@ const normalizeBookServices = (services) => map(
         price_original,
         ...service
     }) => {
-        injectPriceByCurrency(currency, price, {});
-        injectPriceByCurrency(currency_original, price_original, {});
-
         return mergeAll([
             service,
             {
@@ -38,6 +36,32 @@ const normalizeBookServices = (services) => map(
     services
 );
 
+const getWeightOfBookingService = (service) => {
+    const BASE_WEIGHT = 100;
+    const WEIGHT_STEP = 10;
+
+    const weightOfType = call(
+        cond([
+            [propEq(TOUR_OPTIONS.LUGGAGE, 'type'), always(BASE_WEIGHT)],
+            [propEq(TOUR_OPTIONS.INSURANCE, 'type'), always(BASE_WEIGHT - WEIGHT_STEP)],
+            [T, always(BASE_WEIGHT - WEIGHT_STEP * 2)]
+        ]),
+        service
+    );
+    const weightOfPrice = isEmpty(service.price)
+        ? 0
+        : 1;
+
+    return sum([
+        weightOfType,
+        weightOfPrice
+    ]);
+};
+
+const sortBookingServices = sort((a, b) => {
+    return getWeightOfBookingService(b) - getWeightOfBookingService(a);
+});
+
 export async function getToursBookServices (tokenAsQuery, query) {
     const { services } = await makeCall({
         endpoint: ENDPOINTS.bookServices,
@@ -45,5 +69,8 @@ export async function getToursBookServices (tokenAsQuery, query) {
     });
 
 
-    return normalizeBookServices(services);
+    return call(
+        pipe(normalizeBookServices, sortBookingServices),
+        services
+    );
 }
