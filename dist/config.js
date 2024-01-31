@@ -61,6 +61,7 @@ var ENDPOINTS = {
   },
 
   session: "".concat(API, "/session/json"),
-  bookServices: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/services")
+  bookServices: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/services"),
+  bookCalculate: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/calculate")
 };
 exports.ENDPOINTS = ENDPOINTS;

@@ -189,6 +189,12 @@ Object.defineProperty(exports, "getToursBookServices", {
     return _toursBookServices.getToursBookServices;
   }
 });
+Object.defineProperty(exports, "getToursBookCalculate", {
+  enumerable: true,
+  get: function get() {
+    return _toursBookCalculate.getToursBookCalculate;
+  }
+});
 
 var _toursSuggests = require("./methods/toursSuggests");
 
@@ -243,3 +249,5 @@ var _static = require("./methods/static");
 var _session = require("./methods/session");
 
 var _toursBookServices = require("./methods/toursBookServices");
+
+var _toursBookCalculate = require("./methods/toursBookCalculate");

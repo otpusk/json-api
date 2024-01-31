@@ -60,13 +60,15 @@ async function parseResponse (response) {
     }
 }
 
-function fetchWithTimeout (request, timeout) {
+function fetchWithTimeout (request, body, method, timeout) {
     return Promise.race([
         fetch(request, {
-            method: 'GET' }),
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(`request to ${request} timed out`)), timeout)
-        )
+            body,
+            method,
+        }),
+        new Promise((_, reject) => {
+            setTimeout(() => reject(new Error(`request to ${request} timed out`)), timeout);
+        })
     ]);
 }
 
@@ -80,14 +82,14 @@ function fetchWithTimeout (request, timeout) {
  *
  * @returns {Promise} Response
  */
-async function makeCall ({ endpoint, query = {}, ttl = null, timeout = 10000, jsonp = false }) {
+async function makeCall ({ body, endpoint, method = 'GET', query = {}, ttl = null, timeout = 10000, jsonp = false }) {
     const request = `${endpoint}?${createQueryStringFromObject(query)}`;
     const cache = new CacheItem(hash(request));
 
     if (await cache.isHit(ttl)) {
-        const body = await cache.get();
+        const cachedValue = await cache.get();
 
-        return body;
+        return cachedValue;
     }
 
     let response = null;
@@ -97,18 +99,18 @@ async function makeCall ({ endpoint, query = {}, ttl = null, timeout = 10000, js
     }
 
     if (!jsonp) {
-        response = await fetchWithTimeout(request, timeout);
+        response = await fetchWithTimeout(request, body, method, timeout);
     }
 
-    const body = await parseResponse(response);
+    const result = await parseResponse(response);
 
     if (ttl) {
-        cache.set(body);
+        cache.set(result);
         cache.expiresAfter(moment.duration(...ttl));
         await cache.save();
     }
 
-    return body;
+    return result;
 }
 
 /**
