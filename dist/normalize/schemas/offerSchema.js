@@ -39,7 +39,9 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
     return String(i);
   },
   processStrategy: function processStrategy(input) {
-    var id = input.i,
+    var _input$ad = input.ad,
+        additionalPayments = _input$ad === void 0 ? [] : _input$ad,
+        id = input.i,
         hotelId = input.hi,
         date = input.d,
         oldPriceUah = input.dpl,
@@ -128,7 +130,7 @@ var offerSchema = new _normalizr.schema.Entity('offer', {}, {
       flights: (0, _parsers.parseFlights)(flights || {}),
       tourId: tourId,
       hotelId: hotelId,
-      additionalPayments: [],
+      additionalPayments: additionalPayments,
       currencyRate: currencyRate,
       currencyOperatorRate: currencyOperatorRate,
       updateTime: applyTimeZoneToOfferUpdateTime(updateTime),
