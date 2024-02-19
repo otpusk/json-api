@@ -46,7 +46,7 @@ var normalizeBookServices = function normalizeBookServices(services) {
 var getWeightOfBookingService = function getWeightOfBookingService(service) {
   var BASE_WEIGHT = 100;
   var WEIGHT_STEP = 10;
-  var weightOfType = (0, _ramda.call)((0, _ramda.cond)([[(0, _ramda.propEq)(_static.TOUR_OPTIONS.LUGGAGE, 'type'), (0, _ramda.always)(BASE_WEIGHT)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.INSURANCE, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP)], [_ramda.T, (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 2)]]), service);
+  var weightOfType = (0, _ramda.call)((0, _ramda.cond)([[(0, _ramda.propEq)(_static.TOUR_OPTIONS.LUGGAGE, 'type'), (0, _ramda.always)(BASE_WEIGHT)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.INSURANCE, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.TRANSFER, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 2)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.PRESTIGE, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 3)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.EXCURSION, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 4)], [(0, _ramda.propEq)(_static.TOUR_OPTIONS.ELSE, 'type'), (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 5)], [_ramda.T, (0, _ramda.always)(BASE_WEIGHT - WEIGHT_STEP * 2)]]), service);
   var weightOfPrice = (0, _ramda.isEmpty)(service.price) ? 0 : 1;
   return (0, _ramda.sum)([weightOfType, weightOfPrice]);
 };

@@ -44,6 +44,10 @@ const getWeightOfBookingService = (service) => {
         cond([
             [propEq(TOUR_OPTIONS.LUGGAGE, 'type'), always(BASE_WEIGHT)],
             [propEq(TOUR_OPTIONS.INSURANCE, 'type'), always(BASE_WEIGHT - WEIGHT_STEP)],
+            [propEq(TOUR_OPTIONS.TRANSFER, 'type'), always(BASE_WEIGHT - WEIGHT_STEP * 2)],
+            [propEq(TOUR_OPTIONS.PRESTIGE, 'type'), always(BASE_WEIGHT - WEIGHT_STEP * 3)],
+            [propEq(TOUR_OPTIONS.EXCURSION, 'type'), always(BASE_WEIGHT - WEIGHT_STEP * 4)],
+            [propEq(TOUR_OPTIONS.ELSE, 'type'), always(BASE_WEIGHT - WEIGHT_STEP * 5)],
             [T, always(BASE_WEIGHT - WEIGHT_STEP * 2)]
         ]),
         service

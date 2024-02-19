@@ -471,4 +471,7 @@ export const TOUR_OPTIONS = {
     NOT_NEED_VISA:           'notNeedVisa',
     NEVER_LAND:              'neverland',
     LUGGAGE:                 'luggage',
+    EXCURSION:               'excursion',
+    PRESTIGE:                'prestige',
+    ELSE:                    'else',
 };
