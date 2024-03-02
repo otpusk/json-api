@@ -7,9 +7,10 @@ export async function getSession (tokenAsQuery) {
         query:    tokenAsQuery,
     });
 
-    const { api_settings: settings } = session;
+    const { api_settings: settings, currencies: availableCurrencies } = session;
 
     return {
+        availableCurrencies,
         defaultDepartureID: settings.osDeptCity,
     };
 }

@@ -19,7 +19,7 @@ function getSession(_x) {
 
 function _getSession() {
   _getSession = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(tokenAsQuery) {
-    var session, settings;
+    var session, settings, availableCurrencies;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -32,8 +32,9 @@ function _getSession() {
 
           case 2:
             session = _context.sent;
-            settings = session.api_settings;
+            settings = session.api_settings, availableCurrencies = session.currencies;
             return _context.abrupt("return", {
+              availableCurrencies: availableCurrencies,
               defaultDepartureID: settings.osDeptCity
             });
 
