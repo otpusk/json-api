@@ -66,10 +66,7 @@ function _getToursDates() {
               }))), rangeAsString);
               return {
                 date: date,
-                range: {
-                  from: (0, _ramda.head)(rangeAsSortedArray),
-                  to: (0, _ramda.last)(rangeAsSortedArray)
-                }
+                range: rangeAsSortedArray
               };
             }, (0, _ramda.toPairs)(denormalizedDates)));
 

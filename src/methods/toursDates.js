@@ -1,4 +1,4 @@
-import { ascend, call, head, last, map, pipe, sort, split, toPairs } from 'ramda';
+import { ascend, call, map, pipe, sort, split, toPairs } from 'ramda';
 
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
@@ -26,10 +26,7 @@ export async function getToursDates (token, options) {
 
             return {
                 date,
-                range: {
-                    from: head(rangeAsSortedArray),
-                    to:   last(rangeAsSortedArray),
-                },
+                range: rangeAsSortedArray,
             };
         },
         toPairs(denormalizedDates)
