@@ -58,7 +58,8 @@ function _getToursNextSearch() {
             _context.next = 2;
             return (0, _fn.makeCall)({
               endpoint: _config.ENDPOINTS.nextSearch,
-              query: _objectSpread(_objectSpread({}, query), token)
+              query: _objectSpread(_objectSpread({}, query), token),
+              timeout: 15000
             });
 
           case 2:

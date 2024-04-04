@@ -16,6 +16,7 @@ export async function getToursNextSearch (token, query) {
     } = await makeCall({
         endpoint: ENDPOINTS.nextSearch,
         query:    { ...query, ...token },
+        timeout:  15000,
     });
 
     const result = {};
