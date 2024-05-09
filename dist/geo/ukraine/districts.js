@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.districts = void 0;
-var districts = [{
+var districts = exports.districts = [{
   id: 1,
   city: 1,
   name: 'Голосеевский'
@@ -45,4 +45,3 @@ var districts = [{
   city: 1,
   name: 'Деснянский'
 }];
-exports.districts = districts;

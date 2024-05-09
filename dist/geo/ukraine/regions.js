@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.regions = void 0;
-var regions = [{
+var regions = exports.regions = [{
   "id": 1000,
   "name": "Винницкая обл."
 }, {
@@ -77,4 +77,3 @@ var regions = [{
   "id": 3400,
   "name": "Черновицкая обл."
 }];
-exports.regions = regions;

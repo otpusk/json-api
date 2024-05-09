@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TOUR_OPTIONS = exports.OPERATORS = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.TRANSPORTS = exports.AVAILABILITY = exports.FOODS = exports.DEPARTURE_CITIES = void 0;
-var DEPARTURE_CITIES = [{
+exports.TRANSPORTS = exports.TOUR_OPTIONS = exports.OPERATORS = exports.FOODS = exports.DEPARTURE_CITIES = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.AVAILABILITY = void 0;
+var DEPARTURE_CITIES = exports.DEPARTURE_CITIES = [{
   "id": 1925,
   "name": "Белая Церковь",
   "rel": "Белой Церкви"
@@ -138,8 +138,7 @@ var DEPARTURE_CITIES = [{
   "name": "Чертков (Чортков)",
   "rel": "Черткова"
 }];
-exports.DEPARTURE_CITIES = DEPARTURE_CITIES;
-var FOODS = [{
+var FOODS = exports.FOODS = [{
   code: 'ob',
   label: 'Без питания'
 }, {
@@ -158,8 +157,7 @@ var FOODS = [{
   code: 'uai',
   label: 'Ультра все включено'
 }];
-exports.FOODS = FOODS;
-var AVAILABILITY = [{
+var AVAILABILITY = exports.AVAILABILITY = [{
   code: 'yes',
   label: 'Есть'
 }, {
@@ -169,8 +167,7 @@ var AVAILABILITY = [{
   code: 'no',
   label: 'Нет'
 }];
-exports.AVAILABILITY = AVAILABILITY;
-var TRANSPORTS = [{
+var TRANSPORTS = exports.TRANSPORTS = [{
   code: 'air',
   label: 'Авиаперелет'
 }, {
@@ -189,8 +186,7 @@ var TRANSPORTS = [{
   code: 'no',
   label: 'Без транспорта'
 }];
-exports.TRANSPORTS = TRANSPORTS;
-var CURRENCIES = [{
+var CURRENCIES = exports.CURRENCIES = [{
   code: 'uah',
   label: 'грн',
   symbol: '₴'
@@ -235,12 +231,10 @@ var CURRENCIES = [{
   label: 'Kč',
   symbol: 'Kč'
 }];
-exports.CURRENCIES = CURRENCIES;
-var CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
+var CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
   return [currency.code, currency];
 }));
-exports.CURRENCIES_MAP = CURRENCIES_MAP;
-var OPERATORS = [{
+var OPERATORS = exports.OPERATORS = [{
   id: 2,
   vendor: 'tztr',
   name: 'TEZ'
@@ -377,8 +371,7 @@ var OPERATORS = [{
   vendor: 'indi',
   name: 'Indiana Travel'
 }];
-exports.OPERATORS = OPERATORS;
-var TOUR_OPTIONS = {
+var TOUR_OPTIONS = exports.TOUR_OPTIONS = {
   GALA_DINNER: 'gala',
   REQUIREMENT_GALA_DINNER: 'galaCompulsory',
   INSURANCE: 'insurance',
@@ -391,4 +384,3 @@ var TOUR_OPTIONS = {
   PRESTIGE: 'prestige',
   ELSE: 'else'
 };
-exports.TOUR_OPTIONS = TOUR_OPTIONS;
