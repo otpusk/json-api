@@ -19,12 +19,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function cacheValidate(_x) {
+function cacheValidate() {
   return _cacheValidate.apply(this, arguments);
 }
 
 function _cacheValidate() {
-  _cacheValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(token) {
+  _cacheValidate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var _yield$makeCall, lastTimeUpdated, hash, cache, result;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -33,8 +33,7 @@ function _cacheValidate() {
           case 0:
             _context.next = 2;
             return (0, _fn.makeCall)({
-              endpoint: _config.ENDPOINTS.cacheValidate,
-              query: token
+              endpoint: _config.ENDPOINTS.cacheValidate
             });
 
           case 2:
