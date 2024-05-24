@@ -4,27 +4,26 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.regionSchema = void 0;
-
 var _normalizr = require("normalizr");
-
 var _parsers = require("../parsers");
-
 // Core
+
 // Instruments
-var regionSchema = new _normalizr.schema.Entity('region', {}, {
+
+var regionSchema = exports.regionSchema = new _normalizr.schema.Entity('region', {}, {
   idAttribute: function idAttribute(_ref) {
     var regionId = _ref.regionId,
-        id = _ref.id;
+      id = _ref.id;
     return String(id || regionId);
   },
   processStrategy: function processStrategy(input) {
     var id = input.id,
-        regionId = input.regionId,
-        deptCities = input.deptCities,
-        _input$IPselected = input.IPselected,
-        IPselected = _input$IPselected === void 0 ? false : _input$IPselected,
-        name = input.name,
-        priority = input.priority;
+      regionId = input.regionId,
+      deptCities = input.deptCities,
+      _input$IPselected = input.IPselected,
+      IPselected = _input$IPselected === void 0 ? false : _input$IPselected,
+      name = input.name,
+      priority = input.priority;
     var entity = {
       id: String(id || regionId),
       name: name,
@@ -37,4 +36,3 @@ var regionSchema = new _normalizr.schema.Entity('region', {}, {
     return entity;
   }
 });
-exports.regionSchema = regionSchema;
