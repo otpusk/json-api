@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getToursBookServices = getToursBookServices;
+exports.prepareBookingServices = void 0;
 
 var _ramda = require("ramda");
 
@@ -55,6 +56,12 @@ var sortBookingServices = (0, _ramda.sort)(function (a, b) {
   return getWeightOfBookingService(b) - getWeightOfBookingService(a);
 });
 
+var prepareBookingServices = function prepareBookingServices(services) {
+  return (0, _ramda.call)((0, _ramda.pipe)(normalizeBookServices, sortBookingServices), services);
+};
+
+exports.prepareBookingServices = prepareBookingServices;
+
 function getToursBookServices(_x, _x2) {
   return _getToursBookServices.apply(this, arguments);
 }
@@ -76,7 +83,7 @@ function _getToursBookServices() {
           case 2:
             _yield$makeCall = _context.sent;
             services = _yield$makeCall.services;
-            return _context.abrupt("return", (0, _ramda.call)((0, _ramda.pipe)(normalizeBookServices, sortBookingServices), services));
+            return _context.abrupt("return", prepareBookingServices(services));
 
           case 5:
           case "end":
