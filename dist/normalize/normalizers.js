@@ -9,7 +9,11 @@ var _ramda = require("ramda");
 var _moment = _interopRequireDefault(require("moment"));
 var _schemas = require("./schemas");
 var _static = require("../static");
+<<<<<<< HEAD
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+=======
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+>>>>>>> task-45137
 var normalizeOffer = exports.normalizeOffer = function normalizeOffer(denormalizedOffer) {
   var _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema),
     offer = _normalize.entities.offer,

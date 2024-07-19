@@ -63,6 +63,7 @@ export const offerSchema = new schema.Entity(
                 b: bookingUrl,
                 bh: bronURL = '',
                 ohn: hotelNameByOperator,
+                bo: booking = null,
             } = input;
 
             /* travel insurance for TPG */
@@ -119,6 +120,7 @@ export const offerSchema = new schema.Entity(
                 bookingUrl,
                 hash,
                 hotelNameByOperator,
+                booking,
             };
 
             return entity;

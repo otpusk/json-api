@@ -66,6 +66,11 @@ const sortBookingServices = sort((a, b) => {
     return getWeightOfBookingService(b) - getWeightOfBookingService(a);
 });
 
+export const prepareBookingServices = (services) => call(
+    pipe(normalizeBookServices, sortBookingServices),
+    services
+);
+
 export async function getToursBookServices (tokenAsQuery, query) {
     const { services } = await makeCall({
         endpoint: ENDPOINTS.bookServices,
@@ -73,8 +78,5 @@ export async function getToursBookServices (tokenAsQuery, query) {
     });
 
 
-    return call(
-        pipe(normalizeBookServices, sortBookingServices),
-        services
-    );
+    return prepareBookingServices(services);
 }
