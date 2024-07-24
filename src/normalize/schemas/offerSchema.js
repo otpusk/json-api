@@ -8,7 +8,8 @@ import {
     parsePromo,
     parseChildrenAges,
     parsePeople,
-    parseSubOperator, parseBookingInfo
+    parseSubOperator,
+    parseBookingInfo
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
