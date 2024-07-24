@@ -8,7 +8,8 @@ import {
     parsePromo,
     parseChildrenAges,
     parsePeople,
-    parseSubOperator
+    parseSubOperator,
+    parseBookingInfo
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
@@ -63,6 +64,7 @@ export const offerSchema = new schema.Entity(
                 b: bookingUrl,
                 bh: bronURL = '',
                 ohn: hotelNameByOperator,
+                bo: bookingInfo,
             } = input;
 
             /* travel insurance for TPG */
@@ -119,6 +121,7 @@ export const offerSchema = new schema.Entity(
                 bookingUrl,
                 hash,
                 hotelNameByOperator,
+                bookingInfo:   bookingInfo ? parseBookingInfo(bookingInfo) : null,
             };
 
             return entity;
