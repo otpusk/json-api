@@ -72,7 +72,8 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       bookingUrl = input.b,
       _input$bh = input.bh,
       bronURL = _input$bh === void 0 ? '' : _input$bh,
-      hotelNameByOperator = input.ohn;
+      hotelNameByOperator = input.ohn,
+      bookingInfo = input.bo;
 
     /* travel insurance for TPG */
     if (operator === 2700) {
@@ -129,7 +130,8 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       isTransportGDS: isTransportGDS,
       bookingUrl: bookingUrl,
       hash: hash,
-      hotelNameByOperator: hotelNameByOperator
+      hotelNameByOperator: hotelNameByOperator,
+      bookingInfo: bookingInfo ? (0, _parsers.parseBookingInfo)(bookingInfo) : null
     });
     return entity;
   }
