@@ -310,19 +310,21 @@ export const parseSubOperator = (subOperator) => call(
     subOperator
 );
 
+export const extractBookingData = applySpec({
+    endDate: prop('date'),
+    allow:   pipe(
+        prop('possible'),
+        Boolean
+    ),
+});
+
 export const createBookingInfoEntity = (bookingInfo, bookingQuota) => {
     if (!bookingInfo && !bookingQuota) {
         return null;
     }
 
     return {
-        ...bookingInfo ? {
-            endDateOfBooking: bookingInfo.date,
-            allow:            Boolean(bookingInfo.possible),
-        } : {},
-        ...bookingQuota ? {
-            endDateOfBookingQuota: bookingQuota.date,
-            allowQuota:            Boolean(bookingQuota.possible),
-        } : {},
+        booking: bookingInfo ? extractBookingData(bookingInfo) : null,
+        quota:   bookingQuota ? extractBookingData(bookingQuota) : null,
     };
 };
