@@ -9,7 +9,7 @@ import {
     parseChildrenAges,
     parsePeople,
     parseSubOperator,
-    createBookingInfoEntity
+    extractBookingData
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
@@ -122,7 +122,8 @@ export const offerSchema = new schema.Entity(
                 bookingUrl,
                 hash,
                 hotelNameByOperator,
-                bookingInfo:   createBookingInfoEntity(bookingInfo, bookingQuota),
+                bookingInfo:   bookingInfo ? extractBookingData(bookingInfo) : null,
+                bookingQuota:  bookingQuota ? extractBookingData(bookingQuota) : null,
             };
 
             return entity;

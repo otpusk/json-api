@@ -317,14 +317,3 @@ export const extractBookingData = applySpec({
         Boolean
     ),
 });
-
-export const createBookingInfoEntity = (bookingInfo, bookingQuota) => {
-    if (!bookingInfo && !bookingQuota) {
-        return null;
-    }
-
-    return {
-        booking: bookingInfo ? extractBookingData(bookingInfo) : null,
-        quota:   bookingQuota ? extractBookingData(bookingQuota) : null,
-    };
-};
