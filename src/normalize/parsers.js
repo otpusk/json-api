@@ -1,5 +1,19 @@
 import { Map, mergeWith } from 'immutable';
-import { always, call, fromPairs, ifElse, lensProp, over, map, pipe, toPairs, when, isEmpty } from 'ramda';
+import {
+    always,
+    call,
+    fromPairs,
+    ifElse,
+    lensProp,
+    over,
+    map,
+    pipe,
+    toPairs,
+    when,
+    isEmpty,
+    applySpec,
+    prop
+} from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
 
@@ -295,3 +309,11 @@ export const parseSubOperator = (subOperator) => call(
     ),
     subOperator
 );
+
+export const parseBookingInfo = applySpec({
+    endDateOfBooking: prop('date'),
+    allow:            pipe(
+        prop('possible'),
+        Boolean
+    ),
+});
