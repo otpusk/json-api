@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBookingInfo = exports.parseBadges = void 0;
+exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractBookingData = void 0;
 var _immutable = require("immutable");
 var _ramda = require("ramda");
 var _fn = require("../fn");
@@ -332,7 +332,7 @@ var parseSubOperator = exports.parseSubOperator = function parseSubOperator(subO
     };
   }), subOperator);
 };
-var parseBookingInfo = exports.parseBookingInfo = (0, _ramda.applySpec)({
-  endDateOfBooking: (0, _ramda.prop)('date'),
+var extractBookingData = exports.extractBookingData = (0, _ramda.applySpec)({
+  endDate: (0, _ramda.prop)('date'),
   allow: (0, _ramda.pipe)((0, _ramda.prop)('possible'), Boolean)
 });
