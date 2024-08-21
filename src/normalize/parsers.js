@@ -310,9 +310,9 @@ export const parseSubOperator = (subOperator) => call(
     subOperator
 );
 
-export const parseBookingInfo = applySpec({
-    endDateOfBooking: prop('date'),
-    allow:            pipe(
+export const extractBookingData = applySpec({
+    endDate: prop('date'),
+    allow:   pipe(
         prop('possible'),
         Boolean
     ),
