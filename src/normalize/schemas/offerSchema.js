@@ -9,7 +9,8 @@ import {
     parseChildrenAges,
     parsePeople,
     parseSubOperator,
-    extractBookingData
+    extractBookingData,
+    scheduleOfPaymentsMapper
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
@@ -66,6 +67,7 @@ export const offerSchema = new schema.Entity(
                 ohn: hotelNameByOperator,
                 bo: bookingInfo,
                 bq: bookingQuota,
+                pm: scheduleOfPayments,
             } = input;
 
             /* travel insurance for TPG */
@@ -103,27 +105,28 @@ export const offerSchema = new schema.Entity(
                 },
                 currency,
                 currencyLocal,
-                discountPrice: parseDiscountPrice(input),
+                discountPrice:      parseDiscountPrice(input),
                 stopsale,
                 transport,
-                flights:       parseFlights(flights || {}),
+                flights:            parseFlights(flights || {}),
                 tourId,
                 hotelId,
                 additionalPayments,
                 currencyRate,
                 currencyOperatorRate,
-                updateTime:    applyTimeZoneToOfferUpdateTime(updateTime),
-                people:        parsePeople(people, childAgesArray),
-                isCrossTour:   tourOptions.includes('crosstour'),
+                updateTime:         applyTimeZoneToOfferUpdateTime(updateTime),
+                people:             parsePeople(people, childAgesArray),
+                isCrossTour:        tourOptions.includes('crosstour'),
                 informationOfCrossTour,
                 ...promo && promo,
-                subOperator:   parseSubOperator(subOperator),
+                subOperator:        parseSubOperator(subOperator),
                 isTransportGDS,
                 bookingUrl,
                 hash,
                 hotelNameByOperator,
-                bookingInfo:   bookingInfo ? extractBookingData(bookingInfo) : null,
-                bookingQuota:  bookingQuota ? extractBookingData(bookingQuota) : null,
+                bookingInfo:        bookingInfo ? extractBookingData(bookingInfo) : null,
+                bookingQuota:       bookingQuota ? extractBookingData(bookingQuota) : null,
+                scheduleOfPayments: scheduleOfPayments ? scheduleOfPaymentsMapper(scheduleOfPayments) : null,
             };
 
             return entity;

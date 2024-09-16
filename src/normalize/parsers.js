@@ -317,3 +317,14 @@ export const extractBookingData = applySpec({
         Boolean
     ),
 });
+
+export const scheduleOfPaymentsMapper = map(
+    applySpec({
+        currency:         prop('currency'),
+        currencyOriginal: prop('currency_original'),
+        price:            prop('price'),
+        priceOriginal:    prop('price_original'),
+        requiredTill:     prop('required_till'),
+        type:             prop('type'),
+    })
+);
