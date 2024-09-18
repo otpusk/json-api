@@ -10,7 +10,7 @@ import {
     parsePeople,
     parseSubOperator,
     extractBookingData,
-    scheduleOfPaymentsMapper, scheduleOfBookingPaymentsMapper
+    scheduleOfBookingPaymentsMapper
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
