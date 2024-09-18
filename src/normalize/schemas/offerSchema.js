@@ -10,7 +10,7 @@ import {
     parsePeople,
     parseSubOperator,
     extractBookingData,
-    scheduleOfPaymentsMapper
+    scheduleOfPaymentsMapper, scheduleOfBookingPaymentsMapper
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
@@ -67,7 +67,7 @@ export const offerSchema = new schema.Entity(
                 ohn: hotelNameByOperator,
                 bo: bookingInfo,
                 bq: bookingQuota,
-                pm: scheduleOfPayments,
+                pm: scheduleOfBookingPayments,
             } = input;
 
             /* travel insurance for TPG */
@@ -126,7 +126,7 @@ export const offerSchema = new schema.Entity(
                 hotelNameByOperator,
                 bookingInfo:        bookingInfo ? extractBookingData(bookingInfo) : null,
                 bookingQuota:       bookingQuota ? extractBookingData(bookingQuota) : null,
-                scheduleOfPayments: scheduleOfPayments ? scheduleOfPaymentsMapper(scheduleOfPayments) : null,
+                scheduleOfPayments: scheduleOfBookingPayments ? scheduleOfBookingPaymentsMapper(scheduleOfBookingPayments) : null,
             };
 
             return entity;
