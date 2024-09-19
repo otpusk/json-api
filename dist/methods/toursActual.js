@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getToursActual = getToursActual;
 var _normalizr = require("normalizr");
+var _ramda = require("ramda");
 var _fn = require("../fn");
 var _schemas = require("../normalize/schemas");
 var _config = require("../config");
@@ -16,7 +17,7 @@ function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; } // Core
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function getToursActual(_x, _x2, _x3) {
   return _getToursActual.apply(this, arguments);
 }
@@ -26,6 +27,7 @@ function _getToursActual() {
       _yield$makeCall,
       code,
       denormalizedOffer,
+      originalHotelName,
       message,
       _ref,
       _ref$entities,
@@ -52,14 +54,17 @@ function _getToursActual() {
           _yield$makeCall = _context.sent;
           code = _yield$makeCall.code;
           denormalizedOffer = _yield$makeCall.offer;
+          originalHotelName = _yield$makeCall.originalHotelName;
           message = _yield$makeCall.message;
           _ref = denormalizedOffer ? (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema) : {}, _ref$entities = _ref.entities, _ref$entities2 = _ref$entities === void 0 ? {} : _ref$entities, _ref$entities2$offer = _ref$entities2.offer, offers = _ref$entities2$offer === void 0 ? null : _ref$entities2$offer, id = _ref.result;
           return _context.abrupt("return", {
             code: code,
-            offer: id ? offers[id] : null,
+            offer: id ? (0, _ramda.mergeAll)([offers[id], {
+              hotelNameByOperator: originalHotelName
+            }]) : null,
             message: message
           });
-        case 9:
+        case 10:
         case "end":
           return _context.stop();
       }
