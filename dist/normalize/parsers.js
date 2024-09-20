@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractBookingData = void 0;
+exports.scheduleOfBookingPaymentsMapper = exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractBookingData = void 0;
 var _immutable = require("immutable");
 var _ramda = require("ramda");
 var _fn = require("../fn");
@@ -336,3 +336,16 @@ var extractBookingData = exports.extractBookingData = (0, _ramda.applySpec)({
   endDate: (0, _ramda.prop)('date'),
   allow: (0, _ramda.pipe)((0, _ramda.prop)('possible'), Boolean)
 });
+var scheduleOfBookingPaymentsMapper = exports.scheduleOfBookingPaymentsMapper = (0, _ramda.map)((0, _ramda.applySpec)({
+  currency: (0, _ramda.prop)('currency'),
+  currencyOriginal: (0, _ramda.prop)('currency_original'),
+  price: function price(_ref12) {
+    var currency = _ref12.currency,
+      _price = _ref12.price,
+      currencyOriginal = _ref12.currency_original,
+      priceOriginal = _ref12.price_original;
+    return _defineProperty(_defineProperty({}, currency, _price), currencyOriginal, priceOriginal);
+  },
+  dueDate: (0, _ramda.prop)('required_till'),
+  type: (0, _ramda.prop)('type')
+}));
