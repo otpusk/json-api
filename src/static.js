@@ -280,8 +280,13 @@ export const CURRENCIES = [
     },
     {
         code:   'czk',
-        label:  'Kč',
-        symbol: 'Kč',
+        label:  'kč',
+        symbol: 'kč',
+    },
+    {
+        code:   'huf',
+        label:  'ft',
+        symbol: 'ft',
     }
 ];
 
