@@ -30,6 +30,7 @@ const normalizeBookServices = (services) => map(
                     ),
                     {}
                 ),
+                source: "operator",
             }
         ]);
     },
