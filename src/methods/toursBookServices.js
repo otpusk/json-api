@@ -30,6 +30,7 @@ const normalizeBookServices = (services) => map(
                     ),
                     {}
                 ),
+                // TODO create constant
                 source: "operator",
             }
         ]);
