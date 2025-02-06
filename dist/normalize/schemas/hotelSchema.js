@@ -223,6 +223,7 @@ var hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', {
         roomDescription = _input$o.ds,
         locationDescription = _input$o.di,
         featuresServices = _input$o.ts,
+        feedbackByAI = _input$o.ai,
         turpravdaRating = input.vs,
         _input$ad = input.ad,
         _input$ad2 = _input$ad === void 0 ? {} : _input$ad,
@@ -277,7 +278,8 @@ var hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', {
           website: website,
           phone: phone
         },
-        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : []
+        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
+        feedbackByAI: feedbackByAI
       });
     }
     return entity;
