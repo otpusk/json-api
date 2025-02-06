@@ -228,8 +228,12 @@ var CURRENCIES = exports.CURRENCIES = [{
   symbol: 'zł'
 }, {
   code: 'czk',
-  label: 'Kč',
-  symbol: 'Kč'
+  label: 'kč',
+  symbol: 'kč'
+}, {
+  code: 'huf',
+  label: 'ft',
+  symbol: 'ft'
 }];
 var CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
   return [currency.code, currency];
@@ -383,5 +387,6 @@ var TOUR_OPTIONS = exports.TOUR_OPTIONS = {
   LUGGAGE_BY_REQUEST: 'luggagerequest',
   EXCURSION: 'excursion',
   PRESTIGE: 'prestige',
-  ELSE: 'else'
+  ELSE: 'else',
+  TRAIN_TRANSFER_TO_AIRPORT: 'trainAirportTransfer'
 };

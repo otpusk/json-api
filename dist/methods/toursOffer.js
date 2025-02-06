@@ -28,7 +28,7 @@ function getToursOffer(_x, _x2, _x3, _x4, _x5) {
 }
 function _getToursOffer() {
   _getToursOffer = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(token, offerId, fresh, currency, lang) {
-    var _yield$makeCall, denormalizedOffer, _normalize, offers, result;
+    var _yield$makeCall, denormalizedOffer, originalHotelName, _normalize, offers, result;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -43,9 +43,12 @@ function _getToursOffer() {
         case 2:
           _yield$makeCall = _context.sent;
           denormalizedOffer = _yield$makeCall.offer;
+          originalHotelName = _yield$makeCall.originalHotelName;
           _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema), offers = _normalize.entities.offer, result = _normalize.result;
-          return _context.abrupt("return", result ? offers[result] : null);
-        case 6:
+          return _context.abrupt("return", result ? (0, _ramda.mergeAll)([offers[result], {
+            hotelNameByOperator: originalHotelName
+          }]) : null);
+        case 7:
         case "end":
           return _context.stop();
       }

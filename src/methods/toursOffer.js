@@ -1,5 +1,5 @@
 import { normalize } from 'normalizr';
-import { always, call, mergeLeft, pipe, when } from 'ramda';
+import { always, call, mergeAll, mergeLeft, pipe, when } from 'ramda';
 
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
@@ -16,7 +16,7 @@ const addLang = (lang) => when(
 );
 
 export async function getToursOffer (token, offerId, fresh, currency, lang) {
-    const { offer: denormalizedOffer } = await makeCall({
+    const { offer: denormalizedOffer, originalHotelName } = await makeCall({
         endpoint: ENDPOINTS.offer,
         query:    call(
             pipe(
@@ -33,5 +33,5 @@ export async function getToursOffer (token, offerId, fresh, currency, lang) {
 
     const { entities: { offer: offers }, result } = normalize(denormalizedOffer, offerSchema);
 
-    return result ? offers[result] : null;
+    return result ? mergeAll([offers[result], { hotelNameByOperator: originalHotelName }]) : null;
 }

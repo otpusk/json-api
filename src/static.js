@@ -280,8 +280,13 @@ export const CURRENCIES = [
     },
     {
         code:   'czk',
-        label:  'Kč',
-        symbol: 'Kč',
+        label:  'kč',
+        symbol: 'kč',
+    },
+    {
+        code:   'huf',
+        label:  'ft',
+        symbol: 'ft',
     }
 ];
 
@@ -463,16 +468,17 @@ export const OPERATORS = [
 ];
 
 export const TOUR_OPTIONS = {
-    GALA_DINNER:             'gala',
-    REQUIREMENT_GALA_DINNER: 'galaCompulsory',
-    INSURANCE:               'insurance',
-    TRANSFER:                'transfer',
-    VISA:                    'visa',
-    NOT_NEED_VISA:           'notNeedVisa',
-    NEVER_LAND:              'neverland',
-    LUGGAGE:                 'luggage',
-    LUGGAGE_BY_REQUEST:      'luggagerequest',
-    EXCURSION:               'excursion',
-    PRESTIGE:                'prestige',
-    ELSE:                    'else',
+    GALA_DINNER:               'gala',
+    REQUIREMENT_GALA_DINNER:   'galaCompulsory',
+    INSURANCE:                 'insurance',
+    TRANSFER:                  'transfer',
+    VISA:                      'visa',
+    NOT_NEED_VISA:             'notNeedVisa',
+    NEVER_LAND:                'neverland',
+    LUGGAGE:                   'luggage',
+    LUGGAGE_BY_REQUEST:        'luggagerequest',
+    EXCURSION:                 'excursion',
+    PRESTIGE:                  'prestige',
+    ELSE:                      'else',
+    TRAIN_TRANSFER_TO_AIRPORT: 'trainAirportTransfer',
 };

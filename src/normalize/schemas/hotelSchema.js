@@ -231,6 +231,7 @@ export const hotelSchema = new schema.Entity(
                         ds: roomDescription,
                         di: locationDescription,
                         ts: featuresServices,
+                        ai: feedbackByAI,
                     },
                     vs: turpravdaRating,
                     ad: {
@@ -266,6 +267,7 @@ export const hotelSchema = new schema.Entity(
                     rooms,
                     contacts:        { address, email, website, phone },
                     turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
+                    feedbackByAI,
                 });
             }
 
