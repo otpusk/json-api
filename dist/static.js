@@ -388,5 +388,6 @@ var TOUR_OPTIONS = exports.TOUR_OPTIONS = {
   EXCURSION: 'excursion',
   PRESTIGE: 'prestige',
   ELSE: 'else',
-  TRAIN_TRANSFER_TO_AIRPORT: 'trainAirportTransfer'
+  TRAIN_TRANSFER_TO_AIRPORT: 'trainAirportTransfer',
+  TARIFF: 'tariff'
 };
