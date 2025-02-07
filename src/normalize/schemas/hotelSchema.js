@@ -15,7 +15,7 @@ import {
     parseBadges,
     parseOfferPrice,
     parseFullOfferPrice,
-    parseSecondaryStars
+    parseSecondaryStars, descriptionByAIMapper
 } from '../parsers';
 import { offerSchema } from './offerSchema';
 import { mergeDefinedObjectValues } from '../../fn';
@@ -231,7 +231,7 @@ export const hotelSchema = new schema.Entity(
                         ds: roomDescription,
                         di: locationDescription,
                         ts: featuresServices,
-                        ai: feedbackByAI,
+                        ai: descriptionByAI,
                     },
                     vs: turpravdaRating,
                     ad: {
@@ -267,7 +267,12 @@ export const hotelSchema = new schema.Entity(
                     rooms,
                     contacts:        { address, email, website, phone },
                     turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
-                    feedbackByAI,
+                    descriptionByAI: descriptionByAI
+                        ? {
+                            original: descriptionByAI,
+                            data:     descriptionByAIMapper(descriptionByAI),
+                        }
+                        : null,
                 });
             }
 
