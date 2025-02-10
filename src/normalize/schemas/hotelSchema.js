@@ -268,12 +268,10 @@ export const hotelSchema = new schema.Entity(
                     rooms,
                     contacts:        { address, email, website, phone },
                     turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
-                    descriptionByAI: descriptionByAI
-                        ? {
-                            original: descriptionByAI,
-                            data:     descriptionByAIMapper(descriptionByAI),
-                        }
-                        : null,
+                    descriptionByAI: {
+                        original: descriptionByAI ?? null,
+                        data:     descriptionByAI ? descriptionByAIMapper(descriptionByAI) : null,
+                    },
                 });
             }
 
@@ -414,12 +412,10 @@ export const hotelNextSchema = new schema.Entity(
                     rooms,
                     contacts:        { address, email, website, phone },
                     turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
-                    descriptionByAI: descriptionByAI
-                        ? {
-                            original: descriptionByAI,
-                            data:     descriptionByAIMapper(descriptionByAI),
-                        }
-                        : null,
+                    descriptionByAI: {
+                        original: descriptionByAI ?? null,
+                        data:     descriptionByAI ? descriptionByAIMapper(descriptionByAI) : null,
+                    },
                 });
             }
 
