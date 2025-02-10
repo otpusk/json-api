@@ -223,6 +223,7 @@ var hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', {
         roomDescription = _input$o.ds,
         locationDescription = _input$o.di,
         featuresServices = _input$o.ts,
+        descriptionByAI = _input$o.ai,
         turpravdaRating = input.vs,
         _input$ad = input.ad,
         _input$ad2 = _input$ad === void 0 ? {} : _input$ad,
@@ -277,7 +278,11 @@ var hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', {
           website: website,
           phone: phone
         },
-        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : []
+        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
+        descriptionByAI: {
+          original: descriptionByAI !== null && descriptionByAI !== void 0 ? descriptionByAI : null,
+          data: descriptionByAI ? (0, _parsers.descriptionByAIMapper)(descriptionByAI) : null
+        }
       });
     }
     return entity;
@@ -377,6 +382,7 @@ var hotelNextSchema = exports.hotelNextSchema = new _normalizr.schema.Entity('ho
         roomDescription = _input$o2.ds,
         locationDescription = _input$o2.di,
         featuresServices = _input$o2.ts,
+        descriptionByAI = _input$o2.ai,
         turpravdaRating = input.vs,
         _input$ad3 = input.ad,
         _input$ad4 = _input$ad3 === void 0 ? {} : _input$ad3,
@@ -431,7 +437,11 @@ var hotelNextSchema = exports.hotelNextSchema = new _normalizr.schema.Entity('ho
           website: website,
           phone: phone
         },
-        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : []
+        turpravdaRating: turpravdaRating ? Object.values(turpravdaRating) : [],
+        descriptionByAI: {
+          original: descriptionByAI !== null && descriptionByAI !== void 0 ? descriptionByAI : null,
+          data: descriptionByAI ? (0, _parsers.descriptionByAIMapper)(descriptionByAI) : null
+        }
       });
     }
     return entity;
