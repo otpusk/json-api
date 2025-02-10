@@ -12,7 +12,16 @@ import {
     when,
     isEmpty,
     applySpec,
-    prop
+    prop,
+    split,
+    filter,
+    head,
+    trim,
+    tail,
+    all,
+    startsWith,
+    slice,
+    join
 } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
@@ -335,4 +344,34 @@ export const scheduleOfBookingPaymentsMapper = map(
         dueDate: prop('required_till'),
         type:    prop('type'),
     })
+);
+
+const CATEGORIES_SEPARATOR = '###';
+const CONTENT_ITEM_SEPARATOR = /\r?\n/;
+const LIST_ITEM_PREFIX = '- ';
+
+const prepareTitle = pipe(
+    head,
+    trim
+);
+const prepareContent = pipe(
+    tail,
+    ifElse(
+        all(startsWith(LIST_ITEM_PREFIX)),
+        map(slice(2, Infinity)),
+        join(' ')
+    )
+);
+
+export const descriptionByAIMapper = pipe(
+    split(CATEGORIES_SEPARATOR),
+    filter(Boolean),
+    map(pipe(
+        split(CONTENT_ITEM_SEPARATOR),
+        filter(Boolean),
+        applySpec({
+            title:   prepareTitle,
+            content: prepareContent,
+        })
+    ))
 );
