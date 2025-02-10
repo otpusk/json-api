@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.scheduleOfBookingPaymentsMapper = exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractBookingData = void 0;
+exports.scheduleOfBookingPaymentsMapper = exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractBookingData = exports.descriptionByAIMapper = void 0;
 var _immutable = require("immutable");
 var _ramda = require("ramda");
 var _fn = require("../fn");
@@ -349,3 +349,12 @@ var scheduleOfBookingPaymentsMapper = exports.scheduleOfBookingPaymentsMapper = 
   dueDate: (0, _ramda.prop)('required_till'),
   type: (0, _ramda.prop)('type')
 }));
+var CATEGORIES_SEPARATOR = '###';
+var CONTENT_ITEM_SEPARATOR = /\r?\n/;
+var LIST_ITEM_PREFIX = '- ';
+var prepareTitle = (0, _ramda.pipe)(_ramda.head, _ramda.trim);
+var prepareContent = (0, _ramda.pipe)(_ramda.tail, (0, _ramda.ifElse)((0, _ramda.all)((0, _ramda.startsWith)(LIST_ITEM_PREFIX)), (0, _ramda.map)((0, _ramda.slice)(2, Infinity)), (0, _ramda.join)(' ')));
+var descriptionByAIMapper = exports.descriptionByAIMapper = (0, _ramda.pipe)((0, _ramda.split)(CATEGORIES_SEPARATOR), (0, _ramda.filter)(Boolean), (0, _ramda.map)((0, _ramda.pipe)((0, _ramda.split)(CONTENT_ITEM_SEPARATOR), (0, _ramda.filter)(Boolean), (0, _ramda.applySpec)({
+  title: prepareTitle,
+  content: prepareContent
+}))));
