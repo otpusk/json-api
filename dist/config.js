@@ -42,14 +42,13 @@ var ENDPOINTS = exports.ENDPOINTS = {
   hotTour: "".concat(API, "/tours/hotTour"),
   operators: "".concat(API, "/tours/operators"),
   validate: "".concat(API, "/tours/validate"),
-  init: "".concat(API, "/init"),
+  init: "".concat(API, "/init/json"),
   cacheValidate: "".concat(API, "/tours/cacheControl"),
   flightPort: "".concat(API, "/tours/port"),
   get nextSearch() {
     var path = '/tours/getResults';
     return apiHostFromCookie ? "".concat(apiHostFromCookie).concat(path) : "".concat(API_HOST).concat(API_VERSION_2_6).concat(path);
   },
-  session: "".concat(API, "/session/json"),
   bookServices: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/services"),
   bookCalculate: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/calculate")
 };
