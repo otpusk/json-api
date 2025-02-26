@@ -45,7 +45,7 @@ export const ENDPOINTS = {
     hotTour:            `${API}/tours/hotTour`,
     operators:          `${API}/tours/operators`,
     validate:           `${API}/tours/validate`,
-    init:               `${API}/init`,
+    init:               `${API}/init/json`,
     cacheValidate:      `${API}/tours/cacheControl`,
     flightPort:         `${API}/tours/port`,
     get nextSearch () {
@@ -56,7 +56,6 @@ export const ENDPOINTS = {
             : `${API_HOST}${API_VERSION_2_6}${path}`;
 
     },
-    session:       `${API}/session/json`,
     bookServices:  `${API_HOST}${API_VERSION_2_6}/tours/book/services`,
     bookCalculate: `${API_HOST}${API_VERSION_2_6}/tours/book/calculate`,
 };

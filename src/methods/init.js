@@ -1,11 +1,13 @@
-// Instruments
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 
 export async function getInit (token) {
-    const { gmapkey } = await makeCall({ endpoint: ENDPOINTS.init, token });
+    const response = await makeCall({ endpoint: ENDPOINTS.init, query: token });
 
-    return { apis: {
-        googleMap: gmapkey || null
-    }};
-};
+    const { api_settings: settings, currencies: availableCurrencies } = response;
+
+    return {
+        availableCurrencies,
+        defaultDepartureID: settings.osDeptCity,
+    };
+}

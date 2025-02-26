@@ -15,12 +15,6 @@ Object.defineProperty(exports, "getInit", {
     return _init.getInit;
   }
 });
-Object.defineProperty(exports, "getSession", {
-  enumerable: true,
-  get: function get() {
-    return _session.getSession;
-  }
-});
 Object.defineProperty(exports, "getStaticData", {
   enumerable: true,
   get: function get() {
@@ -220,6 +214,5 @@ var _init = require("./methods/init");
 var _toursCacheValidate = require("./methods/toursCacheValidate");
 var _toursFlightPort = require("./methods/toursFlightPort");
 var _static = require("./methods/static");
-var _session = require("./methods/session");
 var _toursBookServices = require("./methods/toursBookServices");
 var _toursBookCalculate = require("./methods/toursBookCalculate");
