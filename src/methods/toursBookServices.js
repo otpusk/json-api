@@ -18,6 +18,8 @@ const normalizeBookServices = (services) => map(
         currency_original,
         price,
         price_original,
+        perBooking,
+        number,
         ...service
     }) => {
         return mergeAll([
@@ -30,6 +32,8 @@ const normalizeBookServices = (services) => map(
                     ),
                     {}
                 ),
+                isGlobalService: Boolean(perBooking),
+                enabledTourists: number,
             }
         ]);
     },
