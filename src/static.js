@@ -482,4 +482,5 @@ export const TOUR_OPTIONS = {
     ELSE:                      'else',
     TRAIN_TRANSFER_TO_AIRPORT: 'trainAirportTransfer',
     TARIFF:                    'tariff',
+    NO_TRANSFER:               'notransfer',
 };

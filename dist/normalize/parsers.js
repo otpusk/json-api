@@ -347,7 +347,8 @@ var scheduleOfBookingPaymentsMapper = exports.scheduleOfBookingPaymentsMapper = 
     return _defineProperty(_defineProperty({}, currency, _price), currencyOriginal, priceOriginal);
   },
   dueDate: (0, _ramda.prop)('required_till'),
-  type: (0, _ramda.prop)('type')
+  type: (0, _ramda.prop)('type'),
+  percent: (0, _ramda.prop)('percent')
 }));
 var CATEGORIES_SEPARATOR = '###';
 var CONTENT_ITEM_SEPARATOR = /\r?\n/;

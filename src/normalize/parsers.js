@@ -343,6 +343,7 @@ export const scheduleOfBookingPaymentsMapper = map(
         }),
         dueDate: prop('required_till'),
         type:    prop('type'),
+        percent: prop('percent'),
     })
 );
 
