@@ -212,7 +212,7 @@ var CURRENCIES = exports.CURRENCIES = [{
   symbol: '₼'
 }, {
   code: 'kgs',
-  label: 'сом',
+  label: 'с',
   symbol: 'с'
 }, {
   code: 'kzt',
@@ -220,7 +220,7 @@ var CURRENCIES = exports.CURRENCIES = [{
   symbol: '₸'
 }, {
   code: 'tjs',
-  label: 'сом',
+  label: 'с',
   symbol: 'с'
 }, {
   code: 'pln',
@@ -236,11 +236,11 @@ var CURRENCIES = exports.CURRENCIES = [{
   symbol: 'ft'
 }, {
   code: 'azn',
-  label: 'AZN',
+  label: '₼',
   symbol: '₼'
 }, {
   code: 'gel',
-  label: 'GEL',
+  label: '₾',
   symbol: '₾'
 }];
 var CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {

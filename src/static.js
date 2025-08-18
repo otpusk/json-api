@@ -260,7 +260,7 @@ export const CURRENCIES = [
     },
     {
         code:   'kgs',
-        label:  'сом',
+        label:  'с',
         symbol: 'с',
     },
     {
@@ -270,7 +270,7 @@ export const CURRENCIES = [
     },
     {
         code:   'tjs',
-        label:  'сом',
+        label:  'с',
         symbol: 'с',
     },
     {
@@ -290,12 +290,12 @@ export const CURRENCIES = [
     },
     {
         code:   'azn',
-        label:  'AZN',
+        label:  '₼',
         symbol: '₼',
     },
     {
         code:   'gel',
-        label:  'GEL',
+        label:  '₾',
         symbol: '₾',
     }
 ];
