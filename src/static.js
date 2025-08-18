@@ -287,6 +287,16 @@ export const CURRENCIES = [
         code:   'huf',
         label:  'ft',
         symbol: 'ft',
+    },
+    {
+        code:   'azn',
+        label:  'AZN',
+        symbol: '₼',
+    },
+    {
+        code:   'gel',
+        label:  'GEL',
+        symbol: '₾',
     }
 ];
 

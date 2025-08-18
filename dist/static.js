@@ -234,6 +234,14 @@ var CURRENCIES = exports.CURRENCIES = [{
   code: 'huf',
   label: 'ft',
   symbol: 'ft'
+}, {
+  code: 'azn',
+  label: 'AZN',
+  symbol: '₼'
+}, {
+  code: 'gel',
+  label: 'GEL',
+  symbol: '₾'
 }];
 var CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
   return [currency.code, currency];
