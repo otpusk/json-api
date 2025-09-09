@@ -10,7 +10,8 @@ import {
     parsePeople,
     parseSubOperator,
     extractBookingData,
-    scheduleOfBookingPaymentsMapper
+    scheduleOfBookingPaymentsMapper,
+    getOperatorAirline
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
@@ -129,6 +130,10 @@ export const offerSchema = new schema.Entity(
                 scheduleOfBookingPayments: scheduleOfBookingPayments
                     ? scheduleOfBookingPaymentsMapper(scheduleOfBookingPayments)
                     : null,
+                airline: getAirlineByOperator(
+                    operator,
+                    tourOptions
+                ),
             };
 
             return entity;

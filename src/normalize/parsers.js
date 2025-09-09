@@ -25,6 +25,7 @@ import {
 } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
+import { AIRLINES } from "../static";
 
 export const parsePrice = (input) => {
     const {
@@ -376,3 +377,14 @@ export const descriptionByAIMapper = pipe(
         })
     ))
 );
+
+export const getAirlineByOperator = (operator, tourOptions = []) => {
+    const TPG = 2700;
+
+    switch (operator) {
+        case TPG:
+            return tourOptions.includes('topCharter') ? AIRLINES.TURKISH_AIRLINES : null;
+        default:
+            return null;
+    }
+};

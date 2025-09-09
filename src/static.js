@@ -493,3 +493,7 @@ export const TOUR_OPTIONS = {
     TRAIN_TRANSFER_TO_AIRPORT: 'trainAirportTransfer',
     NO_TRANSFER:               'notransfer',
 };
+
+export const AIRLINES = {
+    TURKISH_AIRLINES: 'Turkish Airlines',
+};
