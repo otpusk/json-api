@@ -123,7 +123,11 @@ export const parseFlights = (input) => {
                         over(
                             lensProp('portToDetails'),
                             ifElse(Boolean, parsePortDetails, always(null))
-                        )
+                        ),
+                        (flight) => ({
+                            ...flight,
+                            luggage: flight.luggage === undefined ? {} : flight.luggage,
+                        })
                     ),
                     flights
                 )
