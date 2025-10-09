@@ -124,11 +124,7 @@ var parseFlights = exports.parseFlights = function parseFlights(input) {
         label: parseSeats(seats),
         value: seats
       };
-    }), (0, _ramda.over)((0, _ramda.lensProp)('portFrDetails'), (0, _ramda.ifElse)(Boolean, parsePortDetails, (0, _ramda.always)(null))), (0, _ramda.over)((0, _ramda.lensProp)('portToDetails'), (0, _ramda.ifElse)(Boolean, parsePortDetails, (0, _ramda.always)(null))), function (flight) {
-      return _objectSpread(_objectSpread({}, flight), {}, {
-        luggage: flight.luggage === undefined ? {} : flight.luggage
-      });
-    }), flights)];
+    }), (0, _ramda.over)((0, _ramda.lensProp)('portFrDetails'), (0, _ramda.ifElse)(Boolean, parsePortDetails, (0, _ramda.always)(null))), (0, _ramda.over)((0, _ramda.lensProp)('portToDetails'), (0, _ramda.ifElse)(Boolean, parsePortDetails, (0, _ramda.always)(null))), (0, _ramda.over)((0, _ramda.lensProp)('luggage'), (0, _ramda.ifElse)(_ramda.isNil, (0, _ramda.always)({}), _ramda.identity))), flights)];
   }), _ramda.fromPairs), {
     outbound: outbound,
     inbound: inbound
