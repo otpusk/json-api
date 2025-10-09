@@ -21,7 +21,9 @@ import {
     all,
     startsWith,
     slice,
-    join
+    join,
+    isNil,
+    identity
 } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
@@ -124,10 +126,10 @@ export const parseFlights = (input) => {
                             lensProp('portToDetails'),
                             ifElse(Boolean, parsePortDetails, always(null))
                         ),
-                        (flight) => ({
-                            ...flight,
-                            luggage: flight.luggage === undefined ? {} : flight.luggage,
-                        })
+                        over(
+                            lensProp('luggage'),
+                            ifElse(isNil, always({}), identity)
+                        )
                     ),
                     flights
                 )
