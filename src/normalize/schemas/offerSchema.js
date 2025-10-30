@@ -10,7 +10,8 @@ import {
     parsePeople,
     parseSubOperator,
     extractBookingData,
-    scheduleOfBookingPaymentsMapper
+    scheduleOfBookingPaymentsMapper,
+    extractSourceOperatorData
 } from '../parsers';
 
 const applyTimeZoneToOfferUpdateTime = (updateTime) => applyTimeZoneToDate(
@@ -50,6 +51,7 @@ export const offerSchema = new schema.Entity(
                 y: roomType,
                 s: promoValue,
                 ss: stopsale,
+                sd: sourceOperatorData,
                 t: transport,
                 to: flights,
                 tn: informationOfCrossTour,
@@ -129,6 +131,7 @@ export const offerSchema = new schema.Entity(
                 scheduleOfBookingPayments: scheduleOfBookingPayments
                     ? scheduleOfBookingPaymentsMapper(scheduleOfBookingPayments)
                     : null,
+                sourceOperatorData:        extractSourceOperatorData(sourceOperatorData),
             };
 
             return entity;

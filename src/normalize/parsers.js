@@ -332,7 +332,14 @@ export const extractBookingData = applySpec({
         Boolean
     ),
 });
-
+export const extractSourceOperatorData = R.ifElse(
+    Boolean,
+    applySpec({
+        subOperatorName: prop('operator'),
+        subHotelID:   prop('operatorHotelId'),
+    }),
+    always({})
+);
 
 export const scheduleOfBookingPaymentsMapper = map(
     applySpec({
