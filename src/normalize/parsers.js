@@ -332,7 +332,7 @@ export const extractBookingData = applySpec({
         Boolean
     ),
 });
-export const extractSourceOperatorData = R.ifElse(
+export const extractExternalOperatorData = ifElse(
     Boolean,
     applySpec({
         subOperatorName: prop('operator'),
