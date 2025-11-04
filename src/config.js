@@ -44,7 +44,7 @@ export const ENDPOINTS = {
     hotBlock:           `${API}/tours/hotBlock`,
     hotTour:            `${API}/tours/hotTour`,
     operators:          `${API}/tours/operators`,
-    operatorHotelDescriptions: `${API}/tours/operatorHotelDescription`,
+    hotelDescriptionsByOperator:  `${API}/tours/hotelDescriptionsByOperator`,
     validate:           `${API}/tours/validate`,
     init:               `${API}/init/json`,
     cacheValidate:      `${API}/tours/cacheControl`,
