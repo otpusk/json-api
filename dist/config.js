@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ENDPOINTS = exports.API_VERSION = void 0;
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var API_VERSION = exports.API_VERSION = '2.5';
 var API_VERSION_2_6 = '2.6';
 var apiHostFromCookie = _jsCookie.default.get('api-host');
@@ -41,6 +41,7 @@ var ENDPOINTS = exports.ENDPOINTS = {
   hotBlock: "".concat(API, "/tours/hotBlock"),
   hotTour: "".concat(API, "/tours/hotTour"),
   operators: "".concat(API, "/tours/operators"),
+  hotelDescriptionsByOperator: "".concat(API, "/tours/operatorHotelDescription"),
   validate: "".concat(API, "/tours/validate"),
   init: "".concat(API, "/init/json"),
   cacheValidate: "".concat(API, "/tours/cacheControl"),

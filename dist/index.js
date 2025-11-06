@@ -111,6 +111,12 @@ Object.defineProperty(exports, "getToursHotel", {
     return _toursHotels.getToursHotel;
   }
 });
+Object.defineProperty(exports, "getToursHotelDescriptionsByOperator", {
+  enumerable: true,
+  get: function get() {
+    return _toursHotelDescriptionsByOperator.getToursHotelDescriptionsByOperator;
+  }
+});
 Object.defineProperty(exports, "getToursHotels", {
   enumerable: true,
   get: function get() {
@@ -216,3 +222,4 @@ var _toursFlightPort = require("./methods/toursFlightPort");
 var _static = require("./methods/static");
 var _toursBookServices = require("./methods/toursBookServices");
 var _toursBookCalculate = require("./methods/toursBookCalculate");
+var _toursHotelDescriptionsByOperator = require("./methods/toursHotelDescriptionsByOperator");
