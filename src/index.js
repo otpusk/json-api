@@ -25,3 +25,4 @@ export { getToursFlightPort } from './methods/toursFlightPort';
 export { getStaticData } from './methods/static';
 export { getToursBookServices } from './methods/toursBookServices';
 export { getToursBookCalculate } from './methods/toursBookCalculate';
+export { getToursHotelDescriptionsByOperator } from './methods/toursHotelDescriptionsByOperator';
