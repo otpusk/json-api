@@ -41,6 +41,7 @@ var ENDPOINTS = exports.ENDPOINTS = {
   hotBlock: "".concat(API, "/tours/hotBlock"),
   hotTour: "".concat(API, "/tours/hotTour"),
   operators: "".concat(API, "/tours/operators"),
+  hotelDescriptionsByOperator: "".concat(API, "/tours/operatorHotelDescription"),
   validate: "".concat(API, "/tours/validate"),
   init: "".concat(API, "/init/json"),
   cacheValidate: "".concat(API, "/tours/cacheControl"),

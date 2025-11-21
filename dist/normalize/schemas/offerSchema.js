@@ -54,6 +54,7 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       roomType = input.y,
       promoValue = input.s,
       stopsale = input.ss,
+      sourceOperatorData = input.sd,
       transport = input.t,
       flights = input.to,
       informationOfCrossTour = input.tn,
@@ -135,7 +136,8 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       hotelNameByOperator: hotelNameByOperator,
       bookingInfo: bookingInfo ? (0, _parsers.extractBookingData)(bookingInfo) : null,
       bookingQuota: bookingQuota ? (0, _parsers.extractBookingData)(bookingQuota) : null,
-      scheduleOfBookingPayments: scheduleOfBookingPayments ? (0, _parsers.scheduleOfBookingPaymentsMapper)(scheduleOfBookingPayments) : null
+      scheduleOfBookingPayments: scheduleOfBookingPayments ? (0, _parsers.scheduleOfBookingPaymentsMapper)(scheduleOfBookingPayments) : null,
+      externalOperatorData: (0, _parsers.extractExternalOperatorData)(sourceOperatorData)
     });
     return entity;
   }
