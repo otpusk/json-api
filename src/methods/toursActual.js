@@ -5,7 +5,7 @@ import { makeCall } from '../fn';
 import { offerSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
-export async function getToursActual (token, offerId, people, currency = 'uah') {
+export async function getToursActual (token, offerId, people, currency = 'uah', withShortCode = false) {
     const { code, offer: denormalizedOffer, originalHotelName, message } = await makeCall({
         endpoint: ENDPOINTS.actual,
         timeout:  40000,
@@ -14,6 +14,7 @@ export async function getToursActual (token, offerId, people, currency = 'uah') 
             offerId,
             people,
             currencyLocal: currency,
+            ...(withShortCode && { getShortOfferId: true }),
         }});
 
     const { entities: { offer: offers = null } = {}, result: id } = denormalizedOffer ? normalize(denormalizedOffer, offerSchema) : {};

@@ -1,5 +1,5 @@
 import { normalize } from 'normalizr';
-import { always, call, mergeAll, mergeLeft, pipe, when } from 'ramda';
+import {always, assoc, call, mergeAll, mergeLeft, pipe, when} from 'ramda';
 
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
@@ -15,14 +15,20 @@ const addLang = (lang) => when(
     mergeLeft({ lang })
 );
 
-export async function getToursOffer (token, offerId, fresh, currency, lang) {
+const addShortCode = (withShortCode) => when(
+    always(withShortCode),
+    assoc('getShortOfferId', true)
+);
+
+export async function getToursOffer (token, offerId, fresh, currency, lang, withShortCode = false) {
     const { offer: denormalizedOffer, originalHotelName } = await makeCall({
         endpoint: ENDPOINTS.offer,
         query:    call(
             pipe(
                 mergeLeft(token),
                 addCurrency(currency),
-                addLang(lang)
+                addLang(lang),
+                addShortCode(withShortCode)
             ),
             { offerId }
         ),
