@@ -24,6 +24,7 @@ function getToursActual(_x, _x2, _x3) {
 function _getToursActual() {
   _getToursActual = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(token, offerId, people) {
     var currency,
+      withShortCode,
       _yield$makeCall,
       code,
       denormalizedOffer,
@@ -40,7 +41,8 @@ function _getToursActual() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           currency = _args.length > 3 && _args[3] !== undefined ? _args[3] : 'uah';
-          _context.next = 3;
+          withShortCode = _args.length > 4 && _args[4] !== undefined ? _args[4] : false;
+          _context.next = 4;
           return (0, _fn.makeCall)({
             endpoint: _config.ENDPOINTS.actual,
             timeout: 40000,
@@ -48,9 +50,11 @@ function _getToursActual() {
               offerId: offerId,
               people: people,
               currencyLocal: currency
+            }, withShortCode && {
+              getShortOfferId: true
             })
           });
-        case 3:
+        case 4:
           _yield$makeCall = _context.sent;
           code = _yield$makeCall.code;
           denormalizedOffer = _yield$makeCall.offer;
@@ -64,7 +68,7 @@ function _getToursActual() {
             }]) : null,
             message: message
           });
-        case 10:
+        case 11:
         case "end":
           return _context.stop();
       }

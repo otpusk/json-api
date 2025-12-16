@@ -23,24 +23,35 @@ var addLang = function addLang(lang) {
     lang: lang
   }));
 };
+var addShortCode = function addShortCode(withShortCode) {
+  return (0, _ramda.when)((0, _ramda.always)(withShortCode), (0, _ramda.assoc)('getShortOfferId', true));
+};
 function getToursOffer(_x, _x2, _x3, _x4, _x5) {
   return _getToursOffer.apply(this, arguments);
 }
 function _getToursOffer() {
   _getToursOffer = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(token, offerId, fresh, currency, lang) {
-    var _yield$makeCall, denormalizedOffer, originalHotelName, _normalize, offers, result;
+    var withShortCode,
+      _yield$makeCall,
+      denormalizedOffer,
+      originalHotelName,
+      _normalize,
+      offers,
+      result,
+      _args = arguments;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          withShortCode = _args.length > 5 && _args[5] !== undefined ? _args[5] : false;
+          _context.next = 3;
           return (0, _fn.makeCall)({
             endpoint: _config.ENDPOINTS.offer,
-            query: (0, _ramda.call)((0, _ramda.pipe)((0, _ramda.mergeLeft)(token), addCurrency(currency), addLang(lang)), {
+            query: (0, _ramda.call)((0, _ramda.pipe)((0, _ramda.mergeLeft)(token), addCurrency(currency), addLang(lang), addShortCode(withShortCode)), {
               offerId: offerId
             }),
             ttl: fresh ? null : [30, 'minutes']
           });
-        case 2:
+        case 3:
           _yield$makeCall = _context.sent;
           denormalizedOffer = _yield$makeCall.offer;
           originalHotelName = _yield$makeCall.originalHotelName;
@@ -48,7 +59,7 @@ function _getToursOffer() {
           return _context.abrupt("return", result ? (0, _ramda.mergeAll)([offers[result], {
             hotelNameByOperator: originalHotelName
           }]) : null);
-        case 7:
+        case 8:
         case "end":
           return _context.stop();
       }
