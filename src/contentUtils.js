@@ -19,20 +19,14 @@ const convertText2Links = pipe(
     getIsUrl,
     url => {
       const href = checkValidHttpUrl(url) ? url : addWebProtocol(url);
-      return {
-        type: 'link',
-        url: href,
-        text: getShortUrl(href),
-      };
-    },
-    text => ({
-      type: 'text',
-      text,
-    })
-  )),
-  filter(item => item.type === 'link' || (item.text && item.text.trim()))
-);
 
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer" title="${href}">${getShortUrl(href)}</a>`;
+    },
+    text => text
+  )),
+  filter(text => text && text.trim()),
+  arr => arr.join('')
+);
 
 export const prepareContent2Render = pipe(
   clearHtmlTags,
