@@ -1,4 +1,4 @@
-import { ifElse, map, pipe, split, filter } from 'ramda';
+import { when, map, pipe, split, filter } from 'ramda';
 
 const getIsUrl = label => label.startsWith('http') || label.startsWith('www.');
 const checkValidHttpUrl = url => url.startsWith('http');
@@ -15,14 +15,13 @@ const clearHtmlTags = html => {
 
 const convertText2Links = pipe(
   split(/(https?:\/\/[^\s]+|www\.[^\s]+)/g),
-  map(ifElse(
+  map(when(
     getIsUrl,
     url => {
       const href = checkValidHttpUrl(url) ? url : addWebProtocol(url);
 
       return `<a href="${href}" target="_blank" rel="noopener noreferrer" title="${href}">${getShortUrl(href)}</a>`;
-    },
-    text => text
+    }
   )),
   filter(text => text && text.trim()),
   arr => arr.join('')
