@@ -37,7 +37,7 @@ var getToursHotelDescriptionsByOperator = exports.getToursHotelDescriptionsByOpe
         case 3:
           _yield$makeCall = _context.sent;
           data = _yield$makeCall.data;
-          return _context.abrupt("return", (0, _ramda.pipe)((0, _ramda.prop)('descriptions'), (0, _ramda.filter)((0, _ramda.prop)('subject')), (0, _ramda.map)((0, _ramda.applySpec)({
+          return _context.abrupt("return", (0, _ramda.pipe)((0, _ramda.path)(['data', 'descriptions']), (0, _ramda.defaultTo)([]), (0, _ramda.filter)((0, _ramda.prop)('subject')), (0, _ramda.map)((0, _ramda.applySpec)({
             title: (0, _ramda.prop)('subject'),
             content: (0, _ramda.pipe)((0, _ramda.prop)('content'), _contentUtils.prepareContent2Render),
             titleOriginal: (0, _ramda.prop)('subject_original'),
