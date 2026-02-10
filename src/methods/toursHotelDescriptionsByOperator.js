@@ -1,4 +1,4 @@
-import {filter, pipe, prop, path, map, applySpec} from "ramda";
+import {filter, pipe, prop, map, applySpec, path, defaultTo} from "ramda";
 
 import {makeCall} from '../fn';
 import {ENDPOINTS} from '../config';
@@ -16,13 +16,15 @@ export const getToursHotelDescriptionsByOperator = async (token, {lang, subHotel
     });
 
     return pipe(
-        path(['hotelData', 'texts', 'text']),
+        path(['data', 'descriptions']),
+        defaultTo([]),
         filter(prop('subject')),
         map(applySpec({
             title: prop('subject'),
             content: prop('content'),
+            titleOriginal: prop('subject_original'),
+            contentOriginal: prop('content_original'),
+            type: prop('type'),
         }))
     )(data);
 }
-
-
