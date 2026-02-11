@@ -297,6 +297,11 @@ export const CURRENCIES = [
         code:   'gel',
         label:  '₾',
         symbol: '₾',
+    },
+    {
+        code:   'ron',
+        label:  'lei',
+        symbol: 'lei',
     }
 ];
 
