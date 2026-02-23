@@ -242,6 +242,10 @@ var CURRENCIES = exports.CURRENCIES = [{
   code: 'gel',
   label: '₾',
   symbol: '₾'
+}, {
+  code: 'ron',
+  label: 'lei',
+  symbol: 'lei'
 }];
 var CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
   return [currency.code, currency];
