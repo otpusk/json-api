@@ -62,6 +62,7 @@ function _getToursServices() {
   _getToursServices = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(token) {
     var country,
       lang,
+      withIcons,
       _yield$makeCall,
       _yield$makeCall$icons,
       icons,
@@ -80,16 +81,19 @@ function _getToursServices() {
         case 0:
           country = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
           lang = _args.length > 2 && _args[2] !== undefined ? _args[2] : 'ru';
-          _context.next = 4;
+          withIcons = _args.length > 3 && _args[3] !== undefined ? _args[3] : false;
+          _context.next = 5;
           return (0, _fn.makeCall)({
             endpoint: _config.ENDPOINTS.services,
             query: _objectSpread(_objectSpread({}, token), {}, {
               countryId: country,
               lang: lang
+            }, withIcons && {
+              with_icons: true
             }),
             ttl: [7, 'days']
           });
-        case 4:
+        case 5:
           _yield$makeCall = _context.sent;
           _yield$makeCall$icons = _yield$makeCall.icons;
           icons = _yield$makeCall$icons === void 0 ? [] : _yield$makeCall$icons;
@@ -111,7 +115,7 @@ function _getToursServices() {
             country: isSetCountry && countryService ? countryService : [],
             byCountries: !isSetCountry && countryService ? countryService : {}
           }]));
-        case 17:
+        case 18:
         case "end":
           return _context.stop();
       }
