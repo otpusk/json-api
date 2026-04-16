@@ -63,6 +63,7 @@ function _getToursServices() {
     var country,
       lang,
       withIcons,
+      fresh,
       _yield$makeCall,
       _yield$makeCall$icons,
       icons,
@@ -82,7 +83,8 @@ function _getToursServices() {
           country = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
           lang = _args.length > 2 && _args[2] !== undefined ? _args[2] : 'ru';
           withIcons = _args.length > 3 && _args[3] !== undefined ? _args[3] : false;
-          _context.next = 5;
+          fresh = _args.length > 4 && _args[4] !== undefined ? _args[4] : false;
+          _context.next = 6;
           return (0, _fn.makeCall)({
             endpoint: _config.ENDPOINTS.services,
             query: _objectSpread(_objectSpread({}, token), {}, {
@@ -91,9 +93,9 @@ function _getToursServices() {
             }, withIcons && {
               with_icons: true
             }),
-            ttl: [7, 'days']
+            ttl: fresh ? null : [7, 'days']
           });
-        case 5:
+        case 6:
           _yield$makeCall = _context.sent;
           _yield$makeCall$icons = _yield$makeCall.icons;
           icons = _yield$makeCall$icons === void 0 ? [] : _yield$makeCall$icons;
@@ -115,7 +117,7 @@ function _getToursServices() {
             country: isSetCountry && countryService ? countryService : [],
             byCountries: !isSetCountry && countryService ? countryService : {}
           }]));
-        case 18:
+        case 19:
         case "end":
           return _context.stop();
       }
