@@ -59,4 +59,5 @@ export const ENDPOINTS = {
     },
     bookServices:  `${API_HOST}${API_VERSION_2_6}/tours/book/services`,
     bookCalculate: `${API_HOST}${API_VERSION_2_6}/tours/book/calculate`,
+    geoTree:       `${API}/tours/geotree`,
 };
