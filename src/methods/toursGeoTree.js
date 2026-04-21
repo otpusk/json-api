@@ -1,28 +1,32 @@
-// Instruments
-import * as R from 'ramda';
+import {
+    map,
+    pipe,
+    over,
+    mergeAll,
+    lensProp,
+    when
+} from 'ramda';
 
 import { makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 
 function normalizeGeoTree (geoTree) {
-    return R.map(
-        R.pipe(
-            ({ parent_id: parentID, ...leaf }) => R.mergeAll([ leaf, { parentID } ]),
-            R.over(
-                R.lensProp('children'),
-                R.when(Boolean, normalizeGeoTree)
+    return map(
+        pipe(
+            ({ parent_id: parentID, ...leaf }) => mergeAll([ leaf, { parentID } ]),
+            over(
+                lensProp('children'),
+                when(Boolean, normalizeGeoTree)
             )
         ),
         geoTree
     );
 }
 
-export async function getToursGeoTree (token, { countryId, withPrice = false } = {}) {
+export async function getToursGeoTree (token, options = {}) {
     const query = {
         ...token,
-        depth: 'city',
-        id:    countryId,
-        ...(withPrice ? { with: 'price' } : {}),
+        ...options,
     };
 
     const { geo } = await makeCall({ endpoint: ENDPOINTS.geoTree, query, ttl: [ 1, 'days' ] });
