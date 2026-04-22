@@ -23,13 +23,8 @@ function normalizeGeoTree (geoTree) {
     );
 }
 
-export async function getToursGeoTree (token, options = {}) {
-    const query = {
-        ...token,
-        ...options,
-    };
-
-    const { geo } = await makeCall({ endpoint: ENDPOINTS.geoTree, query, ttl: [ 1, 'days' ] });
+export async function getToursGeoTree (options) {
+    const { geo } = await makeCall({ endpoint: ENDPOINTS.geoTree, query: options, ttl: [ 1, 'days' ] });
 
     return normalizeGeoTree(geo);
 }
