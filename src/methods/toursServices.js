@@ -36,7 +36,7 @@ const extractServicesFromResponse = (response) => R.call(
     response
 );
 
-export async function getToursServices (token, country = null, lang = 'ru') {
+export async function getToursServices (token, country = null, lang = 'ru', withIcons = false, fresh = false) {
     const {
         icons = [],
         tabs = [],
@@ -49,8 +49,9 @@ export async function getToursServices (token, country = null, lang = 'ru') {
             ...token,
             countryId: country,
             lang,
+            ...(withIcons && { with_icons: true }),
         },
-        ttl: [7, 'days'],
+        ttl: fresh ? null : [7, 'days'],
     });
 
     const isSetCountry = Boolean(Number(country));
