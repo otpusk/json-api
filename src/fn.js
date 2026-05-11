@@ -60,6 +60,13 @@ async function parseResponse (response) {
     }
 }
 
+class TimeoutError extends Error {
+    constructor (message) {
+        super(message);
+        this.name = 'TimeoutError';
+    }
+}
+
 function fetchWithTimeout (request, body, method, timeout) {
     return Promise.race([
         fetch(request, {
@@ -67,7 +74,7 @@ function fetchWithTimeout (request, body, method, timeout) {
             method,
         }),
         new Promise((_, reject) => {
-            setTimeout(() => reject(new Error(`request to ${request} timed out`)), timeout);
+            setTimeout(() => reject(new TimeoutError(`request to ${request} timed out`)), timeout);
         })
     ]);
 }
@@ -144,5 +151,6 @@ export {
     makeCall,
     createQueryStringFromObject,
     mergeDefinedObjectValues,
-    HttpResponseError
+    HttpResponseError,
+    TimeoutError
 };
