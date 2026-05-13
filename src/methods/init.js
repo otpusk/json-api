@@ -1,7 +1,7 @@
 import { makeCall, TimeoutError } from '../fn';
 import { ENDPOINTS } from '../config';
 
-const MAX_ATTEMPTS = 2;
+const MAX_ATTEMPTS = 3;
 
 export async function getInit (token) {
     let attempt = 0;
@@ -23,11 +23,11 @@ export async function getInit (token) {
         } catch (err) {
             lastError = err;
 
-            if (!(err instanceof TimeoutError)) {
-                throw err;
-            }
-
             attempt++;
+
+            if (attempt < MAX_ATTEMPTS) {
+                await new Promise((resolve) => setTimeout(resolve, 300 * 2 ** (attempt - 1)));
+            }
         }
     }
 
