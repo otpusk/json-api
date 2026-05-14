@@ -124,10 +124,13 @@ var TimeoutError = exports.TimeoutError = /*#__PURE__*/function (_Error) {
   return _createClass(TimeoutError);
 }( /*#__PURE__*/_wrapNativeSuper(Error));
 function fetchWithTimeout(request, body, method, timeout) {
-  return Promise.race([(0, _isomorphicFetch.default)(request, {
-    body: body,
+  var options = {
     method: method
-  }), new Promise(function (_, reject) {
+  };
+  if (method !== 'GET' && body != null) {
+    options.body = body;
+  }
+  return Promise.race([(0, _isomorphicFetch.default)(request, options), new Promise(function (_, reject) {
     setTimeout(function () {
       return reject(new TimeoutError("request to ".concat(request, " timed out")));
     }, timeout);
