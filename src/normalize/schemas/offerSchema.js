@@ -62,6 +62,7 @@ export const offerSchema = new schema.Entity(
                 uo: currencyOperatorRate,
                 last: updateTime,
                 pto: priceOperator,
+                plo: priceOperatorLocal,
                 os: subOperator,
                 gds: isTransportGDS = false,
                 b: bookingUrl,
@@ -104,6 +105,7 @@ export const offerSchema = new schema.Entity(
                     : undefined,
                 priceByOperator: {
                     [currency]: priceOperator,
+                    [currencyLocal]: priceOperatorLocal,
                 },
                 currency,
                 currencyLocal,

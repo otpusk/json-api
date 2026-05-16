@@ -87,6 +87,12 @@ Object.defineProperty(exports, "getToursGeoById", {
     return _toursSuggests.getToursGeoById;
   }
 });
+Object.defineProperty(exports, "getToursGeoTree", {
+  enumerable: true,
+  get: function get() {
+    return _toursGeoTree.getToursGeoTree;
+  }
+});
 Object.defineProperty(exports, "getToursGraph", {
   enumerable: true,
   get: function get() {
@@ -223,3 +229,4 @@ var _static = require("./methods/static");
 var _toursBookServices = require("./methods/toursBookServices");
 var _toursBookCalculate = require("./methods/toursBookCalculate");
 var _toursHotelDescriptionsByOperator = require("./methods/toursHotelDescriptionsByOperator");
+var _toursGeoTree = require("./methods/toursGeoTree");

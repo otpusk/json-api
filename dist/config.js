@@ -51,5 +51,6 @@ var ENDPOINTS = exports.ENDPOINTS = {
     return apiHostFromCookie ? "".concat(apiHostFromCookie).concat(path) : "".concat(API_HOST).concat(API_VERSION_2_6).concat(path);
   },
   bookServices: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/services"),
-  bookCalculate: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/calculate")
+  bookCalculate: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/calculate"),
+  geoTree: "".concat(API, "/tours/geotree")
 };

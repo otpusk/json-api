@@ -67,6 +67,7 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       currencyOperatorRate = input.uo,
       updateTime = input.last,
       priceOperator = input.pto,
+      priceOperatorLocal = input.plo,
       subOperator = input.os,
       _input$gds = input.gds,
       isTransportGDS = _input$gds === void 0 ? false : _input$gds,
@@ -112,7 +113,7 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       oldPrice: oldPriceCurrency && oldPriceUah ? _defineProperty({
         uah: oldPriceUah
       }, currency, oldPriceCurrency) : undefined,
-      priceByOperator: _defineProperty({}, currency, priceOperator),
+      priceByOperator: _defineProperty(_defineProperty({}, currency, priceOperator), currencyLocal, priceOperatorLocal),
       currency: currency,
       currencyLocal: currencyLocal,
       discountPrice: (0, _parsers.parseDiscountPrice)(input),
