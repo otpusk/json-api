@@ -410,9 +410,6 @@ var TOUR_OPTIONS = exports.TOUR_OPTIONS = {
   EXCURSION: 'excursion',
   PRESTIGE: 'prestige',
   ELSE: 'else',
-<<<<<<< HEAD
   TARIFF: 'tariff',
-=======
->>>>>>> task-86c99brkx
   NO_TRANSFER: 'notransfer'
 };
