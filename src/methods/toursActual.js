@@ -1,14 +1,12 @@
 import { normalize } from 'normalizr';
-import { mergeAll, sortBy } from 'ramda';
-import moment from 'moment';
+import { mergeAll } from 'ramda';
 
 import { makeCall } from '../fn';
 import { offerSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
-const getChildAge = (birthdayDate) => moment().diff(moment(birthdayDate, 'YYYY-MM-DD'), 'years')
 
-const buildChildrenQuery = (children) => sortBy(getChildAge, children).reduce(
+const buildChildrenQuery = (children) => children.reduce(
     (acc, child, index) => ({ ...acc, [`child${ index + 1 }`]: child }),
     {}
 );
