@@ -5,7 +5,14 @@ import { makeCall } from '../fn';
 import { offerSchema } from '../normalize/schemas';
 import { ENDPOINTS } from '../config';
 
-export async function getToursActual (token, offerId, people, currency = 'uah', withShortCode = false) {
+
+const buildChildrenQuery = (children) => children.reduce(
+    (acc, child, index) => ({ ...acc, [`child${ index + 1 }`]: child }),
+    {}
+);
+
+export async function getToursActual (token, offerId, people, currency = 'uah', withShortCode = false, childrenBirthdays = []) {
+
     const { code, offer: denormalizedOffer, originalHotelName, message } = await makeCall({
         endpoint: ENDPOINTS.actual,
         timeout:  40000,
@@ -15,6 +22,7 @@ export async function getToursActual (token, offerId, people, currency = 'uah', 
             people,
             currencyLocal: currency,
             ...(withShortCode && { getShortOfferId: true }),
+            ...(childrenBirthdays.length ? buildChildrenQuery(childrenBirthdays) : {}),
         }});
 
     const { entities: { offer: offers = null } = {}, result: id } = denormalizedOffer ? normalize(denormalizedOffer, offerSchema) : {};
