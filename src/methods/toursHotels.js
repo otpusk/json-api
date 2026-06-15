@@ -6,7 +6,7 @@ import { API_VERSION, ENDPOINTS } from '../config';
 import { hotelSchema, hotelShortSchema } from '../normalize/schemas';
 
 export async function getToursHotels (token, countryId, options = {}, methodVersion) {
-    const { services = [], rating = {}, withPrice = true, lang } = options;
+    const { services = [], rating = {}, withPrice = true, lang, withServices } = options;
     const { hotels: denormalizedHotels } = await makeCall({
         endpoint: methodVersion
             ? R.replace(API_VERSION, methodVersion, ENDPOINTS.hotels)
@@ -22,6 +22,7 @@ export async function getToursHotels (token, countryId, options = {}, methodVers
             ...!R.isEmpty(services)
                 ? { services }
                 : {},
+            ... withServices ? {with_services: true} : {},
         },
         ttl: [1, 'day'],
     });
