@@ -183,6 +183,12 @@ Object.defineProperty(exports, "getToursSimilar", {
     return _toursSimilar.getToursSimilar;
   }
 });
+Object.defineProperty(exports, "getToursStartSearch", {
+  enumerable: true,
+  get: function get() {
+    return _toursStartSearch.getToursStartSearch;
+  }
+});
 Object.defineProperty(exports, "getToursSuggests", {
   enumerable: true,
   get: function get() {
@@ -210,6 +216,7 @@ var _toursGraph = require("./methods/toursGraph");
 var _toursHotels = require("./methods/toursHotels");
 var _toursSearch = require("./methods/toursSearch");
 var _toursNextSearch = require("./methods/toursNextSearch");
+var _toursStartSearch = require("./methods/toursStartSearch");
 var _toursServices = require("./methods/toursServices");
 var _toursOffer = require("./methods/toursOffer");
 var _toursActual = require("./methods/toursActual");

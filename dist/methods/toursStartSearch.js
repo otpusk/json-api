@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getTurpravdaHotelInformer = getTurpravdaHotelInformer;
+exports.getToursStartSearch = getToursStartSearch;
 var _fn = require("../fn");
 var _config = require("../config");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -15,41 +15,32 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; } // Instruments
-function getTurpravdaHotelInformer(_x) {
-  return _getTurpravdaHotelInformer.apply(this, arguments);
+function getToursStartSearch(_x) {
+  return _getToursStartSearch.apply(this, arguments);
 }
-function _getTurpravdaHotelInformer() {
-  _getTurpravdaHotelInformer = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(hotelId) {
-    var options,
-      query,
+function _getToursStartSearch() {
+  _getToursStartSearch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(token) {
+    var query,
       response,
-      html,
       _args = arguments;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {
-            count: 10
-          };
-          query = _objectSpread({
-            htl: hotelId,
-            tp: 9,
-            skin: 1
-          }, options);
-          _context.next = 4;
-          return fetch("".concat(_config.ENDPOINTS.turpravdaInformers, "?").concat((0, _fn.createQueryStringFromObject)(query)));
-        case 4:
+          query = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+          _context.next = 3;
+          return (0, _fn.makeCall)({
+            endpoint: _config.ENDPOINTS.startSearch,
+            method: 'HEAD',
+            query: _objectSpread(_objectSpread({}, query), token)
+          });
+        case 3:
           response = _context.sent;
-          _context.next = 7;
-          return response.text();
-        case 7:
-          html = _context.sent;
-          return _context.abrupt("return", html);
-        case 9:
+          return _context.abrupt("return", response);
+        case 5:
         case "end":
           return _context.stop();
       }
     }, _callee);
   }));
-  return _getTurpravdaHotelInformer.apply(this, arguments);
+  return _getToursStartSearch.apply(this, arguments);
 }

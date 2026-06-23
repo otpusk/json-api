@@ -17,9 +17,11 @@ export async function getToursDepartureCities (token, options = {}, methodVersio
 
     return fromCities.map(({ country, countryId, rel, transport, ...rest }) => ({
         ...rest,
-        country: {
-            id:   countryId,
-            name: country,
+        ...country && {
+            country: {
+                id:   String(countryId),
+                name: country,
+            },
         },
         names:      { rd: rel },
         transports: transport || [],

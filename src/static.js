@@ -227,6 +227,10 @@ export const TRANSPORTS = [
     }
 ];
 
+export const TRANSPORTS_MAP = Object.fromEntries(
+    TRANSPORTS.map((transport) => [transport.code, transport])
+);
+
 export const CURRENCIES = [
     {
         code:   'uah',

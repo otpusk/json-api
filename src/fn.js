@@ -60,6 +60,28 @@ async function parseResponse (response) {
     }
 }
 
+/**
+ * Parse api HEAD response (has no body)
+ *
+ * @param {Object} response api response
+ * @returns {Object} status code
+ */
+function parseHeadResponse (response) {
+    if (!response.ok) {
+        const errorInstance = new Error(response.statusText);
+
+        errorInstance.response = {
+            statusCode: response.status,
+        };
+
+        throw errorInstance;
+    }
+
+    return {
+        statusCode: response.status,
+    };
+}
+
 class TimeoutError extends Error {
     constructor (message) {
         super(message);
@@ -114,7 +136,9 @@ async function makeCall ({ body, endpoint, method = 'GET', query = {}, ttl = nul
         response = await fetchWithTimeout(request, body, method, timeout);
     }
 
-    const result = await parseResponse(response);
+    const result = method === 'HEAD'
+        ? parseHeadResponse(response)
+        : await parseResponse(response);
 
     if (ttl) {
         cache.set(result);

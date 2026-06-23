@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TRANSPORTS = exports.TOUR_OPTIONS = exports.OPERATORS = exports.FOODS = exports.DEPARTURE_CITIES = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.AVAILABILITY = void 0;
+exports.TRANSPORTS_MAP = exports.TRANSPORTS = exports.TOUR_OPTIONS = exports.OPERATORS = exports.FOODS = exports.DEPARTURE_CITIES = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.AVAILABILITY = void 0;
 var DEPARTURE_CITIES = exports.DEPARTURE_CITIES = [{
   "id": 1925,
   "name": "Белая Церковь",
@@ -186,6 +186,9 @@ var TRANSPORTS = exports.TRANSPORTS = [{
   code: 'no',
   label: 'Без транспорта'
 }];
+var TRANSPORTS_MAP = exports.TRANSPORTS_MAP = Object.fromEntries(TRANSPORTS.map(function (transport) {
+  return [transport.code, transport];
+}));
 var CURRENCIES = exports.CURRENCIES = [{
   code: 'uah',
   label: 'грн',
