@@ -22,6 +22,9 @@ export const agencyOfficeSchema = new schema.Entity(
                 phoneViber1 = false,
                 phoneViber2 = false,
                 phoneViber3 = false,
+                phoneWhatsapp1 = false,
+                phoneWhatsapp2 = false,
+                phoneWhatsapp3 = false,
                 district,
                 rn: area,
                 callback,
@@ -47,14 +50,17 @@ export const agencyOfficeSchema = new schema.Entity(
                     callback: !!callback
                 },
                 phones:   [{
-                    number: fPhone1,
-                    viber:  phoneViber1,
+                    number:   fPhone1,
+                    viber:    phoneViber1,
+                    whatsapp: phoneWhatsapp1,
                 }, {
-                    number: fPhone2,
-                    viber:  phoneViber2,
+                    number:   fPhone2,
+                    viber:    phoneViber2,
+                    whatsapp: phoneWhatsapp2,
                 }, {
-                    number: fPhone3,
-                    viber:  phoneViber3,
+                    number:   fPhone3,
+                    viber:    phoneViber3,
+                    whatsapp: phoneWhatsapp3,
                 }].filter(({ number }) => Boolean(number)),
             };
         },
