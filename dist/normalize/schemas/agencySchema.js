@@ -10,6 +10,13 @@ var _parsers = require("../parsers");
 
 // Instruments
 
+var buildPhone = function buildPhone(number, viber, whatsapp) {
+  return {
+    number: number,
+    viber: viber && number.replace(/\D/g, ''),
+    whatsapp: whatsapp && number.replace(/\D/g, '')
+  };
+};
 var agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
   idAttribute: function idAttribute(_ref) {
     var officeId = _ref.officeId;
@@ -32,6 +39,12 @@ var agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.Enti
       phoneViber2 = _input$phoneViber2 === void 0 ? false : _input$phoneViber2,
       _input$phoneViber3 = input.phoneViber3,
       phoneViber3 = _input$phoneViber3 === void 0 ? false : _input$phoneViber3,
+      _input$phoneWhatsapp = input.phoneWhatsapp1,
+      phoneWhatsapp1 = _input$phoneWhatsapp === void 0 ? false : _input$phoneWhatsapp,
+      _input$phoneWhatsapp2 = input.phoneWhatsapp2,
+      phoneWhatsapp2 = _input$phoneWhatsapp2 === void 0 ? false : _input$phoneWhatsapp2,
+      _input$phoneWhatsapp3 = input.phoneWhatsapp3,
+      phoneWhatsapp3 = _input$phoneWhatsapp3 === void 0 ? false : _input$phoneWhatsapp3,
       district = input.district,
       area = input.rn,
       callback = input.callback,
@@ -54,16 +67,7 @@ var agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.Enti
       options: {
         callback: !!callback
       },
-      phones: [{
-        number: fPhone1,
-        viber: phoneViber1
-      }, {
-        number: fPhone2,
-        viber: phoneViber2
-      }, {
-        number: fPhone3,
-        viber: phoneViber3
-      }].filter(function (_ref2) {
+      phones: [buildPhone(fPhone1, phoneViber1, phoneWhatsapp1), buildPhone(fPhone2, phoneViber2, phoneWhatsapp2), buildPhone(fPhone3, phoneViber3, phoneWhatsapp3)].filter(function (_ref2) {
         var number = _ref2.number;
         return Boolean(number);
       })
