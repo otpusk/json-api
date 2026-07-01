@@ -1,6 +1,5 @@
 // Core
 import { normalize } from 'normalizr';
-import { Map } from 'immutable';
 
 // Instruments
 import { makeCall } from '../fn';
@@ -21,9 +20,12 @@ export async function getToursSuggests (token, query, options = { 'with': 'price
 
     const { result, entities: locations } = normalize(denormalizedLocations, [geoSchema]);
 
-    const resultLocations = Map(locations)
-        .map((group) => Object.values(group).sort(({ id: a }, { id: b }) => getIndexFromResult(a, result) - getIndexFromResult(b, result)))
-        .toJS();
+    const resultLocations = Object.fromEntries(
+        Object.entries(locations).map(([key, group]) => [
+            key,
+            Object.values(group).sort(({ id: a }, { id: b }) => getIndexFromResult(a, result) - getIndexFromResult(b, result))
+        ])
+    );
 
     return resultLocations;
 }

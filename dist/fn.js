@@ -82,6 +82,12 @@ function hash(str) {
 function parseResponse(_x) {
   return _parseResponse.apply(this, arguments);
 }
+/**
+ * Parse api HEAD response (has no body)
+ *
+ * @param {Object} response api response
+ * @returns {Object} status code
+ */
 function _parseResponse() {
   _parseResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(response) {
     var body, error, message, errorInstance;
@@ -111,6 +117,18 @@ function _parseResponse() {
     }, _callee);
   }));
   return _parseResponse.apply(this, arguments);
+}
+function parseHeadResponse(response) {
+  if (!response.ok) {
+    var errorInstance = new Error(response.statusText);
+    errorInstance.response = {
+      statusCode: response.status
+    };
+    throw errorInstance;
+  }
+  return {
+    statusCode: response.status
+  };
 }
 var TimeoutError = exports.TimeoutError = /*#__PURE__*/function (_Error) {
   function TimeoutError(message) {
@@ -200,21 +218,31 @@ function _makeCall() {
         case 18:
           response = _context2.sent;
         case 19:
-          _context2.next = 21;
+          if (!(method === 'HEAD')) {
+            _context2.next = 23;
+            break;
+          }
+          _context2.t0 = parseHeadResponse(response);
+          _context2.next = 26;
+          break;
+        case 23:
+          _context2.next = 25;
           return parseResponse(response);
-        case 21:
-          result = _context2.sent;
+        case 25:
+          _context2.t0 = _context2.sent;
+        case 26:
+          result = _context2.t0;
           if (!ttl) {
-            _context2.next = 27;
+            _context2.next = 32;
             break;
           }
           cache.set(result);
           cache.expiresAfter(_moment.default.duration.apply(_moment.default, _toConsumableArray(ttl)));
-          _context2.next = 27;
+          _context2.next = 32;
           return cache.save();
-        case 27:
+        case 32:
           return _context2.abrupt("return", result);
-        case 28:
+        case 33:
         case "end":
           return _context2.stop();
       }

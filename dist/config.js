@@ -52,5 +52,6 @@ var ENDPOINTS = exports.ENDPOINTS = {
   },
   bookServices: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/services"),
   bookCalculate: "".concat(API_HOST).concat(API_VERSION_2_6, "/tours/book/calculate"),
-  geoTree: "".concat(API, "/tours/geotree")
+  geoTree: "".concat(API, "/tours/geotree"),
+  startSearch: "".concat(API, "/tours/startSearch")
 };

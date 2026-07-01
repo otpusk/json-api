@@ -7,6 +7,7 @@ export { getToursGraph } from './methods/toursGraph';
 export { getToursHotels, getToursHotel, getToursHotelsMarkers } from './methods/toursHotels';
 export { getToursSearch } from './methods/toursSearch';
 export { getToursNextSearch } from './methods/toursNextSearch';
+export { getToursStartSearch } from './methods/toursStartSearch';
 export { getToursServices } from './methods/toursServices';
 export { getToursOffer } from './methods/toursOffer';
 export { getToursActual } from './methods/toursActual';

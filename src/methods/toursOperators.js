@@ -26,7 +26,7 @@ export async function getToursOperators (token, countryId, options = {}, methodV
                 R.pick(['active', 'id', 'name', 'url', 'transports', 'priority'], operator),
                 {
                     currencyRates:     operator.currencies,
-                    logo:              getOperatorLogoById(operator.id),
+                    logo:          operator.logo ?? getOperatorLogoById(operator.id),
                     offerTTLAsMinutes: operator.offer_ttl ?? undefined,
                 }
             ]))

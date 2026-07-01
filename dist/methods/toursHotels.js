@@ -36,6 +36,7 @@ function _getToursHotels() {
       _options$withPrice,
       withPrice,
       lang,
+      withServices,
       _yield$makeCall,
       denormalizedHotels,
       _normalize,
@@ -46,11 +47,11 @@ function _getToursHotels() {
         case 0:
           options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
           methodVersion = _args.length > 3 ? _args[3] : undefined;
-          _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$rating = options.rating, rating = _options$rating === void 0 ? {} : _options$rating, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice, lang = options.lang;
+          _options$services = options.services, services = _options$services === void 0 ? [] : _options$services, _options$rating = options.rating, rating = _options$rating === void 0 ? {} : _options$rating, _options$withPrice = options.withPrice, withPrice = _options$withPrice === void 0 ? true : _options$withPrice, lang = options.lang, withServices = options.withServices;
           _context.next = 5;
           return (0, _fn.makeCall)({
             endpoint: methodVersion ? R.replace(_config.API_VERSION, methodVersion, _config.ENDPOINTS.hotels) : _config.ENDPOINTS.hotels,
-            query: _objectSpread(_objectSpread(_objectSpread({
+            query: _objectSpread(_objectSpread(_objectSpread(_objectSpread({
               countryId: countryId,
               with: withPrice ? 'price' : null,
               lang: lang
@@ -58,6 +59,8 @@ function _getToursHotels() {
               rating: "".concat(rating.from, "-").concat(rating.to)
             } : {}), !R.isEmpty(services) ? {
               services: services
+            } : {}), withServices ? {
+              withServices: true
             } : {}),
             ttl: [1, 'day']
           });

@@ -51,11 +51,12 @@ function _getToursDepartureCities() {
               rel = _ref.rel,
               transport = _ref.transport,
               rest = _objectWithoutProperties(_ref, _excluded);
-            return _objectSpread(_objectSpread({}, rest), {}, {
+            return _objectSpread(_objectSpread(_objectSpread({}, rest), country && {
               country: {
-                id: countryId,
+                id: String(countryId),
                 name: country
-              },
+              }
+            }), {}, {
               names: {
                 rd: rel
               },

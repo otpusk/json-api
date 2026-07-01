@@ -48,10 +48,10 @@ function _getToursOperators() {
           _yield$makeCall$opera = _yield$makeCall.operators;
           raw = _yield$makeCall$opera === void 0 ? {} : _yield$makeCall$opera;
           return _context.abrupt("return", R.call(R.pipe(R.values, R.map(function (operator) {
-            var _operator$offer_ttl;
+            var _operator$logo, _operator$offer_ttl;
             return R.mergeAll([R.pick(['active', 'id', 'name', 'url', 'transports', 'priority'], operator), {
               currencyRates: operator.currencies,
-              logo: (0, _dictionary.getOperatorLogoById)(operator.id),
+              logo: (_operator$logo = operator.logo) !== null && _operator$logo !== void 0 ? _operator$logo : (0, _dictionary.getOperatorLogoById)(operator.id),
               offerTTLAsMinutes: (_operator$offer_ttl = operator.offer_ttl) !== null && _operator$offer_ttl !== void 0 ? _operator$offer_ttl : undefined
             }]);
           })), raw));
