@@ -22,7 +22,7 @@ export async function getToursHotels (token, countryId, options = {}, methodVers
             ...!R.isEmpty(services)
                 ? { services }
                 : {},
-            ... withServices ? {with_services: true} : {},
+            ... withServices ? {withServices: true} : {},
         },
         ttl: [1, 'day'],
     });
