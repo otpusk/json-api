@@ -23,7 +23,7 @@ import {
     slice,
     join,
     isNil,
-    identity
+    identity, propOr
 } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
@@ -335,7 +335,7 @@ export const extractBookingData = applySpec({
 export const extractExternalOperatorData = ifElse(
     Boolean,
     applySpec({
-        subOperatorName: prop('operator'),
+        subOperatorName: propOr('','operator'),
         subHotelID:   prop('operatorHotelId'),
     }),
     always({})

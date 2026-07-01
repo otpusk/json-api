@@ -337,7 +337,7 @@ var extractBookingData = exports.extractBookingData = (0, _ramda.applySpec)({
   allow: (0, _ramda.pipe)((0, _ramda.prop)('possible'), Boolean)
 });
 var extractExternalOperatorData = exports.extractExternalOperatorData = (0, _ramda.ifElse)(Boolean, (0, _ramda.applySpec)({
-  subOperatorName: (0, _ramda.prop)('operator'),
+  subOperatorName: (0, _ramda.propOr)('', 'operator'),
   subHotelID: (0, _ramda.prop)('operatorHotelId')
 }), (0, _ramda.always)({}));
 var scheduleOfBookingPaymentsMapper = exports.scheduleOfBookingPaymentsMapper = (0, _ramda.map)((0, _ramda.applySpec)({
