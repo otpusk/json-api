@@ -200,6 +200,17 @@ export const AVAILABILITY = [
     { code: 'no', label: 'Нет' }
 ];
 
+export const HOTEL_CATEGORIES = [
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
+    { value: 5, label: '5' }
+];
+
+export const HOTEL_CATEGORIES_MAP = Object.fromEntries(
+    HOTEL_CATEGORIES.map((category) => [category.value, category])
+);
+
 export const TRANSPORTS = [
     {
         code:  'air',
@@ -485,6 +496,14 @@ export const OPERATORS = [
         name:   'Indiana Travel',
     }
 ];
+
+export const SERVICES = {
+    BEACH:      'beach',
+    CHILD:      'child',
+    MAIN:       'main',
+    RENOVATION: 'renovation',
+    SPORT:      'sport',
+};
 
 export const TOUR_OPTIONS = {
     TRANSFER:                  'transfer',
