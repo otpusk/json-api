@@ -5,6 +5,12 @@ import { schema } from 'normalizr';
 // Instruments
 import { parseLocation } from '../parsers';
 
+const buildPhone = (number, viber, whatsapp) => ({
+    number,
+    viber:    viber && number.replace(/\D/g, ''),
+    whatsapp: whatsapp && number.replace(/\D/g, ''),
+});
+
 export const agencyOfficeSchema = new schema.Entity(
     'office',
     {},
@@ -22,6 +28,9 @@ export const agencyOfficeSchema = new schema.Entity(
                 phoneViber1 = false,
                 phoneViber2 = false,
                 phoneViber3 = false,
+                phoneWhatsapp1 = false,
+                phoneWhatsapp2 = false,
+                phoneWhatsapp3 = false,
                 district,
                 rn: area,
                 callback,
@@ -46,16 +55,11 @@ export const agencyOfficeSchema = new schema.Entity(
                 options: {
                     callback: !!callback
                 },
-                phones:   [{
-                    number: fPhone1,
-                    viber:  phoneViber1,
-                }, {
-                    number: fPhone2,
-                    viber:  phoneViber2,
-                }, {
-                    number: fPhone3,
-                    viber:  phoneViber3,
-                }].filter(({ number }) => Boolean(number)),
+                phones:   [
+                    buildPhone(fPhone1, phoneViber1, phoneWhatsapp1),
+                    buildPhone(fPhone2, phoneViber2, phoneWhatsapp2),
+                    buildPhone(fPhone3, phoneViber3, phoneWhatsapp3),
+                ].filter(({ number }) => Boolean(number)),
             };
         },
     }
