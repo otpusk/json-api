@@ -23,6 +23,15 @@ const objectToArray = (object) => R.call(
     object
 );
 
+const chainsToArray = (chains) => R.call(
+    R.pipe(
+        R.toPairs,
+        R.map(([id, name]) => ({ id, name })),
+        R.filter(({ id, name }) => Boolean(id) && Boolean(name))
+    ),
+    chains
+);
+
 const extractServicesFromResponse = (response) => R.call(
     R.pipe(
         R.toPairs,
@@ -41,6 +50,7 @@ export async function getToursServices (token, country = null, lang = 'ru', with
         icons = [],
         tabs = [],
         nameServices = {},
+        chains = {},
         search,
         ...response
     } = await makeCall({
@@ -49,7 +59,7 @@ export async function getToursServices (token, country = null, lang = 'ru', with
             ...token,
             countryId: country,
             lang,
-            ...(withIcons && { with_icons: true }),
+            ...withIcons && { with_icons: true },
         },
         ttl: fresh ? null : [7, 'days'],
     });
@@ -67,6 +77,7 @@ export async function getToursServices (token, country = null, lang = 'ru', with
         {
             icons,
             tabs,
+            chains: chainsToArray(chains),
         },
         { rootGroups: objectToArray(renameGroupKeys(nameServices)) },
         renameGroupKeys(searchGroup),
