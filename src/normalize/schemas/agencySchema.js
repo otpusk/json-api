@@ -7,8 +7,8 @@ import { parseLocation } from '../parsers';
 
 const buildPhone = (number, viber, whatsapp) => ({
     number,
-    viber:    viber && number.replace(/\D/g, ''),
-    whatsapp: whatsapp && number.replace(/\D/g, ''),
+    viber:    viber && number && number.replace(/\D/g, ''),
+    whatsapp: whatsapp && number && number.replace(/\D/g, ''),
 });
 
 export const agencyOfficeSchema = new schema.Entity(
@@ -37,7 +37,7 @@ export const agencyOfficeSchema = new schema.Entity(
                 messenger,
                 skype,
                 telegram,
-                image
+                image,
             } = input;
 
             return {
@@ -52,13 +52,13 @@ export const agencyOfficeSchema = new schema.Entity(
                 messenger,
                 skype,
                 telegram,
-                options: {
-                    callback: !!callback
+                options:  {
+                    callback: Boolean(callback),
                 },
-                phones:   [
+                phones: [
                     buildPhone(fPhone1, phoneViber1, phoneWhatsapp1),
                     buildPhone(fPhone2, phoneViber2, phoneWhatsapp2),
-                    buildPhone(fPhone3, phoneViber3, phoneWhatsapp3),
+                    buildPhone(fPhone3, phoneViber3, phoneWhatsapp3)
                 ].filter(({ number }) => Boolean(number)),
             };
         },
