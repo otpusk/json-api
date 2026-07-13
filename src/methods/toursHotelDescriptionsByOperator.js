@@ -10,7 +10,7 @@ export const getToursHotelDescriptionsByOperator = async (token, {lang, subHotel
         query: {
             operatorId,
             lang,
-            operatorHotelId: subHotelID,
+            sourceHotelId: subHotelID,
             subOperator: subOperatorName,
             ...token,
         },

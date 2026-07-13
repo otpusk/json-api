@@ -336,7 +336,7 @@ export const extractExternalOperatorData = ifElse(
     Boolean,
     applySpec({
         subOperatorName: propOr('','operator'),
-        subHotelID:   prop('operatorHotelId'),
+        subHotelID:   prop('sourceHotelId'),
     }),
     always({})
 );
