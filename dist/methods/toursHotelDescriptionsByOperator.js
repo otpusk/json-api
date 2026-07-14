@@ -30,7 +30,7 @@ var getToursHotelDescriptionsByOperator = exports.getToursHotelDescriptionsByOpe
             query: _objectSpread({
               operatorId: operatorId,
               lang: lang,
-              operatorHotelId: subHotelID,
+              sourceHotelId: subHotelID,
               subOperator: subOperatorName
             }, token)
           });

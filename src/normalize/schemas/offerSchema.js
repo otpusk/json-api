@@ -71,6 +71,7 @@ export const offerSchema = new schema.Entity(
                 bo: bookingInfo,
                 bq: bookingQuota,
                 pm: scheduleOfBookingPayments,
+                ohd: isOperatorHotelDescriptionConfigured = false,
             } = input;
 
             /* travel insurance for TPG */
@@ -134,6 +135,7 @@ export const offerSchema = new schema.Entity(
                     ? scheduleOfBookingPaymentsMapper(scheduleOfBookingPayments)
                     : null,
                 externalOperatorData:        extractExternalOperatorData(sourceOperatorData),
+                hasOperatorHotelDescription: isOperatorHotelDescriptionConfigured,
             };
 
             return entity;

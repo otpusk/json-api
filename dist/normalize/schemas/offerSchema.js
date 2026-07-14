@@ -77,7 +77,9 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       hotelNameByOperator = input.ohn,
       bookingInfo = input.bo,
       bookingQuota = input.bq,
-      scheduleOfBookingPayments = input.pm;
+      scheduleOfBookingPayments = input.pm,
+      _input$ohd = input.ohd,
+      isOperatorHotelDescriptionConfigured = _input$ohd === void 0 ? false : _input$ohd;
 
     /* travel insurance for TPG */
     if (operator === 2700) {
@@ -138,7 +140,8 @@ var offerSchema = exports.offerSchema = new _normalizr.schema.Entity('offer', {}
       bookingInfo: bookingInfo ? (0, _parsers.extractBookingData)(bookingInfo) : null,
       bookingQuota: bookingQuota ? (0, _parsers.extractBookingData)(bookingQuota) : null,
       scheduleOfBookingPayments: scheduleOfBookingPayments ? (0, _parsers.scheduleOfBookingPaymentsMapper)(scheduleOfBookingPayments) : null,
-      externalOperatorData: (0, _parsers.extractExternalOperatorData)(sourceOperatorData)
+      externalOperatorData: (0, _parsers.extractExternalOperatorData)(sourceOperatorData),
+      hasOperatorHotelDescription: isOperatorHotelDescriptionConfigured
     });
     return entity;
   }
