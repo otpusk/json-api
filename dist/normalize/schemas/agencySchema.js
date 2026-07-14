@@ -13,8 +13,13 @@ var _parsers = require("../parsers");
 var buildPhone = function buildPhone(number, viber, whatsapp) {
   return {
     number: number,
+<<<<<<< HEAD
     viber: viber && number.replace(/\D/g, ''),
     whatsapp: whatsapp && number.replace(/\D/g, '')
+=======
+    viber: viber && number && number.replace(/\D/g, ''),
+    whatsapp: whatsapp && number && number.replace(/\D/g, '')
+>>>>>>> 0f66276eb51f40fcd2fa3b0bf92b68c40127275b
   };
 };
 var agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
@@ -65,7 +70,7 @@ var agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.Enti
       skype: skype,
       telegram: telegram,
       options: {
-        callback: !!callback
+        callback: Boolean(callback)
       },
       phones: [buildPhone(fPhone1, phoneViber1, phoneWhatsapp1), buildPhone(fPhone2, phoneViber2, phoneWhatsapp2), buildPhone(fPhone3, phoneViber3, phoneWhatsapp3)].filter(function (_ref2) {
         var number = _ref2.number;

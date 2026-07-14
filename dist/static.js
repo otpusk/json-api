@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TRANSPORTS_MAP = exports.TRANSPORTS = exports.TOUR_OPTIONS = exports.OPERATORS = exports.FOODS = exports.DEPARTURE_CITIES = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.AVAILABILITY = void 0;
+exports.TRANSPORTS_MAP = exports.TRANSPORTS = exports.TOUR_OPTIONS = exports.SERVICES = exports.OPERATORS = exports.HOTEL_CATEGORIES_MAP = exports.HOTEL_CATEGORIES = exports.FOODS = exports.DEPARTURE_CITIES = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.AVAILABILITY = void 0;
 var DEPARTURE_CITIES = exports.DEPARTURE_CITIES = [{
   "id": 1925,
   "name": "Белая Церковь",
@@ -167,6 +167,22 @@ var AVAILABILITY = exports.AVAILABILITY = [{
   code: 'no',
   label: 'Нет'
 }];
+var HOTEL_CATEGORIES = exports.HOTEL_CATEGORIES = [{
+  value: 2,
+  label: '2'
+}, {
+  value: 3,
+  label: '3'
+}, {
+  value: 4,
+  label: '4'
+}, {
+  value: 5,
+  label: '5'
+}];
+var HOTEL_CATEGORIES_MAP = exports.HOTEL_CATEGORIES_MAP = Object.fromEntries(HOTEL_CATEGORIES.map(function (category) {
+  return [category.value, category];
+}));
 var TRANSPORTS = exports.TRANSPORTS = [{
   code: 'air',
   label: 'Авиаперелет'
@@ -390,6 +406,13 @@ var OPERATORS = exports.OPERATORS = [{
   vendor: 'indi',
   name: 'Indiana Travel'
 }];
+var SERVICES = exports.SERVICES = {
+  BEACH: 'beach',
+  CHILD: 'child',
+  MAIN: 'main',
+  RENOVATION: 'renovation',
+  SPORT: 'sport'
+};
 var TOUR_OPTIONS = exports.TOUR_OPTIONS = {
   TRANSFER: 'transfer',
   INSURANCE: 'insurance',
