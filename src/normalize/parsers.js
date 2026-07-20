@@ -354,9 +354,10 @@ export const scheduleOfBookingPaymentsMapper = map(
             [currency]:         price,
             [currencyOriginal]: priceOriginal,
         }),
-        dueDate: prop('required_till'),
-        type:    prop('type'),
-        percent: prop('percent'),
+        dueDate:       prop('required_till'),
+        type:          prop('type'),
+        percent:       prop('percent'),
+        strictPayment: propOr(false, 'strictPayment'),
     })
 );
 
