@@ -10,28 +10,31 @@ var _parsers = require("../parsers");
 
 // Instruments
 
-var regionSchema = exports.regionSchema = new _normalizr.schema.Entity('region', {}, {
-  idAttribute: function idAttribute(_ref) {
-    var regionId = _ref.regionId,
-      id = _ref.id;
+const regionSchema = exports.regionSchema = new _normalizr.schema.Entity('region', {}, {
+  idAttribute: _ref => {
+    let {
+      regionId,
+      id
+    } = _ref;
     return String(id || regionId);
   },
-  processStrategy: function processStrategy(input) {
-    var id = input.id,
-      regionId = input.regionId,
-      deptCities = input.deptCities,
-      _input$IPselected = input.IPselected,
-      IPselected = _input$IPselected === void 0 ? false : _input$IPselected,
-      name = input.name,
-      priority = input.priority;
-    var entity = {
+  processStrategy: input => {
+    const {
+      id,
+      regionId,
+      deptCities,
+      IPselected = false,
+      name,
+      priority
+    } = input;
+    const entity = {
       id: String(id || regionId),
-      name: name,
+      name,
       departures: deptCities && deptCities.split(','),
       default: IPselected,
       location: (0, _parsers.parseLocation)(input),
       names: (0, _parsers.parseNames)(input),
-      priority: priority
+      priority
     };
     return entity;
   }

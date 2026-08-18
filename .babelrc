@@ -1,18 +1,3 @@
 {
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "targets": {
-                    "ie": "11"
-                }
-            }
-        ]
-    ],
-    "plugins": [
-        ["@babel/plugin-proposal-class-properties"],
-        "@babel/plugin-proposal-function-bind",
-        "@babel/plugin-proposal-object-rest-spread",
-        "@babel/plugin-proposal-nullish-coalescing-operator"
-    ]
+    "presets": ["@babel/preset-env"]
 }

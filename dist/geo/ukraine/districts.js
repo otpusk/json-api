@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.districts = void 0;
-var districts = exports.districts = [{
+const districts = exports.districts = [{
   id: 1,
   city: 1,
   name: 'Голосеевский'

@@ -9,31 +9,36 @@ var _ramda = require("ramda");
 var _moment = _interopRequireDefault(require("moment"));
 var _schemas = require("./schemas");
 var _static = require("../static");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var normalizeOffer = exports.normalizeOffer = function normalizeOffer(denormalizedOffer) {
-  var _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema),
-    offer = _normalize.entities.offer,
-    result = _normalize.result;
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const normalizeOffer = denormalizedOffer => {
+  const {
+    entities: {
+      offer
+    },
+    result
+  } = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema);
   return offer[result];
 };
-var applyRequirement = (0, _ramda.curryN)(3, function (tourOption, tourOptions, requirements) {
+exports.normalizeOffer = normalizeOffer;
+const applyRequirement = (0, _ramda.curryN)(3, (tourOption, tourOptions, requirements) => {
   return (0, _ramda.includes)(tourOption, tourOptions) ? requirements : (0, _ramda.append)(tourOption, requirements);
 });
-var applyVisaRequirement = (0, _ramda.curryN)(2, function (tourOptions, requirements) {
+const applyVisaRequirement = (0, _ramda.curryN)(2, (tourOptions, requirements) => {
   return (0, _ramda.includes)(_static.TOUR_OPTIONS.NOT_NEED_VISA, tourOptions) ? requirements : (0, _ramda.append)(_static.TOUR_OPTIONS.VISA, requirements);
 });
-var applyGalaRequirement = (0, _ramda.curryN)(2, function (tourOptions, requirements) {
+const applyGalaRequirement = (0, _ramda.curryN)(2, (tourOptions, requirements) => {
   return (0, _ramda.includes)(_static.TOUR_OPTIONS.REQUIREMENT_GALA_DINNER, tourOptions) ? (0, _ramda.append)(_static.TOUR_OPTIONS.GALA_DINNER, requirements) : requirements;
 });
-var normalizeRequiremenets = exports.normalizeRequiremenets = function normalizeRequiremenets(tourOptions) {
+const normalizeRequiremenets = tourOptions => {
   return (0, _ramda.call)((0, _ramda.pipe)(applyVisaRequirement(tourOptions), applyRequirement(_static.TOUR_OPTIONS.INSURANCE, tourOptions), applyRequirement(_static.TOUR_OPTIONS.TRANSFER, tourOptions), applyGalaRequirement(tourOptions)), []);
 };
-var excludeRequirementTourOptions = exports.excludeRequirementTourOptions = function excludeRequirementTourOptions(tourOptions) {
-  var requirementOptions = new Set([_static.TOUR_OPTIONS.NOT_NEED_VISA, _static.TOUR_OPTIONS.REQUIREMENT_GALA_DINNER]);
-  return (0, _ramda.filter)(function (option) {
-    return !requirementOptions.has(option);
-  }, tourOptions);
+exports.normalizeRequiremenets = normalizeRequiremenets;
+const excludeRequirementTourOptions = tourOptions => {
+  const requirementOptions = new Set([_static.TOUR_OPTIONS.NOT_NEED_VISA, _static.TOUR_OPTIONS.REQUIREMENT_GALA_DINNER]);
+  return (0, _ramda.filter)(option => !requirementOptions.has(option), tourOptions);
 };
-var applyTimeZoneToDate = exports.applyTimeZoneToDate = function applyTimeZoneToDate(date, outerFormat) {
+exports.excludeRequirementTourOptions = excludeRequirementTourOptions;
+const applyTimeZoneToDate = (date, outerFormat) => {
   return (0, _moment.default)(date).format(outerFormat);
 };
+exports.applyTimeZoneToDate = applyTimeZoneToDate;

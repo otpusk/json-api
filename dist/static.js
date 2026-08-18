@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.TRANSPORTS_MAP = exports.TRANSPORTS = exports.TOUR_OPTIONS = exports.SERVICES = exports.OPERATORS = exports.HOTEL_CATEGORIES_MAP = exports.HOTEL_CATEGORIES = exports.FOODS = exports.DEPARTURE_CITIES = exports.CURRENCIES_MAP = exports.CURRENCIES = exports.AVAILABILITY = void 0;
-var DEPARTURE_CITIES = exports.DEPARTURE_CITIES = [{
+const DEPARTURE_CITIES = exports.DEPARTURE_CITIES = [{
   "id": 1925,
   "name": "Белая Церковь",
   "rel": "Белой Церкви"
@@ -138,7 +138,7 @@ var DEPARTURE_CITIES = exports.DEPARTURE_CITIES = [{
   "name": "Чертков (Чортков)",
   "rel": "Черткова"
 }];
-var FOODS = exports.FOODS = [{
+const FOODS = exports.FOODS = [{
   code: 'ob',
   label: 'Без питания'
 }, {
@@ -157,7 +157,7 @@ var FOODS = exports.FOODS = [{
   code: 'uai',
   label: 'Ультра все включено'
 }];
-var AVAILABILITY = exports.AVAILABILITY = [{
+const AVAILABILITY = exports.AVAILABILITY = [{
   code: 'yes',
   label: 'Есть'
 }, {
@@ -167,7 +167,7 @@ var AVAILABILITY = exports.AVAILABILITY = [{
   code: 'no',
   label: 'Нет'
 }];
-var HOTEL_CATEGORIES = exports.HOTEL_CATEGORIES = [{
+const HOTEL_CATEGORIES = exports.HOTEL_CATEGORIES = [{
   value: 2,
   label: '2'
 }, {
@@ -180,10 +180,8 @@ var HOTEL_CATEGORIES = exports.HOTEL_CATEGORIES = [{
   value: 5,
   label: '5'
 }];
-var HOTEL_CATEGORIES_MAP = exports.HOTEL_CATEGORIES_MAP = Object.fromEntries(HOTEL_CATEGORIES.map(function (category) {
-  return [category.value, category];
-}));
-var TRANSPORTS = exports.TRANSPORTS = [{
+const HOTEL_CATEGORIES_MAP = exports.HOTEL_CATEGORIES_MAP = Object.fromEntries(HOTEL_CATEGORIES.map(category => [category.value, category]));
+const TRANSPORTS = exports.TRANSPORTS = [{
   code: 'air',
   label: 'Авиаперелет'
 }, {
@@ -202,10 +200,8 @@ var TRANSPORTS = exports.TRANSPORTS = [{
   code: 'no',
   label: 'Без транспорта'
 }];
-var TRANSPORTS_MAP = exports.TRANSPORTS_MAP = Object.fromEntries(TRANSPORTS.map(function (transport) {
-  return [transport.code, transport];
-}));
-var CURRENCIES = exports.CURRENCIES = [{
+const TRANSPORTS_MAP = exports.TRANSPORTS_MAP = Object.fromEntries(TRANSPORTS.map(transport => [transport.code, transport]));
+const CURRENCIES = exports.CURRENCIES = [{
   code: 'uah',
   label: 'грн',
   symbol: '₴'
@@ -266,10 +262,8 @@ var CURRENCIES = exports.CURRENCIES = [{
   label: 'lei',
   symbol: 'lei'
 }];
-var CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(function (currency) {
-  return [currency.code, currency];
-}));
-var OPERATORS = exports.OPERATORS = [{
+const CURRENCIES_MAP = exports.CURRENCIES_MAP = Object.fromEntries(CURRENCIES.map(currency => [currency.code, currency]));
+const OPERATORS = exports.OPERATORS = [{
   id: 2,
   vendor: 'tztr',
   name: 'TEZ'
@@ -406,14 +400,14 @@ var OPERATORS = exports.OPERATORS = [{
   vendor: 'indi',
   name: 'Indiana Travel'
 }];
-var SERVICES = exports.SERVICES = {
+const SERVICES = exports.SERVICES = {
   BEACH: 'beach',
   CHILD: 'child',
   MAIN: 'main',
   RENOVATION: 'renovation',
   SPORT: 'sport'
 };
-var TOUR_OPTIONS = exports.TOUR_OPTIONS = {
+const TOUR_OPTIONS = exports.TOUR_OPTIONS = {
   TRANSFER: 'transfer',
   INSURANCE: 'insurance',
   VISA: 'visa',

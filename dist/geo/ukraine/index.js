@@ -5,19 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "cities", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _cities.cities;
   }
 });
 Object.defineProperty(exports, "districts", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _districts.districts;
   }
 });
 Object.defineProperty(exports, "regions", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _regions.regions;
   }
 });

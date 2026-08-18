@@ -5,79 +5,79 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "agencySchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _agencySchema.agencySchema;
   }
 });
 Object.defineProperty(exports, "citySchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _geoSchema.citySchema;
   }
 });
 Object.defineProperty(exports, "countrySchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _geoSchema.countrySchema;
   }
 });
 Object.defineProperty(exports, "currencySchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _currencySchema.currencySchema;
   }
 });
 Object.defineProperty(exports, "fullOfferSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _offerSchema.fullOfferSchema;
   }
 });
 Object.defineProperty(exports, "geoSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _geoSchema.geoSchema;
   }
 });
 Object.defineProperty(exports, "hotelNextSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _hotelSchema.hotelNextSchema;
   }
 });
 Object.defineProperty(exports, "hotelSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _hotelSchema.hotelSchema;
   }
 });
 Object.defineProperty(exports, "hotelShortSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _hotelSchema.hotelShortSchema;
   }
 });
 Object.defineProperty(exports, "hotelSimilarSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _hotelSchema.hotelSimilarSchema;
   }
 });
 Object.defineProperty(exports, "infoSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _validatedTourSchema.infoSchema;
   }
 });
 Object.defineProperty(exports, "offerSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _offerSchema.offerSchema;
   }
 });
 Object.defineProperty(exports, "regionSchema", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _regionSchema.regionSchema;
   }
 });

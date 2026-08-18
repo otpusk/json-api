@@ -5,205 +5,205 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "cacheValidate", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursCacheValidate.cacheValidate;
   }
 });
 Object.defineProperty(exports, "getInit", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _init.getInit;
   }
 });
 Object.defineProperty(exports, "getStaticData", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _static.getStaticData;
   }
 });
 Object.defineProperty(exports, "getToursActual", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursActual.getToursActual;
   }
 });
 Object.defineProperty(exports, "getToursAgencies", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursAgencies.getToursAgencies;
   }
 });
 Object.defineProperty(exports, "getToursBookCalculate", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursBookCalculate.getToursBookCalculate;
   }
 });
 Object.defineProperty(exports, "getToursBookServices", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursBookServices.getToursBookServices;
   }
 });
 Object.defineProperty(exports, "getToursCities", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursCities.getToursCities;
   }
 });
 Object.defineProperty(exports, "getToursCountries", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursCountries.getToursCountries;
   }
 });
 Object.defineProperty(exports, "getToursCurrencyRates", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursCurrencyRates.getToursCurrencyRates;
   }
 });
 Object.defineProperty(exports, "getToursDates", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursDates.getToursDates;
   }
 });
 Object.defineProperty(exports, "getToursDepartureCities", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursDepartureCities.getToursDepartureCities;
   }
 });
 Object.defineProperty(exports, "getToursFlightPort", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursFlightPort.getToursFlightPort;
   }
 });
 Object.defineProperty(exports, "getToursGeoById", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursSuggests.getToursGeoById;
   }
 });
 Object.defineProperty(exports, "getToursGeoTree", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursGeoTree.getToursGeoTree;
   }
 });
 Object.defineProperty(exports, "getToursGraph", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursGraph.getToursGraph;
   }
 });
 Object.defineProperty(exports, "getToursHotBlock", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursHot.getToursHotBlock;
   }
 });
 Object.defineProperty(exports, "getToursHotTour", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursHot.getToursHotTour;
   }
 });
 Object.defineProperty(exports, "getToursHotel", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursHotels.getToursHotel;
   }
 });
 Object.defineProperty(exports, "getToursHotelDescriptionsByOperator", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursHotelDescriptionsByOperator.getToursHotelDescriptionsByOperator;
   }
 });
 Object.defineProperty(exports, "getToursHotels", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursHotels.getToursHotels;
   }
 });
 Object.defineProperty(exports, "getToursHotelsMarkers", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursHotels.getToursHotelsMarkers;
   }
 });
 Object.defineProperty(exports, "getToursNextSearch", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursNextSearch.getToursNextSearch;
   }
 });
 Object.defineProperty(exports, "getToursOffer", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursOffer.getToursOffer;
   }
 });
 Object.defineProperty(exports, "getToursOperators", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursOperators.getToursOperators;
   }
 });
 Object.defineProperty(exports, "getToursOrder", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursOrder.getToursOrder;
   }
 });
 Object.defineProperty(exports, "getToursRegions", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursRegions.getToursRegions;
   }
 });
 Object.defineProperty(exports, "getToursSearch", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursSearch.getToursSearch;
   }
 });
 Object.defineProperty(exports, "getToursServices", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursServices.getToursServices;
   }
 });
 Object.defineProperty(exports, "getToursSimilar", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursSimilar.getToursSimilar;
   }
 });
 Object.defineProperty(exports, "getToursStartSearch", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursStartSearch.getToursStartSearch;
   }
 });
 Object.defineProperty(exports, "getToursSuggests", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursSuggests.getToursSuggests;
   }
 });
 Object.defineProperty(exports, "getToursValidate", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _toursValidate.getToursValidate;
   }
 });
 Object.defineProperty(exports, "getTurpravdaHotelInformer", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _turpravdaInformers.getTurpravdaHotelInformer;
   }
 });

@@ -12,16 +12,8 @@ exports.getNounForCommonNumerals = exports.getImageUrl = exports.getHotelSchemaT
 exports.getNounForNumeral = getNounForNumeral;
 exports.parseOSQueryString = exports.getTransportByCode = exports.getPriceExtraFares = exports.getPeopleCountableWord = exports.getOperatorLogoById = exports.getOperatorById = void 0;
 var _static = require("./static");
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; } // Instruments
+// Instruments
+
 /**
  * Get noun for numeral
  *
@@ -32,8 +24,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; } // Instrum
  * @returns {string} noun
  */
 function getNounForNumeral(number, titles, withNumber) {
-  var cases = [2, 0, 1, 1, 1, 2];
-  return (withNumber ? "".concat(number, " ") : '') + titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]];
+  const cases = [2, 0, 1, 1, 1, 2];
+  return (withNumber ? `${number} ` : '') + titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]];
 }
 
 /**
@@ -56,64 +48,58 @@ function __(string) {
  * @returns {*} value
  */
 function findInArrayByProp(array, prop, value) {
-  var index = array.findIndex(function (_ref) {
-    var p = _ref[prop];
+  const index = array.findIndex(_ref => {
+    let {
+      [prop]: p
+    } = _ref;
     return p === value;
   });
   return index !== -1 ? array[index] : null;
 }
 function convertObjectToUrlFormData(object) {
-  return Object.entries(object).reduce(function (params, _ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-      field = _ref3[0],
-      value = _ref3[1];
-    (value || typeof value === 'string') && params.push("".concat(field, "=").concat(encodeURIComponent(value)));
+  return Object.entries(object).reduce((params, _ref2) => {
+    let [field, value] = _ref2;
+    (value || typeof value === 'string') && params.push(`${field}=${encodeURIComponent(value)}`);
     return params;
   }, []).join('&');
 }
-var getFoodByCode = exports.getFoodByCode = function getFoodByCode(code) {
-  return findInArrayByProp(_static.FOODS, 'code', code);
-};
-var getCurrencyByCode = exports.getCurrencyByCode = function getCurrencyByCode(code) {
-  return findInArrayByProp(_static.CURRENCIES, 'code', code);
-};
-var getTransportByCode = exports.getTransportByCode = function getTransportByCode(code) {
-  return findInArrayByProp(_static.TRANSPORTS, 'code', code);
-};
-var getDepartureCityById = exports.getDepartureCityById = function getDepartureCityById(id) {
-  return findInArrayByProp(_static.DEPARTURE_CITIES, 'id', id);
-};
-var getOperatorById = exports.getOperatorById = function getOperatorById(id) {
-  return findInArrayByProp(_static.OPERATORS, 'id', id);
-};
-var getImageUrl = exports.getImageUrl = function getImageUrl(part) {
-  var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'medium';
-  var watermark = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-  var watermarkPart = watermark ? "_".concat(watermark) : '';
-  var sizes = {
-    verySmall: "2".concat(watermarkPart, "/160x120"),
-    small: "2".concat(watermarkPart, "/240x160"),
-    medium: "2".concat(watermarkPart, "/320x240"),
-    xMedium: "2".concat(watermarkPart, "/400x300"),
-    large: "3".concat(watermarkPart, "/800x600"),
-    veryLarge: "3".concat(watermarkPart, "/1200x900")
+const getFoodByCode = code => findInArrayByProp(_static.FOODS, 'code', code);
+exports.getFoodByCode = getFoodByCode;
+const getCurrencyByCode = code => findInArrayByProp(_static.CURRENCIES, 'code', code);
+exports.getCurrencyByCode = getCurrencyByCode;
+const getTransportByCode = code => findInArrayByProp(_static.TRANSPORTS, 'code', code);
+exports.getTransportByCode = getTransportByCode;
+const getDepartureCityById = id => findInArrayByProp(_static.DEPARTURE_CITIES, 'id', id);
+exports.getDepartureCityById = getDepartureCityById;
+const getOperatorById = id => findInArrayByProp(_static.OPERATORS, 'id', id);
+exports.getOperatorById = getOperatorById;
+const getImageUrl = function (part) {
+  let size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'medium';
+  let watermark = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  const watermarkPart = watermark ? `_${watermark}` : '';
+  const sizes = {
+    verySmall: `2${watermarkPart}/160x120`,
+    small: `2${watermarkPart}/240x160`,
+    medium: `2${watermarkPart}/320x240`,
+    xMedium: `2${watermarkPart}/400x300`,
+    large: `3${watermarkPart}/800x600`,
+    veryLarge: `3${watermarkPart}/1200x900`
   };
-  return "https://newimg.otpusk.com/".concat(sizes[size], "/").concat(part);
+  return `https://newimg.otpusk.com/${sizes[size]}/${part}`;
 };
-var getOperatorLogoById = exports.getOperatorLogoById = function getOperatorLogoById(id) {
-  return "https://export.otpusk.com/images/onsite/logo/logo-".concat(id, ".png");
-};
-var getPeopleCountableWord = exports.getPeopleCountableWord = function getPeopleCountableWord(people) {
+exports.getImageUrl = getImageUrl;
+const getOperatorLogoById = id => `https://export.otpusk.com/images/onsite/logo/logo-${id}.png`;
+exports.getOperatorLogoById = getOperatorLogoById;
+const getPeopleCountableWord = people => {
   return ['', 'за одного', 'за двоих', 'за троих', 'за четверых', 'за пятерых', 'за шестерых', 'за семерых'][people];
 };
-var explainPrice = exports.explainPrice = function explainPrice(price) {
-  var _ref4 = price || {},
-    _ref4$uah = _ref4.uah,
-    uah = _ref4$uah === void 0 ? null : _ref4$uah,
-    _ref4$usd = _ref4.usd,
-    usd = _ref4$usd === void 0 ? null : _ref4$usd,
-    _ref4$eur = _ref4.eur,
-    eur = _ref4$eur === void 0 ? null : _ref4$eur;
+exports.getPeopleCountableWord = getPeopleCountableWord;
+const explainPrice = price => {
+  const {
+    uah = null,
+    usd = null,
+    eur = null
+  } = price || {};
   return {
     converted: {
       value: Number(uah).toLocaleString('ru', {
@@ -131,27 +117,23 @@ var explainPrice = exports.explainPrice = function explainPrice(price) {
     } : null
   };
 };
-var getHotelSchemaType = exports.getHotelSchemaType = function getHotelSchemaType(hotel) {
-  return _typeof(hotel.info) === 'object' ? 'full' : 'preview';
+exports.explainPrice = explainPrice;
+const getHotelSchemaType = hotel => {
+  return typeof hotel.info === 'object' ? 'full' : 'preview';
 };
-var getFirstAvailableFlightsFromOffer = exports.getFirstAvailableFlightsFromOffer = function getFirstAvailableFlightsFromOffer(offer) {
-  var _offer$flights = offer.flights,
-    _offer$flights$outbou = _offer$flights.outbound,
-    _offer$flights$outbou2 = _offer$flights$outbou === void 0 ? [] : _offer$flights$outbou,
-    _offer$flights$outbou3 = _slicedToArray(_offer$flights$outbou2, 1),
-    outbound = _offer$flights$outbou3[0],
-    _offer$flights$inboun = _offer$flights.inbound,
-    _offer$flights$inboun2 = _offer$flights$inboun === void 0 ? [] : _offer$flights$inboun,
-    _offer$flights$inboun3 = _slicedToArray(_offer$flights$inboun2, 1),
-    inbound = _offer$flights$inboun3[0];
+exports.getHotelSchemaType = getHotelSchemaType;
+const getFirstAvailableFlightsFromOffer = offer => {
+  const {
+    outbound: [outbound] = [],
+    inbound: [inbound] = []
+  } = offer.flights;
   return [outbound, inbound]
   // to prevent undefined flights
-  .filter(function (flight) {
-    return Boolean(flight);
-  });
+  .filter(flight => Boolean(flight));
 };
-var compileOSQueryString = exports.compileOSQueryString = function compileOSQueryString(query) {
-  var dictionary = {
+exports.getFirstAvailableFlightsFromOffer = getFirstAvailableFlightsFromOffer;
+const compileOSQueryString = query => {
+  const dictionary = {
     to: 'i',
     departure: 'd',
     days: 'l',
@@ -162,20 +144,18 @@ var compileOSQueryString = exports.compileOSQueryString = function compileOSQuer
     dateTo: 'v',
     page: 'page'
   };
-  return Object.entries(query).map(function (_ref5) {
-    var _ref6 = _slicedToArray(_ref5, 2),
-      param = _ref6[0],
-      value = _ref6[1];
-    return "".concat(dictionary[param], "=").concat(value);
+  return Object.entries(query).map(_ref3 => {
+    let [param, value] = _ref3;
+    return `${dictionary[param]}=${value}`;
   }).join('&');
 };
-var parseOSQueryString = exports.parseOSQueryString = function parseOSQueryString(hash) {
-  return hash.replace(/^#/, '').split('&').reduce(function (query, keyvalue) {
-    var _keyvalue$split = keyvalue.split('='),
-      _keyvalue$split2 = _slicedToArray(_keyvalue$split, 2),
-      key = _keyvalue$split2[0],
-      value = _keyvalue$split2[1];
-    return value ? Object.assign(query, _defineProperty({}, key, value)) : query;
+exports.compileOSQueryString = compileOSQueryString;
+const parseOSQueryString = hash => {
+  return hash.replace(/^#/, '').split('&').reduce((query, keyvalue) => {
+    const [key, value] = keyvalue.split('=');
+    return value ? Object.assign(query, {
+      [key]: value
+    }) : query;
   }, {});
 };
 
@@ -190,14 +170,15 @@ var parseOSQueryString = exports.parseOSQueryString = function parseOSQueryStrin
  *
  * @return {string} url
  */
-var createOtpuskClickUrl = exports.createOtpuskClickUrl = function createOtpuskClickUrl(regionId, agency, hotel, offer, tourists) {
-  var currency = 'usd' in offer.price ? 'usd' : 'eur';
-  var query = {
+exports.parseOSQueryString = parseOSQueryString;
+const createOtpuskClickUrl = (regionId, agency, hotel, offer, tourists) => {
+  const currency = 'usd' in offer.price ? 'usd' : 'eur';
+  const query = {
     a: offer.room.name,
     c: hotel.country.name,
     ci: hotel.country.id,
     d: offer.room.type,
-    f: "".concat(hotel.stars, "*"),
+    f: `${hotel.stars}*`,
     g: offer.departure,
     gi: offer.departure,
     l: offer.days,
@@ -212,7 +193,7 @@ var createOtpuskClickUrl = exports.createOtpuskClickUrl = function createOtpuskC
     w: currency,
     y: offer.transport
   };
-  var params = {
+  const params = {
     c: hotel.country.id,
     d: JSON.stringify(query),
     i: agency.adGroupId,
@@ -222,10 +203,11 @@ var createOtpuskClickUrl = exports.createOtpuskClickUrl = function createOtpuskC
     t: offer.id,
     tr: offer.tourId
   };
-  return "/go/".concat(hotel.id, "_").concat(agency.adId, "?").concat(convertObjectToUrlFormData(params));
+  return `/go/${hotel.id}_${agency.adId}?${convertObjectToUrlFormData(params)}`;
 };
-var getNounForCommonNumerals = exports.getNounForCommonNumerals = function getNounForCommonNumerals(number, noun) {
-  var nouns = [];
+exports.createOtpuskClickUrl = createOtpuskClickUrl;
+const getNounForCommonNumerals = (number, noun) => {
+  let nouns = [];
   switch (noun) {
     case 'день':
       nouns = [__('день'), __('дня'), __('дней')];
@@ -250,65 +232,76 @@ var getNounForCommonNumerals = exports.getNounForCommonNumerals = function getNo
   }
   return getNounForNumeral(number, nouns);
 };
-var getPriceExtraFares = exports.getPriceExtraFares = function getPriceExtraFares(hotel, offer) {
-  var traits = {
-    isOperator: function isOperator(offer, operator) {
+exports.getNounForCommonNumerals = getNounForCommonNumerals;
+const getPriceExtraFares = (hotel, offer) => {
+  const traits = {
+    isOperator(offer, operator) {
       return offer.operator === operator;
     },
-    isCountry: function isCountry(hotel, country) {
+    isCountry(hotel, country) {
       return Number(hotel.country.id) === Number(country);
     },
-    isCity: function isCity(hotel, city) {
+    isCity(hotel, city) {
       return Number(hotel.city.id) === Number(city);
     },
-    isFirstOutboundFlightTimeBeforeHours: function isFirstOutboundFlightTimeBeforeHours(_ref7, hours) {
-      var flights = _ref7.flights;
-      var _flights$outbound = flights.outbound,
-        _flights$outbound2 = _flights$outbound === void 0 ? [] : _flights$outbound,
-        _flights$outbound3 = _slicedToArray(_flights$outbound2, 1),
-        flight = _flights$outbound3[0];
+    isFirstOutboundFlightTimeBeforeHours(_ref4, hours) {
+      let {
+        flights
+      } = _ref4;
+      const {
+        outbound: [flight] = []
+      } = flights;
       if (flight) {
-        var begin = new Date(flight.begin);
+        const begin = new Date(flight.begin);
         return begin.getHours() <= hours;
       }
       return false;
     },
-    isFirstReturnFlightTimeAfterHours: function isFirstReturnFlightTimeAfterHours(_ref8, hours) {
-      var flights = _ref8.flights;
-      var _flights$inbound = flights.inbound,
-        _flights$inbound2 = _flights$inbound === void 0 ? [] : _flights$inbound,
-        _flights$inbound3 = _slicedToArray(_flights$inbound2, 1),
-        flight = _flights$inbound3[0];
+    isFirstReturnFlightTimeAfterHours(_ref5, hours) {
+      let {
+        flights
+      } = _ref5;
+      const {
+        inbound: [flight] = []
+      } = flights;
       if (flight) {
-        var begin = new Date(flight.begin);
+        const begin = new Date(flight.begin);
         return begin.getHours() >= hours;
       }
       return false;
     },
-    isFlightsByRequest: function isFlightsByRequest(_ref9) {
-      var stopsale = _ref9.stopsale;
+    isFlightsByRequest(_ref6) {
+      let {
+        stopsale
+      } = _ref6;
       return stopsale.avia === 0 || stopsale.aviaBack === 0;
     },
-    isOutboundAeroport: function isOutboundAeroport(_ref10, aeroportCode) {
-      var flights = _ref10.flights;
-      var _flights$outbound4 = _slicedToArray(flights.outbound, 1),
-        flight = _flights$outbound4[0];
+    isOutboundAeroport(_ref7, aeroportCode) {
+      let {
+        flights
+      } = _ref7;
+      const {
+        outbound: [flight]
+      } = flights;
       if (flight !== null && flight !== void 0 && flight.portTo) {
         return flight.portTo.includes(aeroportCode);
       }
       return false;
     },
-    isInboundAeroport: function isInboundAeroport(_ref11, aeroportCode) {
-      var flights = _ref11.flights;
-      var _flights$inbound4 = _slicedToArray(flights.inbound, 1),
-        flight = _flights$inbound4[0];
+    isInboundAeroport(_ref8, aeroportCode) {
+      let {
+        flights
+      } = _ref8;
+      const {
+        inbound: [flight]
+      } = flights;
       if (flight !== null && flight !== void 0 && flight.portFr) {
         return flight.portFr.includes(aeroportCode);
       }
       return false;
     }
   };
-  var rules = [{
+  const rules = [{
     name: 'extra-fee',
     text: __('Возможна доплата за вечерний обратный рейс $25 за каждого туриста.'),
     conditions: [traits.isCountry(hotel, 43), traits.isOperator(offer, 717), traits.isFirstReturnFlightTimeAfterHours(offer, 12)]
@@ -329,17 +322,16 @@ var getPriceExtraFares = exports.getPriceExtraFares = function getPriceExtraFare
     text: __('Наличие мест на рейсе и окончательную стоимость тура запрашивайте у турагента.'),
     conditions: [traits.isFlightsByRequest(offer)]
   }];
-  var additionalPayments = offer.additionalPayments.map(function (text) {
-    return {
-      name: 'additional',
-      text: text
-    };
-  });
-  var calculatedPayments = rules.filter(function (_ref12) {
-    var conditions = _ref12.conditions;
-    return conditions.every(function (value) {
-      return value === true;
-    });
+  const additionalPayments = offer.additionalPayments.map(text => ({
+    name: 'additional',
+    text
+  }));
+  const calculatedPayments = rules.filter(_ref9 => {
+    let {
+      conditions
+    } = _ref9;
+    return conditions.every(value => value === true);
   });
   return additionalPayments;
 };
+exports.getPriceExtraFares = getPriceExtraFares;

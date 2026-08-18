@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
     mode: 'development',
-    entry: ['@babel/polyfill', './playground/index.js'],
+    entry: ['./playground/index.js'],
     plugins: [new HtmlWebpackPlugin()],
     devServer: {
         port: 3000
