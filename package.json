@@ -1,10 +1,34 @@
 {
   "name": "@otpusk/json-api",
-  "version": "1.0.132",
+  "version": "1.0.133",
   "description": "",
-  "main": "dist/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./dist": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./dist/geo/ukraine": {
+      "import": "./dist/esm/geo/ukraine/index.js",
+      "require": "./dist/cjs/geo/ukraine/index.js"
+    },
+    "./dist/normalize/schemas": {
+      "import": "./dist/esm/normalize/schemas/index.js",
+      "require": "./dist/cjs/normalize/schemas/index.js"
+    },
+    "./dist/*": {
+      "import": "./dist/esm/*.js",
+      "require": "./dist/cjs/*.js"
+    }
+  },
   "scripts": {
-    "transpile": "babel src --out-dir dist",
+    "transpile": "rm -rf dist && BABEL_ENV=cjs babel src --out-dir dist/cjs && BABEL_ENV=esm babel src --out-dir dist/esm",
     "start": "webpack-dev-server",
     "publish-package": "npm publish"
   },

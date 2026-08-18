@@ -27,12 +27,6 @@ Object.defineProperty(exports, "currencySchema", {
     return _currencySchema.currencySchema;
   }
 });
-Object.defineProperty(exports, "fullOfferSchema", {
-  enumerable: true,
-  get: function () {
-    return _offerSchema.fullOfferSchema;
-  }
-});
 Object.defineProperty(exports, "geoSchema", {
   enumerable: true,
   get: function () {
