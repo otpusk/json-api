@@ -190,7 +190,7 @@ export const hotelSchema = new schema.Entity(
                             : undefined,
                     }))
                     : [],
-                photosCount,
+                photosCount:   Number(photosCount),
                 videos:        parseHotelVideos(videos),
                 videosCount,
                 sourceRatings: Object.values(rb),
@@ -341,7 +341,7 @@ export const hotelNextSchema = new schema.Entity(
                             : [defaultPhoto]
                         : [photos]
                     : [defaultPhoto],
-                photosCount,
+                photosCount:   Number(photosCount),
                 videos:        parseHotelVideos(videos),
                 videosCount,
                 sourceRatings: Object.values(rb),
