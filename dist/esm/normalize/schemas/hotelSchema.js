@@ -175,7 +175,7 @@ export const hotelSchema = new schema.Entity('hotel', {
           } : undefined
         };
       }) : [],
-      photosCount,
+      photosCount: Number(photosCount),
       videos: parseHotelVideos(videos),
       videosCount,
       sourceRatings: Object.values(rb),
@@ -335,7 +335,7 @@ export const hotelNextSchema = new schema.Entity('hotel', {}, {
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
       services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
       photos: photos ? Array.isArray(photos) ? photos.length ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
-      photosCount,
+      photosCount: Number(photosCount),
       videos: parseHotelVideos(videos),
       videosCount,
       sourceRatings: Object.values(rb),

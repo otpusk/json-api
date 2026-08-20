@@ -182,7 +182,7 @@ const hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', 
           } : undefined
         };
       }) : [],
-      photosCount,
+      photosCount: Number(photosCount),
       videos: (0, _parsers.parseHotelVideos)(videos),
       videosCount,
       sourceRatings: Object.values(rb),
@@ -342,7 +342,7 @@ const hotelNextSchema = exports.hotelNextSchema = new _normalizr.schema.Entity('
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
       services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
       photos: photos ? Array.isArray(photos) ? photos.length ? photos : [defaultPhoto] : [photos] : [defaultPhoto],
-      photosCount,
+      photosCount: Number(photosCount),
       videos: (0, _parsers.parseHotelVideos)(videos),
       videosCount,
       sourceRatings: Object.values(rb),
