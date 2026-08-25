@@ -24,7 +24,7 @@ async function getToursActual(token, offerId, people) {
     message
   } = await (0, _fn.makeCall)({
     endpoint: _config.ENDPOINTS.actual,
-    timeout: 40000,
+    timeout: 60000,
     query: {
       ...token,
       offerId,

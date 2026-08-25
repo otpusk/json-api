@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.infoSchema = exports.flightSchema = void 0;
 var _normalizr = require("normalizr");
 var _moment = _interopRequireDefault(require("moment"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const inputFormat = 'DD.MM.YYYY HH:mm';
 const outputFormat = 'YYYY-MM-DD HH:mm:ss';
 const formatDate = (date, input, output) => {

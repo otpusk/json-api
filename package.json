@@ -1,6 +1,6 @@
 {
   "name": "@otpusk/json-api",
-  "version": "1.0.134",
+  "version": "1.0.135",
   "description": "",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

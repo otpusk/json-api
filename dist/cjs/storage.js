@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.createStorage = void 0;
 var _localforage = _interopRequireDefault(require("localforage"));
 var _immutable = require("immutable");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 // Core
 
 class Storage {
