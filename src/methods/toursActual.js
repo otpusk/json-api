@@ -15,7 +15,7 @@ export async function getToursActual (token, offerId, people, currency = 'uah', 
 
     const { code, offer: denormalizedOffer, originalHotelName, message } = await makeCall({
         endpoint: ENDPOINTS.actual,
-        timeout:  40000,
+        timeout:  60000,
         query:    {
             ...token,
             offerId,
