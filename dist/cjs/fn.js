@@ -8,7 +8,6 @@ exports.TimeoutError = exports.HttpResponseError = void 0;
 exports.createQueryStringFromObject = createQueryStringFromObject;
 exports.makeCall = makeCall;
 exports.mergeDefinedObjectValues = mergeDefinedObjectValues;
-var _isomorphicFetch = _interopRequireDefault(require("isomorphic-fetch"));
 var _fetchJsonp = _interopRequireDefault(require("fetch-jsonp"));
 var _moment = _interopRequireDefault(require("moment"));
 var _cache = require("./cache");
@@ -95,7 +94,7 @@ function fetchWithTimeout(request, body, method, timeout) {
   if (method !== 'GET' && body != null) {
     options.body = body;
   }
-  return Promise.race([(0, _isomorphicFetch.default)(request, options), new Promise((_, reject) => {
+  return Promise.race([fetch(request, options), new Promise((_, reject) => {
     setTimeout(() => reject(new TimeoutError(`request to ${request} timed out`)), timeout);
   })]);
 }

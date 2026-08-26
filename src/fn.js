@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import moment from 'moment';
 
