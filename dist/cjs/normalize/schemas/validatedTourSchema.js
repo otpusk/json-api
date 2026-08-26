@@ -1,12 +1,12 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.infoSchema = exports.flightSchema = void 0;
 var _normalizr = require("normalizr");
 var _moment = _interopRequireDefault(require("moment"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const inputFormat = 'DD.MM.YYYY HH:mm';
 const outputFormat = 'YYYY-MM-DD HH:mm:ss';
 const formatDate = (date, input, output) => {

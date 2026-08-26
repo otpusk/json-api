@@ -1,5 +1,6 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -9,7 +10,6 @@ var _ramda = require("ramda");
 var _moment = _interopRequireDefault(require("moment"));
 var _schemas = require("./schemas");
 var _static = require("../static");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const normalizeOffer = denormalizedOffer => {
   const {
     entities: {

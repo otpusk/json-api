@@ -1,5 +1,6 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -11,7 +12,6 @@ var _isomorphicFetch = _interopRequireDefault(require("isomorphic-fetch"));
 var _fetchJsonp = _interopRequireDefault(require("fetch-jsonp"));
 var _moment = _interopRequireDefault(require("moment"));
 var _cache = require("./cache");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
  * Convert object to ulr query string
  *
