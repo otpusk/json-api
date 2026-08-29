@@ -10,13 +10,6 @@ var _ramda = require("ramda");
 var _moment = _interopRequireDefault(require("moment"));
 var _schemas = require("./schemas");
 var _static = require("../static");
-<<<<<<< HEAD:dist/normalize/normalizers.js
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-var normalizeOffer = exports.normalizeOffer = function normalizeOffer(denormalizedOffer) {
-  var _normalize = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema),
-    offer = _normalize.entities.offer,
-    result = _normalize.result;
-=======
 const normalizeOffer = denormalizedOffer => {
   const {
     entities: {
@@ -24,7 +17,6 @@ const normalizeOffer = denormalizedOffer => {
     },
     result
   } = (0, _normalizr.normalize)(denormalizedOffer, _schemas.offerSchema);
->>>>>>> task-86cbbdh36:dist/cjs/normalize/normalizers.js
   return offer[result];
 };
 exports.normalizeOffer = normalizeOffer;

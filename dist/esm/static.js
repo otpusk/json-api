@@ -424,5 +424,6 @@ export const TOUR_OPTIONS = {
   EXCURSION: 'excursion',
   PRESTIGE: 'prestige',
   ELSE: 'else',
+  TARIFF: 'tariff',
   NO_TRANSFER: 'notransfer'
 };
