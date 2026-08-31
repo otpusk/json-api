@@ -16,7 +16,7 @@ export async function getToursOperators(token, countryId) {
     },
     ttl: [2, 'hour']
   });
-  return R.call(R.pipe(R.values, R.map(operator => R.mergeAll([R.pick(['active', 'id', 'name', 'url', 'transports', 'priority', 'rFilterComment'], operator), {
+  return R.call(R.pipe(R.values, R.map(operator => R.mergeAll([R.pick(['active', 'id', 'name', 'url', 'transports', 'priority', 'rFilterComment', 'origin'], operator), {
     currencyRates: operator.currencies,
     logo: operator.logo ?? getOperatorLogoById(operator.id),
     offerTTLAsMinutes: operator.offer_ttl ?? undefined
