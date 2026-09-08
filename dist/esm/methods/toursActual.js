@@ -18,7 +18,7 @@ export async function getToursActual(token, offerId, people) {
     message
   } = await makeCall({
     endpoint: ENDPOINTS.actual,
-    timeout: 60000,
+    timeout: 90000,
     query: {
       ...token,
       offerId,
