@@ -294,6 +294,7 @@ export const hotelNextSchema = new schema.Entity(
                 area,
                 i,
                 a,
+                b,
                 s: stars,
                 ss: secondaryStars,
                 p: price,
@@ -330,6 +331,7 @@ export const hotelNextSchema = new schema.Entity(
                 city:             c.p ? { ...parseHotelGeo(c), namePr: c.p } : parseHotelGeo(c),
                 district:         ds ? parseHotelGeo(ds) : undefined,
                 country:          parseHotelGeo(t),
+                chain:            b ? { id: b.i, name: b.n } : undefined,
                 stars:            stars ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
