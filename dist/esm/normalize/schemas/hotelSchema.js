@@ -117,6 +117,7 @@ export const hotelSchema = new schema.Entity('hotel', {
       area,
       i,
       a,
+      b,
       s: stars,
       ss: secondaryStars,
       p: price = {},
@@ -156,6 +157,10 @@ export const hotelSchema = new schema.Entity('hotel', {
       } : parseHotelGeo(c),
       district: ds ? parseHotelGeo(ds) : undefined,
       country: parseHotelGeo(t),
+      chain: b ? {
+        id: b.i,
+        name: b.n
+      } : undefined,
       stars: stars ? typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
@@ -293,6 +298,7 @@ export const hotelNextSchema = new schema.Entity('hotel', {}, {
       area,
       i,
       a,
+      b,
       s: stars,
       ss: secondaryStars,
       p: price,
@@ -330,6 +336,10 @@ export const hotelNextSchema = new schema.Entity('hotel', {}, {
       } : parseHotelGeo(c),
       district: ds ? parseHotelGeo(ds) : undefined,
       country: parseHotelGeo(t),
+      chain: b ? {
+        id: b.i,
+        name: b.n
+      } : undefined,
       stars: stars ? typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars) : null,
       rating: !Number.isNaN(Number(r)) ? Number(r) : null,
       reviews: !Number.isNaN(Number(v)) ? Number(v) : null,
