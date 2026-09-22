@@ -185,9 +185,9 @@ export const parseHotelGeo = (input) => {
 };
 
 export const parseCountry = (input) => {
-    const { countryId: id, countryName: name } = input;
+    const { countryId: id, countryName: name, countryCode: code = null } = input;
 
-    return { id: Number(id), name, names: parseNames(input, 'country') };
+    return { id: String(id), name, code, names: parseNames(input, 'country') };
 };
 
 export const parseCity = (input) => {
