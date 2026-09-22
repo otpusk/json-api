@@ -181,11 +181,13 @@ exports.parseHotelGeo = parseHotelGeo;
 const parseCountry = input => {
   const {
     countryId: id,
-    countryName: name
+    countryName: name,
+    countryCode: code = null
   } = input;
   return {
-    id: Number(id),
+    id: String(id),
     name,
+    code,
     names: parseNames(input, 'country')
   };
 };
