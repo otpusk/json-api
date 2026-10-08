@@ -23,7 +23,8 @@ import {
     slice,
     join,
     isNil,
-    identity, propOr
+    identity, propOr,
+    is
 } from 'ramda';
 
 import { mergeDefinedObjectValues } from '../fn';
@@ -283,6 +284,8 @@ export const parseBadges = (raw) => {
         .map(([area, badge]) => ({ area, ...badge }));
 };
 
+export const parseServices = (raw) => is(Object, raw) && !is(Array, raw) ? raw : {};
+
 export const parsePromo = (promo) => {
     if (promo) {
         const isHeightPromo = promo.startsWith('!');
@@ -379,6 +382,7 @@ const prepareContent = pipe(
 );
 
 export const descriptionByAIMapper = pipe(
+    when(is(Array), join('\n')),
     split(CATEGORIES_SEPARATOR),
     filter(Boolean),
     map(pipe(
