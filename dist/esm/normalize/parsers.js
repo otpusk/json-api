@@ -1,5 +1,5 @@
 import { Map, mergeWith } from 'immutable';
-import { always, call, fromPairs, ifElse, lensProp, over, map, pipe, toPairs, when, isEmpty, applySpec, prop, split, filter, head, trim, tail, all, startsWith, slice, join, isNil, identity, propOr } from 'ramda';
+import { always, call, fromPairs, ifElse, lensProp, over, map, pipe, toPairs, when, isEmpty, applySpec, prop, split, filter, head, trim, tail, all, startsWith, slice, join, isNil, identity, propOr, is } from 'ramda';
 import { mergeDefinedObjectValues } from '../fn';
 export const parsePrice = input => {
   const {
@@ -268,6 +268,7 @@ export const parseBadges = raw => {
     };
   });
 };
+export const parseServices = raw => is(Object, raw) && !is(Array, raw) ? raw : {};
 export const parsePromo = promo => {
   if (promo) {
     const isHeightPromo = promo.startsWith('!');
@@ -337,7 +338,7 @@ const CONTENT_ITEM_SEPARATOR = /\r?\n/;
 const LIST_ITEM_PREFIX = '- ';
 const prepareTitle = pipe(head, trim);
 const prepareContent = pipe(tail, ifElse(all(startsWith(LIST_ITEM_PREFIX)), map(slice(2, Infinity)), join(' ')));
-export const descriptionByAIMapper = pipe(split(CATEGORIES_SEPARATOR), filter(Boolean), map(pipe(split(CONTENT_ITEM_SEPARATOR), filter(Boolean), applySpec({
+export const descriptionByAIMapper = pipe(when(is(Array), join('\n')), split(CATEGORIES_SEPARATOR), filter(Boolean), map(pipe(split(CONTENT_ITEM_SEPARATOR), filter(Boolean), applySpec({
   title: prepareTitle,
   content: prepareContent
 }))));

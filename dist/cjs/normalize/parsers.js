@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.scheduleOfBookingPaymentsMapper = exports.parseSubOperator = exports.parseStars = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractExternalOperatorData = exports.extractBookingData = exports.descriptionByAIMapper = void 0;
+exports.scheduleOfBookingPaymentsMapper = exports.parseSubOperator = exports.parseStars = exports.parseServices = exports.parseSecondaryStars = exports.parseSearchMeta = exports.parsePromo = exports.parsePrice = exports.parsePeople = exports.parseOfferPrice = exports.parseNames = exports.parseLocation = exports.parseHotelVideos = exports.parseHotelGeo = exports.parseFullOfferPrice = exports.parseFlights = exports.parseDiscountPrice = exports.parseCountry = exports.parseCity = exports.parseChildrenAges = exports.parseBadges = exports.extractExternalOperatorData = exports.extractBookingData = exports.descriptionByAIMapper = void 0;
 var _immutable = require("immutable");
 var _ramda = require("ramda");
 var _fn = require("../fn");
@@ -289,6 +289,8 @@ const parseBadges = raw => {
   });
 };
 exports.parseBadges = parseBadges;
+const parseServices = raw => (0, _ramda.is)(Object, raw) && !(0, _ramda.is)(Array, raw) ? raw : {};
+exports.parseServices = parseServices;
 const parsePromo = promo => {
   if (promo) {
     const isHeightPromo = promo.startsWith('!');
@@ -362,7 +364,7 @@ const CONTENT_ITEM_SEPARATOR = /\r?\n/;
 const LIST_ITEM_PREFIX = '- ';
 const prepareTitle = (0, _ramda.pipe)(_ramda.head, _ramda.trim);
 const prepareContent = (0, _ramda.pipe)(_ramda.tail, (0, _ramda.ifElse)((0, _ramda.all)((0, _ramda.startsWith)(LIST_ITEM_PREFIX)), (0, _ramda.map)((0, _ramda.slice)(2, Infinity)), (0, _ramda.join)(' ')));
-const descriptionByAIMapper = exports.descriptionByAIMapper = (0, _ramda.pipe)((0, _ramda.split)(CATEGORIES_SEPARATOR), (0, _ramda.filter)(Boolean), (0, _ramda.map)((0, _ramda.pipe)((0, _ramda.split)(CONTENT_ITEM_SEPARATOR), (0, _ramda.filter)(Boolean), (0, _ramda.applySpec)({
+const descriptionByAIMapper = exports.descriptionByAIMapper = (0, _ramda.pipe)((0, _ramda.when)((0, _ramda.is)(Array), (0, _ramda.join)('\n')), (0, _ramda.split)(CATEGORIES_SEPARATOR), (0, _ramda.filter)(Boolean), (0, _ramda.map)((0, _ramda.pipe)((0, _ramda.split)(CONTENT_ITEM_SEPARATOR), (0, _ramda.filter)(Boolean), (0, _ramda.applySpec)({
   title: prepareTitle,
   content: prepareContent
 }))));

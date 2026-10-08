@@ -81,6 +81,10 @@ async function getToursHotelsMarkers(token, countryId, cityId, options) {
 }
 async function getToursHotel(token, hotelId) {
   let lang = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'ru';
+  let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  const {
+    descriptionFormat
+  } = options;
   const {
     hotel: denormalizedHotel
   } = await (0, _fn.makeCall)({
@@ -88,7 +92,10 @@ async function getToursHotel(token, hotelId) {
     query: {
       hotelId,
       lang,
-      ...token
+      ...token,
+      ...(descriptionFormat ? {
+        descriptionFormat
+      } : {})
     },
     ttl: [1, 'hour']
   });
