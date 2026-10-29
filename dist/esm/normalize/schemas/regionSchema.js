@@ -3,25 +3,24 @@ import { schema } from 'normalizr';
 
 // Instruments
 import { parseNames, parseLocation } from '../parsers';
+const getRegionKey = _ref => {
+  let {
+    cityId,
+    regionId
+  } = _ref;
+  return cityId ?? regionId;
+};
 export const regionSchema = new schema.Entity('region', {}, {
-  idAttribute: _ref => {
-    let {
-      regionId,
-      id
-    } = _ref;
-    return String(id || regionId);
-  },
+  idAttribute: getRegionKey,
   processStrategy: input => {
     const {
-      id,
-      regionId,
       deptCities,
       IPselected = false,
       name,
       priority
     } = input;
     const entity = {
-      id: String(id || regionId),
+      id: getRegionKey(input),
       name,
       departures: deptCities && deptCities.split(','),
       default: IPselected,

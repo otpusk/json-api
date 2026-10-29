@@ -10,25 +10,24 @@ var _parsers = require("../parsers");
 
 // Instruments
 
+const getRegionKey = _ref => {
+  let {
+    cityId,
+    regionId
+  } = _ref;
+  return cityId ?? regionId;
+};
 const regionSchema = exports.regionSchema = new _normalizr.schema.Entity('region', {}, {
-  idAttribute: _ref => {
-    let {
-      regionId,
-      id
-    } = _ref;
-    return String(id || regionId);
-  },
+  idAttribute: getRegionKey,
   processStrategy: input => {
     const {
-      id,
-      regionId,
       deptCities,
       IPselected = false,
       name,
       priority
     } = input;
     const entity = {
-      id: String(id || regionId),
+      id: getRegionKey(input),
       name,
       departures: deptCities && deptCities.split(','),
       default: IPselected,

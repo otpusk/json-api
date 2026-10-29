@@ -50,7 +50,7 @@ const agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.En
       id,
       location: (0, _parsers.parseLocation)(input),
       address,
-      region,
+      region: region && Number(region),
       agency,
       district,
       area,
