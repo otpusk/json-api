@@ -45,7 +45,7 @@ export const agencyOfficeSchema = new schema.Entity(
                 id,
                 location: parseLocation(input),
                 address,
-                region,
+                region:   region && Number(region),
                 agency,
                 district,
                 area,
