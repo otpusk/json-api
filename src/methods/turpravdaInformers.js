@@ -1,13 +1,8 @@
 // Instruments
-import * as R from 'ramda';
+import { evolve, map } from 'ramda';
 
 import { createQueryStringFromObject, makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
-
-const TURPRAVDA_LANGS = {
-    ru: 'rus',
-    uk: 'ukr',
-};
 
 export async function getTurpravdaHotelInformer (hotelId, options = { count: 10 }) {
     const query = {
@@ -31,12 +26,12 @@ export async function getTurpravdaHotelReviews (hotelId, lang) {
             skin:   1,
             count:  999,
             length: 99999,
-            lang:   R.propOr(lang, lang, TURPRAVDA_LANGS),
+            lang,
         },
     });
 
     return {
         hotel,
-        reviews: R.map(R.evolve({ vote: Number }), reviews),
+        reviews: map(evolve({ vote: Number }), reviews),
     };
 }
