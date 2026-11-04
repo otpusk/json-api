@@ -16,6 +16,7 @@ import {
     parseOfferPrice,
     parseFullOfferPrice,
     parseSecondaryStars,
+    parseServices,
     descriptionByAIMapper
 } from '../parsers';
 import { offerSchema } from './offerSchema';
@@ -261,13 +262,13 @@ export const hotelSchema = new schema.Entity(
                     name: nm,
                     description,
                     info: {
-                        beach:    { description: beachDescription, services: typeof beachServices === 'object' ? beachServices : {}},
-                        sport:    { description: sportDescription, services: typeof sportServices === 'object' ? sportServices : {}},
-                        hotel:    { description: hotelDescription, services: typeof hotelServices === 'object' ? hotelServices : {}},
-                        child:    { description: childDescription, services: typeof childServices === 'object' ? childServices : {}},
+                        beach:    { description: beachDescription, services: parseServices(beachServices) },
+                        sport:    { description: sportDescription, services: parseServices(sportServices) },
+                        hotel:    { description: hotelDescription, services: parseServices(hotelServices) },
+                        child:    { description: childDescription, services: parseServices(childServices) },
                         room:     { description: roomDescription, services: typeof roomServices === 'object' ? roomServices : {}},
                         location: { description: locationDescription },
-                        feature:  { services: typeof featuresServices === 'object' ? featuresServices : {}},
+                        feature:  { services: parseServices(featuresServices) },
                     },
                     rooms,
                     contacts:        { address, email, website, phone },

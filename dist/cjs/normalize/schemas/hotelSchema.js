@@ -251,19 +251,19 @@ const hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', 
         info: {
           beach: {
             description: beachDescription,
-            services: typeof beachServices === 'object' ? beachServices : {}
+            services: (0, _parsers.parseServices)(beachServices)
           },
           sport: {
             description: sportDescription,
-            services: typeof sportServices === 'object' ? sportServices : {}
+            services: (0, _parsers.parseServices)(sportServices)
           },
           hotel: {
             description: hotelDescription,
-            services: typeof hotelServices === 'object' ? hotelServices : {}
+            services: (0, _parsers.parseServices)(hotelServices)
           },
           child: {
             description: childDescription,
-            services: typeof childServices === 'object' ? childServices : {}
+            services: (0, _parsers.parseServices)(childServices)
           },
           room: {
             description: roomDescription,
@@ -273,7 +273,7 @@ const hotelSchema = exports.hotelSchema = new _normalizr.schema.Entity('hotel', 
             description: locationDescription
           },
           feature: {
-            services: typeof featuresServices === 'object' ? featuresServices : {}
+            services: (0, _parsers.parseServices)(featuresServices)
           }
         },
         rooms,

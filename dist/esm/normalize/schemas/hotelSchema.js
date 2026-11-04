@@ -4,7 +4,7 @@
 import { schema } from 'normalizr';
 
 // Instruments
-import { parsePrice, parseLocation, parseHotelGeo, parseCountry, parseCity, parseStars, parseHotelVideos, parseBadges, parseOfferPrice, parseFullOfferPrice, parseSecondaryStars, descriptionByAIMapper } from '../parsers';
+import { parsePrice, parseLocation, parseHotelGeo, parseCountry, parseCity, parseStars, parseHotelVideos, parseBadges, parseOfferPrice, parseFullOfferPrice, parseSecondaryStars, parseServices, descriptionByAIMapper } from '../parsers';
 import { offerSchema } from './offerSchema';
 import { mergeDefinedObjectValues } from '../../fn';
 export const hotelShortSchema = new schema.Entity('hotel', {}, {
@@ -244,19 +244,19 @@ export const hotelSchema = new schema.Entity('hotel', {
         info: {
           beach: {
             description: beachDescription,
-            services: typeof beachServices === 'object' ? beachServices : {}
+            services: parseServices(beachServices)
           },
           sport: {
             description: sportDescription,
-            services: typeof sportServices === 'object' ? sportServices : {}
+            services: parseServices(sportServices)
           },
           hotel: {
             description: hotelDescription,
-            services: typeof hotelServices === 'object' ? hotelServices : {}
+            services: parseServices(hotelServices)
           },
           child: {
             description: childDescription,
-            services: typeof childServices === 'object' ? childServices : {}
+            services: parseServices(childServices)
           },
           room: {
             description: roomDescription,
@@ -266,7 +266,7 @@ export const hotelSchema = new schema.Entity('hotel', {
             description: locationDescription
           },
           feature: {
-            services: typeof featuresServices === 'object' ? featuresServices : {}
+            services: parseServices(featuresServices)
           }
         },
         rooms,

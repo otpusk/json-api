@@ -115,7 +115,7 @@ export const offerSchema = new schema.Entity(
                 transport,
                 flights:                   parseFlights(flights || {}),
                 tourId,
-                hotelId,
+                hotelId:                   String(hotelId),
                 additionalPayments,
                 currencyRate,
                 currencyOperatorRate,

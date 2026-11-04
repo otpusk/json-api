@@ -7,15 +7,17 @@ import {
     parseLocation
 } from '../parsers';
 
+const getRegionKey = ({ cityId, regionId }) => cityId ?? regionId;
+
 export const regionSchema = new schema.Entity(
     'region',
     {},
     {
-        idAttribute:     ({ regionId, id }) => String(id || regionId),
+        idAttribute:     getRegionKey,
         processStrategy: (input) => {
-            const { id, regionId, deptCities, IPselected = false, name, priority } = input;
+            const { deptCities, IPselected = false, name, priority } = input;
             const entity = {
-                id:         String(id || regionId),
+                id:         getRegionKey(input),
                 name,
                 departures: deptCities && deptCities.split(','),
                 default:    IPselected,
