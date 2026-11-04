@@ -23,7 +23,7 @@ export async function getTurpravdaHotelInformer (hotelId, options = { count: 10 
 }
 
 export async function getTurpravdaHotelReviews (hotelId, lang) {
-    const { reviews } = await makeCall({
+    const { hotel, reviews } = await makeCall({
         endpoint: ENDPOINTS.turpravdaInformers,
         query:    {
             htl:    hotelId,
@@ -35,5 +35,8 @@ export async function getTurpravdaHotelReviews (hotelId, lang) {
         },
     });
 
-    return R.map(R.evolve({ vote: Number }), reviews);
+    return {
+        hotel,
+        reviews: R.map(R.evolve({ vote: Number }), reviews),
+    };
 }
