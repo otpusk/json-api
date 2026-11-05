@@ -207,6 +207,12 @@ Object.defineProperty(exports, "getTurpravdaHotelInformer", {
     return _turpravdaInformers.getTurpravdaHotelInformer;
   }
 });
+Object.defineProperty(exports, "getTurpravdaHotelReviews", {
+  enumerable: true,
+  get: function () {
+    return _turpravdaInformers.getTurpravdaHotelReviews;
+  }
+});
 var _toursSuggests = require("./methods/toursSuggests");
 var _toursCountries = require("./methods/toursCountries");
 var _toursCurrencyRates = require("./methods/toursCurrencyRates");

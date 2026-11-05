@@ -1,5 +1,6 @@
 // Instruments
-import { createQueryStringFromObject } from '../fn';
+import { evolve, map } from 'ramda';
+import { createQueryStringFromObject, makeCall } from '../fn';
 import { ENDPOINTS } from '../config';
 export async function getTurpravdaHotelInformer(hotelId) {
   let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
@@ -14,4 +15,26 @@ export async function getTurpravdaHotelInformer(hotelId) {
   const response = await fetch(`${ENDPOINTS.turpravdaInformers}?${createQueryStringFromObject(query)}`);
   const html = await response.text();
   return html;
+}
+export async function getTurpravdaHotelReviews(hotelId, lang) {
+  const {
+    hotel,
+    reviews
+  } = await makeCall({
+    endpoint: ENDPOINTS.turpravdaInformers,
+    query: {
+      htl: hotelId,
+      tp: 99,
+      skin: 1,
+      count: 999,
+      length: 99999,
+      lang
+    }
+  });
+  return {
+    hotel,
+    reviews: map(evolve({
+      vote: Number
+    }), reviews)
+  };
 }
