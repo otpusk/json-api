@@ -10,10 +10,19 @@ var _parsers = require("../parsers");
 
 // Instruments
 
+const TELEGRAM_URL = 'https://t.me/';
+const WHATSAPP_URL = 'https://wa.me/';
+const getPhoneDigits = number => number.replace(/\D/g, '');
+const buildTelegramUrl = telegram => {
+  const username = telegram && telegram.trim().replace(/^@/, '');
+  return username ? `${TELEGRAM_URL}${username}` : null;
+};
+const buildWhatsAppUrl = (number, whatsapp) => whatsapp && number ? `${WHATSAPP_URL}${getPhoneDigits(number)}` : null;
 const buildPhone = (number, viber, whatsapp) => ({
   number,
-  viber: viber && number && number.replace(/\D/g, ''),
-  whatsapp: whatsapp && number && number.replace(/\D/g, '')
+  viber: viber && number && getPhoneDigits(number),
+  whatsapp: whatsapp && number && getPhoneDigits(number),
+  whatsappUrl: buildWhatsAppUrl(number, whatsapp)
 });
 const agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.Entity('office', {}, {
   idAttribute: _ref => {
@@ -57,6 +66,7 @@ const agencyOfficeSchema = exports.agencyOfficeSchema = new _normalizr.schema.En
       messenger,
       skype,
       telegram,
+      telegramUrl: buildTelegramUrl(telegram),
       options: {
         callback: Boolean(callback)
       },
