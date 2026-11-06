@@ -10,10 +10,8 @@ const WHATSAPP_URL = 'https://wa.me/';
 
 const getPhoneDigits = (number) => number.replace(/\D/g, '');
 
-const getTelegramUsername = (telegram) => telegram.trim().replace(/^@/, '');
-
 const buildTelegramUrl = (telegram) => {
-    const username = telegram && getTelegramUsername(telegram);
+    const username = telegram && telegram.trim().replace(/^@/, '');
 
     return username ? `${TELEGRAM_URL}${username}` : null;
 };
