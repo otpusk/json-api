@@ -53,5 +53,6 @@ const ENDPOINTS = exports.ENDPOINTS = {
   bookServices: `${API_HOST}${API_VERSION_2_6}/tours/book/services`,
   bookCalculate: `${API_HOST}${API_VERSION_2_6}/tours/book/calculate`,
   geoTree: `${API}/tours/geotree`,
-  startSearch: `${API}/tours/startSearch`
+  startSearch: `${API}/tours/startSearch`,
+  mtapi: `${API}/mtapi`
 };

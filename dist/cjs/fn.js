@@ -7,10 +7,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.TimeoutError = exports.HttpResponseError = void 0;
 exports.createQueryStringFromObject = createQueryStringFromObject;
 exports.makeCall = makeCall;
+exports.makeCrmCall = makeCrmCall;
 exports.mergeDefinedObjectValues = mergeDefinedObjectValues;
 var _fetchJsonp = _interopRequireDefault(require("fetch-jsonp"));
 var _moment = _interopRequireDefault(require("moment"));
 var _cache = require("./cache");
+var _config = require("./config");
 /**
  * Convert object to ulr query string
  *
@@ -141,6 +143,25 @@ async function makeCall(_ref) {
     await cache.save();
   }
   return result;
+}
+
+/**
+ * Make crm call through mtapi proxy
+ *
+ * @param {Object} token Api token
+ * @param {string} crmMethod Crm method path
+ * @param {Object} crmQuery Crm method query
+ *
+ * @returns {Promise} Response
+ */
+function makeCrmCall(token, crmMethod, crmQuery) {
+  return makeCall({
+    endpoint: _config.ENDPOINTS.mtapi,
+    query: {
+      ...token,
+      method: encodeURIComponent(`${crmMethod}?${createQueryStringFromObject(crmQuery)}`)
+    }
+  });
 }
 
 /**

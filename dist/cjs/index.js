@@ -9,6 +9,12 @@ Object.defineProperty(exports, "cacheValidate", {
     return _toursCacheValidate.cacheValidate;
   }
 });
+Object.defineProperty(exports, "getCrmSimilarHotels", {
+  enumerable: true,
+  get: function () {
+    return _crmSimilarHotels.getCrmSimilarHotels;
+  }
+});
 Object.defineProperty(exports, "getInit", {
   enumerable: true,
   get: function () {
@@ -230,6 +236,7 @@ var _toursOrder = require("./methods/toursOrder");
 var _toursRegions = require("./methods/toursRegions");
 var _toursAgencies = require("./methods/toursAgencies");
 var _toursSimilar = require("./methods/toursSimilar");
+var _crmSimilarHotels = require("./methods/crmSimilarHotels");
 var _turpravdaInformers = require("./methods/turpravdaInformers");
 var _toursHot = require("./methods/toursHot");
 var _toursOperators = require("./methods/toursOperators");
