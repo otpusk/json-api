@@ -15,7 +15,7 @@ export { getToursOrder } from './methods/toursOrder';
 export { getToursRegions } from './methods/toursRegions';
 export { getToursAgencies } from './methods/toursAgencies';
 export { getToursSimilar } from './methods/toursSimilar';
-export { getCrmSimilarHotels } from './methods/crm';
+export { getCrmSimilarHotels } from './methods/crmSimilarHotels';
 export { getTurpravdaHotelInformer, getTurpravdaHotelReviews } from './methods/turpravdaInformers';
 export { getToursHotBlock, getToursHotTour } from './methods/toursHot';
 export { getToursOperators } from './methods/toursOperators';
