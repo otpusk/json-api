@@ -2,6 +2,7 @@ import fetchJsonp from 'fetch-jsonp';
 import moment from 'moment';
 
 import { CacheItem } from './cache';
+import { ENDPOINTS } from './config';
 
 /**
  * Convert object to ulr query string
@@ -149,6 +150,25 @@ async function makeCall ({ body, endpoint, method = 'GET', query = {}, ttl = nul
 }
 
 /**
+ * Make crm call through mtapi proxy
+ *
+ * @param {Object} token Api token
+ * @param {string} crmMethod Crm method path
+ * @param {Object} crmQuery Crm method query
+ *
+ * @returns {Promise} Response
+ */
+function makeCrmCall (token, crmMethod, crmQuery) {
+    return makeCall({
+        endpoint: ENDPOINTS.mtapi,
+        query:    {
+            ...token,
+            method: encodeURIComponent(`${crmMethod}?${createQueryStringFromObject(crmQuery)}`),
+        },
+    });
+}
+
+/**
  * Copy defined source object fields to target object
  * @param {*} target
  * @param {*} source
@@ -177,6 +197,7 @@ class HttpResponseError {
 
 export {
     makeCall,
+    makeCrmCall,
     createQueryStringFromObject,
     mergeDefinedObjectValues,
     HttpResponseError,
