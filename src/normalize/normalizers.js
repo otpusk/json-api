@@ -2,11 +2,17 @@ import { normalize } from 'normalizr';
 import { append, call, curryN, filter, includes, pipe } from 'ramda';
 import moment from 'moment';
 
-import { offerSchema } from "./schemas";
+import { offerSchema, fullOfferSchema } from "./schemas";
 import { TOUR_OPTIONS } from '../static';
 
 export const normalizeOffer = (denormalizedOffer) => {
     const { entities: { offer }, result } = normalize(denormalizedOffer, offerSchema);
+
+    return offer[result];
+};
+
+export const normalizeFullOffer = (denormalizedOffer) => {
+    const { entities: { offer }, result } = normalize(denormalizedOffer, fullOfferSchema);
 
     return offer[result];
 };
