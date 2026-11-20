@@ -52,6 +52,7 @@ export const agencyOfficeSchema = new schema.Entity(
                 skype,
                 telegram,
                 image,
+                workingTime = [],
             } = input;
 
             return {
@@ -75,6 +76,7 @@ export const agencyOfficeSchema = new schema.Entity(
                     buildPhone(fPhone2, phoneViber2, phoneWhatsapp2),
                     buildPhone(fPhone3, phoneViber3, phoneWhatsapp3)
                 ].filter(({ number }) => Boolean(number)),
+                workingTime,
             };
         },
     }
