@@ -7,6 +7,8 @@ import { parseLocation } from '../parsers';
 
 const TELEGRAM_URL = 'https://t.me/';
 const WHATSAPP_URL = 'https://wa.me/';
+const VIBER_URL = 'viber://chat?number=%2B';
+const PHONE_URL = 'tel:';
 
 const getPhoneDigits = (number) => number.replace(/\D/g, '');
 
@@ -18,9 +20,15 @@ const buildTelegramUrl = (telegram) => {
 
 const buildWhatsAppUrl = (number, whatsapp) => whatsapp && number ? `${WHATSAPP_URL}${getPhoneDigits(number)}` : null;
 
+const buildViberUrl = (number, viber) => viber && number ? `${VIBER_URL}${getPhoneDigits(number)}` : null;
+
+const buildPhoneUrl = (number) => number ? `${PHONE_URL}${number.replace(/[^+\d]/g, '')}` : null;
+
 const buildPhone = (number, viber, whatsapp) => ({
     number,
+    phoneUrl:    buildPhoneUrl(number),
     viber:       viber && number && getPhoneDigits(number),
+    viberUrl:    buildViberUrl(number, viber),
     whatsapp:    whatsapp && number && getPhoneDigits(number),
     whatsappUrl: buildWhatsAppUrl(number, whatsapp),
 });
