@@ -43,7 +43,13 @@ export const ENDPOINTS = {
     turpravdaInformers: `${TURPRAVDA}/informers/hotel/`,
     hotBlock:           `${API}/tours/hotBlock`,
     hotTour:            `${API}/tours/hotTour`,
-    operators:          `${API}/tours/operators`,
+    get operators () {
+        const path = '/tours/operators';
+
+        return apiHostFromCookie
+            ? `${apiHostFromCookie}${path}`
+            : `${API_HOST}${API_VERSION_2_6}${path}`;
+    },
     hotelDescriptionsByOperator:  `${API}/tours/operatorHotelDescription`,
     validate:           `${API}/tours/validate`,
     init:               `${API}/init/json`,
