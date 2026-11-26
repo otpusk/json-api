@@ -133,6 +133,7 @@ export const hotelSchema = new schema.Entity(
                 p: price = {},
                 r,
                 v,
+                w,
                 h: code,
                 hru: alternativeNames,
                 n,
@@ -170,9 +171,10 @@ export const hotelSchema = new schema.Entity(
                 stars:            stars ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
-                rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
-                reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
-                services: Array.isArray(e)
+                rating:       !Number.isNaN(Number(r)) ? Number(r) : null,
+                reviews:      !Number.isNaN(Number(v)) ? Number(v) : null,
+                ratingsCount: !Number.isNaN(Number(w)) ? Number(w) : null,
+                services:     Array.isArray(e)
                     ? e
                     : Object
                         .values(e)
@@ -301,6 +303,7 @@ export const hotelNextSchema = new schema.Entity(
                 p: price,
                 r,
                 v,
+                w,
                 h: code,
                 hru: alternativeNames,
                 n,
@@ -336,10 +339,11 @@ export const hotelNextSchema = new schema.Entity(
                 stars:            stars ?
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
-                rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
-                reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
-                services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
-                photos:   photos
+                rating:       !Number.isNaN(Number(r)) ? Number(r) : null,
+                reviews:      !Number.isNaN(Number(v)) ? Number(v) : null,
+                ratingsCount: !Number.isNaN(Number(w)) ? Number(w) : null,
+                services:     Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
+                photos:       photos
                     ? Array.isArray(photos)
                         ? photos.length
                             ? photos
