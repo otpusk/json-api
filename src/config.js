@@ -43,7 +43,7 @@ export const ENDPOINTS = {
     turpravdaInformers: `${TURPRAVDA}/informers/hotel/`,
     hotBlock:           `${API}/tours/hotBlock`,
     hotTour:            `${API}/tours/hotTour`,
-    operators:          `${API}/tours/operators`,
+    operators:          `${API_HOST}${API_VERSION_2_6}/tours/operators`,
     hotelDescriptionsByOperator:  `${API}/tours/operatorHotelDescription`,
     validate:           `${API}/tours/validate`,
     init:               `${API}/init/json`,
