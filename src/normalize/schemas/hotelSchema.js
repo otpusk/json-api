@@ -132,7 +132,7 @@ export const hotelSchema = new schema.Entity(
                 ss: secondaryStars,
                 p: price = {},
                 r,
-                v,
+                w,
                 h: code,
                 hru: alternativeNames,
                 n,
@@ -171,7 +171,7 @@ export const hotelSchema = new schema.Entity(
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
                 rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
-                reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
+                reviews:  !Number.isNaN(Number(w)) ? Number(w) : null,
                 services: Array.isArray(e)
                     ? e
                     : Object
@@ -300,7 +300,7 @@ export const hotelNextSchema = new schema.Entity(
                 ss: secondaryStars,
                 p: price,
                 r,
-                v,
+                w,
                 h: code,
                 hru: alternativeNames,
                 n,
@@ -337,7 +337,7 @@ export const hotelNextSchema = new schema.Entity(
                     typeof stars === 'object' ? parseStars(stars.n) : parseStars(stars)
                     : null,
                 rating:   !Number.isNaN(Number(r)) ? Number(r) : null,
-                reviews:  !Number.isNaN(Number(v)) ? Number(v) : null,
+                reviews:  !Number.isNaN(Number(w)) ? Number(w) : null,
                 services: Array.isArray(e) ? e : Object.values(e).reduce((services, group) => [...services, ...Object.keys(group)], []),
                 photos:   photos
                     ? Array.isArray(photos)
